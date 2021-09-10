@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Header from './components/header';
 import {Route, BrowserRouter as Router, Switch, Link} from "react-router-dom";
-import HomePage from "./pages/homepage";
+import Login from "./pages/login";
 import About from "./pages/about";
 
 
@@ -19,7 +19,7 @@ function App() {
         
         <Switch>
           <Route path="/about" component={About} /> 
-          <Route path="/" component={HomePage} />          
+          <Route path="/" component={Login} />          
         </Switch>
         
 

@@ -1,0 +1,18 @@
+.Login-Form {
+    display: inline-grid;
+}
+
+.Login-container {
+    text-align: -webkit-center;
+    margin: 20%;
+    height: 1000px;
+    box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
+    border-radius: 30px;
+}
+
+.Login.card {
+    height: 100%;
+    padding: 10%;
+    place-content: center;
+    border-radius: 30px;
+}
