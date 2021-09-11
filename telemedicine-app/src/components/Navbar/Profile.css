@@ -1,0 +1,19 @@
+button.profile-button.btn.btn-primary {
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    margin-right: 25px;
+    background: #33383b;
+}
+
+button.notification-button.btn.btn-primary {
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    background: #33383b;
+}
+
+.nav-links{
+    background: #33383b;
+}
+

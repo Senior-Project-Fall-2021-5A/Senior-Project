@@ -1,0 +1,15 @@
+.page-canvas-outer {
+    height: 100vh;
+    width: 100vw;
+}
+.page-canvas-inner {
+    height: 100%;
+    padding: 5%;
+    text-align: -webkit-center;
+}
+.canvas {
+    height: 100%;
+    width: 100%;
+    background: #C4C4C4;
+    box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
+}

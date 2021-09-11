@@ -4,14 +4,10 @@ import {Link} from "react-router-dom";
 import './login.css';
 import Logo from '../images/company-logo.png';
 
+
 function Login() {
     return (
-      <div className="App">
-        <Link to="/about">
-            <Button variant="primary">
-              Login
-            </Button>{' '}
-        </Link>
+      <div className="login-page" style={{background:"linear-gradient(90deg, rgb(110,94, 254) 60%, rgb(73, 63, 252, 1) 100%)"}}>
         <div className= 'Login-container'>
           <div className='Login card'>
             <div className='company-logo'>
@@ -33,10 +29,18 @@ function Login() {
               <Form.Group className="mb-3" controlId="formBasicCheckbox">
                 <Form.Check type="checkbox" label="Remember me" />
               </Form.Group>
-              <Button variant="primary" type="submit">
-                Submit
-              </Button>
+              <Link to='/homepage'>
+                <Button className='login-submit-button' type="submit">
+                    Submit
+                </Button>
+              </Link>
             </Form>
+            
+              <Link to="/homepage">
+                <Button className='login-register-btn'>
+                  Register
+                </Button>{' '}
+              </Link>
           </div>
         </div>
       </div>
