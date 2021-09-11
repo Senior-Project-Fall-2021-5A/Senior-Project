@@ -12,10 +12,11 @@ import { Fragment } from 'react';
 
 
 function App() {
-  return (
 
+  return (
     <Router>
       <div className="App">
+
         <Switch>
           <Route path="/about" component={About} />
           <Route path='/homepage' component={Homepage}/>

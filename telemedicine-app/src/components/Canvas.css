@@ -5,6 +5,7 @@
 .page-canvas-inner {
     height: 100%;
     padding: 5%;
+    padding-top: 10%;
     text-align: -webkit-center;
 }
 .canvas {

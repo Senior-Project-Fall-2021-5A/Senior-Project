@@ -1,4 +1,4 @@
-button.profile-button.btn.btn-primary {
+button.dropdown-toggle.btn.btn-primary {
     width: 60px;
     height: 60px;
     border-radius: 50px;
@@ -17,3 +17,10 @@ button.notification-button.btn.btn-primary {
     background: #33383b;
 }
 
+.dropdown-toggle::after {
+    display: none;
+}
+
+span.notification-icon {
+    display: grid;
+}

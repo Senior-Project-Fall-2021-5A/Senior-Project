@@ -1,11 +1,23 @@
 import React from 'react'
+import { useState } from 'react';
 import {Form, Button} from 'react-bootstrap'
 import {Link} from "react-router-dom";
 import './login.css';
 import Logo from '../images/company-logo.png';
+import RegisterForm from '../components/RegisterForm';
 
 
 function Login() {
+
+  const [isShowLogin, setIsShowLogin] = useState(true);
+
+  const handleRegisterClick = () => {
+    setIsShowLogin((isShowLogin) => !isShowLogin);
+  };
+
+  const handleClick = () => {
+    handleRegisterClick();
+  }
     return (
       <div className="login-page" style={{background:"linear-gradient(90deg, rgb(110,94, 254) 60%, rgb(73, 63, 252, 1) 100%)"}}>
         <div className= 'Login-container'>
@@ -31,16 +43,17 @@ function Login() {
               </Form.Group>
               <Link to='/homepage'>
                 <Button className='login-submit-button' type="submit">
-                    Submit
+                    Login
                 </Button>
               </Link>
             </Form>
             
-              <Link to="/homepage">
+              <span onClick={handleClick} className='registericon'>
                 <Button className='login-register-btn'>
                   Register
                 </Button>{' '}
-              </Link>
+              </span>
+              <RegisterForm isShowLogin={isShowLogin} />
           </div>
         </div>
       </div>
