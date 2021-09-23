@@ -16,13 +16,11 @@ function App() {
   return (
     <Router>
       <div className="App">
-
         <Switch>
           <Route path="/about" component={About} />
           <Route path='/homepage' component={Homepage}/>
           <Route path="/" exact component={Login} />          
         </Switch>
-
       </div>
     </Router>
   );

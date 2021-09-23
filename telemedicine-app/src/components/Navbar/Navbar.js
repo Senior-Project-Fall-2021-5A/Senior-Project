@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Nav, NavItem } from 'react-bootstrap';
 import { MenuItems } from './MenuItems';
 import './Navbar.css';
 import Profile from './Profile';
