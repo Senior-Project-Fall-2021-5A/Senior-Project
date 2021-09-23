@@ -20,6 +20,7 @@
 
 .dash-right {
     display: inline-block;
+    height: 90%;
     width: 50%;
 }
 
@@ -37,5 +38,9 @@
     height: 50%;
     background: aquamarine;
     border-radius: 30px;
+}
+
+.widget-header{
+    height:5%;
 }
 
