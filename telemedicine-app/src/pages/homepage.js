@@ -18,8 +18,14 @@ function Homepage() {
                             
                             </div>
                             <div className='dash-right'>
+                                <div className='widget-header'>
+                                    <h3>INBOX</h3>
+                                </div>
                                 <div className='right-top'>
                                     <Inbox/>
+                                </div>
+                                <div className='widget-header'>
+                                    <h3>REPORTS</h3>
                                 </div>
                                 <div className='right-bottom'>
                                 
