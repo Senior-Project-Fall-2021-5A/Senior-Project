@@ -1,0 +1,1 @@
+# Backend storage location for documents (I.E. .docx, pdf, etc)
