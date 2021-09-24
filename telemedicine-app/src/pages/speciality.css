@@ -1,0 +1,47 @@
+.speciality-form {
+    width: 60vw;
+    height: 60vh;
+    margin: 100px auto;
+    background-color: white;
+    border-radius: 25px;
+    z-index: 1;
+    margin-top: -100px;
+    margin-right: 180px;
+}
+
+.allergist {
+    width: 10vw;
+    height: 12vh;
+    background-color: #FF3333;
+    border-radius: 20px;
+    z-index: 1;
+    margin-top: -525px;
+    margin-left: 120px;
+    -webkit-box-shadow: 0px 13px 23px -13px rgba(0,0,0,0.5);
+    border: 1px solid rgb(133, 133, 133);
+    
+}
+
+.allergist-text {
+    margin-top: 30px;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.cardiologist {
+    width: 10vw;
+    height: 12vh;
+    background-color: #3333CC;
+    border-radius: 20px;
+    z-index: 1;
+    margin-top: -88px;
+    margin-left: 300px;
+    -webkit-box-shadow: 0px 13px 23px -13px rgba(0,0,0,0.5);
+    border: 1px solid rgb(133, 133, 133);
+}
+
+.cardiologist-text {
+    margin-top: 30px;
+    font-weight: 600;
+    font-size: 18px;
+}

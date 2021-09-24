@@ -1,0 +1,10 @@
+.speciality-form {
+    width: 60vw;
+    height: 60vh;
+    margin: 100px auto;
+    background-color: white;
+    border-radius: 25px;
+    z-index: 1;
+    margin-top: -100px;
+    margin-right: 125px;
+}

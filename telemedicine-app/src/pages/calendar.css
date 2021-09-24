@@ -1,0 +1,44 @@
+.calendar-container {
+   margin: auto;
+   margin-top: -75px;
+}
+
+.custom-style {
+   margin: auto;
+}
+
+.cont {
+    background-color: green;
+    border-radius: 20px;
+}
+
+.calendar-text {
+    margin-top: 25px;
+}
+
+.confirm-date {
+    margin-top: 30px;
+    
+}
+
+.date-btn {
+    background-color: green;
+    border-radius: 20px;
+    width: 150px;
+    font-weight: bold;
+}
+
+.custom-modal-style {
+    width: 200px;
+    height: 500px;
+}
+
+.time-btn {
+    background-color: green;
+    border-radius: 20px;
+    width: 150px;
+    font-weight: bold;
+    margin-left: 159px;
+    margin-bottom: 50px;
+
+}

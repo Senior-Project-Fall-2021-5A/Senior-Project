@@ -1,0 +1,24 @@
+.Doctors-card {
+    padding: 10%;
+    box-shadow: 0 5px 15px 5px rgb(0 0 0 / 20%);
+    place-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    overflow-y: auto;
+    background: linear-gradient(45deg, cyan 35%, limegreen);
+}
+
+.search-label {
+    margin-top: -125px;
+}
+
+.nextButton {
+    border-radius: 20px;
+    background-color: #FF5700;
+    border: 0 none;
+}
+
+.nextButton:hover {
+    background-color: #ff4500;
+}

@@ -1,0 +1,34 @@
+
+.Appointments-container-outer {
+   
+    height: 100vh;
+    width: 100vw;
+    
+}
+
+.Appointments-container-inner {
+    text-align: -webkit-center;
+    padding: 5%;
+    padding-top: 10%;
+    height: 100vh;
+    width: 100vw;
+    border-radius: 30px;
+}
+
+.Appointments-card {
+    padding: 10%;
+    box-shadow: 0 5px 15px 5px rgb(0 0 0 / 20%);
+    place-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+}
+
+.nav-links {
+    color: white;
+    text-decoration: none;
+    padding: 0.6rem 4rem;
+    border-radius: 100px;
+}
+
+
