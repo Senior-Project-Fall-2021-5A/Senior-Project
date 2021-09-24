@@ -1,0 +1,38 @@
+.inbox-widget.btn-group-vertical {
+    -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.inbox-widget-wrapper::-webkit-scrollbar {
+    display: none;
+
+}
+.inbox-item{
+    display: flex;
+}
+.inbox-widget-wrapper {
+    height: 100%;
+    background: #0a58ca;
+    border-radius: 30px;
+    overflow: scroll;
+}
+
+button.inbox-item.btn.btn-primary {
+    height: 50px;
+    width: 100%;
+    display: block;
+    text-align: left;
+    background: #33383b;
+    border-radius: 0px;
+    border-color: #33383bd6;
+    color: #ffff;
+}
+
+button.inbox-item.btn.btn-primary:hover {
+    height: 65px;
+    width: 100%;
+    text-align: left;
+    border-radius: 0px;
+    background: #33383b0e;
+    border-color: #33383bd6;
+    color: #ffff;
+}

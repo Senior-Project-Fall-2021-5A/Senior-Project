@@ -11,6 +11,8 @@
 .canvas {
     height: 100%;
     width: 100%;
+    padding: 2%;
+    border-radius: 30px;
     background: #C4C4C4;
     box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
 }

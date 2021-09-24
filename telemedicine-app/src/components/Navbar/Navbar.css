@@ -7,7 +7,8 @@
     font-size: 1.2rem;
     position:fixed;
     width:100vw;
-    z-index: 1;
+    z-index: 100;
+
 }
 
 .navbar-logo{
@@ -43,7 +44,8 @@
 }
 
 .nav-links:hover{
-    background-color: #6d76f7;
+    background-color: #0a58ca;
+    color: white;
     border-radius: 4px;
     transition: all 0.2s ease-out;
 }
@@ -105,9 +107,10 @@ img.nav-logo-img {
         display: table;
         background: transparent;
     }
-    .nav-links:hover{
-        background-color: #7577fa;
-        border-radius: 0;
+    a.nav-links:hover{
+        background: #0a58ca;
+        color: white;
+        border-radius: 10;
     }
     .navbar-logo{
         position: absolute;
