@@ -8,10 +8,10 @@ class AccountSerializer(serializers.ModelSerializer):
 
 class ReportsSerializer(serializers.ModelSerializer):
     class Meta:
-        model: reports
+        model = reports
         fields = ('results', 'documents')
 
 class AppointmentsSerializer(serializers.ModelSerializer):
     class Meta:
-        model: appointments
+        model = appointments
         fields = ('firstname', 'lastname', 'DoB', 'address', 'primarydoctor', 'primarylocation','documents')
