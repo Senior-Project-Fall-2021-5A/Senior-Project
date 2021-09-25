@@ -2,20 +2,18 @@ from django.contrib import admin
 from .models import account, appointments, reports
 
 class appointmentsAdmin(admin.ModelAdmin):
-    list_display = ('date','time','location','details','documents')
+    list_display = ('patient_name','date','time','location','details','documents')
 
 class reportsAdmin(admin.ModelAdmin):
-    list_display =('results','documents')
+    list_display = ('results','documents')
 
 class accountAdmin(admin.ModelAdmin):
-    list_display=('firstname','lastname','DoB','address','primarydoctor','primarylocation','documents')
+    list_display= ('first_name','last_name','DoB','address','primary_doctor','primary_location','documents')
+
 
 admin.site.register(appointments, appointmentsAdmin)
-
 admin.site.register(reports, reportsAdmin)
-
 admin.site.register(account, accountAdmin)
-# Register your models here.
 
 
 # test 
