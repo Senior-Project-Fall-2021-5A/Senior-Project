@@ -10,11 +10,12 @@ class reportsAdmin(admin.ModelAdmin):
 class accountAdmin(admin.ModelAdmin):
     list_display=('firstname','lastname','DoB','address','primarydoctor','primarylocation','documents')
 
-
 admin.site.register(appointments, appointmentsAdmin)
 
 admin.site.register(reports, reportsAdmin)
 
 admin.site.register(account, accountAdmin)
 # Register your models here.
-# test
+
+
+# test 
