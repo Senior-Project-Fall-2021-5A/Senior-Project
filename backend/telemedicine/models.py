@@ -22,6 +22,13 @@ class reports(models.Model):
 
 
 # Model for account information TODO ask what needs to be shown
-
+class account (models.Model):
+    firstname = models.TextField()
+    lastname = models.TextField()
+    DoB = models. DateField()
+    address = models.TextField()
+    primarydoctor = models.TextField()
+    primarylocation = models.TextField()
+    documents = models.FileField(storage=documentStorage)
 
 # Model for authentication TODO look into different auth/encrypt methods in Django Docs 
