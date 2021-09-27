@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import ssl
 import urllib
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -79,17 +80,19 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-       'default': {
-           'ENGINE': 'djongo',
-           'NAME': 'Telemedicine0',
-           'CLIENT': {
-              'host': 'mongodb+srv://Admin' + urllib.parse.quote_plus('uMUAkKcITOdFYFLr') + '@telemedicine0.3ifgy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
-              'port': 27017,
-              'username': 'Admin',
-              'password': 'uMUAkKcITOdFYFLr',
-            }
-       }
-   }
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'Telemedicine0',
+        'CLIENT': {
+            'host': 'mongodb+srv://Admin' + urllib.parse.quote_plus('uMUAkKcITOdFYFLr') + '@telemedicine0.3ifgy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+            'port': 27017,
+            'username': 'Admin',
+            'password': 'uMUAkKcITOdFYFLr',
+            'ssl': True,
+            'SSL_CERT_REQS': ssl.CERT_NONE,
+        }
+    }
+}
 
 
 # Password validation
@@ -138,5 +141,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # FRONT END PORT (UPDATE IF FRONT END PORT IS CHANGED)
 
 CORS_ORIGIN_WHITELIST = [
-     'http://localhost:3000'
+    'http://localhost:3000'
 ]
