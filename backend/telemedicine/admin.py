@@ -1,3 +1,19 @@
 from django.contrib import admin
+from .models import account, appointments, reports
 
-# Register your models here.
+class appointmentsAdmin(admin.ModelAdmin):
+    list_display = ('patient_name','date','time','location','details','documents')
+
+class reportsAdmin(admin.ModelAdmin):
+    list_display = ('results','documents')
+
+class accountAdmin(admin.ModelAdmin):
+    list_display= ('first_name','last_name','DoB','address','primary_doctor','primary_location','documents')
+
+
+admin.site.register(appointments, appointmentsAdmin)
+admin.site.register(reports, reportsAdmin)
+admin.site.register(account, accountAdmin)
+
+
+# test 
