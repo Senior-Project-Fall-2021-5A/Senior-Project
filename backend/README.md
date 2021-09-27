@@ -7,4 +7,4 @@ Steps to run backend code locally:
 
 Here are some commands to get you up and running:
 - http://localhost:8000/admin : This allows a developer to see their local db.sqlite3 
-- localhost:8000/api/VIEW_OF_CHOICE : This allows a developer to manually send data to the database using established api
+- http://localhost:8000/api/VIEW_OF_CHOICE : This allows a developer to manually send data to the database using established api
