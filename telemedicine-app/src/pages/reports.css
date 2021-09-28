@@ -1,3 +1,21 @@
+.page-canvas-outer {
+  height: 100%;
+  width: 100vw;
+}
+.page-canvas-inner {
+  height: 100%;
+  padding: 5%;
+  padding-top: 10%;
+  text-align: -webkit-center;
+}
+.canvas {
+  height: 100%;
+  width: 100%;
+  padding: 2%;
+  border-radius: 30px;
+  background: linear-gradient(45deg, cyan 35%, limegreen);
+}
+
 .wrapper {
 
 
