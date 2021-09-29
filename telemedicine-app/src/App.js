@@ -36,7 +36,7 @@ function App() {
           <Route path='/doctorsearch' component={DoctorSearch}/>
           <Route path='/schedulecalendar' component={ScheduleCalendar}/>
           <Route path='/confirmSchedule' component={confirmSchedule}/>
-          <Route path="/" exact component={Login} />        
+          <Route path="/" exact component={Login} /> 
 
           <Route path='/reports' component={Reports}/>
           <Route path='/reportDisplay' component={ReportDisplay}/>
