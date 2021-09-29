@@ -12,6 +12,7 @@ import Doctors from './pages/doctors';
 import DoctorSearch from './pages/DoctorSearch';
 import ScheduleCalendar from './pages/ScheduleCalendar';
 import confirmSchedule from './pages/confirmSchedule';
+import Inbox from './components/Inbox';
 
 import Reports from './pages/reports';
 import ReportDisplay from './pages/reportDisplay';
@@ -40,7 +41,9 @@ function App() {
 
           <Route path='/reports' component={Reports}/>
           <Route path='/reportDisplay' component={ReportDisplay}/>
-          <Route path="/" exact component={Login} />          
+          <Route path="/" exact component={Login} />   
+
+          <Route path='/inbox' component={Inbox} />    
 
         </Switch>
       </div>
