@@ -45,3 +45,22 @@
 .widget-header > h3{
     font-weight: 500;
 }
+
+.canvas-outer {
+    height: 100vh;
+    width: 100vw;
+}
+.canvas-inner {
+    height: 100%;
+    padding: 5%;
+    padding-top: 10%;
+    text-align: -webkit-center;
+}
+.page-canvas {
+    height: 100%;
+    width: 100%;
+    padding: 2%;
+    border-radius: 30px;
+    background: linear-gradient(45deg, cyan 35%, limegreen);        
+    box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
+}

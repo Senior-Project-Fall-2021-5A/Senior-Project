@@ -1,5 +1,4 @@
 import React, { useState, Component }from 'react';
-import "../components/Canvas.css";
 import "./homepage.css";
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar/Navbar';
@@ -12,9 +11,9 @@ function Homepage() {
     return (
         <div className='homepage'>
             <Navbar/>
-            <div className='page-canvas-outer'>
-                <div className='page-canvas-inner'>
-                    <div className='canvas'>
+            <div className='canvas-outer'>
+                <div className='canvas-inner'>
+                    <div className='page-canvas'>
                         <div className='Dashboard-row'>
                             <div className='dash-left'>
                                 <AppointmentWidget/>

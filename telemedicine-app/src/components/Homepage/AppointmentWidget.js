@@ -13,9 +13,9 @@ function AppointmentWidget() {
             </Nav>
         </Card.Header>
         <Card.Body>
-            <Card.Title>Next Upcoming Appointment</Card.Title>
+            <Card.Title>Please refer to the information below for a breif description of your upcoming appointment.</Card.Title>
             <Card.Text>
-                Please refer to the information below for a breif description of your upcoming appointment.
+                The upcoming appointment with Dr. Hayward will be encase a series of testing for colon cancer.
             </Card.Text>
             <Button variant="primary">More Information</Button>
         </Card.Body>

@@ -12,7 +12,7 @@ import Doctors from './pages/doctors';
 import DoctorSearch from './pages/DoctorSearch';
 import ScheduleCalendar from './pages/ScheduleCalendar';
 import confirmSchedule from './pages/confirmSchedule';
-import Inbox from './components/Inbox';
+import Inbox from './pages/inbox';
 
 import Reports from './pages/reports';
 import ReportDisplay from './pages/reportDisplay';
