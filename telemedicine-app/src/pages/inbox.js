@@ -20,7 +20,7 @@ class Inbox extends React.Component{
                 <div className='page-canvas-outer'>
                     <div className='page-canvas-inner'>
                         <div className='canvas'>
-                            <h1>Inbox</h1>
+                            <h1>Inbox (A work in progress)</h1>
                             <div class="wrapper">                                
                                 
                             </div>
@@ -30,7 +30,7 @@ class Inbox extends React.Component{
                 <Footer/>
             </div>
             // comment for pushing
-            
+
             
             
         )
