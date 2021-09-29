@@ -11,7 +11,7 @@ export const MenuItems= [
     },
     {
         title: 'Inbox',
-        url: '#',
+        url: '/inbox',
         cName:'nav-links'
     },
     {

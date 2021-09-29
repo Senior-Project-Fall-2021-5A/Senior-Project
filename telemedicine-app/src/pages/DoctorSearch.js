@@ -10,7 +10,7 @@ import {Modal, Button} from 'react-bootstrap';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './calendar.css';
-import moment from 'moment'
+import moment from 'moment' 
 
 import RegisterForm from '../components/RegisterForm';
 import './login.css';
