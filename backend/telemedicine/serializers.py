@@ -14,4 +14,4 @@ class ReportsSerializer(serializers.ModelSerializer):
 class AppointmentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = appointments
-        fields = ('id', 'patient_name', 'date', 'time', 'location', 'details','documents')
+        fields = ('id', 'patient_name', 'doctor_name', 'date', 'time', 'location', 'doctors_notes','reports')

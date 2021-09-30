@@ -8,11 +8,14 @@ class appointments(models.Model):
     patient_name = models.CharField(
         help_text="Patients full name",
         max_length=200)
+    doctor_name = models.CharField(
+        help_text="Doctors name",
+        max_length=200)
     date = models.DateField()
     time = models.TimeField()
     location = models.TextField() 
-    details = models.TextField()
-    documents = models.FileField(storage=documentStorage)
+    doctors_notes = models.TextField()
+    reports = models.FileField(storage=documentStorage)
 
     def _str_(self):
         return self.patient_name

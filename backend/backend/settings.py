@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import ssl
+import urllib
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -79,8 +81,16 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': 'Telemedicine0',
+        'CLIENT': {
+            'host': 'mongodb+srv://Admin' + urllib.parse.quote_plus('uMUAkKcITOdFYFLr') + '@telemedicine0.3ifgy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+            'port': 27017,
+            'username': 'Admin',
+            'password': 'uMUAkKcITOdFYFLr',
+            'ssl': True,
+            'SSL_CERT_REQS': ssl.CERT_NONE,
+        }
     }
 }
 
@@ -131,5 +141,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # FRONT END PORT (UPDATE IF FRONT END PORT IS CHANGED)
 
 CORS_ORIGIN_WHITELIST = [
-     'http://localhost:3000'
+    'http://localhost:3000'
 ]
