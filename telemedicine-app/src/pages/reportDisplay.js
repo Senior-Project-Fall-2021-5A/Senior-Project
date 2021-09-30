@@ -6,6 +6,7 @@ import 'ag-grid-community/dist/styles/ag-theme-balham.css'
 import '../components/Canvas.css';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar/Navbar';
+import Pdf from '../images/Patient Report.pdf';
 
 
 class ReportDisplay extends React.Component{
@@ -26,6 +27,9 @@ class ReportDisplay extends React.Component{
 
     }
 
+    onResumeClick(){
+        window.open(Pdf);
+    }
 
     render() {
         return (
@@ -39,29 +43,13 @@ class ReportDisplay extends React.Component{
 
                                 <p>This is information about the test</p>
 
-                                <h3>Results for your review:</h3>
+                                <h3>Open your results for your review:</h3>
 
-                                <div class="wrapper">
-                                    <div
-                                        className="ag-theme-balham"                        
-                                            style={{
-                                                
-                                                justifyContent: 'center',
-                                                alignItems: 'center',
-                                                alignContent: 'center',
-                                                width: 603,
-                                                height: 400
-                                            }}
-                                        >
+                                <div className="frame_button">
+                                    <button type="button" class="btn btn-primary" onClick={this.onResumeClick}>Download PDF</button>
+                                </div>                                    
+                                
 
-                                        <AgGridReact
-                                            columnDefs={this.state.columnDefs}
-                                            rowData={this.state.rowData}
-                                            onGridReady={params => (this.gridApi = params.api)}
-                                        />
-                                    </div>
-
-                                </div>
                                 <h2>General Information</h2>
                                 <p>Physician: Bob the Dob</p>
                                 <p>Address: 1234 56th place, Acworth, GA 30101</p>
