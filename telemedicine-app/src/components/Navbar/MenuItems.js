@@ -1,7 +1,7 @@
 export const MenuItems= [
     {
         title: 'Appointments',
-        url: './appointments',
+        url: './NoAppointments',
         cName:'nav-links'
     },
     {

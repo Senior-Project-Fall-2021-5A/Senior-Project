@@ -8,18 +8,20 @@ import About from "./pages/about";
 import Homepage from './pages/homepage';
 
 import Appointments from './pages/appointments';
-import Doctors from './pages/doctors';
+
 import DoctorSearch from './pages/DoctorSearch';
 import ScheduleCalendar from './pages/ScheduleCalendar';
-import confirmSchedule from './pages/confirmSchedule';
+import ConfirmSchedule from './pages/ConfirmSchedule';
 
 import Reports from './pages/reports';
 import ReportDisplay from './pages/reportDisplay';
 
+import AppointmentType from './pages/AppointmentType';
+
+import NoAppointments from './pages/NoAppointments';
+
 
 import { Fragment } from 'react';
-
-
 
 
 function App() {
@@ -29,18 +31,31 @@ function App() {
       <div className="App">
         <Switch>
           <Route path="/about" component={About} />
+          <Route path="/AppointmentType/:name">
+          <AppointmentType/>
+          </Route>
           <Route path='/homepage' component={Homepage}/>
 
-          <Route path='/appointments' component={Appointments}/>
-          <Route path='/doctors' component={Doctors}/>
+          <Route path='/appointments' exact component={Appointments}/>
+          <Route path='/NoAppointments' exact component={NoAppointments}/>
+          
+         
           <Route path='/doctorsearch' component={DoctorSearch}/>
-          <Route path='/schedulecalendar' component={ScheduleCalendar}/>
-          <Route path='/confirmSchedule' component={confirmSchedule}/>
+          <Route path="/schedulecalendar/:doc/:type">
+          <ScheduleCalendar/>
+          </Route>
+          <Route path="/ConfirmSchedule/:doc/:type/:date/:time">
+          <ConfirmSchedule/>
+          </Route>
           <Route path="/" exact component={Login} />        
 
           <Route path='/reports' component={Reports}/>
           <Route path='/reportDisplay' component={ReportDisplay}/>
-          <Route path="/" exact component={Login} />          
+          <Route path="/" exact component={Login} />      
+          
+          <Route path="/appointments/:doc/:type/:date/:time">
+          <Appointments/>
+          </Route>
 
         </Switch>
       </div>
