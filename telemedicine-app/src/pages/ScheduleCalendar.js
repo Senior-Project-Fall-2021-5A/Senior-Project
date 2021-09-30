@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import './Calendar.css';
+import './calendar.css';
 import moment from 'moment'
 import './appointments.css';
 import Footer from '../components/Footer';

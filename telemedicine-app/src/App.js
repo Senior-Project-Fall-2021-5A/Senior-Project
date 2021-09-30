@@ -12,8 +12,6 @@ import Appointments from './pages/appointments';
 import DoctorSearch from './pages/DoctorSearch';
 import ScheduleCalendar from './pages/ScheduleCalendar';
 
-import ConfirmSchedule from './pages/ConfirmSchedule';
-
 import confirmSchedule from './pages/confirmSchedule';
 import Inbox from './pages/inbox';
 
@@ -55,7 +53,7 @@ function App() {
           <ScheduleCalendar/>
           </Route>
           <Route path="/ConfirmSchedule/:doc/:type/:date/:time">
-          <ConfirmSchedule/>
+          <confirmSchedule/>
           </Route>
           <Route path="/" exact component={Login} />        
 
