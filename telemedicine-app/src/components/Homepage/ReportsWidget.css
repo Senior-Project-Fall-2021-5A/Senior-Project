@@ -1,0 +1,12 @@
+.Report-Widget-Container.card {
+    border-radius: 30px;
+    height:100%;
+    color: white;
+    background: #33383b;
+}
+
+h4.Report-widget-header {
+    background: linear-gradient(45deg, cyan 35%, limegreen);
+    width: 100%;
+    border-radius: 29px;
+}

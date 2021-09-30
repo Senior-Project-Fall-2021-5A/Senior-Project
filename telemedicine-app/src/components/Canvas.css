@@ -13,6 +13,6 @@
     width: 100%;
     padding: 2%;
     border-radius: 30px;
-    background: #C4C4C4;
+    background: linear-gradient(45deg, cyan 35%, limegreen);        
     box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
 }

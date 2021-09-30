@@ -46,14 +46,14 @@ function Login() {
                     Login
                 </Button>
               </Link>
-            </Form>
-            
               <span onClick={handleClick} className='registericon'>
                 <Button className='login-register-btn'>
                   Register
                 </Button>{' '}
               </span>
               <RegisterForm isShowLogin={isShowLogin} />
+            </Form>
+            
           </div>
         </div>
       </div>
