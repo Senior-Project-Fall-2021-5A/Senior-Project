@@ -1,6 +1,7 @@
 import React from 'react'
 import Accountnav from '../components/AccountMenu/AccountNav'
 import Navbar from '../components/Navbar/Navbar'
+import './MyAccount.css'
 
 
 function MyAccount() {
@@ -11,7 +12,9 @@ function MyAccount() {
                     <div className='canvas-inner'>
                         <div className='page-canvas'>
                             <div className='Dashboard-row'>
-                                <Accountnav/>
+                                <div className='account-panel'>
+                                    <Accountnav/>
+                                </div>
                             </div>
                         </div>
                     </div>
