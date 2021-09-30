@@ -26,7 +26,6 @@ import AppointmentType from './pages/AppointmentType';
 
 import NoAppointments from './pages/NoAppointments';
 
-import { Fragment } from 'react';
 import MyAccount from './pages/MyAccount';
 
 
