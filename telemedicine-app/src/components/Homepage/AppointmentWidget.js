@@ -13,11 +13,15 @@ function AppointmentWidget() {
             </Nav>
         </Card.Header>
         <Card.Body>
-            <Card.Title>Please refer to the information below for a breif description of your upcoming appointment.</Card.Title>
+            <Card.Title>
+                Please refer to the information below for a breif description of your upcoming appointment.
+            </Card.Title>
             <Card.Text>
                 The upcoming appointment with Dr. Hayward will be encase a series of testing for colon cancer.
             </Card.Text>
-            <Button variant="primary">More Information</Button>
+            <Button variant="primary">
+                More Information
+            </Button>
         </Card.Body>
         </Card>
     )

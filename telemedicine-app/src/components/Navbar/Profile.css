@@ -24,3 +24,6 @@ button.notification-button.btn.btn-primary {
 span.notification-icon {
     display: grid;
 }
+.dropdown-item {
+    white-space: inherit;
+}

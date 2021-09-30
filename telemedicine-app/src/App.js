@@ -19,6 +19,7 @@ import ReportDisplay from './pages/reportDisplay';
 
 
 import { Fragment } from 'react';
+import MyAccount from './pages/MyAccount';
 
 
 
@@ -38,6 +39,7 @@ function App() {
           <Route path='/schedulecalendar' component={ScheduleCalendar}/>
           <Route path='/confirmSchedule' component={confirmSchedule}/>
           <Route path="/" exact component={Login} /> 
+          <Route path='/myaccount' component={MyAccount} />
 
           <Route path='/reports' component={Reports}/>
           <Route path='/reportDisplay' component={ReportDisplay}/>
