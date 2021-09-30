@@ -1,17 +1,19 @@
 import React, { useState, useCallback } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import './calendar.css';
+import './Calendar.css';
 import moment from 'moment'
 import './appointments.css';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar/Navbar';
-import './calendar.css';
 import { Modal, Button } from 'react-bootstrap';
 
-import {Link} from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-function ScheduleCalendar() {
+import DoctorTime from './DoctorTime';
+import './DoctorTime.css';
+
+const ScheduleCalendar = () => {
   const [dateState, setDateState] = useState(new Date());
 
   const changeDate = (e) => {
@@ -21,6 +23,8 @@ function ScheduleCalendar() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const { doc, type } = useParams();
 
   return (
      <div className='appointments'>
@@ -38,9 +42,9 @@ function ScheduleCalendar() {
                   <div className="calendar-text">
                      <p>Current selected date is <b>{moment(dateState).format('MMMM Do YYYY')}</b></p>
                   </div>
-
+                  
                   <div className="confirm-date">
-                     <button type="button" class="date-btn" onClick={handleShow}>Confirm Date</button>
+                     <button type="button" class="btn btn-success" onClick={handleShow}>Confirm Date</button>
                   </div>
 
                   <Modal show={show} onHide={handleClose} centered >
@@ -48,20 +52,24 @@ function ScheduleCalendar() {
                   
                     <Modal.Body className="custom-modal-style">
 
-                    <Link to='/confirmSchedule'>
-                    
-                    <button class="time-btn">9:00 - 11:00</button>
-                    <button class="time-btn">1:00 - 3:00</button>
-                    <button class="time-btn">3:00 - 5:00</button>
-                    <button class="time-btn">7:00 - 9:00</button>
                    
-                   </Link>
-                    
-                    
+
+                       {DoctorTime.map((item, index) => {
+                          return (
+                             <Link to={`/ConfirmSchedule/${doc}/${type}/${moment(dateState).format('MMMM Do YYYY')}/${item.time}`}>
+                               <div className="time-container">
+                                <button class="btn btn-primary btn-lg outline">{item.time}</button>
+                               </div>
+                             </Link>
+                          )
+
+                       })}
+                   
+  
                     </Modal.Body>
                     
                   </Modal>
-                
+
 
               </div>
 

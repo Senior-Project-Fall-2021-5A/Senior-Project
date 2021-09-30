@@ -1,6 +1,7 @@
 .calendar-container {
    margin: auto;
    margin-top: -75px;
+   height: 350px;
 }
 
 .custom-style {
@@ -13,7 +14,7 @@
 }
 
 .calendar-text {
-    margin-top: 25px;
+    margin-top: 50px;
 }
 
 .confirm-date {
@@ -21,11 +22,17 @@
     
 }
 
-.date-btn {
-    background-color: green;
+.btn.btn-success {
     border-radius: 20px;
-    width: 150px;
-    font-weight: bold;
+}
+
+.btn.btn-primary {
+    border-radius: 20px;
+    
+}
+
+.buttons-container {
+    margin-top: 65px;
 }
 
 .custom-modal-style {
