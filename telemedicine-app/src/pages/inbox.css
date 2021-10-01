@@ -1,7 +1,10 @@
-.emailList {
-    width: 100%;
+.wrapper {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
 }
 
-.top {
-    display: flex;
+.accordion {
+    width: 900px;
 }

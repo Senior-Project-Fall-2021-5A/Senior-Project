@@ -29,8 +29,23 @@ class Inbox extends React.Component {
                 <div className='page-canvas-outer'>
                     <div className='page-canvas-inner'>
                         <div className='canvas'>
+
                             <div class="wrapper">
-                                <div className="emailList">
+                                <div className="accordion">
+                                    {data.map((item, i) => (
+                                        <div className="item">
+                                            <div className="title">
+                                                <h2>{item.message}</h2>
+                                            </div>
+                                            <div className="content">
+                                                <p>{item.content}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+
+                                {/* <div className="emailList">
                                     <div className="top">
                                         <h1 className="title">Inbox</h1>
                                         <Button classname="button" variant="primary">Compose</Button>
@@ -38,7 +53,7 @@ class Inbox extends React.Component {
                                     </div>
                                     
 
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
@@ -53,7 +68,16 @@ class Inbox extends React.Component {
     }
 }
 
-
+const data = [
+    {
+        message: "Message 1",
+        content: "Sowiejgowijgowjgwoijgoiwejgoijesethserthdrhse"
+    },
+    {
+        message: "Message 2",
+        content: "Sowiejgowijgowjgwoijgoiwejgoije"
+    }
+]
 
 
 export default Inbox;
