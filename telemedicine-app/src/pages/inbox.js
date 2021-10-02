@@ -17,6 +17,8 @@ import 'ag-grid-community/dist/styles/ag-grid.css'
 import 'ag-grid-community/dist/styles/ag-theme-balham.css'
 import '../components/Canvas.css';
 import Footer from '../components/Footer';
+import Top from "../components/inbox components/Top"
+
 
 
 
@@ -30,8 +32,9 @@ class Inbox extends React.Component {
                     <div className='page-canvas-inner'>
                         <div className='canvas'>
 
-                            <div class="wrapper">
-                                <div className="accordion">
+                            <Top />
+                            
+                            {/* <div className="accordion">
                                     {data.map((item, i) => (
                                         <div className="item">
                                             <div className="title">
@@ -42,10 +45,10 @@ class Inbox extends React.Component {
                                             </div>
                                         </div>
                                     ))}
-                                </div>
+                                </div> */}
 
 
-                                {/* <div className="emailList">
+                            {/* <div className="emailList">
                                     <div className="top">
                                         <h1 className="title">Inbox</h1>
                                         <Button classname="button" variant="primary">Compose</Button>
@@ -54,7 +57,7 @@ class Inbox extends React.Component {
                                     
 
                                 </div> */}
-                            </div>
+
                         </div>
                     </div>
                 </div>
