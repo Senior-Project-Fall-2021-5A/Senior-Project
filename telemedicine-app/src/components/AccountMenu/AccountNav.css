@@ -21,10 +21,14 @@
 }
 
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-    background-color: transparent;
+    background:linear-gradient(90deg, rgb(110,94, 254) 0%, rgb(73, 63, 252, 1) 100%);
     color: white;
 }
 
 a#left-tabs-example-tab-\/ {
     color: white;
+}
+
+.row{
+    margin:0px
 }
