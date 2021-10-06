@@ -1,6 +1,7 @@
 import React from 'react'
 import './AccountNav.css'
 import {Tab, Row, Col, Nav} from 'react-bootstrap'
+import GeneralInfo from './GeneralInfo'
 
 
 function AccountNav() {
@@ -21,7 +22,8 @@ function AccountNav() {
     <Col sm={9}>
       <Tab.Content>
         <Tab.Pane eventKey="first">
-          This is where the user will be able to view their name, user name, current password, doctor, and change attributes of their profile.
+          <h3 className='info-header'>Please use the inputs below to see and change your account information.</h3>
+          <GeneralInfo/>
         </Tab.Pane>
         <Tab.Pane eventKey="second">
           Hola Steven

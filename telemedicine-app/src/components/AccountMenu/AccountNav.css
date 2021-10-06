@@ -32,3 +32,8 @@ a#left-tabs-example-tab-\/ {
 .row{
     margin:0px
 }
+
+h3.info-header {
+    padding-top: 2%;
+    font-size: 20px;
+}
