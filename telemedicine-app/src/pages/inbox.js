@@ -16,7 +16,9 @@ import 'ag-grid-community/dist/styles/ag-theme-balham.css'
 import '../components/Canvas.css';
 import Footer from '../components/Footer';
 import Top from "../components/inbox components/Top"
-import AccordionCustom from '../components/inbox components/AccordionCustom';
+// import AccordionCustom from '../components/inbox components/AccordionCustom';
+import InboxAccordion from '../components/inbox components/InboxAccordion'
+
 
 
 
@@ -32,8 +34,30 @@ class Inbox extends React.Component {
                         <div className='canvas'>
 
                             <Top />
-                            <AccordionCustom /> 
-                            
+                            {/* <AccordionCustom />  */}
+
+                            <InboxAccordion
+                                title="Title"
+                                content="Sum stuff"
+
+                            />
+                            <InboxAccordion
+                                title="Title"
+                                content="Sum stuff"
+
+                            />
+                            <InboxAccordion
+                                title="Title"
+                                content="Sum stuff"
+
+                            />
+                            <InboxAccordion
+                                title="Title"
+                                content="Sum stuff"
+
+                            />
+
+
                             {/* <Accordion /> */}
 
                         </div>
