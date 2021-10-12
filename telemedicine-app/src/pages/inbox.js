@@ -35,27 +35,95 @@ class Inbox extends React.Component {
 
                             <Top />
                             {/* <AccordionCustom />  */}
-
+                        <div className="inbox-body">
                             <InboxAccordion
-                                title="Title"
-                                content="Sum stuff"
+
+                                // Avatar image
+                                from="John Doe"
+
+                                // Put name here
+                                title="Subject"
+
+                                // Date will go here
+                                date="10/11/2021"
+
+                                // Message will go here
+                                content="asl;djg wgjwogjwoiej wgowgjwlejfosjf  jowgnlwhfowigw eohwelgwjeohwoegw oegihjweofjwioefojfioshgowhg9owg wosdhowgnsbdojfops wlfjwemf  wlfjsorg wseoengshfsoeioweofjsojfomaofjsetegvnevweiopgosdjfosfjoegeifaljomasuksetejahlao  owgnwogosdhfis "
 
                             />
                             <InboxAccordion
-                                title="Title"
+
+                                // Avatar image
+                                from="John Doe"
+
+                                // Put name here
+                                title="Subject"
+
+                                // Date will go here
+                                date="10/11/2021"
+
+                                // Message will go here
+                                content="Sum stuff"
+
+                            /><InboxAccordion
+
+                                // Avatar image
+                                from="John Doe"
+
+                                // Put name here
+                                title="Subject"
+
+                                // Date will go here
+                                date="10/11/2021"
+
+                                // Message will go here
+                                content="Sum stuff"
+
+                            /><InboxAccordion
+
+                                // Avatar image
+                                from="John Doe"
+
+                                // Put name here
+                                title="Subject"
+
+                                // Date will go here
+                                date="10/11/2021"
+
+                                // Message will go here
+                                content="Sum stuff"
+
+                            /><InboxAccordion
+
+                                // Avatar image
+                                from="John Doe"
+
+                                // Put name here
+                                title="Subject"
+
+                                // Date will go here
+                                date="10/11/2021"
+
+                                // Message will go here
+                                content="Sum stuff"
+
+                            /><InboxAccordion
+
+                                // Avatar image
+                                from="John Doe"
+
+                                // Put name here
+                                title="Subject"
+
+                                // Date will go here
+                                date="10/11/2021"
+
+                                // Message will go here
                                 content="Sum stuff"
 
                             />
-                            <InboxAccordion
-                                title="Title"
-                                content="Sum stuff"
+                            </div>
 
-                            />
-                            <InboxAccordion
-                                title="Title"
-                                content="Sum stuff"
-
-                            />
 
 
                             {/* <Accordion /> */}

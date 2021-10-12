@@ -4,6 +4,8 @@
 .accordion__section {
   display: flex;
   flex-direction: column;
+  width: fit-content;
+  border-radius: 30%;
 }
 
 /* Style the buttons that are used to open and close the accordion panel */
@@ -29,7 +31,7 @@
 .accordion__title {
   font-family: "Open Sans", sans-serif;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 32px;
 }
 
 /* Style the accordion chevron icon */
@@ -56,4 +58,6 @@
   font-weight: 400;
   font-size: 14px;
   padding: 18px;
+  
+  border-radius: 30%;
 }

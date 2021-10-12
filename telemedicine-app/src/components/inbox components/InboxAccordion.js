@@ -25,7 +25,9 @@ function InboxAccordion(props) {
     return (
         <div className="accordion__section">
             <button className={`accordion ${setActive}`} onClick={toggleAccordion}>
-                <p className="accordion__title">{props.title}</p>
+                <h1 className="accordion__from">{props.from}</h1>
+                <h1 className="accordion__title">{props.title}</h1>
+                <h1 className="accordion__date">{props.date}</h1>
                 <Chevron className={`${setRotate}`} width={10} fill="#777"/>
             </button>
             <div ref={content} style={{maxHeight: `${setHeight}`}} className="accordion__content">
