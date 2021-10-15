@@ -15,6 +15,10 @@ function AccountNav() {
         </Nav.Item>
         
         <Nav.Item>
+          <Nav.Link href=''>Insurance</Nav.Link>
+        </Nav.Item>
+
+        <Nav.Item>
           <Nav.Link href='/'>Logout</Nav.Link>
         </Nav.Item>
       </Nav>

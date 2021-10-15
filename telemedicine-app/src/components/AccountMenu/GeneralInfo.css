@@ -14,3 +14,15 @@ input#formBasicEmail {
 input#formBasicPassword {
     text-align: left;
 }
+
+input#formBasicAddress {
+    text-align: left;
+}
+
+small.text-muted.form-text {
+    display: inline-flex;
+}
+
+.UserID{
+    padding-left: 50%;
+}
