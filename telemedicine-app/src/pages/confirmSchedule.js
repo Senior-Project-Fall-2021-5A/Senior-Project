@@ -1,5 +1,5 @@
 import './appointments.css';
-import Footer from '../components/Footer';
+import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
 
 import {Link, useParams} from "react-router-dom";

@@ -4,7 +4,7 @@ import './appointments.css';
 import './doctors.css';
 
 import Navbar from '../components/Navbar/Navbar';
-import Footer from '../components/Footer';
+import Footer from '../components/Footer/Footer';
 import { Accordion, Card, Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 

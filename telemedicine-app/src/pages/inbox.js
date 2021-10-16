@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar/Navbar';
 import 'ag-grid-community/dist/styles/ag-grid.css'
 import 'ag-grid-community/dist/styles/ag-theme-balham.css'
 import '../components/Canvas.css';
-import Footer from '../components/Footer';
+import Footer from '../components/Footer/Footer';
 import Top from "../components/inbox components/Top"
 import InboxAccordion from '../components/inbox components/InboxAccordion'
 

@@ -1,6 +1,6 @@
 import React, { useState, Component }from 'react';
 import "./homepage.css";
-import Footer from '../components/Footer';
+import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
 import MessageButton from '../components/MessageButton';
 import InboxWidget from '../components/Homepage/InboxWidget';
