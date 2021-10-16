@@ -5,7 +5,7 @@ import Footer from '../../components/Footer/Footer';
 import Navbar from '../../components/Navbar/Navbar';
 import { Button } from 'react-bootstrap'
 
-import './reports.css';
+import './admin_page.css';
 
 
 
@@ -29,7 +29,17 @@ function Reports() {  //const App = () =>
         {guid: 1, report: 'Test tester test', physician: 'Dr Who', date: '09/15/2021'},
         {guid: 2, report: 'Time Machine', physician: 'Dr Brown', date: '09/05/2021'},
         {guid: 3, report: 'McTesty Test', physician: 'Dr House', date: '09/11/2021'},
-   
+        {guid: 3, report: 'McTesty Test', physician: 'Dr House', date: '09/11/2021'},
+        {guid: 3, report: 'McTesty Test', physician: 'Dr House', date: '09/11/2021'},
+        {guid: 3, report: 'McTesty Test', physician: 'Dr House', date: '09/11/2021'},
+        {guid: 3, report: 'McTesty Test', physician: 'Dr House', date: '09/11/2021'},
+        {guid: 3, report: 'McTesty Test', physician: 'Dr House', date: '09/11/2021'},
+        {guid: 3, report: 'McTesty Test', physician: 'Dr House', date: '09/11/2021'},
+        {guid: 3, report: 'McTesty Test', physician: 'Dr House', date: '09/11/2021'},
+        {guid: 3, report: 'McTesty Test', physician: 'Dr House', date: '09/11/2021'},
+        {guid: 3, report: 'McTesty Test', physician: 'Dr House', date: '09/11/2021'},
+        {guid: 3, report: 'McTesty Test', physician: 'Dr House', date: '09/11/2021'},
+        {guid: 3, report: 'McTesty Test', physician: 'Dr House', date: '09/11/2021'},
         
 
     ];
