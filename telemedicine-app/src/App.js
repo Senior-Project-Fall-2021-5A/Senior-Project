@@ -16,8 +16,8 @@ import confirmSchedule from './pages/confirmSchedule';
 import Inbox from './pages/inbox';
 
 
-import Reports from './pages/reports';
-import ReportDisplay from './pages/reportDisplay';
+import Reports from './pages/reports_page/reports'; //./pages/reports_page/reports
+import ReportDisplay from './pages/reports_page/reportDisplay';
 
 import AppointmentType from './pages/AppointmentType';
 

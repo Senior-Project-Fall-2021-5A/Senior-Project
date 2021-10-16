@@ -3,10 +3,10 @@ import './reports.css';
 import {AgGridReact} from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css'
 import 'ag-grid-community/dist/styles/ag-theme-balham.css'
-import '../components/Canvas.css';
-import Footer from '../components/Footer';
-import Navbar from '../components/Navbar/Navbar';
-import Pdf from '../images/Patient Report.pdf';
+import '../../components/Canvas';
+import Footer from '../../components/Footer';
+import Navbar from '../../components/Navbar/Navbar';
+import Pdf from '../../images/Patient Report.pdf';
 
 
 class ReportDisplay extends React.Component{
@@ -46,7 +46,7 @@ class ReportDisplay extends React.Component{
                                 <h3>Open your results for your review:</h3>
 
                                 <div className="frame_button">
-                                    <button type="button" class="btn btn-primary" onClick={this.onResumeClick}>Download PDF</button>
+                                    <button type="button" class="btn btn-primary" onClick={this.onResumeClick}>View PDF</button>
                                 </div>                                    
                                 
 
