@@ -125,7 +125,7 @@ class appointments(models.Model):
 # Model for inbox TODO ask what needs to be shown
 class inbox(models.Model):
     inboxUID = models.UUIDField()
-    userGuid = models.UUIDField()
+    userGUID = models.UUIDField()
     toDemoUID = models.UUIDField()
     subject = models.CharField(
         help_text="subject", max_length=200)
