@@ -53,7 +53,7 @@ function Reports() {  //const App = () =>
                 <div className='page-canvas-inner'>
                     <div className='canvas'>
                         <h1>Patient Reports</h1>
-                        <div>                            
+                        <div className = 'reports-row'>                            
                             <table id="reports" class='table'>
                                 <tbody>
                                     <tr>

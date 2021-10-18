@@ -25,6 +25,7 @@ class Inbox extends React.Component {
 
                             <Top />
                             {/* <AccordionCustom />  */}
+                        <div className= 'inbox-body-container'>
                         <div className="inbox-body">
                             <InboxAccordion
 
@@ -113,8 +114,7 @@ class Inbox extends React.Component {
 
                             />
                             </div>
-
-
+                            </div>
 
                             {/* <Accordion /> */}
 
