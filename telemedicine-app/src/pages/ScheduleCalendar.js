@@ -4,7 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 import './calendar.css';
 import moment from 'moment'
 import './appointments.css';
-import Footer from '../components/Footer';
+import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
 import { Modal, Button } from 'react-bootstrap';
 

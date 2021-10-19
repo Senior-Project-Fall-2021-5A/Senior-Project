@@ -6,8 +6,8 @@ import 'ag-grid-community/dist/styles/ag-grid.css'
 import 'ag-grid-community/dist/styles/ag-theme-balham.css'
 
 
-import Footer from '../components/Footer';
-import Navbar from '../components/Navbar/Navbar';
+import Footer from '../../components/Footer/Footer';
+import Navbar from '../../components/Navbar/Navbar';
 
 
 class Reports extends React.Component{

@@ -16,8 +16,10 @@ import confirmSchedule from './pages/confirmSchedule';
 import Inbox from './pages/inbox';
 
 
-import Reports from './pages/reports';
-import ReportDisplay from './pages/reportDisplay';
+import Reports from './pages/reports_page/reports'; 
+import ReportDisplay from './pages/reports_page/reportDisplay';
+
+import adminPortal from './pages/admin_portal/admin_page';
 
 import AppointmentType from './pages/AppointmentType';
 
@@ -75,6 +77,8 @@ function App() {
           <Route path="/" exact component={Login} />   
 
           <Route path='/inbox' component={Inbox} />    
+
+          <Route path='/adminPortal' component={adminPortal}/>
 
 
         </Switch>
