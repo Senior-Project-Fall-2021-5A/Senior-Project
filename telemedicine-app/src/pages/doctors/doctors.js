@@ -1,7 +1,6 @@
  import React, { useState }  from 'react';
-import './speciality.css';
-import './appointments.css';
-import './doctors.css';
+import './appointments/appointments.css';
+import './doctors/doctors.css';
 
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer';
@@ -13,7 +12,7 @@ import {Link} from "react-router-dom";
 import ReactDOM from "react-dom";
 
 import DoctorSearch from "./DoctorSearch";
-import ScheduleCalendar from "./ScheduleCalendar";
+import ScheduleCalendar from "./ScheduleCalendar/ScheduleCalendar";
 
 
 function Doctors() {

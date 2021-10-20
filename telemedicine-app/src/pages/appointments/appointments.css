@@ -37,10 +37,9 @@
     width: 200px;
     height: 40px;
     float: right;
-    margin-top: -100px;
-    margin-right: -50px;
+    margin-top: -11vh;
+    
 }
-
 
 
 .app {
@@ -58,12 +57,13 @@
 .sign {
 
     font-size: 25px;
+    display: block;
 
 }
 
 .accordion {
 
-    width: 1050px;
+    width: calc(100% + 0px);
     border: 1px solid rgb(133, 133, 133);
     -webkit-box-shadow: 0px 13px 23px -13px rgba(0,0,0,0.5);
     margin-top: 15px;
@@ -95,27 +95,30 @@
 
     margin: auto;
     display: inline-block;
+    position: relative;
    
 }
 
 .date {
 
-    margin-left: 15px;
-    margin-top: -25px;
+    margin-left: 0vw;
+    margin-top: -4vh;
+    position: relative;
     
 }
 
 .time {
 
-    margin-left: -78px;
-    margin-top: 10px;
+    margin-left: -7vw;
+    margin-top: 2vh;
+    position: relative;
 
 }
 
 .doctor {
 
-    margin-left: -920px;
-    margin-top: 10px;
+    margin-left: -61vw;
+    margin-top: 0vh;
     font-weight: 600;
     font-size: 18px;
 
@@ -123,8 +126,8 @@
 
 .address {
 
-    margin-left: -920px;
-    margin-top: 10px;
+    margin-left: -61vw;
+    margin-top: 0vh;
     font-weight: 600;
     font-size: 18px;
 
@@ -138,40 +141,44 @@
 
 .textarea-edit {
 
-    height: 125px;
-    width: 600px;
-    margin-right: -400px;
-    margin-top: -50px;
+    height: 15vh;
+    width: calc(58% + 2px);
+    margin-right: -26vw;
+    margin-top: -6vh;
     border-radius: 10px;
     border: 1px solid #000; 
+    position: relative;
+    display: inline-block;
 
 }
 
 .doctor-notes {
-    margin-top: 10px;
+    margin-top: 2vh;
+    margin-left: 10vw;
     font-weight: 600;
     font-size: 18px;
     display: inline-block;
-    padding-left: 150px;
     float: left;
-    padding-right: 200px;
     color: blue;
     text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+    position: relative;
 }
 
 .reschedule {
-    margin-top: 10px;
+    margin-top: 2vh;
     font-weight: 600;
     font-size: 18px;
     display: inline-block;
-    padding-right: 250px;
     color: red;
     text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+    position: relative;
 }
 
 .cancel-appointment {
     
-    margin-top: 10px;
+    margin-top: 2vh;
+    margin-right: 3vw;
+    float: right;
     font-weight: 600;
     font-size: 18px;
     display: inline-block;
@@ -181,8 +188,8 @@
 }
 
 .note {
-    margin-left: -275px;
-    margin-top: 10px;
+    margin-left: -18vw;
+    margin-top: 0vh;
     font-weight: 600;
     font-size: 18px;
    
@@ -194,8 +201,74 @@
   
 }
 
+@media only screen and (max-width: 1000px) {
 
+    .textarea-edit {
+        margin: auto;
+        margin-top: 15vh;
+    }
 
+    .note {
+        margin: auto;
+        margin-top: 4vh;
+    }
 
+    .doctor {
+        margin: auto;
+        margin-top: -11vh;
+    }
+
+    .address {
+        margin: auto;
+        margin-top: -1vh;
+    }
+
+}
+
+@media only screen and (max-width: 930px) {
+    .button {
+        float: none;
+        margin-top: 10vh;
+    }
+    .accordion-container {
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-pack: justify;
+       
+    }
+
+}
+
+@media only screen and (max-width: 890px) {
+    .time {
+        margin-top: 10vh;
+        margin-left: -15vw;
+    }
+
+    .date {
+        margin-top: -10vh;
+    }
+    
+}
+
+@media only screen and (max-width: 350px) {
+    .subject {
+        margin-top: 25vh;
+        margin-left: -35vw;
+    }
+
+    .date {
+        margin-top: -30vh;
+    }
+
+    .time {
+        margin-top: -10vh;
+        margin-left: -25vw;
+    }
+
+    .sign {
+        margin-top: 35vh;
+    }
+}
 
 

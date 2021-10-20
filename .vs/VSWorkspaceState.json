@@ -6,8 +6,11 @@
     "\\telemedicine-app\\src",
     "\\telemedicine-app\\src\\components",
     "\\telemedicine-app\\src\\components\\Navbar",
-    "\\telemedicine-app\\src\\pages"
+    "\\telemedicine-app\\src\\images",
+    "\\telemedicine-app\\src\\pages",
+    "\\telemedicine-app\\src\\pages\\appointments",
+    "\\telemedicine-app\\src\\pages\\doctors"
   ],
-  "SelectedNode": "\\telemedicine-app\\src\\pages\\NoAppointments.js",
+  "SelectedNode": "\\telemedicine-app\\src\\pages\\doctors\\doctors.js",
   "PreviewInSolutionExplorer": false
 }

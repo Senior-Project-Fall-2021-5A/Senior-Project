@@ -7,31 +7,25 @@ import Login from "./pages/login";
 import About from "./pages/about";
 import Homepage from './pages/homepage';
 
-import Appointments from './pages/appointments';
+import Appointments from './pages/appointments/appointments';
 
-import DoctorSearch from './pages/DoctorSearch';
-import ScheduleCalendar from './pages/ScheduleCalendar';
+import DoctorSearch from './pages/doctors/DoctorSearch';
+import ScheduleCalendar from './pages/doctors/ScheduleCalendar';
+import ConfirmSchedule from './pages/appointments/ConfirmSchedule.js';
 
-import ConfirmSchedule from './pages/ConfirmSchedule';
-
-import confirmSchedule from './pages/confirmSchedule';
 import Inbox from './pages/inbox';
 
 
 import Reports from './pages/reports';
 import ReportDisplay from './pages/reportDisplay';
 
-import AppointmentType from './pages/AppointmentType';
+import AppointmentType from './pages/appointments/AppointmentType';
 
 
-import NoAppointments from './pages/NoAppointments';
+import NoAppointments from './pages/appointments/NoAppointments';
 
 import { Fragment } from 'react';
 import MyAccount from './pages/MyAccount';
-
-
-
-import { Fragment } from 'react';
 
 
 function App() {
@@ -52,7 +46,7 @@ function App() {
          
           <Route path='/doctorsearch' component={DoctorSearch}/>
 
-          <Route path="/schedulecalendar/:doc/:type">
+          <Route path="/ScheduleCalendar/:doc/:type">
           <ScheduleCalendar/>
           </Route>
           <Route path="/ConfirmSchedule/:doc/:type/:date/:time">
@@ -68,8 +62,8 @@ function App() {
           <Appointments/>
           </Route>
 
-          <Route path='/schedulecalendar' component={ScheduleCalendar}/>
-          <Route path='/confirmSchedule' component={confirmSchedule}/>
+         
+          <Route path='/ConfirmSchedule' component={ConfirmSchedule}/>
           <Route path="/" exact component={Login} /> 
           <Route path='/myaccount' component={MyAccount} />
 

@@ -1,7 +1,7 @@
 .calendar-container {
    margin: auto;
-   margin-top: -75px;
-   height: 350px;
+   margin-top: -10vh;
+   height: 50vh;
 }
 
 .custom-style {
@@ -48,4 +48,10 @@
     margin-left: 159px;
     margin-bottom: 50px;
 
+}
+
+@media only screen and (max-width: 1000px) {
+    .calendar-container {
+        margin-top: 10vh;
+    }
 }

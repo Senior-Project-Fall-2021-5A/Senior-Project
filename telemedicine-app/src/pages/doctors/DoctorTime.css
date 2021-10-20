@@ -25,6 +25,9 @@
 }
 
 .time-container {
-    margin-left: 82px;
-    margin-top: 15px;
+   
+    margin-top: 2vh;
+    margin-left: 5vw;
+    position: relative;
+    
 }

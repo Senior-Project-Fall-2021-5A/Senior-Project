@@ -1,6 +1,6 @@
 import './appointments.css';
-import Footer from '../components/Footer';
-import Navbar from '../components/Navbar/Navbar';
+import Footer from '../../components/Footer';
+import Navbar from '../../components/Navbar/Navbar';
 
 import {Link, useParams} from "react-router-dom";
 
