@@ -1,5 +1,5 @@
 .page-canvas-outer {
-    height: 100vh;
+    height: 85vh;
     width: 100vw;
 }
 .page-canvas-inner {
@@ -7,6 +7,7 @@
     padding: 5%;
     padding-top: 10%;
     text-align: -webkit-center;
+    text-align: -moz-center;
 }
 .canvas {
     height: 100%;
