@@ -29,10 +29,20 @@
 }
 
 /* Style the accordion content title */
+.accordion__from {
+  padding: 0 25px 0 25px;
+}
+
 .accordion__title {
   font-family: "Open Sans", sans-serif;
   font-weight: 600;
   font-size: 32px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.accordion__date {
+  padding: 0 25px 0 105px;
 }
 
 /* Style the accordion chevron icon */
