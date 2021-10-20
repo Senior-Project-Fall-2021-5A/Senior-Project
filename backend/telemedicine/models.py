@@ -85,7 +85,7 @@ class doctorProfile(models.Model):
     documents = models.FileField(storage=documentStorage)
 
     def __str__(self):
-        return self.doctorUID
+        return self.doctorProfileUID
 
 
 class paitientProfile (models.Model):
@@ -111,7 +111,7 @@ class paitientProfile (models.Model):
     documents = models.FileField(storage=documentStorage)
 
     def _str_(self):
-        return self.paitientUID
+        return self.paitientProfileUID
 # Model for demograhpic TODO ask what needs to be shown
 
 
@@ -119,7 +119,7 @@ class paitientProfile (models.Model):
 class appointments(models.Model):
     appointmentUID = models.UUIDField()
     paitientProfileUID = models.UUIDField()
-    doctorProfileUID = models.UUIDField
+    doctorProfileUID = models.UUIDField()
     date = models.DateField()
     time = models.TimeField()
     locationUID = models.UUIDField()
@@ -150,7 +150,7 @@ class inbox(models.Model):
 
 
 class reports(models.Model):
-    reportUID = models.UUIDField
+    reportUID = models.UUIDField()
     appointmentUID = models.UUIDField()
     date = models.DateField()
     time = models.TimeField()
@@ -158,7 +158,7 @@ class reports(models.Model):
     documents = models.FileField(storage=documentStorage)
 
     def _str_(self):
-        return self.details
+        return self.reportUID
 
 # Model for insurance TODO ask what needs to be shown
 
