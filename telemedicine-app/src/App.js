@@ -13,7 +13,8 @@ import DoctorSearch from './pages/DoctorSearch';
 import ScheduleCalendar from './pages/ScheduleCalendar';
 
 import confirmSchedule from './pages/confirmSchedule';
-import Inbox from './pages/inbox';
+import Inbox from './pages/inbox/inbox';
+import ComposeMessage from './pages/inbox/ComposeMessage';
 
 
 import Reports from './pages/reports_page/reports'; 
@@ -76,7 +77,8 @@ function App() {
           <Route path='/reportDisplay' component={ReportDisplay}/>
           <Route path="/" exact component={Login} />   
 
-          <Route path='/inbox' component={Inbox} />    
+          <Route path='/inbox' component={Inbox} />  
+          <Route path='/ComposeMessage' component={ComposeMessage} />
 
           <Route path='/adminPortal' component={adminPortal}/>
 

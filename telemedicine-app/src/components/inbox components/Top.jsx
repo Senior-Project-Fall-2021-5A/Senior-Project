@@ -1,14 +1,17 @@
 import React from "react";
 import Title from "./Title";
 import Button from "react-bootstrap/Button";
+import {Link} from "react-router-dom";
 
-function Top () {
-    return(<div style={{
+function Top() {
+    return (<div style={{
         display: 'flex',
-        justifyContent: 'space-between'     
+        justifyContent: 'space-between'
     }}>
         <Title />
-        <Button variant="primary">Compose Message</Button>{' '}
+        <Link to={`/ComposeMessage`}>
+            <Button class='table_button'>Compose Message</Button>
+        </Link>
     </div>);
 }
 
