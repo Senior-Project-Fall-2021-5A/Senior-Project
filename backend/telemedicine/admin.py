@@ -1,28 +1,9 @@
 from os import lseek
 from django.contrib import admin
-from .models import user, appointments, reports, doctorProfile, paitientProfile, inbox, insurance, notification, location
-
-"""
-
-class appointmentsAdmin(admin.ModelAdmin):
-    list_display = ('patient_name', 'doctor_name', 'date','time','location','doctors_notes','reports')
-
-class reportsAdmin(admin.ModelAdmin):
-    list_display = ('results','documents')
-
-class accountAdmin(admin.ModelAdmin):
-    list_display= ('first_name','last_name','DoB','address','primary_doctor','primary_location','documents')
-
-
-admin.site.register(appointments, appointmentsAdmin)
-admin.site.register(reports, reportsAdmin)
-admin.site.register(account, accountAdmin)
-
-"""
-
-
-class userAdmin(admin.ModelAdmin):
-    list_display = ('userGUID', 'type', 'userName', 'password')
+from django.contrib.auth import get_user_model
+from django.contrib.auth.admin import UserAdmin
+from .models import customUser, appointments, reports, doctorProfile, paitientProfile, inbox, insurance, notification, location
+from .forms import CustomUserChangeForm, CustomUserCreationForm
 
 
 class doctorProfileAdmin(admin.ModelAdmin):
@@ -64,7 +45,6 @@ class notificationAdmin(admin.ModelAdmin):
                     'inboxUID', 'messages', 'link', 'date', 'time', 'doEmail')
 
 
-admin.site.register(user, userAdmin)
 admin.site.register(doctorProfile, doctorProfileAdmin)
 admin.site.register(paitientProfile, paitientProfileAdmin)
 admin.site.register(appointments, appointmentsAdmin)
@@ -74,4 +54,3 @@ admin.site.register(insurance, insuranceAdmin)
 admin.site.register(location, locationAdmin)
 admin.site.register(notification, notificationAdmin)
 
-# test

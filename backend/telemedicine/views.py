@@ -1,25 +1,12 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from .serializers import userSerializer, doctorProfileSerializer, paitientProfileSerializer, appointmentsSerializer, inboxSerializer, reportsSerializer, insuranceSerializer, locationSerializer, notificationSerializer
-from .models import user, doctorProfile, paitientProfile, appointments, inbox, reports, insurance, location, notification
+from .models import customUser, doctorProfile, paitientProfile, appointments, inbox, reports, insurance, location, notification
 
-'''
-class AccountView(viewsets.ModelViewSet):
-    serializer_class = AccountSerializer
-    queryset = account.objects.all()
-
-class ReportsView(viewsets.ModelViewSet):
-    serializer_class = ReportsSerializer
-    queryset = reports.objects.all()
-
-class AppointmentsView(viewsets.ModelViewSet):
-    serializer_class = AppointmentsSerializer
-    queryset = appointments.objects.all()
-'''
 
 class userView(viewsets.ModelViewSet):
     serializer_class = userSerializer
-    queryset = user.objects.all()
+    queryset = customUser.objects.all()
 
 class doctorProfileView(viewsets.ModelViewSet):
     serializer_class = doctorProfileSerializer

@@ -1,28 +1,12 @@
 from django.db.models import fields
 from django.db.models.base import Model
 from rest_framework import serializers
-from .models import user, doctorProfile, paitientProfile, appointments, inbox, reports, insurance, location, notification
-'''
-class AccountSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = account
-        fields = ('id', 'first_name', 'last_name', 'DoB', 'address', 'primary_doctor', 'primary_location', 'documents')
-
-class ReportsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = reports
-        fields = ('id', 'results', 'documents')
-
-class AppointmentsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = appointments
-        fields = ('id', 'patient_name', 'doctor_name', 'date', 'time', 'location', 'doctors_notes','reports')
-'''
+from .models import customUser, doctorProfile, paitientProfile, appointments, inbox, reports, insurance, location, notification
 
 class userSerializer(serializers.ModelSerializer):
     class Meta:
-        model = user
-        fields = ('userGUID', 'type', 'userName', 'password')
+        model = customUser
+        fields = ('email', 'is_staff')
 
 class doctorProfileSerializer(serializers.ModelSerializer):
     class Meta:

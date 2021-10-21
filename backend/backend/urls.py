@@ -30,9 +30,10 @@ router.register(r'location', views.locaionView, 'location')
 router.register(r'notification', views.notificationView, 'notificatiion')
 
 
-
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('auth/', include('rest_auth.urls')),    
+    path('auth/register/', include('rest_auth.registration.urls'))
 ]
+

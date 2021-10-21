@@ -1,66 +1,24 @@
-from os import link, name, times
-from django.core.checks import messages
 from django.core.files.storage import FileSystemStorage
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from .managers import CustomUserManager
 
 documentStorage = FileSystemStorage('../storage/documents')
-"""
-# Model for appointments objects TODO
 
-class appointments(models.Model):
-    patient_name = models.CharField(
-        help_text="Patients full name",
-        max_length=200)
-    doctor_name = models.CharField(
-        help_text="Doctors name",
-        max_length=200)
-    date = models.DateField()
-    time = models.TimeField()
-    location = models.TextField() 
-    doctors_notes = models.TextField()
-    reports = models.FileField(storage=documentStorage)
-
-    def _str_(self):
-        return self.patient_name
-
-# Model for reports objects TODO
-class reports(models.Model):
-    results = models.TextField()
-    documents = models.FileField(storage=documentStorage)
-
-    def _str_(self):
-        return self.results
-
-
-# Model for inbox TODO ask about what needs to be shown
-
-
-
-# Model for account information TODO ask what needs to be shown
-class account(models.Model):
-    first_name = models.TextField()
-    last_name = models.TextField()
-    DoB = models. DateField()
-    address = models.TextField()
-    primary_doctor = models.TextField()
-    primary_location = models.TextField()
-    documents = models.FileField(storage=documentStorage)
-
-    def _str_(self):
-        return self.DoB
-"""
 # Model for user TODO ask what needs to be shown
 
 
-class user(models.Model):
-    userGUID = models.UUIDField()
-    # look into UUID field or NUllBoolean field may find a easy way
-    type = models.TextField()
-    userName = models.TextField()
-    password = models.TextField()
+class customUser(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(('email address'), unique=True)
+    is_staff = models.BooleanField(default=False)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    objects = CustomUserManager()
 
     def __str__(self):
-        return self.userName
+        return self.email
 
 # Model for doctor TODO ask what needs to be shown
 

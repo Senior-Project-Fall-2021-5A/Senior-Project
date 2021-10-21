@@ -33,14 +33,25 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders',
-    'rest_framework',
+
+    # 3rd Party Apps
+    'rest_framework', 
+    'rest_framework.authtoken', 
+    'rest_auth',  
+    'allauth', 
+    'allauth.account', 
+    'allauth.socialaccount', 
+    'rest_auth.registration', 
+    'corsheaders', 
+
+    # Local App
     'telemedicine',
 ]
 
@@ -76,8 +87,27 @@ TEMPLATES = [
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 
+# Rest Framework config
+
+REST_FRAMEWORK = {    
+    'DATETIME_FORMAT': "%m/%d/%Y %I:%M%P",    
+    'DEFAULT_AUTHENTICATION_CLASSES': [        
+        'rest_framework.authentication.TokenAuthentication',    
+],
+}
+
+
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+
+
+# Django auth config
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+AUTHENTICATION_BACKENDS = (    
+    "django.contrib.auth.backends.ModelBackend",    
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
 
 DATABASES = {
     'default': {
@@ -113,6 +143,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+# Defining custom user authentication model
+
+AUTH_USER_MODEL = 'telemedicine.customUser'
+
+SITE_ID = 1 
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_UNIQUE_EMAIL = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
