@@ -1,0 +1,28 @@
+form.general-info-form {
+    height: 100%;
+    width: 60%;
+    padding-left: 10%;
+    padding-top: 5%;
+    text-align: left;
+}
+label.form-label {
+    text-align: left;
+}
+input#formBasicEmail {
+    text-align: left;
+}
+input#formBasicPassword {
+    text-align: left;
+}
+
+input#formBasicAddress {
+    text-align: left;
+}
+
+small.text-muted.form-text {
+    display: inline-flex;
+}
+
+.UserID{
+    padding-left: 50%;
+}
