@@ -19,12 +19,21 @@ from rest_framework import routers
 from telemedicine import views
 
 router = routers.DefaultRouter()
-router.register(r'account', views.AccountView, 'accounts')
-router.register(r'reports', views.ReportsView, 'reports')
-router.register(r'appointments', views.AppointmentsView, 'appointments')
+router.register(r'user', views.userView, 'user')
+router.register(r'doctorProfile', views.doctorProfileView, 'doctorProfile')
+router.register(r'paitientProfile', views.paitientProfileView, 'paitientProfile')
+router.register(r'appointments', views.appointmentsView, 'appointments')
+router.register(r'inbox', views.inboxView, 'inbox')
+router.register(r'reports', views.reportsView, 'reports')
+router.register(r'insurance', views.insuranceView, 'insurance')
+router.register(r'location', views.locaionView, 'location')
+router.register(r'notification', views.notificationView, 'notificatiion')
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('auth/', include('rest_auth.urls')),    
+    path('auth/register/', include('rest_auth.registration.urls'))
 ]
+
