@@ -19,7 +19,7 @@ import Inbox from './pages/inbox';
 import Reports from './pages/reports_page/reports'; 
 import ReportDisplay from './pages/reports_page/reportDisplay';
 
-import adminPortal from './pages/admin_portal/admin_page';
+import adminPortal from './pages/admin_portal/AdminPage';
 
 import AppointmentType from './pages/AppointmentType';
 
