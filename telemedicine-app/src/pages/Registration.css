@@ -1,9 +1,10 @@
-.Login-Form {
+.Registration-Form {
     display: inline-grid;
     height: auto;
+    width: 100%;
 }
 
-.Login-container {
+.Registration-container {
     text-align: -webkit-center;
     margin: 0%;
     top: 0%;
@@ -11,12 +12,13 @@
     padding-right: 30%;
     padding-top: 5%;
     padding-bottom: 5%;
+    display: flex;
     height: 100%;
     width: 100%;
     border-radius: 30px;
 }
 
-.Login.card {
+.Registration.card {
     padding: 10%;
     box-shadow: 0 25px 15px 0px rgb(0 0 0 / 20%);
     place-content: center;
@@ -38,11 +40,32 @@ a.login-submit-button {
     padding-top: 50px;
 }
 
-button.login-register-btn.btn.btn-primary {
-    width: 100%;
-    margin-top: 25px;
+input#formBasicFirstRegister {
+    text-align: left;
+}
+input#formBasicLastRegister {
+    text-align: left;
 }
 
-button.login-submit-button.btn.btn-primary {
-    width: 100%;
+button.back-button.btn.btn-primary {
+    height: 9%;
+    background: #5a9a43;
+    transform: translate(-65%, 10px);
 }
+
+button.back-button.btn.btn-primary:hover {
+
+    background: #84ba42;
+}
+
+i.fab.fa-wpforms.fa-10x {
+    -ms-transform: rotate(20deg);
+    transform: rotate(
+20deg);
+}
+
+a.Registration-back-button {
+    align-self: center;
+}
+
+

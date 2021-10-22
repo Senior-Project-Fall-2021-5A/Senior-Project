@@ -32,6 +32,7 @@ import MyAccount from './pages/MyAccount';
 
 
 import { Fragment } from 'react';
+import Registration from './pages/Registration';
 
 
 function App() {
@@ -58,7 +59,8 @@ function App() {
           <Route path="/ConfirmSchedule/:doc/:type/:date/:time">
           <confirmSchedule/>
           </Route>
-          <Route path="/" exact component={Login} />        
+          <Route path="/" exact component={Login} /> 
+          <Route path="/registration" component={Registration} />           
 
           <Route path='/reports' component={Reports}/>
           <Route path='/reportDisplay' component={ReportDisplay}/>

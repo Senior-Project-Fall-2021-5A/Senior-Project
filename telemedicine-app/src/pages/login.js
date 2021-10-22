@@ -46,11 +46,11 @@ function Login() {
                     Login
                 </Button>
               </Link>
-              <span onClick={handleClick} className='registericon'>
+              <Link to ='/registration' className='registericon'>
                 <Button className='login-register-btn'>
                   Register
                 </Button>{' '}
-              </span>
+              </Link>
               <RegisterForm isShowLogin={isShowLogin} />
             </Form>
             
