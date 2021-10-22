@@ -41,7 +41,7 @@ function Login() {
               <Form.Group className="mb-3" controlId="formBasicCheckbox">
                 <Form.Check type="checkbox" label="Remember me" />
               </Form.Group>
-              <Link to='/homepage'>
+              <Link to='/loading'>
                 <Button className='login-submit-button' type="submit">
                     Login
                 </Button>
