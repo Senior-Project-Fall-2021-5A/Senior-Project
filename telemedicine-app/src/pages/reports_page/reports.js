@@ -29,7 +29,19 @@ function Reports() {  //const App = () =>
         {guid: 1, report: 'Test tester test', physician: 'Dr Who', date: '09/15/2021'},
         {guid: 2, report: 'Time Machine', physician: 'Dr Brown', date: '09/05/2021'},
         {guid: 3, report: 'McTesty Test', physician: 'Dr House', date: '09/11/2021'},
-   
+        {guid: 1, report: 'Test tester test', physician: 'Dr Who', date: '09/15/2021'},
+        {guid: 2, report: 'Time Machine', physician: 'Dr Brown', date: '09/05/2021'},
+        {guid: 3, report: 'McTesty Test', physician: 'Dr House', date: '09/11/2021'},
+        {guid: 1, report: 'Test tester test', physician: 'Dr Who', date: '09/15/2021'},
+        {guid: 2, report: 'Time Machine', physician: 'Dr Brown', date: '09/05/2021'},
+        {guid: 3, report: 'McTesty Test', physician: 'Dr House', date: '09/11/2021'},
+        {guid: 1, report: 'Test tester test', physician: 'Dr Who', date: '09/15/2021'},
+        {guid: 2, report: 'Time Machine', physician: 'Dr Brown', date: '09/05/2021'},
+        {guid: 3, report: 'McTesty Test', physician: 'Dr House', date: '09/11/2021'},
+        {guid: 1, report: 'Test tester test', physician: 'Dr Who', date: '09/15/2021'},
+        {guid: 2, report: 'Time Machine', physician: 'Dr Brown', date: '09/05/2021'},
+        {guid: 3, report: 'McTesty Test', physician: 'Dr House', date: '09/11/2021'},
+        
         
 
     ];
@@ -42,33 +54,36 @@ function Reports() {  //const App = () =>
             <div className='page-canvas-outer'>
                 <div className='page-canvas-inner'>
                     <div className='canvas'>
-                        <h1>Patient Reports</h1>
-                        <div className = 'reports-row'>                            
-                            <table id="reports" class='table'>
-                                <tbody>
-                                    <tr>
-                                        <th class='table_header_left'>Report</th>
-                                        <th >Physician</th>
-                                        <th >Date</th>
-                                        <th class='table_header_right'>View</th>
-                                    </tr>
-                                    {report_data.map(({ guid, report, physician, date }) => (
-                                        <tr key={guid} >
-                                            
-                                            <td style={tdStyle}>{report}</td>
-                                            <td style={tdStyle}>{physician}</td>
-                                            <td style={tdStyle}>{date}</td>
-                                            <td style={tdStyle}>
-                                                <Link to={`/reportDisplay/${guid}`}>                                                 
-                                                        <Button class='table_button'>View</Button>                                                
-                                                </Link>
-                                            </td>
+                        <div className='reports-container'>
+                            <h1>Patient Reports</h1>
+                            <div className = 'reports-row'>                            
+                                <table id="reports" class='table'>
+                                    <tbody>
+                                        <tr>
+                                            <th className='reports-table_header_left'>Report</th>
+                                            <th >Physician</th>
+                                            <th >Date</th>
+                                            <th className='reports-table_header_right'>View</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                            
+                                        {report_data.map(({ guid, report, physician, date }) => (
+                                            <tr key={guid} >
+                                                
+                                                <td style={tdStyle}>{report}</td>
+                                                <td style={tdStyle}>{physician}</td>
+                                                <td style={tdStyle}>{date}</td>
+                                                <td style={tdStyle}>
+                                                    <Link to={`/reportDisplay/${guid}`}>                                                 
+                                                            <Button className='reports-table_button'>View</Button>                                                
+                                                    </Link>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                                
+                            </div>
                         </div>
+                       
 
                     </div>
                 </div>
