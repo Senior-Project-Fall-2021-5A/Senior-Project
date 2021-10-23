@@ -1,6 +1,6 @@
 .adminpage-container{
   background-color: aqua;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   display: grid;
   grid-template: 1fr / 1fr 1fr;
