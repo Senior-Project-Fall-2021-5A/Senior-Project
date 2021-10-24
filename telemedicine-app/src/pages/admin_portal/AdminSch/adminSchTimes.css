@@ -1,0 +1,14 @@
+.adminschtimes-container {
+    
+}
+
+.styTest {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+#AdminSchTimes table, tbody, td {
+    border: 1px solid black;
+    height: 8px;
+    
+}
