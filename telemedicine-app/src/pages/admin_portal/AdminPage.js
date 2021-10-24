@@ -4,6 +4,7 @@ import AdminSchedule from "./AdminSch/AdminSchedule"
 import Canvas from "../../components/Canvas"
 
 import './AdminPage.css'
+import AdminApts from "./AdminApts/AdminApts"
 //<AdminSchedule/>
 
 function AdminPage() {
@@ -17,9 +18,10 @@ function AdminPage() {
                             <div className='adminpage-container'>
                                 <div className='adminpage-schedule-frame'>
                                     <AdminSchedule/>
-                                    
                                 </div>
-                                <div className='appointment-frame'>apt frame</div>
+                                <div className='appointment-frame'>
+                                    <AdminApts/>
+                                </div>
                             </div>
                         </div>
                     </div>

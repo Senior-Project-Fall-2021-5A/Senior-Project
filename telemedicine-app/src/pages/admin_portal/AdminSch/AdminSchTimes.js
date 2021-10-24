@@ -34,22 +34,22 @@ const AdminSchTimes = ({}) => {
     const [checkedTime16, setCheckedTime16] = React.useState(false);
 
     const data = [
-        {name: "time01", value: {checkedTime01}, text: "09:00 am"},
-        {name: "time02", value: {checkedTime02}, text: "09:30 am"},
-        {name: "time03", value: {checkedTime03}, text: "10:00 am"},
-        {name: "time04", value: {checkedTime04}, text: "10:30 am"},
-        {name: "time05", value: {checkedTime05}, text: "11:00 am"},
-        {name: "time06", value: {checkedTime06}, text: "11:30 am"},
-        {name: "time07", value: {checkedTime07}, text: "12:00 am"},
-        {name: "time08", value: {checkedTime08}, text: "12:30 am"},
-        {name: "time09", value: {checkedTime09}, text: "01:00 am"},
-        {name: "time10", value: {checkedTime10}, text: "01:30 am"},
-        {name: "time11", value: {checkedTime11}, text: "02:00 am"},
-        {name: "time12", value: {checkedTime12}, text: "02:30 am"},
-        {name: "time13", value: {checkedTime13}, text: "03:00 am"},
-        {name: "time14", value: {checkedTime14}, text: "03:30 am"},
-        {name: "time15", value: {checkedTime15}, text: "04:00 am"},
-        {name: "time16", value: {checkedTime16}, text: "04:30 am"},
+        {boxName: "time01", boxValue: checkedTime01, text: "09:00 am"},
+        {boxName: "time02", boxValue: checkedTime02, text: "09:30 am"},
+        {boxName: "time03", boxValue: checkedTime03, text: "10:00 am"},
+        {boxName: "time04", boxValue: checkedTime04, text: "10:30 am"},
+        {boxName: "time05", boxValue: checkedTime05, text: "11:00 am"},
+        {boxName: "time06", boxValue: checkedTime06, text: "11:30 am"},
+        {boxName: "time07", boxValue: checkedTime07, text: "12:00 am"},
+        {boxName: "time08", boxValue: checkedTime08, text: "12:30 am"},
+        {boxName: "time09", boxValue: checkedTime09, text: "01:00 am"},
+        {boxName: "time10", boxValue: checkedTime10, text: "01:30 am"},
+        {boxName: "time11", boxValue: checkedTime11, text: "02:00 am"},
+        {boxName: "time12", boxValue: checkedTime12, text: "02:30 am"},
+        {boxName: "time13", boxValue: checkedTime13, text: "03:00 am"},
+        {boxName: "time14", boxValue: checkedTime14, text: "03:30 am"},
+        {boxName: "time15", boxValue: checkedTime15, text: "04:00 am"},
+        {boxName: "time16", boxValue: checkedTime16, text: "04:30 am"},
         
     ]
 
@@ -57,6 +57,41 @@ const AdminSchTimes = ({}) => {
         console.log("event:",event);
         console.log("name:",event.target.name);
         console.log("label:",event.target.parentNode.control.attributes.label.nodeValue);
+
+        let boxName = event.target.name;
+        if (boxName == "time01"){
+            setCheckedTime01(!checkedTime01);
+        } else if (boxName == "time02"){
+            setCheckedTime02(!checkedTime02);
+        } else if (boxName == "time03"){
+            setCheckedTime03(!checkedTime03);
+        } else if (boxName == "time04"){
+            setCheckedTime04(!checkedTime04);
+        } else if (boxName == "time05"){
+            setCheckedTime05(!checkedTime05);
+        } else if (boxName == "time06"){
+            setCheckedTime06(!checkedTime06);
+        } else if (boxName == "time07"){
+            setCheckedTime07(!checkedTime07);
+        } else if (boxName == "time08"){
+            setCheckedTime08(!checkedTime08);
+        } else if (boxName == "time09"){
+            setCheckedTime09(!checkedTime09);
+        } else if (boxName == "time10"){
+            setCheckedTime10(!checkedTime10);
+        } else if (boxName == "time11"){
+            setCheckedTime11(!checkedTime11);
+        } else if (boxName == "time12"){
+            setCheckedTime12(!checkedTime12);
+        } else if (boxName == "time13"){
+            setCheckedTime13(!checkedTime13);
+        } else if (boxName == "time14"){
+            setCheckedTime14(!checkedTime14);
+        } else if (boxName == "time15"){
+            setCheckedTime15(!checkedTime15);
+        } else if (boxName == "time16"){
+            setCheckedTime16(!checkedTime16);
+        }
     }
     
     return (
