@@ -24,7 +24,7 @@ section {
   width: 100%;
   text-align: left;
   font: normal 16px sans-serif;
-  padding: 45px 50px;
+  padding: 20px 50px;
 }
 
 .footer-distributed .footer-left p {
@@ -45,7 +45,7 @@ section {
 
 .footer-distributed p.footer-links a {
   display: inline-block;
-  line-height: 1.8;
+  line-height: 1;
   text-decoration: none;
   color: inherit;
   transition: ease .25s;
