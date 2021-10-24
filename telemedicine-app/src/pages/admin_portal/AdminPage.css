@@ -14,8 +14,8 @@
 
 .adminpage-schedule-frame {
   border: 1px solid black;
-  padding: 1px;
-  background-color: whitesmoke;
+  padding: 10px;
+  background-color: rgb(231, 231, 231);
   border-radius: 30px;
   grid-area: adminpage-schedule-frame;
   grid-row-start: 1;
@@ -25,7 +25,9 @@
 }
 
 .appointment-frame {
-  background-color: blueviolet;
+  border: 1px solid black;
+  padding: 10px;
+  background-color: rgb(231, 231, 231);
   border-radius: 30px;
   grid-area: appointment-frame;
   grid-row: 1;
