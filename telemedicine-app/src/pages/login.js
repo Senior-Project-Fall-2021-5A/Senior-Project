@@ -4,7 +4,6 @@ import {Form, Button} from 'react-bootstrap'
 import {Link} from "react-router-dom";
 import './login.css';
 import Logo from '../images/company-logo.png';
-import RegisterForm from '../components/RegisterForm';
 
 
 function Login() {
@@ -51,7 +50,6 @@ function Login() {
                   Register
                 </Button>{' '}
               </Link>
-              <RegisterForm isShowLogin={isShowLogin} />
             </Form>
             
           </div>

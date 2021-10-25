@@ -4,7 +4,7 @@ import {Button} from 'react-bootstrap'
 
 function MessageButton() {
     return (
-        <Button className='message-button' style={{bottom: '17%', borderRadius:'50px'}}>
+        <Button className='message-button' style={{bottom: '11%', borderRadius:'50px'}}>
             <i class="fas fa-comments fa-2x"></i>
         </Button>
     )
