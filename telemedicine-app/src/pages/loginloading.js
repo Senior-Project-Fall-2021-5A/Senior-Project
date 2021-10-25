@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import { Grid, Row, Col } from "react-styled-flexboxgrid";
 import { StyleSheet, css } from "aphrodite";
 
-import { Loader1, Loader2, Loader3, Loader7 } from "../loaders/index";
+import { Loader1} from "../loaders/index";
 import context from "react-bootstrap/esm/AccordionContext";
 
 const styles = StyleSheet.create({
@@ -38,13 +38,13 @@ const styles = StyleSheet.create({
     }
   });
   
-class Loading extends Component {
+class LoginLoading extends Component {
     state = {
       redirect: false
     }
   
     componentDidMount() {
-      this.id = setTimeout(() => this.setState({ redirect: true }), 3500)
+      this.id = setTimeout(() => this.setState({ redirect: true }), 3100)
     }
   
     componentWillUnmount() {
@@ -67,4 +67,4 @@ class Loading extends Component {
   }
   
 
-  export default Loading
+  export default LoginLoading

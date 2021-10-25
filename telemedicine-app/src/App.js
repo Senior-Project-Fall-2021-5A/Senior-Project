@@ -33,7 +33,8 @@ import MyAccount from './pages/MyAccount';
 
 import { Fragment } from 'react';
 import Registration from './pages/Registration';
-import Loading from './pages/loading';
+import LoginLoading from './pages/loginloading';
+
 
 
 function App() {
@@ -51,7 +52,8 @@ function App() {
           <Route path='/appointments' exact component={Appointments}/>
           <Route path='/NoAppointments' exact component={NoAppointments}/>
           
-          <Route path='/loading' exact component={Loading}/>
+          <Route path='/loginloading' exact component={LoginLoading}/>
+          
           <Route path='/doctorsearch' component={DoctorSearch}/>
 
           <Route path="/schedulecalendar/:doc/:type">
