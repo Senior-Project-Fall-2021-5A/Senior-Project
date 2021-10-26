@@ -88,6 +88,9 @@ function NoAppointments() {
                                             <div className="note">Note:</div>
                                                 <div className="doctor">Doctor E</div>
                                                 <div className="address">Address</div>
+                                                <Link to='/client'>
+                                                    <button className="btnCall">Start Call</button>
+                                                </Link>
                                                 <div className="textarea-container">
                                                     <textarea className="textarea-edit">
                                                     </textarea>

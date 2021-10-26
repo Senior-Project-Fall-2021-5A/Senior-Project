@@ -27,6 +27,8 @@ import NoAppointments from './pages/appointments/NoAppointments';
 import { Fragment } from 'react';
 import MyAccount from './pages/MyAccount';
 
+import Client from './pages/VideoChat/Client';
+
 
 function App() {
 
@@ -71,7 +73,9 @@ function App() {
           <Route path='/reportDisplay' component={ReportDisplay}/>
           <Route path="/" exact component={Login} />   
 
-          <Route path='/inbox' component={Inbox} />    
+          <Route path='/inbox' component={Inbox} />   
+          
+          <Route path='/client' component={Client} />
 
 
         </Switch>
