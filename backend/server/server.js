@@ -15,6 +15,6 @@ const dbURI =
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 .then((res) => {
     // Only listen to requests once DB is loaded
-    app.listen(process.env.PORT, () => console.log('Server is live!'))
+    app.listen(process.env.PORT || 3002, () => console.log('Server is live!'))
 })
 .catch(err => console.log(err))

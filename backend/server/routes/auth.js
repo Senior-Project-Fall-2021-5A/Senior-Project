@@ -1,20 +1,10 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
-const User = require('..models/User')
-const mongoose = require('mongoose');
+const User = require('../models/User')
+const express = require('express')
+const app = express()
 
-import * as Constants from './server/Constants'
-
-var router = require('express').Router()
-
-mongoose.connect(Constants.dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-.then((res) => {
-    // Only listen to requests once DB is loaded
-    router.listen(process.env.PORT, () => console.log('Server is live!'))
-})
-.catch(err => console.log(err))
-
-router.post('/register', async (req, res) => {
+app.post('/register', async (req, res) => {
 
     const user = req.body;
 
@@ -39,7 +29,7 @@ router.post('/register', async (req, res) => {
     }
 })
 
-router.post('/login', (req, res) => {
+app.post('/login', (req, res) => {
 
     const userLoggingIn = req.body;
 
@@ -78,4 +68,4 @@ router.post('/login', (req, res) => {
     })
 })
 
-
+module.exports = app;
