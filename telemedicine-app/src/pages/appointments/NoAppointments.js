@@ -1,7 +1,7 @@
 import React, { useState }  from 'react';
 import './appointments.css';
-import Footer from '../components/Footer/Footer';
-import Navbar from '../components/Navbar/Navbar';
+import Footer from '../../components/Footer/Footer';
+import Navbar from '../../components/Navbar/Navbar';
 
 
 import { Accordion, Card, Button } from 'react-bootstrap'
@@ -40,7 +40,7 @@ function NoAppointments() {
                             </Button>
                             </Link>
 
-                             <div>
+                            <div>
                             <div className="bloc-tabs">
                                 <button
                                     className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
@@ -80,7 +80,7 @@ function NoAppointments() {
                                             <div className="date">September 5th 2021</div>
                                             <div className="time">7:00 p.m.</div>
                                             <div className="subject">In-person Appointment</div>
-                                            <div className="status">Status: Past</div>
+                                         
                                             <div className="sign">{show ? '-' : '+'}</div>
                                         </div>
                                         {show && (
@@ -88,6 +88,9 @@ function NoAppointments() {
                                             <div className="note">Note:</div>
                                                 <div className="doctor">Doctor E</div>
                                                 <div className="address">Address</div>
+                                                <Link to='/client'>
+                                                    <button className="btnCall">Start Call</button>
+                                                </Link>
                                                 <div className="textarea-container">
                                                     <textarea className="textarea-edit">
                                                     </textarea>

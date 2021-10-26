@@ -1,22 +1,23 @@
-import React, {useState} from 'react';
-import DoctorData from './DoctorData';
-import './appointments.css';
+import React, {useState, useEffect} from 'react';
+import DoctorData from '../doctors/DoctorData';
+import '../appointments/appointments.css';
 import {Link} from "react-router-dom";
 
 
 import {Card, Button} from 'react-bootstrap';
 
 
-import Navbar from '../components/Navbar/Navbar';
-import Footer from '../components/Footer/Footer';
+import Navbar from '../../components/Navbar/Navbar';
+import Footer from '../../components/Footer/Footer';
+
 
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import './calendar.css';
+import './Calendar.css';
 import moment from 'moment' 
 
 
-
+import './doctors.css';
 
 const DoctorSearch = () => {
 
@@ -26,9 +27,23 @@ const DoctorSearch = () => {
 	
 	const handleShow = () => setShow(true);
 
+	const [isMobile, setIsMobile] = useState(false)
+
 	const searchText = (event) => {
 		setFilter(event.target.value);
 	}
+
+	const handleResize = () => {
+	  if (window.innerWidth < 768) {
+		  setIsMobile(true)
+	  } else {
+		  setIsMobile(false)
+	  }
+	}
+
+	useEffect(() => {
+	  window.addEventListener("resize", handleResize)
+	})
 
 	let dataSearch = DoctorData.cardData.filter(item => {
 		return Object.keys(item).some(key => 
@@ -47,7 +62,7 @@ const DoctorSearch = () => {
 
 
 						<div className="py-4 container">
-							<div className="row justify-content-center">
+							<div className={isMobile ? " " : "row justify-content-center"}>
 
 							<div className="col-12 mb-0">
 								<div className="mb-3 col-4 mx-auto text-center">

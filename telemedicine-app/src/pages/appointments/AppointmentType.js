@@ -1,10 +1,10 @@
  import React, { useState }  from 'react';
 
 import './appointments.css';
-import './doctors.css';
+import '../doctors/doctors.css';
 
-import Navbar from '../components/Navbar/Navbar';
-import Footer from '../components/Footer/Footer';
+import Navbar from '../../components/Navbar/Navbar';
+import Footer from '../../components/Footer/Footer';
 import { Accordion, Card, Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -36,9 +36,9 @@ const { name } = useParams();
                </h2>
                </div>
 
-               <div class="row">
-                 <div class="column">
+               <div>
 
+                 <div className="typeCard1">
                    <Card style={{ width: '20rem' }}>
                       <Card.Img variant="top" src={DoctorImage} />
                       <Card.Body>
@@ -46,14 +46,14 @@ const { name } = useParams();
                         <Card.Text>
                           Face-to-face appointments are within normal hours. Precautionary measures will be taken against the coronavirus by both patient and doctor.
                         </Card.Text>
-                        <Link to={`/schedulecalendar/${name}/In-person`}>
+                        <Link to={`/ScheduleCalendar/${name}/In-person`}>
                         <Button variant="primary">Book</Button>
                         </Link>
                       </Card.Body>
                     </Card>
                  </div>
 
-                 <div class="column">
+                 <div className="typeCard2">
                     <Card style={{ width: '20rem' }}>
                       <Card.Img variant="top" src={Monitor} />
                       <Card.Body>
@@ -61,12 +61,11 @@ const { name } = useParams();
                         <Card.Text>
                           Save time and skip the waiting room. Schedule a video chat with your specialist.
                         </Card.Text>
-                        <Link to={`/schedulecalendar/${name}/Online`}>
+                        <Link to={`/ScheduleCalendar/${name}/Online`}>
                         <Button variant="primary">Book</Button>
                         </Link>
                       </Card.Body>
                     </Card>
-
                   </div>
 
                </div>

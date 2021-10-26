@@ -1,7 +1,7 @@
 import React, { useState }  from 'react';
 import './appointments.css';
-import Footer from '../components/Footer/Footer';
-import Navbar from '../components/Navbar/Navbar';
+import Footer from '../../components/Footer/Footer';
+import Navbar from '../../components/Navbar/Navbar';
 
 
 import { Accordion, Card, Button } from 'react-bootstrap'
@@ -77,7 +77,7 @@ function Appointments() {
                                         <div className="date">{date}</div>
                                         <div className="time">{time}</div>
                                         <div className="subject">{type} Appointment</div>
-                                        <div className="status">Status: Upcoming</div>
+                                       
                                         <div className="sign">{show ? '-' : '+'}</div>
                                     </div>
                                     {show && (
@@ -114,7 +114,7 @@ function Appointments() {
                                             <div className="date">September 5th 2021</div>
                                             <div className="time">7:00 p.m.</div>
                                             <div className="subject">In-person Appointment</div>
-                                            <div className="status">Status: Past</div>
+                                       
                                             <div className="sign">{show ? '-' : '+'}</div>
                                         </div>
                                         {show && (

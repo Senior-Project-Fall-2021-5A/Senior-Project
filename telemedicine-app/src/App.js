@@ -7,12 +7,13 @@ import Login from "./pages/login";
 import About from "./pages/about";
 import Homepage from './pages/homepage';
 
-import Appointments from './pages/appointments';
+import Appointments from './pages/appointments/appointments';
 
-import DoctorSearch from './pages/DoctorSearch';
-import ScheduleCalendar from './pages/ScheduleCalendar';
+import DoctorSearch from './pages/doctors/DoctorSearch';
+import ScheduleCalendar from './pages/doctors/ScheduleCalendar';
+import ConfirmSchedule from './pages/appointments/ConfirmSchedule.js';
 
-import confirmSchedule from './pages/confirmSchedule';
+
 import Inbox from './pages/inbox/inbox';
 import ComposeMessage from './pages/inbox/ComposeMessage';
 
@@ -22,10 +23,10 @@ import ReportDisplay from './pages/reports_page/reportDisplay';
 
 import adminPortal from './pages/admin_portal/AdminPage';
 
-import AppointmentType from './pages/AppointmentType';
+import AppointmentType from './pages/appointments/AppointmentType';
 
 
-import NoAppointments from './pages/NoAppointments';
+import NoAppointments from './pages/appointments/NoAppointments';
 
 import MyAccount from './pages/MyAccount';
 
@@ -35,6 +36,7 @@ import { Fragment } from 'react';
 import Registration from './pages/Registration';
 import LoginLoading from './pages/loginloading';
 
+import Client from './pages/VideoChat/Client';
 
 
 function App() {
@@ -56,7 +58,7 @@ function App() {
           
           <Route path='/doctorsearch' component={DoctorSearch}/>
 
-          <Route path="/schedulecalendar/:doc/:type">
+          <Route path="/ScheduleCalendar/:doc/:type">
           <ScheduleCalendar/>
           </Route>
           <Route path="/ConfirmSchedule/:doc/:type/:date/:time">
@@ -73,8 +75,8 @@ function App() {
           <Appointments/>
           </Route>
 
-          <Route path='/schedulecalendar' component={ScheduleCalendar}/>
-          <Route path='/confirmSchedule' component={confirmSchedule}/>
+         
+          <Route path='/ConfirmSchedule' component={ConfirmSchedule}/>
           <Route path="/" exact component={Login} /> 
           <Route path='/myaccount' component={MyAccount} />
 
@@ -86,6 +88,9 @@ function App() {
           <Route path='/ComposeMessage' component={ComposeMessage} />
 
           <Route path='/adminPortal' component={adminPortal}/>
+          <Route path='/inbox' component={Inbox} />   
+          
+          <Route path='/client' component={Client} />
 
 
         </Switch>

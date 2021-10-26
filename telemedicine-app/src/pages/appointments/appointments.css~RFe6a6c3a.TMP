@@ -37,11 +37,9 @@
     width: 200px;
     height: 40px;
     float: right;
-    margin-top: -100px;
-    margin-right: -50px;
+    margin-top: -11vh;
+    
 }
-
-
 
 
 .app {
@@ -59,12 +57,13 @@
 .sign {
 
     font-size: 25px;
+    display: block;
 
 }
 
 .accordion {
 
-    width: 1050px;
+    width: calc(100% + 0px);
     border: 1px solid rgb(133, 133, 133);
     -webkit-box-shadow: 0px 13px 23px -13px rgba(0,0,0,0.5);
     margin-top: 15px;
@@ -96,21 +95,22 @@
 
     margin: auto;
     display: inline-block;
-    
-
+   
 }
 
 .date {
 
-    margin-left: 15px;
-    margin-top: -25px;
+    margin-left: 0vw;
+    margin-top: -4vh;
+    position: relative;
     
 }
 
 .time {
 
-    margin-left: -78px;
-    margin-top: 10px;
+    margin-left: -7vw;
+    margin-top: 2vh;
+    position: relative;
 
 }
 
@@ -191,53 +191,51 @@
 }
 
 .status {
-    
    
    margin-right: 90px;
+  
+}
+
+@media only screen and (max-width: 930px) {
+    .button {
+        float: none;
+        margin-top: 10vh;
+    }
+    .accordion-container {
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-pack: justify;
+       
+    }
+
+}
+
+@media only screen and (max-width: 890px) {
+    .time {
+        margin-top: 10vh;
+        margin-left: -15vw;
+    }
+
+    .date {
+        margin-top: -10vh;
+    }
     
 }
 
-.time-form {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+@media only screen and (max-width: 350px) {
+    .subject {
+        margin-top: 30vh;
+        margin-left: -35vw;
+    }
+
+    .date {
+        margin-top: -30vh;
+    }
+
+    .time {
+        margin-top: -10vh;
+        margin-left: -25vw;
+    }
 }
-
-.time-box {
-    margin-top: 7vh;
-    opacity: 100%;
-    background: #56943f;
-    padding-right: 80px;
-    padding-left: 80px;
-    border-radius: 20px;
-    box-shadow: 10px 10px 10px 1px rgba(0, 0, 0, 0.2);
-}
-
-.time-text {
-    width: 100%;
-    color: white;
-    line-height: 30px;
-    font-weight: bolder;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 5vh;
-}
-
-.confirm-btn {
-    background-color: green;
-    border-radius: 20px;
-    width: 150px;
-    font-weight: bold;
-    margin-left: 159px;
-    margin-bottom: 50px;
-}
-
-
 
 
