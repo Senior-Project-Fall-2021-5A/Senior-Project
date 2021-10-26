@@ -2,6 +2,7 @@ import React from 'react'
 import './AccountNav.css'
 import {Tab, Row, Col, Nav} from 'react-bootstrap'
 import GeneralInfo from './GeneralInfo'
+import InsuranceInfo from './InsuranceInfo'
 
 
 function AccountNav() {
@@ -15,7 +16,7 @@ function AccountNav() {
         </Nav.Item>
         
         <Nav.Item>
-          <Nav.Link href=''>Insurance</Nav.Link>
+          <Nav.Link eventKey="second">Insurance</Nav.Link>
         </Nav.Item>
 
         <Nav.Item>
@@ -30,7 +31,8 @@ function AccountNav() {
           <GeneralInfo/>
         </Tab.Pane>
         <Tab.Pane eventKey="second">
-          Hola Steven
+          <h3 className='info-header'>Your Insurance Information Can Be Found Below</h3>
+          <InsuranceInfo/>
         </Tab.Pane>
       </Tab.Content>
     </Col>
