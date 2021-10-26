@@ -97,6 +97,9 @@ function Client() {
 	return (
 		<>
 
+		<div className="video-container-outer">
+		<div className="video-container-inner">
+
 		  <h1 style={{ textAlign: "center", color: '#fff' }}>Video Chat</h1>
 			<div className="containerVid">
 				<div className="video-container">
@@ -105,7 +108,7 @@ function Client() {
 					</div>
 					<div className="video">
 						{callAccepted && !callEnded ?
-						<video playsInline ref={userVideo} autoPlay style={{ width: "300px"}} />:
+						<video playsInline ref={userVideo} autoPlay style={{ width: "450px"}} />:
 						null}
 					</div>
 				</div>
@@ -155,6 +158,9 @@ function Client() {
 					) : null}
 				</div>
 			</div>
+		
+		</div>
+		</div>
 		</>
 	)
 }
