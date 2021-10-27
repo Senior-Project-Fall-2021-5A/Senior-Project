@@ -1,13 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const multer = require('multer');
+const path = require('path');
 const LocationModel = require('./models/Location');
+const file = require('./models/file');
 const app = express()
 
 var authRoutes = require('./routes/auth')
 
 // MONGODB ATLAS CONNECTION
 mongoose.connect('mongodb+srv://Admin:uMUAkKcITOdFYFLr@telemedicine0.3ifgy.mongodb.net/Telemedicine_Backend?retryWrites=true&w=majority', 
-{ useNewUrlParser: true });
+{ useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use('/auth', authRoutes)
 
@@ -26,6 +29,36 @@ app.get('/read', async (req, res) => {
             res.send(result);
         }
     });
+});
+
+/// upload file
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        const ext = path.extname(file.originalname);
+        const filePath = `file/${id}${ext}`;
+        file.create({ filePath: filePath })
+            .then(() => {
+                cb(null, filePath)
+            });
+    }
+})
+
+const upload = multer({ storage }); // or simply { dest: 'uploads/' }
+app.use(express.static('public'));
+app.use(express.static('uploads'));
+
+app.post('/upload', upload.array('file'), (req, res) => {
+    return res.redirect('/');
+});
+
+app.get('/file', (req, res) => {
+    file.find()
+        .then((files) => {
+            return res.json({ status: 'OK', files});
+        })
 });
 
 
