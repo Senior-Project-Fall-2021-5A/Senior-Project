@@ -35,10 +35,8 @@ import Client from './pages/VideoChat/Client';
 
 import { Fragment } from 'react';
 import Registration from './pages/Registration';
-import Loading from './pages/loading';
 import LoginLoading from './pages/loginloading';
 
-import Client from './pages/VideoChat/Client';
 
 
 function App() {
