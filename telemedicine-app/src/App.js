@@ -13,6 +13,7 @@ import DoctorSearch from './pages/doctors/DoctorSearch';
 import ScheduleCalendar from './pages/doctors/ScheduleCalendar';
 import ConfirmSchedule from './pages/appointments/ConfirmSchedule.js';
 
+
 import Inbox from './pages/inbox/inbox';
 import ComposeMessage from './pages/inbox/ComposeMessage';
 
@@ -35,6 +36,9 @@ import Client from './pages/VideoChat/Client';
 import { Fragment } from 'react';
 import Registration from './pages/Registration';
 import Loading from './pages/loading';
+import LoginLoading from './pages/loginloading';
+
+import Client from './pages/VideoChat/Client';
 
 
 function App() {
@@ -52,7 +56,8 @@ function App() {
           <Route path='/appointments' exact component={Appointments}/>
           <Route path='/NoAppointments' exact component={NoAppointments}/>
           
-          <Route path='/loading' exact component={Loading}/>
+          <Route path='/loginloading' exact component={LoginLoading}/>
+          
           <Route path='/doctorsearch' component={DoctorSearch}/>
 
           <Route path="/ScheduleCalendar/:doc/:type">
@@ -88,6 +93,9 @@ function App() {
           <Route path='/ComposeMessage' component={ComposeMessage} />
 
           <Route path='/adminPortal' component={adminPortal}/>
+          <Route path='/inbox' component={Inbox} />   
+          
+          <Route path='/client' component={Client} />
 
 
         </Switch>

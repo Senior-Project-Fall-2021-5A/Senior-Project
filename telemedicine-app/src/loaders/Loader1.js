@@ -9,7 +9,7 @@ const loadKeyframes = {
     height: "4em"
   },
   "80%": {
-    boxShadow: "0 0",
+    boxShadow: "1 1",
     height: "4em"
   },
   "100%": {
@@ -17,7 +17,7 @@ const loadKeyframes = {
     height: "4em"
   },
   "40%": {
-    boxShadow: "0 -2em",
+    boxShadow: "0 -3em",
     height: "5em"
   }
 };

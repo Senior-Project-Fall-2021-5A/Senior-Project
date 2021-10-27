@@ -4,7 +4,6 @@ import {Form, Button} from 'react-bootstrap'
 import {Link} from "react-router-dom";
 import './login.css';
 import Logo from '../images/company-logo.png';
-import RegisterForm from '../components/RegisterForm';
 
 
 function Login() {
@@ -41,7 +40,7 @@ function Login() {
               <Form.Group className="mb-3" controlId="formBasicCheckbox">
                 <Form.Check type="checkbox" label="Remember me" />
               </Form.Group>
-              <Link to='/loading'>
+              <Link to='/loginloading'>
                 <Button className='login-submit-button' type="submit">
                     Login
                 </Button>
@@ -51,7 +50,6 @@ function Login() {
                   Register
                 </Button>{' '}
               </Link>
-              <RegisterForm isShowLogin={isShowLogin} />
             </Form>
             
           </div>

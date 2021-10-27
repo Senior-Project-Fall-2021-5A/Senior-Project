@@ -11,9 +11,9 @@ function Homepage() {
     return (
         <div className='homepage'>
             <Navbar/>
-            <div className='canvas-outer'>
-                <div className='canvas-inner'>
-                    <div className='page-canvas'>
+            <div className='page-canvas-outer'>
+                <div className='page-canvas-inner'>
+                    <div className='canvas'>
                         <div className='Dashboard-row'>
                             <div className='dash-left'>
                                 <AppointmentWidget/>
