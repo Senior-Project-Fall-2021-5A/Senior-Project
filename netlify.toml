@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  publish="telemedicine-app/build"
+  base = "telemedicine-app"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
