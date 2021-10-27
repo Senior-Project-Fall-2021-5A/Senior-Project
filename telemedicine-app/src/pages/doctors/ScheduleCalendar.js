@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import './Calendar.css';
+import './calendar.css';
 import moment from 'moment'
-import '../appointments/appointments.css';
-import Footer from '../../components/Footer';
-import Navbar from '../../components/Navbar/Navbar';
+import './appointments.css';
+import Footer from '../components/Footer/Footer';
+import Navbar from '../components/Navbar/Navbar';
 import { Modal, Button } from 'react-bootstrap';
 
 import { Link, useParams } from "react-router-dom";

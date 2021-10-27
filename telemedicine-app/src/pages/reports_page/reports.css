@@ -1,0 +1,33 @@
+.reports-container {
+  height: 100%
+}
+
+#reports th {
+  background-color: blue;
+  color: white;
+}
+
+.reports-table_header_left{
+  border-top-left-radius: 10px;
+}
+
+.reports-table_header_right{
+  border-top-right-radius: 10px;
+}
+
+.table_button{
+  background-color:cornflowerblue ;
+  border-radius: 5px;
+  width: 100%;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+.reports-row{
+  height: 85%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.reports-row::-webkit-scrollbar{
+  display: none;
+}

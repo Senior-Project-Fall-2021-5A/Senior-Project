@@ -13,7 +13,7 @@ import DoctorSearch from './pages/DoctorSearch';
 import ScheduleCalendar from './pages/ScheduleCalendar';
 import confirmSchedule from './pages/confirmSchedule';
 
-import Reports from './pages/reports';
+import Reports from './pages/reports_page/reports';
 import ReportDisplay from './pages/reportDisplay';
 
 

@@ -1,0 +1,15 @@
+.inbox-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.inbox-body-container {
+    height: 85%;
+    overflow-y: scroll;
+}
+
+.inbox-body-container::-webkit-scrollbar{
+    display: none;
+  }

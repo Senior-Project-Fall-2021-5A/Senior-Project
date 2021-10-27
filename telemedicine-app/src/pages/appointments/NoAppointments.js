@@ -1,7 +1,7 @@
 import React, { useState }  from 'react';
 import './appointments.css';
-import Footer from '../../components/Footer';
-import Navbar from '../../components/Navbar/Navbar';
+import Footer from '../components/Footer/Footer';
+import Navbar from '../components/Navbar/Navbar';
 
 
 import { Accordion, Card, Button } from 'react-bootstrap'

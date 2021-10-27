@@ -7,8 +7,8 @@ import {Link} from "react-router-dom";
 import {Card, Button} from 'react-bootstrap';
 
 
-import Navbar from '../../components/Navbar/Navbar';
-import Footer from '../../components/Footer';
+import Navbar from '../components/Navbar/Navbar';
+import Footer from '../components/Footer/Footer';
 
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
