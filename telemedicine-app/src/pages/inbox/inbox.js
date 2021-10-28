@@ -30,31 +30,31 @@ class Inbox extends React.Component {
                             <InboxAccordion
 
                                 // Avatar image
-                                from="John Doe"
+                                from="Karl Smith"
 
                                 // Put name here
-                                title="Subject"
+                                title="Lab Reports"
 
                                 // Date will go here
                                 date="10/11/2021"
 
                                 // Message will go here
-                                content="asl;djg wgjwogjwoiej wgowgjwlejfosjf  jowgnlwhfowigw eohwelgwjeohwoegw oegihjweofjwioefojfioshgowhg9owg wosdhowgnsbdojfops wlfjwemf  wlfjsorg wseoengshfsoeioweofjsojfomaofjsetegvnevweiopgosdjfosfjoegeifaljomasuksetejahlao  owgnwogosdhfis "
+                                content="(Random message, this is just a palce holder so the accordion can work. Nothing of importance here you can direct your eyes somewhere else. Nothing in here is of use or will help you on your journey. Have a great day. Goodbye.)"
 
                             />
                             <InboxAccordion
 
                                 // Avatar image
-                                from="John Doe"
+                                from="Star Lord"
 
                                 // Put name here
-                                title="Subject"
+                                title="Appointment"
 
                                 // Date will go here
                                 date="10/11/2021"
 
                                 // Message will go here
-                                content="asl;djg wgjwogjwoiej wgowgjwlejfosjf  jowgnlwhfowigw eohwelgwjeohwoegw oegihjweofjwioefojfioshgowhg9owg wosdhowgnsbdojfops wlfjwemf  wlfjsorg wseoengshfsoeioweofjsojfomaofjsetegvnevweiopgosdjfosfjoegeifaljomasuksetejahlao  owgnwogosdhfis "
+                                content="(Random message, this is just a palce holder so the accordion can work. Nothing of importance here you can direct your eyes somewhere else. Nothing in here is of use or will help you on your journey. Have a great day. Goodbye.)"
 
                             /><InboxAccordion
 
@@ -68,7 +68,7 @@ class Inbox extends React.Component {
                                 date="10/11/2021"
 
                                 // Message will go here
-                                content="asl;djg wgjwogjwoiej wgowgjwlejfosjf  jowgnlwhfowigw eohwelgwjeohwoegw oegihjweofjwioefojfioshgowhg9owg wosdhowgnsbdojfops wlfjwemf  wlfjsorg wseoengshfsoeioweofjsojfomaofjsetegvnevweiopgosdjfosfjoegeifaljomasuksetejahlao  owgnwogosdhfis "
+                                content="(Random message, this is just a palce holder so the accordion can work. Nothing of importance here you can direct your eyes somewhere else. Nothing in here is of use or will help you on your journey. Have a great day. Goodbye.)"
 
                             /><InboxAccordion
 
@@ -82,7 +82,7 @@ class Inbox extends React.Component {
                                 date="10/11/2021"
 
                                 // Message will go here
-                                content="asl;djg wgjwogjwoiej wgowgjwlejfosjf  jowgnlwhfowigw eohwelgwjeohwoegw oegihjweofjwioefojfioshgowhg9owg wosdhowgnsbdojfops wlfjwemf  wlfjsorg wseoengshfsoeioweofjsojfomaofjsetegvnevweiopgosdjfosfjoegeifaljomasuksetejahlao  owgnwogosdhfis "
+                                content="(Random message, this is just a palce holder so the accordion can work. Nothing of importance here you can direct your eyes somewhere else. Nothing in here is of use or will help you on your journey. Have a great day. Goodbye.) "
 
                             /><InboxAccordion
 
@@ -96,7 +96,7 @@ class Inbox extends React.Component {
                                 date="10/11/2021"
 
                                 // Message will go here
-                                content="asl;djg wgjwogjwoiej wgowgjwlejfosjf  jowgnlwhfowigw eohwelgwjeohwoegw oegihjweofjwioefojfioshgowhg9owg wosdhowgnsbdojfops wlfjwemf  wlfjsorg wseoengshfsoeioweofjsojfomaofjsetegvnevweiopgosdjfosfjoegeifaljomasuksetejahlao  owgnwogosdhfis "
+                                content="(Random message, this is just a palce holder so the accordion can work. Nothing of importance here you can direct your eyes somewhere else. Nothing in here is of use or will help you on your journey. Have a great day. Goodbye.)"
 
                             /><InboxAccordion
 
@@ -110,7 +110,7 @@ class Inbox extends React.Component {
                                 date="10/11/2021"
 
                                 // Message will go here
-                                content="asl;djg wgjwogjwoiej wgowgjwlejfosjf  jowgnlwhfowigw eohwelgwjeohwoegw oegihjweofjwioefojfioshgowhg9owg wosdhowgnsbdojfops wlfjwemf  wlfjsorg wseoengshfsoeioweofjsojfomaofjsetegvnevweiopgosdjfosfjoegeifaljomasuksetejahlao  owgnwogosdhfis "
+                                content="(Random message, this is just a palce holder so the accordion can work. Nothing of importance here you can direct your eyes somewhere else. Nothing in here is of use or will help you on your journey. Have a great day. Goodbye.)"
 
                             />
                             </div>
