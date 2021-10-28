@@ -44,7 +44,7 @@ class LoginLoading extends Component {
     }
   
     componentDidMount() {
-      this.id = setTimeout(() => this.setState({ redirect: true }), 3100)
+      this.id = setTimeout(() => this.setState({ redirect: true }), 2100)
     }
   
     componentWillUnmount() {
