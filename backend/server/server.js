@@ -34,6 +34,8 @@ app.get('/register', async (req, res) => {
     res.send('User Added!')
 })
 
+
+
 /* upload file
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
