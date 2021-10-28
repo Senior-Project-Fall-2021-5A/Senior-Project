@@ -1,8 +1,8 @@
-import React, { useState }  from 'react';
+import React, { useState, useEffect }  from 'react';
 import './appointments.css';
 import Footer from '../../components/Footer/Footer';
 import Navbar from '../../components/Navbar/Navbar';
-
+import Axios from 'axios'
 
 import { Accordion, Card, Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -15,17 +15,28 @@ import './Tabs.css';
 
 function NoAppointments() {
 
-  const [show, setShow] = useState(false);
+    const [listOfAppointments, setListOfAppointments] = useState([]);
+    const [show, setShow] = useState(false);
 
-  const handleOpen = () => {
+    const handleOpen = () => {
     setShow(!show); // Toggle accordion
-  };
+    };
 
-  const [toggleState, setToggleState] = useState(1);
+    const [toggleState, setToggleState] = useState(1);
 
-  const toggleTab = (index) => {
+    const toggleTab = (index) => {
     setToggleState(index);
-  };
+    };
+
+    useEffect(() => {
+        Axios.get('https://telemedicine5a-backend.herokuapp.com/appointments/getAppointments')
+        .then((response) => {
+            setListOfAppointments(response.data);
+        })
+        .catch((err) => {
+            console.log(err, "Unable to get appointments");
+        });
+    }, []);
 
    return (
 
@@ -63,7 +74,42 @@ function NoAppointments() {
                             >
                                 <h4>All Upcoming Appointments</h4>
                                 <hr />
-                               
+
+                                {listOfAppointments.map((appointment) => {
+                                    return (
+                                        <div className="accordion-container">
+
+                                        <div className="accordion">
+                  
+                                            <div className="accordion-header" onClick={handleOpen}>
+                                                <div className="date">{appointment.date}</div>
+                                                <div className="time">{appointment.time}</div>
+                                                <div className="subject">{appointment.type}</div>
+                                             
+                                                <div className="sign">{show ? '-' : '+'}</div>
+                                            </div>
+                                            {show && (
+                                                <div className="accordion-body">
+                                                <div className="note">Note:</div>
+                                                    <div className="doctor">{appointment.doctorName}</div>
+                                                    <div className="address">Address</div>
+                                                    <Link to='/client'>
+                                                        <button className="btnCall">Start Call</button>
+                                                    </Link>
+                                                    <div className="textarea-container">
+                                                        <textarea className="textarea-edit">
+                                                        </textarea>
+                                                    </div>
+                                                    <div className="doctor-notes">Doctor Notes</div>
+                                                    <div className="reschedule">Reschedule</div>
+                                                    <div className="cancel-appointment">Cancel Appointment</div>
+                             
+                                                </div>
+                                            )}
+                                        </div>
+                                     </div> 
+                                    );
+                                })}
                             </div>
 
                             <div

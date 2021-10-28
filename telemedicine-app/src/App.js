@@ -61,9 +61,6 @@ function App() {
           <Route path="/ScheduleCalendar/:doc/:type">
           <ScheduleCalendar/>
           </Route>
-          <Route path="/ConfirmSchedule/:doc/:type/:date/:time">
-          <confirmSchedule/>
-          </Route>
           <Route path="/" exact component={Login} /> 
           <Route path="/registration" component={Registration} />           
 
@@ -76,7 +73,7 @@ function App() {
           </Route>
 
          
-          <Route path='/ConfirmSchedule' component={ConfirmSchedule}/>
+          <Route path="/ConfirmSchedule/:doc/:type/:date/:time" component={ConfirmSchedule}/>
           <Route path="/" exact component={Login} /> 
           <Route path='/myaccount' component={MyAccount} />
 
