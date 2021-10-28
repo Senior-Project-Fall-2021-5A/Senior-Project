@@ -1,5 +1,5 @@
 const express = require('express');
-const cors = require('cors')
+var cors = require('cors')
 const connectDB = require('./dbConfig/db');
 const PORT = process.env.PORT || 3002;
 const app = express();
@@ -27,13 +27,14 @@ const InboxModel = require('./models/Inbox')
 connectDB();
 
 // Initialize middleware
+app.use(cors(corsOptions));
 app.use(express.json({ extended: false }));
 
-app.use('/auth', cors(corsOptions), require('./routes/auth'));
-app.use('/users', cors(corsOptions), require('./routes/user'));
-app.use('/appointments', cors(corsOptions), require('./routes/appointment'));
-app.use('/reports', cors(corsOptions), require('./routes/reports'));
-app.use('/inbox', cors(corsOptions), require('./routes/inbox'));
+app.use('/auth', require('./routes/auth'));
+app.use('/users', require('./routes/user'));
+app.use('/appointments', require('./routes/appointment'));
+app.use('/reports', require('./routes/reports'));
+app.use('/inbox', require('./routes/inbox'));
 
 // Test auth
 app.get('/register', async (req, res) => {
