@@ -3,18 +3,7 @@ var cors = require('cors')
 const connectDB = require('./dbConfig/db');
 const PORT = process.env.PORT || 3002;
 const app = express();
-const whiteList = ['http://localhost:3000', 'https://gracious-lichterman-6add6d.netlify.app']
-const corsOptions ={
-    origin: function (origin, callback) {
-        if (whiteList.indexOf(origin) !== -1) {
-          callback(null, true)
-        } else {
-          callback(new Error('Not allowed by CORS'))
-        }
-      },
-    credentials:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200,
- }
+
 
 // Import models for testing
 const UserModel = require('./models/User')
@@ -28,7 +17,6 @@ connectDB();
 
 // Initialize middleware
 app.use(cors());
-app.options('*', cors());
 app.use(express.json({ extended: false }));
 
 app.use('/auth', require('./routes/auth'));

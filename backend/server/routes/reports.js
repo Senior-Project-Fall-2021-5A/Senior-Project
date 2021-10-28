@@ -1,8 +1,10 @@
 const express = require('express')
 const router = express.Router();
-
+const cors = require('cors')
 const auth = require('../middleware/auth');
 const ReportsModel = require('../models/Reports')
+
+router.use(cors({origin: '*'}));
 
 router.get('/getReports', async (req, res) => {
     ReportsModel.find( {}, (err, result) => {

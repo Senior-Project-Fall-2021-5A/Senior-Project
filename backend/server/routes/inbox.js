@@ -1,8 +1,10 @@
 const express = require('express')
 const router = express.Router();
-
+const cors = require('cors')
 const auth = require('../middleware/auth');
 const InboxModel = require('../models/Inbox')
+
+router.use(cors({origin: '*'}));
 
 router.get('/getInbox', async (req, res) => {
     InboxModel.find( {}, (err, result) => {
