@@ -17,16 +17,15 @@ router.get('/getReports', async (req, res) => {
 });
 
 router.post('/addReport', async (req, res) => {
-    const doctor = req.body.doc;
+    const doctor = req.body.doctor;
     const date = req.body.date;
-    const report = req.body.report;
+    const details = req.body.details;
 
     const newReport = 
         new ReportsModel({ 
-            doctorName: doctor, 
+            doctor: doctor, 
             date: date,
-            report: report,
-            file: req.body.file,
+            details: report,
         });
     
     await newReport.save();
