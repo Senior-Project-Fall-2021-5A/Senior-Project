@@ -4,7 +4,7 @@ const connectDB = require('./dbConfig/db');
 const PORT = process.env.PORT || 3002;
 const app = express();
 const corsOptions ={
-    origin:'*', 
+    origin: 'http://localhost:3000', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200,
  }
@@ -20,9 +20,7 @@ const InboxModel = require('./models/Inbox')
 connectDB();
 
 // Initialize middleware
-app.use(cors({
-    origin: '*',
-}));
+app.use(cors(corsOptions));
 app.use(express.json({ extended: false }));
 
 app.use('/auth', require('./routes/auth'));
