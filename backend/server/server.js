@@ -19,7 +19,7 @@ app.use(express.json({ extended: false }));
 app.use('/auth', require('./routes/auth'));
 app.use('/users', require('./routes/user'));
 app.use('/appointments', require('./routes/appointment'));
-app.use('/reports', require('./routes/report'));
+app.use('/reports', require('./routes/reports'));
 app.use('/inbox', require('./routes/inbox'));
 
 // Test auth
