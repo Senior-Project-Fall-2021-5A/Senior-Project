@@ -5,7 +5,7 @@ const auth = require('../middleware/auth');
 const AppointmentModel = require('../models/Appointment')
 
 
-router.get('/getAppointments', auth, async (req, res) => {
+router.get('/getAppointments', async (req, res) => {
     AppointmentModel.find( {}, (err, result) => {
         if (err) {
             res.send(err);
@@ -15,7 +15,7 @@ router.get('/getAppointments', auth, async (req, res) => {
     });
 });
 
-router.post('/addAppointments', auth, async (req, res) => {
+router.post('/addAppointments', async (req, res) => {
     const doctor = req.body.doc;
     const type = req.body.type;
     const date = req.body.date;

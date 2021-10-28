@@ -4,7 +4,7 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const ReportsModel = require('../models/Reports')
 
-router.get('/getReports', auth, async (req, res) => {
+router.get('/getReports', async (req, res) => {
     ReportsModel.find( {}, (err, result) => {
         if (err) {
             res.send(err);
@@ -14,7 +14,7 @@ router.get('/getReports', auth, async (req, res) => {
     });
 });
 
-router.post('/addReport', auth, async (req, res) => {
+router.post('/addReport', async (req, res) => {
     const doctor = req.body.doc;
     const date = req.body.date;
     const report = req.body.report;

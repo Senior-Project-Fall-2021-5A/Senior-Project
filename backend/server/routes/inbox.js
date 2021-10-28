@@ -4,7 +4,7 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const InboxModel = require('../models/Inbox')
 
-router.get('/getInbox', auth, async (req, res) => {
+router.get('/getInbox', async (req, res) => {
     InboxModel.find( {}, (err, result) => {
         if (err) {
             res.send(err);
@@ -14,7 +14,7 @@ router.get('/getInbox', auth, async (req, res) => {
     });
 });
 
-router.post('/sendMessage', auth, async (req, res) => {
+router.post('/sendMessage', async (req, res) => {
     const recieverEmail = req.body.reciever;
     const date = req.body.date;
     const subject = req.body.subject;
