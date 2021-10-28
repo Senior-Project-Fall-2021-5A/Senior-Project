@@ -3,8 +3,15 @@ const cors = require('cors')
 const connectDB = require('./dbConfig/db');
 const PORT = process.env.PORT || 3002;
 const app = express();
+const whiteList = ['http://localhost:3000', 'https://gracious-lichterman-6add6d.netlify.app']
 const corsOptions ={
-    origin: 'https://gracious-lichterman-6add6d.netlify.app', 
+    origin: function (origin, callback) {
+        if (whiteList.indexOf(origin) !== -1) {
+          callback(null, true)
+        } else {
+          callback(new Error('Not allowed by CORS'))
+        }
+      },
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200,
  }
@@ -20,14 +27,13 @@ const InboxModel = require('./models/Inbox')
 connectDB();
 
 // Initialize middleware
-app.use(cors(corsOptions));
 app.use(express.json({ extended: false }));
 
-app.use('/auth', require('./routes/auth'));
-app.use('/users', require('./routes/user'));
-app.use('/appointments', require('./routes/appointment'));
-app.use('/reports', require('./routes/reports'));
-app.use('/inbox', require('./routes/inbox'));
+app.use('/auth', cors(corsOptions), require('./routes/auth'));
+app.use('/users', cors(corsOptions), require('./routes/user'));
+app.use('/appointments', cors(corsOptions), require('./routes/appointment'));
+app.use('/reports', cors(corsOptions), require('./routes/reports'));
+app.use('/inbox', cors(corsOptions), require('./routes/inbox'));
 
 // Test auth
 app.get('/register', async (req, res) => {
