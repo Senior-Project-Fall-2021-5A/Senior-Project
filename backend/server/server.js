@@ -30,7 +30,7 @@ app.get('/register', async (req, res) => {
         email: 'testuser@gmail.com',
         password: 'password',
     });
-    await user.save();
+    await newTestUser.save();
     res.send('User Added!')
 })
 
