@@ -20,14 +20,14 @@ router.post('/sendMessage', async (req, res) => {
     const recieverEmail = req.body.reciever;
     const date = req.body.date;
     const subject = req.body.subject;
-    const content = req.body.content;
+    const body = req.body.body;
 
     const newMessage = 
         new InboxModel({ 
             recieverEmail: recieverEmail, 
             date: date,
             subject: subject,
-            content: content,
+            body: body,
         });
 
 await newMessage.save();
