@@ -20,7 +20,7 @@ const InboxModel = require('./models/Inbox')
 connectDB();
 
 // Initialize middleware
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json({ extended: false }));
 
 app.use('/auth', require('./routes/auth'));
