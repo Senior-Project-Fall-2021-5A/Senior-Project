@@ -4,7 +4,7 @@ const connectDB = require('./dbConfig/db');
 const PORT = process.env.PORT || 3002;
 const app = express();
 const corsOptions ={
-    origin: 'http://localhost:3000', 
+    origin: 'https://gracious-lichterman-6add6d.netlify.app', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200,
  }
@@ -20,12 +20,7 @@ const InboxModel = require('./models/Inbox')
 connectDB();
 
 // Initialize middleware
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    next();
-});
+app.use(cors(corsOptions));
 app.use(express.json({ extended: false }));
 
 app.use('/auth', require('./routes/auth'));
