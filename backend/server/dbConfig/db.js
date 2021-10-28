@@ -4,10 +4,8 @@ const db = 'mongodb+srv://Admin:uMUAkKcITOdFYFLr@telemedicine0.3ifgy.mongodb.net
 const connectDB = async () => {
   try {
     await mongoose.connect(db, {
-      useCreateIndex: true,
       useUnifiedTopology: true,
-      useFindAndModify: false,
-      useNewUrlParser: true
+      useNewUrlParser: true,
     });
     console.log('MongoDB connection Successful');
   } catch (error) {
