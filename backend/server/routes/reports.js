@@ -30,3 +30,5 @@ router.post('/addReport', auth, async (req, res) => {
     await newReport.save();
     res.send("Added report!")
 });
+
+module.exports = router;
