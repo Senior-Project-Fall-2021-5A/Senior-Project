@@ -34,7 +34,7 @@ app.post('/register', async (req, res) => {
     res.send('User Added!')
 })
 
-/// upload file
+/* upload file
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads')
@@ -60,9 +60,10 @@ app.post('/upload', upload.array('file'), (req, res) => {
 app.get('/file', (req, res) => {
     file.find()
         .then((files) => {
-            return res.json({ status: 'OK', files});
+            return res.json({ status: 'OK', files });
         })
 });
+*/
 app.listen(PORT, () => { console.log('Connection SUCCESSFUL') });
 
 module.exports = app;
