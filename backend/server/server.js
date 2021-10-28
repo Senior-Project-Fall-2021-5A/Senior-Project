@@ -23,7 +23,7 @@ app.use('/reports', require('./routes/reports'));
 app.use('/inbox', require('./routes/inbox'));
 
 // Test auth
-app.post('/register', async (req, res) => {
+app.get('/register', async (req, res) => {
     
     const newTestUser = new UserModel({ 
         name: 'Test User',
