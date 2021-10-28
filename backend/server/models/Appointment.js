@@ -4,27 +4,31 @@ const AppointmentSchema = new mongoose.Schema({
     
     userUID: {
         type: mongoose.Schema.Types.ObjectId, ref: 'UserModel',
-        required: true,
+        required: false,
     },
-    doctorUID: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'DoctorDemoModel',
-        required: true,
+    doctorName: {
+        type: String,
+        required: false,
     },
-    date_time: {
+    date: {
         type: Date,
+        required: false,
+    },
+    time: {
+        type: String,
         required: false,
     },
     locationUID: {
         type: mongoose.Schema.Types.ObjectId, ref: 'LocationModel',
-        required: true,
+        required: false,
     },
     apptNotes: {
         type: String,
         required: false,
     },
-    isVirtual: {
-        type: Boolean,
-        required: true,
+    type: {
+        type: String,
+        required: false,
     },
     meetingLink: {
         type: String,
@@ -32,7 +36,7 @@ const AppointmentSchema = new mongoose.Schema({
     },
     isCurrent: {
         type: Boolean,
-        required: true,
+        required: false,
     },
 });
 
