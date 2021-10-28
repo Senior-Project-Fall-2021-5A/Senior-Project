@@ -6,7 +6,7 @@ const AppointmentModel = require('../models/Appointment')
 
 router.use(cors({origin: '*'}));
 
-router.get('/getAppointments/:userId', async (req, res) => {
+router.get('/getAppointments/', async (req, res) => {
     AppointmentModel.find( {}, (err, result) => {
         if (err) {
             res.send(err);
