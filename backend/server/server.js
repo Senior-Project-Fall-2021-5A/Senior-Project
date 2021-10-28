@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors')
 const connectDB = require('./dbConfig/db');
 const PORT = process.env.PORT || 3002;
 const app = express();
@@ -14,6 +15,7 @@ const InboxModel = require('./models/Inbox')
 connectDB();
 
 // Initialize middleware
+app.use(cors());
 app.use(express.json({ extended: false }));
 
 app.use('/auth', require('./routes/auth'));
