@@ -25,7 +25,7 @@ router.post('/addReport', async (req, res) => {
         new ReportsModel({ 
             doctor: doctor, 
             date: date,
-            details: report,
+            details: details,
         });
     
     await newReport.save();
