@@ -11,7 +11,7 @@ import "./Client.css"
 import '../appointments/appointments.css'
 
 
-const socket = io.connect('http://localhost:5000')
+const socket = io.connect('https://video-chat-telemedicine.herokuapp.com/')
 function Client() {
 	const [ me, setMe ] = useState("")
 	const [ stream, setStream ] = useState()
