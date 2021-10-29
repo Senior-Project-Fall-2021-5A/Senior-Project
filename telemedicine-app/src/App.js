@@ -30,13 +30,13 @@ import NoAppointments from './pages/appointments/NoAppointments';
 
 import MyAccount from './pages/MyAccount';
 
+import Client from './pages/VideoChat/Client';
 
 
 import { Fragment } from 'react';
 import Registration from './pages/Registration';
 import LoginLoading from './pages/loginloading';
 
-import Client from './pages/VideoChat/Client';
 
 
 function App() {
@@ -61,9 +61,6 @@ function App() {
           <Route path="/ScheduleCalendar/:doc/:type">
           <ScheduleCalendar/>
           </Route>
-          <Route path="/ConfirmSchedule/:doc/:type/:date/:time">
-          <confirmSchedule/>
-          </Route>
           <Route path="/" exact component={Login} /> 
           <Route path="/registration" component={Registration} />           
 
@@ -76,7 +73,7 @@ function App() {
           </Route>
 
          
-          <Route path='/ConfirmSchedule' component={ConfirmSchedule}/>
+          <Route path="/ConfirmSchedule/:doc/:type/:date/:time" component={ConfirmSchedule}/>
           <Route path="/" exact component={Login} /> 
           <Route path='/myaccount' component={MyAccount} />
 
@@ -84,6 +81,9 @@ function App() {
           <Route path='/reportDisplay' component={ReportDisplay}/>
           <Route path="/" exact component={Login} />   
 
+          <Route path='/inbox' component={Inbox} />   
+          
+          <Route path='/client' component={Client} />
           <Route path='/inbox' component={Inbox} />  
           <Route path='/ComposeMessage' component={ComposeMessage} />
 

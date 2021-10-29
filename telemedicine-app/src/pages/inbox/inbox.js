@@ -1,6 +1,6 @@
 import React from 'react'
 import "./inbox.css";
-
+import { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import 'ag-grid-community/dist/styles/ag-grid.css'
 import 'ag-grid-community/dist/styles/ag-theme-balham.css'
@@ -9,12 +9,39 @@ import Footer from '../../components/Footer/Footer';
 import Top from "../../components/inbox components/Top"
 import InboxAccordion from '../../components/inbox components/InboxAccordion'
 import { Link } from 'react-router-dom';
+import Axios from 'axios'
 
 
 
 
 class Inbox extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            listOfMessages: []
+        };
+    }
+    
+    componentDidMount() {
+        this.getMessages();
+    }
+
+
+    getMessages(){
+        Axios.get('https://telemedicine5a-backend.herokuapp.com/inbox/getInbox')
+        .then((response) => {
+            this.setState({listOfMessages: response})
+            console.log(this.state.listOfMessages)
+        })
+        .catch((err) => {
+            console.log(err, "Unable to get Messages");
+        });
+    }
+    
     render() {
+
         return (
 
             <div class="title">
@@ -26,94 +53,25 @@ class Inbox extends React.Component {
                             <Top />
                             {/* <AccordionCustom />  */}
                         <div className= 'inbox-body-container'>
-                        <div className="inbox-body">
-                            <InboxAccordion
-
-                                // Avatar image
-                                from="John Doe"
-
-                                // Put name here
-                                title="Subject"
-
-                                // Date will go here
-                                date="10/11/2021"
-
-                                // Message will go here
-                                content="asl;djg wgjwogjwoiej wgowgjwlejfosjf  jowgnlwhfowigw eohwelgwjeohwoegw oegihjweofjwioefojfioshgowhg9owg wosdhowgnsbdojfops wlfjwemf  wlfjsorg wseoengshfsoeioweofjsojfomaofjsetegvnevweiopgosdjfosfjoegeifaljomasuksetejahlao  owgnwogosdhfis "
-
-                            />
-                            <InboxAccordion
-
-                                // Avatar image
-                                from="John Doe"
-
-                                // Put name here
-                                title="Subject"
-
-                                // Date will go here
-                                date="10/11/2021"
-
-                                // Message will go here
-                                content="asl;djg wgjwogjwoiej wgowgjwlejfosjf  jowgnlwhfowigw eohwelgwjeohwoegw oegihjweofjwioefojfioshgowhg9owg wosdhowgnsbdojfops wlfjwemf  wlfjsorg wseoengshfsoeioweofjsojfomaofjsetegvnevweiopgosdjfosfjoegeifaljomasuksetejahlao  owgnwogosdhfis "
-
-                            /><InboxAccordion
-
-                                // Avatar image
-                                from="John Doe"
-
-                                // Put name here
-                                title="Subject"
-
-                                // Date will go here
-                                date="10/11/2021"
-
-                                // Message will go here
-                                content="asl;djg wgjwogjwoiej wgowgjwlejfosjf  jowgnlwhfowigw eohwelgwjeohwoegw oegihjweofjwioefojfioshgowhg9owg wosdhowgnsbdojfops wlfjwemf  wlfjsorg wseoengshfsoeioweofjsojfomaofjsetegvnevweiopgosdjfosfjoegeifaljomasuksetejahlao  owgnwogosdhfis "
-
-                            /><InboxAccordion
-
-                                // Avatar image
-                                from="John Doe"
-
-                                // Put name here
-                                title="Subject"
-
-                                // Date will go here
-                                date="10/11/2021"
-
-                                // Message will go here
-                                content="asl;djg wgjwogjwoiej wgowgjwlejfosjf  jowgnlwhfowigw eohwelgwjeohwoegw oegihjweofjwioefojfioshgowhg9owg wosdhowgnsbdojfops wlfjwemf  wlfjsorg wseoengshfsoeioweofjsojfomaofjsetegvnevweiopgosdjfosfjoegeifaljomasuksetejahlao  owgnwogosdhfis "
-
-                            /><InboxAccordion
-
-                                // Avatar image
-                                from="John Doe"
-
-                                // Put name here
-                                title="Subject"
-
-                                // Date will go here
-                                date="10/11/2021"
-
-                                // Message will go here
-                                content="asl;djg wgjwogjwoiej wgowgjwlejfosjf  jowgnlwhfowigw eohwelgwjeohwoegw oegihjweofjwioefojfioshgowhg9owg wosdhowgnsbdojfops wlfjwemf  wlfjsorg wseoengshfsoeioweofjsojfomaofjsetegvnevweiopgosdjfosfjoegeifaljomasuksetejahlao  owgnwogosdhfis "
-
-                            /><InboxAccordion
-
-                                // Avatar image
-                                from="John Doe"
-
-                                // Put name here
-                                title="Subject"
-
-                                // Date will go here
-                                date="10/11/2021"
-
-                                // Message will go here
-                                content="asl;djg wgjwogjwoiej wgowgjwlejfosjf  jowgnlwhfowigw eohwelgwjeohwoegw oegihjweofjwioefojfioshgowhg9owg wosdhowgnsbdojfops wlfjwemf  wlfjsorg wseoengshfsoeioweofjsojfomaofjsetegvnevweiopgosdjfosfjoegeifaljomasuksetejahlao  owgnwogosdhfis "
-
-                            />
-                            </div>
+                        {Object.values(this.state.listOfMessages).map(Message => {
+                                <div className="inbox-body">
+                                    <InboxAccordion
+    
+                                        // Avatar image
+                                        from={Message.recieverEmail}
+    
+                                        // Put name here
+                                        title={Message.subject}
+    
+                                        // Date will go here
+                                        date={Message.date}
+    
+                                        // Message will go here
+                                        content={Message.body}
+    
+                                    />
+                                </div>
+                            })}   
                             </div>
 
                             {/* <Accordion /> */}

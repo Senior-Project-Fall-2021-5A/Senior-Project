@@ -3,6 +3,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './Calendar.css';
 import moment from 'moment'
+
 import Footer from '../../components/Footer/Footer';
 import Navbar from '../../components/Navbar/Navbar';
 import '../appointments/appointments.css';

@@ -1,0 +1,25 @@
+.adminapts-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 6fr;
+    gap: 5px;    
+    grid-template-areas: 
+    "adminapts-header"
+    "adminapts-table"   
+}
+
+.adminapts-header {
+    grid-area: adminapts-header;
+    grid-row: 1;
+    grid-column: 1;
+}
+
+.adminapts-table {
+    padding: 30px;
+    grid-area: adminapts-table;
+    grid-row: 2;
+    grid-column: 1;
+}
+
+
+
