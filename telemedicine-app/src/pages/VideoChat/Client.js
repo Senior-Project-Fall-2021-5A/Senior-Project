@@ -108,7 +108,7 @@ function Client() {
 					</div>
 					<div className="video">
 						{callAccepted && !callEnded ?
-						<video playsInline ref={userVideo} autoPlay style={{ width: "450px"}} />:
+						<video playsInline ref={userVideo} autoPlay style={{ width: "300px"}} />:
 						null}
 					</div>
 				</div>
