@@ -5,17 +5,7 @@ import Canvas from "../../components/Canvas"
 
 import './AdminPage.css'
 import AdminApts from "./AdminApts/AdminApts"
-//<AdminSchedule/>
-
-/*
-<div className='page-canvas-outer'>
-                    <div className='page-canvas-inner'>
-                        <div className='canvas'>
-</div>
-                    </div>
-                </div>
-
-*/
+// Test
 
 function AdminPage() {
     return (
