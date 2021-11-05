@@ -55,7 +55,7 @@ const AdminAptsTable = ({  }) => {
                             <td style={styleTD}>{type}</td>
                             <td style={styleTD}>
                                 <ObjLink
-                                    doLink = {Boolean} false                                    
+                                    doLink = "false"                                    
                                     text="Add"
                                     onClick={e => noteClick(e)}
                                 />
@@ -70,7 +70,7 @@ const AdminAptsTable = ({  }) => {
                             </td>
                             <td style={styleTD}>
                                 <ObjLink
-                                    doLink= {Boolean} false                                    
+                                    doLink= "false"                                   
                                     text="Call"
                                     onClick={e=>handleCall(e)}
                                 />

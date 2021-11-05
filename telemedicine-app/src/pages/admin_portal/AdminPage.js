@@ -11,8 +11,7 @@ import AdminApts from "./AdminApts/AdminApts"
 function AdminPage() {
     return (
         <div>
-            <Navbar/>
-                <Canvas>                
+            <Canvas>                
                     <div className='adminpage-container'>
                         <div className='adminpage-schedule-frame'>
                             <AdminSchedule/>
@@ -22,7 +21,6 @@ function AdminPage() {
                         </div>
                     </div>
                 </Canvas>
-            <Footer/>
             
         </div>
     )

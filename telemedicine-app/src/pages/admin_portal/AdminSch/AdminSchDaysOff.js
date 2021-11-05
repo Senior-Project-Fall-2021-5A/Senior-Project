@@ -1,5 +1,6 @@
 import React from 'react'
 import ObjCheckBox from '../../../components/Objects/ObjCheckBox'
+import Axios from 'axios';
 
 const AdminSchDaysOff = () => {
     //declarations
@@ -11,6 +12,16 @@ const AdminSchDaysOff = () => {
     const [checkedSat, setCheckedSat] = React.useState(false);
     const [checkedSun, setCheckedSun] = React.useState(false);
 
+    /*const initDayCBoxs = () => {
+        Axios.get('https://telemedicine5a-backend.herokuapp.com/reports/getReports')
+            .then((response) => {
+                console.log(response);
+                //setListOfReports(response.data);
+            })
+            .catch((err) => {
+                console.log(err, "Unable to get Reports");
+            });
+    };*/
 
     const handleDayCBChange = (event) => {
         console.log("event:",event);
