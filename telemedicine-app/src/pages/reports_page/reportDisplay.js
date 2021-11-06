@@ -62,23 +62,27 @@ const ReportDisplay = () => {
     return (
         <div class="title"> 
             <Canvas>
+                <h1>Result Details</h1>
+                <p> 
+                    {sDetails} <br/>
+                    Uploaded on: {dtDateTimeApt.toLocaleDateString()} @ {dtDateTimeApt.toLocaleTimeString()}<br/>
+                </p>
                 <div>
-                    <h1>
-                        Result Details
-                    </h1>
-                    <p> {sDetails} </p>
-                    <div>
-                        <ObjLink 
-                            doLink = "false"
-                            text = "View PDF"
-                            onClick = {e=>loadPDF(e, `${fPDF}`)}
-                            data = {reports}
-                        />
-                        </div>
-                    <p>
-                        {rLocation.name}
-                    </p>
-                </div>
+                    <ObjLink 
+                        doLink = "false"
+                        text = "View PDF"
+                        onClick = {e=>loadPDF(e, `${fPDF}`)}
+                        data = {reports}
+                        btnWidth = '125px'
+                    /></div>
+                <h2>General Information</h2>
+                <p>
+                    {sDoctor}<br/>
+                    {rLocation.name}<br/>
+                    {rLocation.address1}<br/>
+                    {rLocation.address2}<br/>
+                    {rLocation.city}, {rLocation.state} {rLocation.zip}<br/>
+                </p>                
             </Canvas>
         </div>        
     )  
