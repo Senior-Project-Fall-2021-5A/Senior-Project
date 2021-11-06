@@ -10,7 +10,7 @@ const ObjLink = ({ linkInfo, text, onClick, doNewWindow, doLink, data, btnHeight
     doNewWindow = (doNewWindow === "true");
     const doBtnHeight = (btnHeight != null);
     const doBtnWidth = (btnWidth != null);
-    console.log("doLink:",doLink,"doNewWindow",doNewWindow, "doBtnHeight:", doBtnHeight, "doBtnWidth:", doBtnWidth);
+    //console.log("doLink:",doLink,"doNewWindow",doNewWindow, "doBtnHeight:", doBtnHeight, "doBtnWidth:", doBtnWidth);
     
     
     // Turn data into a string to pass to another page (see report.js to reportDisplay.js for structure)
