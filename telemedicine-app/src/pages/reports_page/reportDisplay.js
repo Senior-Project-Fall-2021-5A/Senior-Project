@@ -27,9 +27,10 @@ const ReportDisplay = () => {
     const [sDoctor, setDoctor] = React.useState(reports.doctor);
     console.log("_id:",sReportID,"doctor:",sDoctor);
 
-    // Data from DB
-    //      Function: This will load data from the Report
-    // {Axios goes here}
+    // Data from Backend
+    //  Given:  sReportID
+    //  Need:   Use Temp section to setup the data collection. 
+    //  {Axios goes here}
 
     //***** TEMP to fill Page ***** */
     const dbReport = {
@@ -51,10 +52,11 @@ const ReportDisplay = () => {
     const [dtDateTimeApt, setDateTimeApt] = React.useState(dbReport.date_time);
     const [rLocation, setLocation] = React.useState(dbReport.location);
     const [fPDF, setPDF] = React.useState(dbReport.pdf);
-    console.log("sDetails: ", sDetails, "dtDateTimeApt:", dtDateTimeApt,"rLocation: ",rLocation, "fPDF: ", fPDF);
+    //console.log("sDetails: ", sDetails, "dtDateTimeApt:", dtDateTimeApt,"rLocation: ",rLocation, "fPDF: ", fPDF);
 
+    //This will load PDF into a new window. 
     const loadPDF = (event, fPDF) => {
-        console.log("event: ", event, "fPDF: ",fPDF);
+        //console.log("event: ", event, "fPDF: ",fPDF);
         window.open(fPDF);
     }
     
