@@ -9,27 +9,33 @@ const ObjLink = ({ linkInfo, text, onClick, doNewWindow, doLink, data }) => {
     doLink = (doLink === "true");
     //console.log("linkInfo:",linkInfo,"doLink",doLink, "data:", data);
     
+    
     // Turn data into a string to pass to another page (see report.js to reportDisplay.js for structure)
     const dataString = JSON.stringify(data);    
     //console.log("dataString", dataString);
     
-    
-    return (
-        <Link 
-            to = {doLink ? {
-                pathname: `${linkInfo}`,
-                state: {
-                    data: `${dataString}`,
-                }
-            } : window.location.pathname}
-            target={doNewWindow ? '_blank' : '_self'}
-        >
-            <ObjButton                
+    if (doLink) {
+        return (
+            <Link
+                to = {{
+                    pathname: `${linkInfo}`,
+                    state: { data: `${dataString}`},
+                }}
+            >
+                <ObjButton
+                    text={text}
+                    onClick={onClick}
+                />
+            </Link>
+        )
+    } else {
+        return(
+            <ObjButton
                 text={text}
                 onClick={onClick}
             />
-        </Link>
-    )
+        )
+    }
 }
 
 ObjLink.defaultProps = {
