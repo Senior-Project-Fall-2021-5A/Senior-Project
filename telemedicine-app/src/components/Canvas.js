@@ -10,7 +10,9 @@ const Canvas = ( props ) => {
                 <div className='page-canvas-outer'>
                     <div className='page-canvas-inner'>
                         <div className='canvas'>
+                        <div className='canvas-container'>
                             { props.children }
+                        </div>
                         </div>
                     </div>
                 </div>
