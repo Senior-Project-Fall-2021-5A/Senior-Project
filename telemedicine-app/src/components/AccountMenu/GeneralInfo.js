@@ -1,23 +1,54 @@
 
 import {Form, Button} from 'react-bootstrap';
 import './GeneralInfo.css'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import Axios from 'axios';
+import { UserComponentFactory } from 'ag-grid-community';
 
 
 
 function GeneralInfo() {
+    const post = {
+        firstName: "Steven",
+        lastName: "Wallace",
+        email: "stevenjr@yahoo.com",
+        phone: "229-394-1967",
+        address: "497 Lockheed Way, Marietta, GA 30060",
+        userID: "*****3946"
+    }
+
+    
+    const [firstName,setfirstName] = React.useState(post.firstName);
+    const [email,setEmail] = React.useState(post.email);
+    const [lastName,setlastName] = React.useState(post.lastName);
+    const [phone,setPhone] = React.useState(post.phone);
+    const [address,setAddress] = React.useState(post.address);
+    const [userID,setuserID] = React.useState(post.userID);
+
+    React.useEffect(() => 
+    {
+        Axios.get('https://telemedicine5a-backend.herokuapp.com/reports/getReports')
+            .then(response => 
+            {
+                setfirstName(response.data);
+                setEmail(response.data);
+                setlastName(response.data);
+                setAddress(response.data);
+                setPhone(response.data);
+                setuserID(response.data);
+            });
+    },[]);
     return (
-        
         <Form className='general-info-form'>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Text className="text-muted" style={{fontSize:'25px'}}>
-                    <p style={{paddingRight:"10px"}}>USER'S FIRST </p> <p>USER'S LAST</p> <h4 className= 'UserID'>User ID: ******3454</h4>
+                    <p style={{paddingRight:"10px"}}>{post.firstName} </p> <p>{post.lastName}</p> <h4 className= 'UserID'>User ID: {[post.userID]}</h4>
                 </Form.Text>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label style={{color:'black'}}>Current e-mail address: </Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
+                <Form.Label style={{color:'black'}}>Current e-mail address: {post.email}</Form.Label>
+                <Form.Control type="email" placeholder="Email" />
                 <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
                 </Form.Text>
@@ -35,7 +66,7 @@ function GeneralInfo() {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicAddress">
-                <Form.Label style={{color:'black'}}>Current address: </Form.Label>
+                <Form.Label style={{color:'black'}}>Current address: {post.address}</Form.Label>
                 <Form.Control type="address1" placeholder="Address 1" />
                 <Form.Control type="address2" placeholder="Address 2" />
                 <Form.Control type="city" placeholder="City" />
