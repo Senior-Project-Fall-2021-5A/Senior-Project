@@ -6,7 +6,7 @@ const FileModel = require ('../models/file')
 
 router.use(cors({origin: '*'}));
 
-router.get('/getFile', async (req, res) => {
+router.get('/getFiles', async (req, res) => {
     FileModel.find( {}, (err, result) => {
         if (err) {
             res.send(err);
@@ -16,7 +16,16 @@ router.get('/getFile', async (req, res) => {
     });
 });
 
-router.post("/uploadFile",upload.single('file'), async (req, res) => {
+router.get('/getFiles/:id', function (req, res) {
+    FileModel.findById(req.params.id)
+    .then(file => {
+        if (!file) { return res.send("No Message for User")}
+        return res.status(200).json(file);
+    })
+    .catch(err => next(err));
+});
+
+router.post("/uploadFiles",upload.single('file'), async (req, res) => {
     /*
     if (req.file === undefined) return res.send("you must select a file.");
     return res.send('file upload'); 

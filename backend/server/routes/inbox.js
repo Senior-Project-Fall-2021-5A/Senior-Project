@@ -5,6 +5,14 @@ const auth = require('../middleware/auth');
 const InboxModel = require('../models/Inbox')
 
 router.use(cors({origin: '*'}));
+router.get('/getInbox/:id', function (req, res) {
+    InboxModel.findById(req.params.id)
+    .then(inbox => {
+        if (!inbox) { return res.send("No Message for User")}
+        return res.status(200).json(inbox);
+    })
+    .catch(err => next(err));
+});
 
 router.get('/getInbox', async (req, res) => {
     InboxModel.find( {}, (err, result) => {
@@ -12,7 +20,7 @@ router.get('/getInbox', async (req, res) => {
             res.send(err);
         } else {
             res.send(result);
-        } 
+        }
     });
 });
 

@@ -3,24 +3,24 @@ const mongoose = require('mongoose');
 const AppointmentSchema = new mongoose.Schema({
     
     userUID: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'UserModel',
-        required: false,
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
     },
-    doctorName: {
-        type: String,
-        required: false,
+    doctorUID: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
     },
     date: {
         type: Date,
-        required: false,
+        required: true,
     },
     time: {
         type: String,
-        required: false,
+        required: true,
     },
     locationUID: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'LocationModel',
-        required: false,
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
     },
     apptNotes: {
         type: String,
@@ -28,15 +28,11 @@ const AppointmentSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        required: false,
-    },
-    meetingLink: {
-        type: String,
-        required: false,
+        required: true,
     },
     isCurrent: {
         type: Boolean,
-        required: false,
+        required: true,
     },
 });
 

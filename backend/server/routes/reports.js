@@ -16,6 +16,15 @@ router.get('/getReports', async (req, res) => {
     });
 });
 
+router.get('/getReports/:id', function (req, res) {
+    ReportsModel.findById(req.params.id)
+    .then(report => {
+        if (!report) { return res.send("No Report for User")}
+        return res.status(200).json(report);
+    })
+    .catch(err => next(err));
+});
+
 router.post('/addReport', async (req, res) => {
     const doctor = req.body.doctor;
     const date = req.body.date;
