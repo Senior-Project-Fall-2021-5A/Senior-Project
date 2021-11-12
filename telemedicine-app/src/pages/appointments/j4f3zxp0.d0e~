@@ -7,27 +7,16 @@ import {Link, useParams} from "react-router-dom";
 const ConfirmSchedule = () => {
 
     const { doc, type, date, time } = useParams();
-
     const submitAppointment = () => {
-        let result = fetch('https://webhook.site/5c85695d-2881-48ee-9929-4729562fe417', {
-            method: 'post',
-            mode: 'no-cors',
-            headers: {
-                'Accept': 'application/json',
-                'Content-type': 'application/json',
-			},
-            body: JSON.stringify({
-                doctorName: doc,
-                type: type,
-                date: date,
-                time, time
-			})
+        Axios.post('https://telemedicine5a-backend.herokuapp.com/appointments/addAppointments', {
+        doctorName: doc,
+        type: type,
+        date: date,
+        time: time,
+        }).then((response) => {
+            console.log(response)
         });
-
-        console.log('Result: ' + result)
     }
-
-    
 
     return (
     <div className='appointments'>
@@ -49,6 +38,16 @@ const ConfirmSchedule = () => {
                 <Link to={`/DoctorSearch`}>
                     <button type="button" class="btn btn-primary">Start Over</button>
                 </Link>
+
+                <ObjLink
+                    linkInfo = '/reportDisplay'
+                    text = "View"
+                    doLink = "true"
+                    data = {{
+                        doctor: report.doctor, 
+                        _id: report._id,
+                    }}
+                />
 
             </div>
             

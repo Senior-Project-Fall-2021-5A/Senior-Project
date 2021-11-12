@@ -18,6 +18,9 @@ function NoAppointments() {
     const [listOfAppointments, setListOfAppointments] = useState([]);
     const [show, setShow] = useState(false);
 
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [items, setItems] = useState([]);
+
     const handleOpen = () => {
     setShow(!show); // Toggle accordion
     };
@@ -29,13 +32,14 @@ function NoAppointments() {
     };
 
     useEffect(() => {
-        Axios.get('https://telemedicine5a-backend.herokuapp.com/appointments/getAppointments')
-        .then((response) => {
-            setListOfAppointments(response.data);
-        })
-        .catch((err) => {
-            console.log(err, "Unable to get appointments");
-        });
+       fetch('https://jsonplaceholder.typicode.com/users')
+          .then(res => res.json())
+          .then(json => {
+             
+                setIsLoaded(true);
+                setItems(json);
+			 
+		  })
     }, []);
 
    return (
@@ -75,11 +79,11 @@ function NoAppointments() {
                                 <h4>All Upcoming Appointments</h4>
                                 <hr />
 
-                                {listOfAppointments.map((appointment) => {
+                                {items.map((appointment) => {
                                     return (
                                         <div className="accordion-container">
 
-                                        <div className="accordion">
+                                        <div className="accordion1">
                   
                                             <div className="accordion-header" onClick={handleOpen}>
                                                 <div className="date">{appointment.date}</div>
@@ -120,7 +124,7 @@ function NoAppointments() {
 
                                 <div className="accordion-container">
 
-                                    <div className="accordion">
+                                    <div className="accordion1">
               
                                         <div className="accordion-header" onClick={handleOpen}>
                                             <div className="date">September 5th 2021</div>
