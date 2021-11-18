@@ -2,17 +2,13 @@ const mongoose = require('mongoose');
 
 const DoctorDemoSchema = new mongoose.Schema({
 
-    demoUID: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'UserDemoModel',
+    doctorUID: {
+        type: mongoose.Schema.Types.ObjectId,
         required: true, 
     },
     fieldOfStudy: {
         type: String,
         required: false,
-    },
-    doctorID: {
-        type: String,
-        required: true,
     },
 });
 
