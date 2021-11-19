@@ -2,11 +2,17 @@ const express = require('express');
 const router = express.Router();
 const cors = require('cors');
 const LocationModel = require('../models/Location');
+var ObjectID = require('mongodb').ObjectId;
 
 router.use(cors({origin: '*'}));
 
-router.get('/getLocation/:id', function (req, res) {
-    LocationModel.findById(req.params.id)
+router.get('/getLocation/:userId', function (req, res) {
+    LocationModel.find({
+        $or: [
+            { userUID: req.params.userId },
+            { doctorUID: req.params.userId }
+        ]
+    })
     .then(location => {
         if (!location) { return res.send("Invalid Location ID")}
         return res.status(200).json(location);
@@ -31,6 +37,11 @@ router.post('/addLocation', async (req, res) => {
     const city = req.body.city;
     const state = req.body.state;
     const zip = req.body.zip;
+
+    // Turn string input into ObjectIDs
+    const userObjId = new ObjectID(userUID);
+    const doctorObjId = new ObjectID(doctorUID);
+    const locationObjId = new ObjectID(locationUID);
 
     const newMessage = 
         new LocationModel({ 
