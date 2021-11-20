@@ -70,6 +70,7 @@ const Reports = () =>{
                                                 linkInfo = '/reportDisplay'
                                                 text = "View"
                                                 doLink = "true"
+                                                btnWidth = "100px"
                                                 data = {{
                                                     doctor: report.doctor, 
                                                     _id: report._id,
