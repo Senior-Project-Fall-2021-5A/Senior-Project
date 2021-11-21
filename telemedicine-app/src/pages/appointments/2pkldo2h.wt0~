@@ -51,17 +51,17 @@ function NoAppointments() {
 
     
     
-        setRotateState(setActive === "active" ? "accordion__icon" : "accordion__icon rotate");
+    setRotateState(
+      setActive === "active" ? "accordion__icon" : "accordion__icon rotate"
+    );
 
-        setActiveState(setActive === "" ? "active" : "");
-
-        if(toggled === index){
+    setActiveState(setActive === "" ? "active" : "");
+    if(toggled === index){
    
-          return setToggled(null);
-        }
+      return setToggled(null);
+    }
     
-        setToggled(index);
-       
+    setToggled(index);
     }
 
     function toggleAccordion2() {
@@ -122,14 +122,14 @@ function NoAppointments() {
 
                                         <div className="accordion1">
                     
-                                            <div className="accordion-header" onClick={() => toggleAccordion(index)} key={index}>
+                                            <div className={`accordion ${setActive}`} onClick={() => toggleAccordion(index)} key={index}>
                                                 <div className="date">{appointment.date}</div>
                                                 <div className="time">{appointment.time}</div>
                                                 <div className="subject">{appointment.type}</div>
                                              
                                                 <div>
-                                               
-                                                <div className="sign">{toggled === index ? 'X' : '|||'}</div>
+                                                <Chevron className={`${setRotate}`} width={10} fill={"#777"}/>
+                                                <div className="sign">{toggled === index ? '-' : '+'}</div>
                                                 </div>
                                                 
                                             </div>

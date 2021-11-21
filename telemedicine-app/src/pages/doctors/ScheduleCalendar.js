@@ -35,7 +35,6 @@ const ScheduleCalendar = () => {
               <div className='Appointments-card'>
              
                   <Calendar className="calendar-container"
-        
                     value={dateState}
                     onChange={changeDate}
                   />

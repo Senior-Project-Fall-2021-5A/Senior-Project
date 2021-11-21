@@ -37,6 +37,8 @@ import { Fragment } from 'react';
 import Registration from './pages/Registration';
 import LoginLoading from './pages/loginloading';
 
+import Chevron from './components/inbox components/Chevron.js'
+
 
 
 function App() {
@@ -91,6 +93,8 @@ function App() {
           <Route path='/inbox' component={Inbox} />   
           
           <Route path='/client' component={Client} />
+
+          <Route path='/chevron' component={Chevron} />
 
 
         </Switch>

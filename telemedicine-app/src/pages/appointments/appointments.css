@@ -217,6 +217,56 @@
   
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.accordion__icon {
+    margin-left: auto;
+    transition: transform 0.6s ease;
+}
+
+/* Style to rotate icon when state is active */
+.rotate {
+    transform: rotate(90deg);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media only screen and (max-width: 1000px) {
 
     .textarea-edit {
@@ -286,5 +336,20 @@
         margin-top: 35vh;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

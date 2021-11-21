@@ -9,9 +9,9 @@ const ConfirmSchedule = () => {
     const { doc, type, date, time } = useParams();
 
     const submitAppointment = () => {
-        let result = fetch('https://webhook.site/5c85695d-2881-48ee-9929-4729562fe417', {
+        let result = fetch('http://localhost:4000/newAppoint', {
             method: 'post',
-            mode: 'no-cors',
+            mode: 'cors',
             headers: {
                 'Accept': 'application/json',
                 'Content-type': 'application/json',
