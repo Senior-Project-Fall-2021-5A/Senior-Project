@@ -27,15 +27,15 @@ function GeneralInfo() {
 
     React.useEffect(() => 
     {
-        Axios.get('https://telemedicine5a-backend.herokuapp.com/reports/getReports')
+        Axios.get('https://telemedicine5a-backend.herokuapp.com/account/getAccount')
             .then(response => 
             {
-                setfirstName(response.data);
-                setEmail(response.data);
-                setlastName(response.data);
-                setAddress(response.data);
-                setPhone(response.data);
-                setuserID(response.data);
+                setfirstName(response.data.firstName);
+                setEmail(response.data.email);
+                setlastName(response.data.lastName);
+                setAddress(response.data.address);
+                setPhone(response.data.phone);
+                setuserID(response.data.userID);
             });
     },[]);
     return (
@@ -55,7 +55,7 @@ function GeneralInfo() {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label style={{color:'black'}}>Current Phone Number: </Form.Label>
+                <Form.Label style={{color:'black'}}>Current Phone Number: {post.phone}</Form.Label>
                 <Form.Control type="phone" placeholder="Change Phone Number" />
             </Form.Group>
 
