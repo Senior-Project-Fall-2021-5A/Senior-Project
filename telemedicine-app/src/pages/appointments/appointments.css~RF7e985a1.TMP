@@ -107,6 +107,12 @@
     align-items: center;
 }
 
+.accordion-container {
+
+    margin-top: 0px;
+
+}
+
 .subject {
 
     margin: auto;
@@ -140,7 +146,6 @@
     font-weight: 600;
     font-size: 18px;
     padding-top: 1vh;
-    
 
 }
 
@@ -153,14 +158,22 @@
 
 }
 
+.textarea-container {
+
+    margin-top: 0px;
+
+}
+
 .textarea-edit {
 
     height: 15vh;
     width: calc(58% + 2px);
+    margin-right: -26vw;
+    margin-top: -6vh;
     border-radius: 10px;
     border: 1px solid #000; 
     position: relative;
-    display: flex;
+    display: inline-block;
     margin: auto;
 
 }
