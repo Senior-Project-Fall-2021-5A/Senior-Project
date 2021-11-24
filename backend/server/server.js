@@ -48,6 +48,7 @@ app.use('/reports', require('./routes/reports'));
 app.use('/inbox', require('./routes/inbox'));
 app.use('/file', require('./routes/file'));
 app.use('/location', require('./routes/location'));
+app.use('/doctors', require('./routes/doctorDemographics'));
 
 // Test auth
 app.get('/register', async (req, res) => {

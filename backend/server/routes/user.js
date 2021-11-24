@@ -9,6 +9,8 @@ var ObjectID = require('mongodb').ObjectId;
 
 const User = require('../models/User');
 const UserDemoModel = require('../models/UserDemographics');
+const DoctorDemoModel = require('../models/DoctorDemographics');
+const { route } = require('./appointment');
 
 router.use(cors({origin: '*'}));
 
@@ -156,6 +158,46 @@ router.post('/updateUserInfo/:userId', async (req, res) => {
           res.status(200).json(result);
         }
     })
-})
+});
+
+router.get('/searchUsers/:firstName/:lastName', async (req, res) => {
+  UserDemoModel.find({
+    $and: [
+      { firstName: req.params.firstName },
+      { lastName: req.params.lastName }
+    ]
+  }, ['userUID', 'firstName', 'lastName'])
+  .then(listOfUserIDs => {
+    if (listOfUserIDs.length === 0) { return res.send("No user under that name")}
+    return res.status(200).json(listOfUserIDs);
+  })
+  .catch(err => next(err));
+});
+
+router.get('/approvedDoctors/:userId', async (req, res) => {
+  /* UserDemoModel.find({userUID: req.params.userId}, ['fieldOfStudy'])
+    .then(approvedDoctors => {
+      if (approvedDoctors.length === 0) { return res.send("No approved doctors for user")}
+      const fieldOfStudy = Object.values(approvedDoctors);
+      console.log(fieldOfStudy)
+      DoctorDemoModel.find({fieldOfStudy: fieldOfStudy}, ['doctorUID'])
+        .then(approveDoctorList => {
+          if (approveDoctorList.length === 0) { return res.send("Invalid field of study")}
+          return res.status(200).json(approveDoctorList);
+        })
+        .catch(err => next(err));
+    }) */
+
+  let approvedDoctors = await UserDemoModel.find({userUID: req.params.userId}, {_id: 0, approvedDoctors: 1})
+  if (!approvedDoctors) { return res.send("No approved doctors for user")}
+  let fieldOfStudy = []
+  for (let i = 0; i < approvedDoctors.length; i++) {
+    fieldOfStudy.push(approvedDoctors.approvedDoctors[i])
+  }
+  console.log(fieldOfStudy)
+  let approvedDoctorList = await DoctorDemoModel.find({fieldOfStudy: fieldOfStudy}, {_id: 0, doctorUID: 1})
+  if (!approvedDoctorList) { return res.send("Invalid field of study")}
+  return res.status(200).json(approvedDoctorList)
+});
 
 module.exports = router;
