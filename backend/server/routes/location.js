@@ -38,11 +38,6 @@ router.post('/addLocation', async (req, res) => {
     const state = req.body.state;
     const zip = req.body.zip;
 
-    // Turn string input into ObjectIDs
-    const userObjId = new ObjectID(userUID);
-    const doctorObjId = new ObjectID(doctorUID);
-    const locationObjId = new ObjectID(locationUID);
-
     const newMessage = 
         new LocationModel({ 
             name: name,

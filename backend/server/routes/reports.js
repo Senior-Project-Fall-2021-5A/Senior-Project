@@ -32,6 +32,8 @@ router.get('/getReports/:userId', function (req, res) {
 });
 
 router.post('/addReport', async (req, res) => {
+    const userUID = req.body.userUID;
+    const appointmentsUID = req.body.appointmentsUID;
     const doctor = req.body.doctor;
     const date = req.body.date;
     const details = req.body.details;
@@ -39,11 +41,12 @@ router.post('/addReport', async (req, res) => {
 
     // Turn string input into ObjectIDs
     const userObjId = new ObjectID(userUID);
-    const doctorObjId = new ObjectID(doctorUID);
-    const reportObjId = new ObjectID(reportUID);
+    const appointmentsObjId = new ObjectID(appointmentsUID);
 
     const newReport = 
         new ReportsModel({ 
+            userUID: userObjId,
+            appointmentsUID: appointmentsObjId,
             doctor: doctor, 
             date: date,
             details: details,

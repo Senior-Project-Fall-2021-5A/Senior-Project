@@ -34,6 +34,7 @@ router.get('/getAppointments/:userId', async (req, res) => {
 router.post('/addAppointment', async (req, res) => {
     const userUID = req.body.userUID;
     const doctorUID = req.body.doctorUID;
+    const reportsUID = req.body.reportsUID;
     const date = req.body.date;
     const time = req.body.time;
     const locationUID = req.body.locationUID;
@@ -43,12 +44,14 @@ router.post('/addAppointment', async (req, res) => {
     // Turn string input into ObjectIDs
     const userObjId = new ObjectID(userUID);
     const doctorObjId = new ObjectID(doctorUID);
+    const reportsObjId = new ObjectID(reportsUID);
     const locationObjId = new ObjectID(locationUID);
 
     const newAppointment = 
         new AppointmentModel({  
             userUID: userObjId,
             doctorUID: doctorObjId,
+            reportsUID: reportsObjId,
             date: date,
             time: time,
             locationUID: locationObjId,

@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const AppointmentSchema = new mongoose.Schema({
-    
     userUID: {
         type: mongoose.Schema.Types.ObjectId,
         required: false,
@@ -9,6 +8,10 @@ const AppointmentSchema = new mongoose.Schema({
     doctorUID: {
         type: mongoose.Schema.Types.ObjectId,
         required: false,
+    },
+    reportsUID: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'ReportsModel',
+        required: true,
     },
     date: {
         type: Date,
