@@ -8,7 +8,7 @@ var ObjectID = require('mongodb').ObjectId;
 
 
 const User = require('../models/User');
-const UserDemoModel = require('../models/UserDemographics')
+const UserDemoModel = require('../models/UserDemographics');
 
 router.use(cors({origin: '*'}));
 
@@ -146,36 +146,16 @@ router.get('/getUserInfo/:userId', async (req, res) => {
 });
 
 router.post('/updateUserInfo/:userId', async (req, res) => {
-  UserDemoModel.findOneAndUpdate({userUID: req.params.userId, new: true},
-      {
-        $set: {
-            firstName: req.body.firstName,
-            midName: req.body.midName,
-            lastName: req.body.lastName,
-            DoB: req.body.DoB,
-            gender: req.body.gender,
-            address1: req.body.address1,
-            address2: req.body.address2,
-            city: req.body.city,
-            state: req.body.state,
-            zip: req.body.zip,
-            email: req.body.email,
-            phone1: req.body.phone1,
-            phone2: req.body.phone2,
-            phone3: req.body.phone3,
-            Insurance01UID: req.body.Insurance01UID,
-            Insurance02UID: req.body.Insurance02UID,
-            Insurance03UID: req.body.Insurance03UID,
-            primaryPhysician: req.body.primaryPhysician,
-            approvedDoctors: req.body.approvedDoctors,
-        },
-      },
-      (err, result) => {
-          if (err) {
-              res.send("Unable to update info for", {userId})
-          } else {
-              res.status(200).json(result);
-          }
-      })
+  const updateFields = req.body;
+  UserDemoModel.findOneAndUpdate({userUID: req.params.userId}, 
+    updateFields, {new: true},
+    (err, result) => {
+        if (err) {
+          res.send("Unable to update info for", {userId})
+        } else {
+          res.status(200).json(result);
+        }
+    })
 })
+
 module.exports = router;
