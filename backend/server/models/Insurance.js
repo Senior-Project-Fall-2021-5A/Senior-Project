@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const InsuranceSchema = new mongoose.Schema({
 
     usersOnPlan: [{
-        type: mongoose.Schema.Types.String, ref: 'UserDemoModel',
+        type: mongoose.Schema.Types.ObjectId,
         required: true, 
     }],
     insuranceName: {
