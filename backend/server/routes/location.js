@@ -6,7 +6,7 @@ var ObjectID = require('mongodb').ObjectId;
 
 router.use(cors({origin: '*'}));
 
-router.get('/getLocation/:userId', function (req, res) {
+router.get('/getLocation/:locationId', function (req, res) {
     LocationModel.find({
         $or: [
             { userUID: req.params.userId },

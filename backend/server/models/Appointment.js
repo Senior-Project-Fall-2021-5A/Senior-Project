@@ -4,11 +4,11 @@ const AppointmentSchema = new mongoose.Schema({
     
     userUID: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
+        required: false,
     },
     doctorUID: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
+        required: false,
     },
     date: {
         type: Date,
@@ -20,7 +20,7 @@ const AppointmentSchema = new mongoose.Schema({
     },
     locationUID: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
+        required: false,
     },
     apptNotes: {
         type: String,
@@ -28,11 +28,7 @@ const AppointmentSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        required: true,
-    },
-    isCurrent: {
-        type: Boolean,
-        required: true,
+        required: false,
     },
 });
 

@@ -31,7 +31,7 @@ router.get('/getDaysOff/:userId', async (req, res) => {
 
 router.post('/addDaysOff', async (req, res) => {
     const doctorUID = req.body.doctorUID;
-    const dayOff = req.body.dayOff;
+    const daysOff = req.body.dayOff;
     
     // Turn string input into ObjectIDs
     const doctorObjId = new ObjectID(doctorUID);
@@ -39,7 +39,7 @@ router.post('/addDaysOff', async (req, res) => {
     const newDaysOff = 
         new DaysOffModel({  
             doctorUID: doctorObjId,
-            dayOff: dayOff,
+            daysOff: daysOff,
 
         });
     

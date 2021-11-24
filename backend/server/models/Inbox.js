@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const InboxSchema = new mongoose.Schema({
     
-    senderEmail: {
+    senderID: {
         type: String,
         required: false,
     },
-    recieverEmail: {
+    recieverID: {
         type: String,
         required: false,
     },

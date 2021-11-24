@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const UserDemoSchema = new mongoose.Schema({
     
     userUID: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'UserModel',
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
-    },   
+    },
     firstName: {
         type: String,
         required: false,
@@ -23,7 +23,7 @@ const UserDemoSchema = new mongoose.Schema({
         required: false,
     },
     gender: {
-        type: Boolean,
+        type: String,
         required: false,
     },
     address1: {
@@ -44,10 +44,6 @@ const UserDemoSchema = new mongoose.Schema({
     },
     zip: {
         type: Number,
-        required: false,
-    },
-    idNum: {
-        type: String,
         required: false,
     },
     email: {
@@ -78,9 +74,14 @@ const UserDemoSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
-    documents = models.FileField(storage=documentStorage, blank=True)
-
-
+    primaryPhysician: {
+        type: String,
+        required: false,
+    },
+    approvedDoctors: {
+        type: [String],
+        required: false,
+    },
 });
 
 const UserDemoModel = mongoose.model('UserDemographics', UserDemoSchema)

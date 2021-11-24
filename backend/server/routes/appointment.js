@@ -39,7 +39,6 @@ router.post('/addAppointment', async (req, res) => {
     const locationUID = req.body.locationUID;
     const apptNotes = req.body.apptNotes;
     const type = req.body.type;
-    const isCurrent = req.body.isCurrent;
     
     // Turn string input into ObjectIDs
     const userObjId = new ObjectID(userUID);
@@ -55,7 +54,6 @@ router.post('/addAppointment', async (req, res) => {
             locationUID: locationObjId,
             apptNotes: apptNotes,
             type: type,
-            isCurrent: isCurrent
 
         });
     
