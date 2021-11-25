@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ObjLink from '../../../components/Objects/ObjLink'
-import ObjInputFile from '../../../components/Objects/ObjInputFile'
-import OBJPopUpInput from '../../../components/Objects/OBJPopUpInput'
+import PopUpAddNotes from '../PopupPages/PopUpAddNotes'
+import PopUpAddReport from '../PopupPages/PopUpAddReport'
+
+
 
 const styleTD = {
     paddingTop: '0px',
@@ -12,19 +14,33 @@ const styleTD = {
 
 const AdminAptsTable = ({  }) => {
     const data = [
-        {time: "09:00 am", patient: "Billy Bob Man", type:"Office", notesLink: '/reports', reportLink: '/reports', call: "call"},
-        {time: "09:00 am", patient: "Billy Bob Man", type:"Office", notesLink: '/reports', reportLink: '/reports', call: "call"},
-        {time: "09:00 am", patient: "Billy Bob Man", type:"Office", notesLink: '/reports', reportLink: '/reports', call: "call"},
+        {date: "04/04/2021", time: "09:00 am", patient: "Billy Bob Man", type:"Office", notesLink: '/reports', reportLink: '/reports', call: "call"},
+        {date: "04/04/2021", time: "09:00 am", patient: "Billy Bob Man", type:"Office", notesLink: '/reports', reportLink: '/reports', call: "call"},
+        {date: "04/04/2021", time: "09:00 am", patient: "Billy Bob Man", type:"Office", notesLink: '/reports', reportLink: '/reports', call: "call"},
     ]
 
     const [notesInputPopup, setNotesInputPopup] = React.useState(false);
+    
 
     const noteClick = (e) => {
+        console.log("Note Click");
         console.log("click", e);
         let bPop = !notesInputPopup;
         setNotesInputPopup(bPop);
         console.log("Popup is ",bPop);
     }
+    
+    const [reportInputPopup, setReportInputPopup] = React.useState(false);
+
+    const reportClick = (e) => {
+        console.log("Report Click");
+        console.log("click", e);
+        let bPop = !reportInputPopup;
+        setReportInputPopup(bPop);
+        console.log("Popup is ",bPop);
+    }
+
+
 
     const handleCall = (event) => {
         window.open(
@@ -35,12 +51,18 @@ const AdminAptsTable = ({  }) => {
 
     //linkInfo={reportLink} linkInfo ='/adminPortal'
     //doNewWindow= {Boolean} true
+
+   /*  <ObjPopUpWindow 
+                                    trigger={notesInputPopup}
+                                    setTrigger={setNotesInputPopup}
+                                /> */
     
     return (
         <div>
             <table id="AptsToday" class='table'>
                 <tbody>
                     <tr>
+                        <th>Date</th>
                         <th>Time</th>
                         <th>Patient</th>
                         <th>Type</th>
@@ -48,8 +70,9 @@ const AdminAptsTable = ({  }) => {
                         <th>Report</th>
                         <th>Call</th>
                     </tr>
-                    {data.map(({time, patient, type, notesLink, reportLink, call}) => (
+                    {data.map(({date, time, patient, type, notesLink, reportLink, call}) => (
                          <tr>
+                            <td style={styleTD}>{date}</td>
                             <td style={styleTD}>{time}</td>
                             <td style={styleTD}>{patient}</td>
                             <td style={styleTD}>{type}</td>
@@ -57,21 +80,32 @@ const AdminAptsTable = ({  }) => {
                                 <ObjLink
                                     doLink = "false"                                    
                                     text="Add"
+                                    btnWidth = "60px"
                                     onClick={e => noteClick(e)}
                                 />
-                                <OBJPopUpInput 
+                                <PopUpAddNotes
                                     trigger={notesInputPopup}
                                     setTrigger={setNotesInputPopup}
                                 />
                                 
                             </td>
                             <td style={styleTD}>
-                                <ObjInputFile/>
+                                <ObjLink
+                                    doLink = "false"                                    
+                                    text="Add"
+                                    btnWidth = "60px"
+                                    onClick={e => reportClick(e)}
+                                />
+                                <PopUpAddReport
+                                    trigger={reportInputPopup}
+                                    setTrigger={setReportInputPopup}
+                                />
                             </td>
                             <td style={styleTD}>
                                 <ObjLink
                                     doLink= "false"                                   
                                     text="Call"
+                                    btnWidth = "60px"
                                     onClick={e=>handleCall(e)}
                                 />
                             </td>                                             

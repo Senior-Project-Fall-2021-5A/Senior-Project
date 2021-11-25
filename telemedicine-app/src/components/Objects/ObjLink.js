@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import ObjButton from './ObjButton'
 import { Link } from 'react-router-dom';
 
-const ObjLink = ({ linkInfo, text, onClick, doNewWindow, doLink, data, btnHeight, btnWidth }) => {
+const ObjLink = ({ linkInfo, text, onClick, doNewWindow, doLink, data, btnHeight, btnWidth}) => {
     
     // Should this button Link ("true"), or send to the same page ("false").
     doLink = (doLink === "true");
@@ -60,6 +60,12 @@ ObjLink.propTypes = {
     data: PropTypes.object,         //On Link, what data do you wish to pass along.
     btnHeight: PropTypes.string,    //To set a Height for Button
     btnWidth: PropTypes.string,     //To set a Width for Button
+    sPosition: PropTypes.string,     //To set a Width for Button
+    sLeft: PropTypes.string,     //To set a Width for Button
+    sRight: PropTypes.string,     //To set a Width for Button
+    sTop: PropTypes.string,     //To set a Width for Button
+    sBottom: PropTypes.string,     //To set a Width for Button
+
 }
 
 export default ObjLink

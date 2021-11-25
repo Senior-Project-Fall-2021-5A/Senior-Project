@@ -4,6 +4,8 @@
   height: 100%;
   width: 100%;
   overflow: auto;
+  overflow-y: scroll;
+  scrollbar-width: none;
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr;
@@ -13,6 +15,7 @@
 }
 
 .adminpage-schedule-frame {
+  height: 600px;
   border: 1px solid black;
   padding: 10px;
   background-color: rgb(231, 231, 231);
@@ -21,10 +24,10 @@
   grid-row-start: 1;
   grid-row-end: 1;
   grid-column: 1;
-  
 }
 
 .appointment-frame {
+  height: 100%;
   border: 1px solid black;
   padding: 10px;
   background-color: rgb(231, 231, 231);
@@ -34,3 +37,31 @@
   grid-column: 2;
 }
 
+.popUp_Horz {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.popup_container {  
+  display: grid;  
+  gap: 1px; 
+  grid-template-areas: 
+  "popup_label popup_inputs"
+  "popup_spread"  
+}
+
+.popup_label_grid {
+  grid-area: popup_label;
+}
+
+.popup_inputs_grid {
+  grid-area: popup_inputs;
+}
+
+.popup_spread_grid {
+  grid-area: popup_spread;
+}
+
+.popup_label {
+  text-align: left;
+}
