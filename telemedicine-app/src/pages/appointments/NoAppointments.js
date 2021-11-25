@@ -45,15 +45,15 @@ function NoAppointments() {
     }
 
     useEffect(() => {
-       fetch('http://localhost:4000/getAppoints')
-          .then(res => res.json())
-          .then(json => {
-             
-                setIsLoaded(true);
-                setItems(json);
-			 
-		  })
+        Axios.get('https://telemedicine5a-backend.herokuapp.com/appointments/getAppointments')
+        .then((response) => {
+            setListOfAppointments(response.data);
+        })
+        .catch((err) => {
+            console.log(err, "Unable to get appointments");
+        });
     }, []);
+    
 
    return (
 
@@ -91,7 +91,7 @@ function NoAppointments() {
                                 <h4>All Upcoming Appointments</h4>
                                 <hr />
 
-                                {items.map((appointment, index) => {
+                                {listOfAppointments.map((appointment, index) => {
 
                                     return (
                                         
@@ -105,8 +105,8 @@ function NoAppointments() {
                                                 
                                                 <b>
                                                     {toggled === index ? 
-                                                        <Chevron className="accordion__icon" width={10} fill="#fc59ff"/> 
-                                                        : <Chevron className="accordion__icon rotate" width={10} fill="#fc59ff"/>
+                                                        <Chevron className="accordion__icon" width={15} fill="#fc59ff"/> 
+                                                        : <Chevron className="accordion__icon rotate" width={15} fill="#fc59ff"/>
                                                     }
                                                 </b>
                                                 
@@ -118,7 +118,7 @@ function NoAppointments() {
 
                                                 <div className="accordion1-body">
                                                 
-                                                    <h1 className="doctor">{appointment.doctorName}</h1>
+                                                    <h1 className="doctor">{appointment.doctorUID}</h1>
                                                     <h1 className="address">Address</h1>
                                                     
                                                     <Link to='/client'>
@@ -158,8 +158,8 @@ function NoAppointments() {
                                                 
                                         <b>
                                             {toggled ? 
-                                                <Chevron className="accordion__icon" width={10} fill="#fc59ff"/> 
-                                                : <Chevron className="accordion__icon rotate" width={10} fill="#fc59ff"/>
+                                                <Chevron className="accordion__icon" width={15} fill="#fc59ff"/> 
+                                                : <Chevron className="accordion__icon rotate" width={15} fill="#fc59ff"/>
                                             }
                                         </b>
                                                 

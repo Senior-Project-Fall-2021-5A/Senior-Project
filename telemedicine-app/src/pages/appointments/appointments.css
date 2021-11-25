@@ -135,7 +135,7 @@
 
 .doctor {
 
-    margin-left: -61vw;
+    margin-left: -50vw;
     margin-top: 0vh;
     font-weight: 600;
     font-size: 18px;
@@ -173,7 +173,6 @@
     display: inline-block;
     float: left;
     color: blue;
-    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
     position: relative;
 }
 
@@ -183,7 +182,6 @@
     font-size: 18px;
     display: inline-block;
     color: red;
-    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
     position: relative;
 }
 
@@ -196,7 +194,6 @@
     font-size: 18px;
     display: inline-block;
     color: red;
-    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
     
 }
 

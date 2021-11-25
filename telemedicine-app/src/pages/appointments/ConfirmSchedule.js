@@ -9,22 +9,14 @@ const ConfirmSchedule = () => {
     const { doc, type, date, time } = useParams();
 
     const submitAppointment = () => {
-        let result = fetch('http://localhost:4000/newAppoint', {
-            method: 'post',
-            mode: 'cors',
-            headers: {
-                'Accept': 'application/json',
-                'Content-type': 'application/json',
-			},
-            body: JSON.stringify({
-                doctorName: doc,
-                type: type,
-                date: date,
-                time, time
-			})
+        Axios.post('https://telemedicine5a-backend.herokuapp.com/appointments/addAppointments', {
+        doctorName: doc,
+        type: type,
+        date: date,
+        time: time,
+        }).then((response) => {
+            console.log(response)
         });
-
-        console.log('Result: ' + result)
     }
 
     

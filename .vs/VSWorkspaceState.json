@@ -4,13 +4,13 @@
     "\\telemedicine-app",
     "\\telemedicine-app\\src",
     "\\telemedicine-app\\src\\components",
+    "\\telemedicine-app\\src\\components\\Homepage",
     "\\telemedicine-app\\src\\components\\inbox components",
-    "\\telemedicine-app\\src\\components\\inbox components\\assets",
-    "\\telemedicine-app\\src\\components\\Objects",
+    "\\telemedicine-app\\src\\loaders",
     "\\telemedicine-app\\src\\pages",
-    "\\telemedicine-app\\src\\pages\\admin_portal",
-    "\\telemedicine-app\\src\\pages\\admin_portal\\AdminApts"
+    "\\telemedicine-app\\src\\pages\\appointments",
+    "\\telemedicine-app\\src\\pages\\doctors"
   ],
-  "SelectedNode": "\\telemedicine-app\\src\\pages\\doctors\\DoctorTime.js",
+  "SelectedNode": "\\telemedicine-app\\src\\pages\\reports_page\\reports.css",
   "PreviewInSolutionExplorer": false
 }
