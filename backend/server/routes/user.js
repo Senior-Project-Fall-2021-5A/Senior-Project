@@ -135,7 +135,7 @@ router.post('/createUserProfile/:userId', async (req, res) => {
   await newUserProfile.save();
   res.send("Added user info!")
 })
-
+// name, SSN, UID 
 router.get('/getUserInfo/:userId', async (req, res) => {
   UserDemoModel.find({ 
       userUID: req.params.userId
@@ -190,9 +190,10 @@ router.get('/approvedDoctors/:userId', async (req, res) => {
 
   let approvedDoctors = await UserDemoModel.find({userUID: req.params.userId}, {_id: 0, approvedDoctors: 1})
   if (!approvedDoctors) { return res.send("No approved doctors for user")}
+  console.log(approvedDoctors)
   let fieldOfStudy = []
   for (let i = 0; i < approvedDoctors.length; i++) {
-    fieldOfStudy.push(approvedDoctors.approvedDoctors[i])
+    fieldOfStudy.push(approvedDoctors[i].approvedDoctorList[i])
   }
   console.log(fieldOfStudy)
   let approvedDoctorList = await DoctorDemoModel.find({fieldOfStudy: fieldOfStudy}, {_id: 0, doctorUID: 1})

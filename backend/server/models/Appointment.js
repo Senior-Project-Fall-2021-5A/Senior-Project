@@ -10,7 +10,7 @@ const AppointmentSchema = new mongoose.Schema({
         required: false,
     },
     reportsUID: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'ReportsModel',
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
     date: {

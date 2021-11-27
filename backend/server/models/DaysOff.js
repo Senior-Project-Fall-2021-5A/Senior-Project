@@ -10,6 +10,10 @@ const DaysOffSchema = new mongoose.Schema({
         type: Date,
         required: false,
     },
+    time: {
+        type: String,
+        required: false,
+    },
 });
 
 const DaysOffModel = mongoose.model('DocDaysOff', DaysOffSchema)
