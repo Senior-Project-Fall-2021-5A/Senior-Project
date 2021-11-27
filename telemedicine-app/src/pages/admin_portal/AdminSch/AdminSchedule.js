@@ -11,7 +11,9 @@ const AdminSchedule = ({  }) => {
     //draw
     return (
         <div className='adminschedule-container'>
-            
+            <div>
+                
+            </div>
             <div className='adminschedule-header-frame'>
                 <h1>Schedule</h1>
             </div>

@@ -23,7 +23,7 @@ const ObjButton = ({ text, onClick, nHeight, nWidth}) => {
 }
 
 ObjButton.defaultProps = {
-   
+
 }
 
 ObjButton.propTypes = {

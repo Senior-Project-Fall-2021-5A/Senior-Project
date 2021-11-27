@@ -60,24 +60,24 @@ const Reports = () =>{
                                 {listOfReports.map((report) => {
                                     return (
                                         <tr key={report._id} >
-                                        <td style={tdStyle}>{report.details}</td>
-                                        <td style={tdStyle}>{report.doctor}</td>
-                                        <td style={tdStyle}>{
-                                            (new Date(report.date)).toLocaleDateString()
-                                        }</td>
-                                        <td style={tdStyle}>
-                                            <ObjLink
-                                                linkInfo = '/reportDisplay'
-                                                text = "View"
-                                                doLink = "true"
-                                                btnWidth = "100px"
-                                                data = {{
-                                                    doctor: report.doctor, 
-                                                    _id: report._id,
-                                                }}
-                                            />
-                                        </td>
-                                    </tr>
+                                            <td style={tdStyle}>{report.details}</td>
+                                            <td style={tdStyle}>{report.doctor}</td>
+                                            <td style={tdStyle}>{
+                                                (new Date(report.date)).toLocaleDateString()
+                                            }</td>
+                                            <td style={tdStyle}>
+                                                <ObjLink
+                                                    linkInfo = '/reportDisplay'
+                                                    text = "View"
+                                                    doLink = "true"
+                                                    btnWidth = "100px"
+                                                    data = {{
+                                                        doctor: report.doctor, 
+                                                        _id: report._id,
+                                                    }}
+                                                />
+                                            </td>
+                                        </tr>
                                     )
                                 })}
                             </tbody>
