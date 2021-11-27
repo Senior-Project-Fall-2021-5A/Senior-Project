@@ -37,9 +37,10 @@
   grid-column: 2;
 }
 
-.popUp_Horz {
+.adminpage_buttons_top {
   display: flex;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
 .popup_container {  
@@ -52,14 +53,17 @@
 
 .popup_label_grid {
   grid-area: popup_label;
+  /* border: solid 2px black; */
 }
 
 .popup_inputs_grid {
   grid-area: popup_inputs;
+  /* border: solid 2px black; */
 }
 
 .popup_spread_grid {
   grid-area: popup_spread;
+  /* border: solid 2px black; */
 }
 
 .popup_label {

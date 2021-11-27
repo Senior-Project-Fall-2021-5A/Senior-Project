@@ -4,8 +4,20 @@ import "react-datepicker/dist/react-datepicker.css";
 import PopUpWindow from '../../../components/Objects/ObjPopUpWindow'
 import ObjButton from '../../../components/Objects/ObjButton'
 
-const PopUpAddNotes = ( {trigger,setTrigger} ) => {
+const PopUpAddAppt = ( {trigger,setTrigger} ) => {
+    //declarations
     const [textPatientID,setPatientID] = React.useState("");
+    const [textDoctorID,setDoctorID] = React.useState("");
+    const [date,setDate] = React.useState(new Date());
+    const [textTime,setTime] = React.useState("");
+    const [txtLocSelect,setLocSelect] = React.useState("");
+    const [boolShowLocation,setShowLocation] = React.useState(false);
+    const [txtLocation,setLocation] = React.useState("");
+    const [boolError,setBoolError] = React.useState(false);
+    const [txtError,setError] = React.useState("");
+
+    
+    //~~~~~~Remove when linked~~~~~
     const listOfPatients =[
         {
             label: "patient1",
@@ -25,13 +37,14 @@ const PopUpAddNotes = ( {trigger,setTrigger} ) => {
         },
     ];
 
+    //set patient
     const onPatientSelect = ( event ) => {
         console.log("onPatientSelect - ",event);
         console.log("Value set: ", event.target.value);
         setPatientID(event.target.value);
     }
 
-    const [textDoctorID,setDoctorID] = React.useState("");
+    //~~~~~~Remove when linked~~~~~
     const listOfDoctors =[
         {
             label: "Doctor1",
@@ -51,15 +64,14 @@ const PopUpAddNotes = ( {trigger,setTrigger} ) => {
         },
     ];
 
+    //set Doctor
     const onDoctorSelect = ( event ) => {
         console.log("onDoctorSelect - ",event);
         console.log("Value set: ", event.target.value);
         setDoctorID(event.target.value);
     }
 
-    const [date,setDate] = React.useState(new Date());
-
-    const [textTime,setTime] = React.useState("");
+    //~~~~~~Remove when linked~~~~~
     const listOfTimes =[
         {
             label: "09:00AM",
@@ -79,31 +91,80 @@ const PopUpAddNotes = ( {trigger,setTrigger} ) => {
         },
     ];
 
+    //set Time
     const onTimeSelect = ( event ) => {
         console.log("onTimeSelect - ",event);
         console.log("Value set: ", event.target.value);
         setTime(event.target.value);
     }
 
+    //Set Type of Visit    
+    const onRadioLocSelect = ( event ) => {
+        let loc = event.target.value;
+        setLocSelect(loc);
+        console.log("Radio Loc Select: ",loc);
+        let doInPerson = loc == "InPerson";
+        setShowLocation(doInPerson);
+    }
+    
+    //~~~~~~Remove when linked~~~~~
+    const listOfLocations =[
+        {
+            label: "Location01",
+            value: "00001",
+        },
+        {
+            label: "Location02",
+            value: "00002",
+        },
+        {
+            label: "Location03",
+            value: "00003",
+        },
+        {
+            label: "Location04",
+            value: "00004",
+        },
+    ];
+
+    //set Location
+    const onLocationInput = ( event ) => {
+        let loc = event.target.value;
+        setLocation(loc);
+        console.log("Location: ",loc);
+    }
+
+    //create new Apt
     const onSubmit = (event) => {
         console.log(event);
         console.log("patient: ", textPatientID, " doctor: ", textDoctorID, " Date: ", date, " Time: ", textTime);        
-        setTrigger(false);
+        
+        if (textPatientID == "_placeholder_" || textDoctorID == "_placeholder_" || textPatientID == "" || 
+        textDoctorID == "" || textTime == "_placeholder_" || textTime == "" || txtLocSelect == "") {
+            setBoolError(true);
+            setError("Missing Patient, Doctor, Location, or Time");
+        }else{            
+            setBoolError(false);
+            setDoctorID("");
+            setPatientID("");
+            setLocSelect("");
+            setTime("");
+            setTrigger(false);
+        }
     }
     
-    return (
-    
+    return (    
         <PopUpWindow
                 trigger = {trigger}
                 setTrigger = {setTrigger}
                 header = "Add Appointment"
         >  
-            {/* Grid */}
+            {/* Grid Definitions */}
             <div className="popup_container"
                 style={{
                     position: "relative",
                     left: "75px",
-                    gridTemplateRows: "35px 35px 35px 50px",
+                    gridTemplateRows: "inherit",
                     gridTemplateColumns: "100px 325px",
                 }}
             >
@@ -134,6 +195,7 @@ const PopUpAddNotes = ( {trigger,setTrigger} ) => {
                         
                         onChange={e=>onPatientSelect(e)}  
                     >
+                        <option value="_placeholder_">Select Patient</option>
                         {listOfPatients.map((option) => (
                             <option value={option.value}>{option.label}</option>
                         ))}
@@ -167,6 +229,7 @@ const PopUpAddNotes = ( {trigger,setTrigger} ) => {
                         
                         onChange={e=>onDoctorSelect(e)}  
                     >
+                        <option value="_placeholder_">Select Doctor</option>
                         {listOfDoctors.map((option) => (
                             <option value={option.value}>{option.label}</option>
                         ))}        
@@ -205,16 +268,96 @@ const PopUpAddNotes = ( {trigger,setTrigger} ) => {
                         }}                        
                         onChange={e=>onTimeSelect(e)}  
                     >
+                        <option value="_placeholder_">Time</option>
                         {listOfTimes.map((option) => (
                             <option value={option.value}>{option.label}</option>
                         ))}    
                     </select>
                 </div>
+
+                {/* Radio Type of Visit Select */}
+                <div className="popup_spread_grid"
+                    style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gridRow:4,
+                        gridColumnStart:1,
+                        gridColumnEnd:3,
+                        justifyContent: "center",
+                        position: 'relative', 
+                        top: "-10px"
+                    }}
+                    onChange={e=>onRadioLocSelect(e)}
+                >
+                    {/* Btn In Person */}
+                    <input
+                        type="radio"
+                        value="InPerson"
+                        name="radioLocation"                        
+                    />
+                    <pre><p 
+                        style={{
+                            position:"relative",
+                            top: "16px"
+                        }}
+                    > In Person Visit     </p></pre>
+                    
+                    {/* Btn Virtual */}
+                    <input
+                        type="radio"
+                        value="Virtual"
+                        name="radioLocation"
+                    />
+                    <pre><p 
+                        style={{
+                            position:"relative",
+                            top: "16px"
+                        }}
+                    > Virtual Visit</p></pre>                    
+                </div>
             
+                {/* Location Label */}
+                {boolShowLocation == true &&
+                    <div className="popup_label_grid"
+                        style={{
+                            gridRow:5,
+                            gridColumn:1,
+                        }}
+                    >
+                        <h5 className="popup_label">Location:</h5>
+                    </div>
+                } 
+                
+
+                {/* Location Select */}
+                {boolShowLocation == true &&
+                    <div className="popup_inputs_grid"
+                        style={{
+                            gridRow:5,
+                            gridColumn:2,
+                        }}
+                    >
+                        <select
+                            style={{
+                                height: "25px",
+                                width: "300px",
+                                textAlign: "left",
+                            }}
+                            
+                            onChange={e=>onLocationInput(e)}  
+                        >
+                            {listOfLocations.map((option) => (
+                                <option value={option.value}>{option.label}</option>
+                            ))}        
+                        </select>
+                    </div>
+                }
+                
+
                 {/* Button Create */}
                 <div className="popup_spread_grid"
                     style={{
-                        gridRow:4,
+                        gridRow:6,
                         gridColumnStart:1,
                         gridColumnEnd:3,
                     }}
@@ -225,8 +368,17 @@ const PopUpAddNotes = ( {trigger,setTrigger} ) => {
                     />
                 </div>                
             </div>
+
+            {/* Button Error Message */}
+            {boolError &&
+                <p
+                    style={{
+                        color: 'red',
+                    }}
+                >{txtError}</p>
+            } 
         </PopUpWindow>
     )
 }
 
-export default PopUpAddNotes
+export default PopUpAddAppt

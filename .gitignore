@@ -10,3 +10,4 @@ backend/telemedicine/__pycache__/serializers.cpython-38.pyc
 backend/telemedicine/__pycache__/views.cpython-38.pyc
 backend/telemedicine/migrations/__pycache__/__init__.cpython-38.pyc
 backend/telemedicine/migrations/__pycache__/0001_initial.cpython-38.pyc
+.idea/
