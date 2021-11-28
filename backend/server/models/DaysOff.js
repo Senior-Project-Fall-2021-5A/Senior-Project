@@ -3,11 +3,15 @@ const mongoose = require('mongoose');
 const DaysOffSchema = new mongoose.Schema({
 
     doctorUID: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'DoctorDemoModel',
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
-    dayOff: {
+    daysOff: {
         type: Date,
+        required: false,
+    },
+    time: {
+        type: String,
         required: false,
     },
 });
