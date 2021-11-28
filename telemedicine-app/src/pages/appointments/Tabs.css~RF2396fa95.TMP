@@ -31,12 +31,11 @@ body {
     }
 
 .active-tabs {
-    background: rgb(88, 147, 241);
-    /*background: transparent;*/
-    /*border-bottom: 1px solid transparent;*/
+    background: transparent;
+    border-bottom: 1px solid transparent;
 }
 
-    /*.active-tabs::before {
+    .active-tabs::before {
         content: "";
         display: block;
         position: absolute;
@@ -45,7 +44,8 @@ body {
         transform: translateX(-50%);
         width: calc(100% + 2px);
         height: 10px;
-    }*/
+        background: rgb(88, 147, 241);
+    }
 
 
 
