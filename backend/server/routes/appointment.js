@@ -64,4 +64,17 @@ router.post('/addAppointment', async (req, res) => {
     res.send("Added appointment!")
 });
 
+router.post('/updateApptInfo/:apptId', async (req, res) => {
+    const updateFields = req.body;
+    AppointmentModel.findOneAndUpdate({_id: req.params.apptId}, 
+        updateFields, {new: true},
+        (err, result) => {
+            if (err) {
+            res.send("Unable to update info for", {apptId})
+            } else {
+            res.status(200).json(result);
+            }
+        })
+});
+
 module.exports = router;
