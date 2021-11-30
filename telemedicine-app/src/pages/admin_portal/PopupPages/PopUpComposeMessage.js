@@ -130,7 +130,7 @@ const PopUpComposeMessage = ( {trigger,setTrigger} ) => {
                         gridColumn:2,
                     }}
                 >    
-                    <input
+                    <textarea
                         type="text"
                         value={txtPatientMName}
                         onChange={e=>setPatientMName(e.target.value)}
@@ -141,10 +141,7 @@ const PopUpComposeMessage = ( {trigger,setTrigger} ) => {
                         }}
                     />
                 </div>
-
-                
-
-                
+    
                 
                 {/* Button Create */}
                 <div className="popup_spread_grid"
