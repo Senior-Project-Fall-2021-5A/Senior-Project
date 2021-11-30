@@ -21,7 +21,9 @@ class ComposeMessage extends React.Component {
                             <Form>
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                     <Form.Label>To</Form.Label>
-                                    <Form.Control type="email" placeholder="name@example.com" />
+                                    <Form.Select size="lg">
+                                        <option>Click for Contact List</option>
+                                    </Form.Select>
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                                     <Form.Label>Subject</Form.Label>
