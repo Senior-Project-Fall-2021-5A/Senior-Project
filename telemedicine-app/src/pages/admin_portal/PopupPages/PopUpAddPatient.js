@@ -1,8 +1,10 @@
 import React from 'react';
-import DatePicker from "react-datepicker";
+import { useState, useEffect } from 'react';
+import { useParams } from "react-router-dom";
+import Axios from 'axios';
+import PopUpWindow from '../../../components/Objects/ObjPopUpWindow';
+import ObjButton from '../../../components/Objects/ObjButton';
 import "react-datepicker/dist/react-datepicker.css";
-import PopUpWindow from '../../../components/Objects/ObjPopUpWindow'
-import ObjButton from '../../../components/Objects/ObjButton'
 
 const PopUpAddPatient = ( {trigger,setTrigger} ) => {
     //declarations
@@ -10,7 +12,8 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
     const [txtPatientMName,setPatientMName] = React.useState("");
     const [txtPatientLName,setPatientLName] = React.useState("");
     const [txtPatientEmail,setPatientEmail] = React.useState("");
-    const [txtPatientPass,setPatientPass] = React.useState("");
+    const [txtPatientPass,setPatientPass] = React.useState("");    
+    const [listOfDoctors, setListOfDoctors] = React.useState([]);
     const [textDoctorID,setDoctorID] = React.useState("");
     const [boolError,setBoolError] = React.useState(false);
     const [txtError,setError] = React.useState("");
@@ -18,7 +21,22 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
     /***************************************************** 
             Temp Needs Link to get actual list of docs
     ******************************************************/
-    const listOfDoctors =[
+    //http://localhost:3003/doctors/getDoctorInfo
+    
+    useEffect(() => {
+        Axios.get('https://telemedicine5a-backend.herokuapp.com/doctors/getDoctorInfo')
+        //Axios.get('http://localhost:3000/doctors/getDoctorInfo')
+            .then((response) => {                
+                console.log("Doctors:",response);
+                setListOfDoctors(response.data);
+            })
+            .catch((err) => {
+                console.log(err, "Unable to get Doctors");
+            });
+    }, []);
+
+    
+    /* const listOfDoctors =[
         {
             label: "Doctor1",
             value: "00001",
@@ -35,7 +53,7 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
             label: "Doctor4",
             value: "00004",
         },
-    ];
+    ]; */
 
     /***************************************************** 
                     Event Handlers
@@ -50,13 +68,35 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
     // Create Patient
     const onSubmit = ( event ) => {
         console.log(event);
-        console.log("idk yet");        
-        
-        if (textDoctorID == "_placeholder_" || textDoctorID == "" || txtPatientFName == "" || txtPatientMName == "" ||
+        console.log("Add Patient, onSubmit()"); 
+        //textDoctorID == "_placeholder_" || textDoctorID == "" || 
+        if (txtPatientFName == "" || txtPatientMName == "" ||
          txtPatientLName == "" || txtPatientEmail == "" || txtPatientPass == "") {
             setBoolError(true);
             setError("Please Fill out all the above Information.");
         }else{            
+            Axios.post('https://telemedicine5a-backend.herokuapp.com/users/register', {
+                name:       txtPatientLName +", " + txtPatientFName, 
+                email:      txtPatientEmail,        
+                password:   txtPatientPass,
+            }).then((response) => {
+                console.log("Add Patient, onSubmit(), CreateUser, Axios response: ",response)
+                let patientID = String(response.data.user._id);
+                console.log("PatientID: ",patientID)
+                
+                return Axios.post(`https://telemedicine5a-backend.herokuapp.com/users/createUserProfile/${patientID}`, {
+                    firstName:          txtPatientFName,
+                    midName:            txtPatientMName,
+                    lastName:           txtPatientLName,
+                    email:              txtPatientEmail,
+                    primaryPhysician:   textDoctorID,
+                }).then((response) => {
+                    console.log("Add Patient, onSubmit(), CreateDemo, Axios response: ",response)                
+                }).catch((err) => {
+                    console.log(err)
+                });
+            });
+
             setBoolError(false);
             setDoctorID("");
             setPatientFName("");
@@ -67,6 +107,18 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
             setTrigger(false);
         }
     }
+
+    /* const { doc, type, date, time } = useParams();
+    const submitAppointment = () => {
+        Axios.post('https://telemedicine5a-backend.herokuapp.com/appointments/addAppointments', {
+        doctorName: doc,
+        type: type,
+        date: date,
+        time: time,
+        }).then((response) => {
+            console.log(response)
+        });
+    } */
     
     return (
     

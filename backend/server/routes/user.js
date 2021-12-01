@@ -86,7 +86,7 @@ router.post(
 
 router.post('/createUserProfile/:userId', async (req, res) => {
   const userUID = req.params.userId;
-  const firstName = req.body.firstname;
+  const firstName = req.body.firstName;
   const midName = req.body.midName;
   const lastName = req.body.lastName;
   const DoB = req.body.DoB;
@@ -105,6 +105,7 @@ router.post('/createUserProfile/:userId', async (req, res) => {
   const Insurance03UID = req.body.Insurance03UID;
   const primaryPhysician = req.body.primaryPhysician;
   const approvedDoctors = req.body.approvedDoctors;
+  const isAdmin = req.body.isAdmin;
 
   const userObjId = new ObjectID(userUID);
 
@@ -130,6 +131,7 @@ router.post('/createUserProfile/:userId', async (req, res) => {
           Insurance03UID: Insurance03UID,
           primaryPhysician: primaryPhysician,
           approvedDoctors: approvedDoctors,
+          isAdmin: isAdmin,
       });
   
   await newUserProfile.save();
@@ -160,11 +162,12 @@ router.post('/updateUserInfo/:userId', async (req, res) => {
     })
 });
 
-router.get('/searchUsers/:firstName/:lastName', async (req, res) => {
+router.get('/searchPatients/:firstName/:lastName', async (req, res) => {
   UserDemoModel.find({
     $and: [
       { firstName: req.params.firstName },
-      { lastName: req.params.lastName }
+      { lastName: req.params.lastName },
+      { isAdmin: false }
     ]
   }, ['userUID', 'firstName', 'lastName'])
   .then(listOfUserIDs => {
@@ -172,6 +175,45 @@ router.get('/searchUsers/:firstName/:lastName', async (req, res) => {
     return res.status(200).json(listOfUserIDs);
   })
   .catch(err => next(err));
+});
+
+router.get('/searchDoctor/:firstName/:lastName', async (req, res) => {
+  UserDemoModel.find({
+    $and: [
+      { firstName: req.params.firstName },
+      { lastName: req.params.lastName },
+      { isAdmin: true}
+    ]
+  }, ['userUID', 'firstName', 'lastName'])
+  .then(listOfUserIDs => {
+    if (listOfUserIDs.length === 0) { return res.send("No user under that name")}
+    return res.status(200).json(listOfUserIDs);
+  })
+  .catch(err => next(err));
+});
+
+router.get('/getDoctors', async (req, res) => {
+  UserDemoModel.find( {isAdmin: true },['userUID', 'firstName', 'lastName'])
+  .then(listOfUserIDs => {
+    if (listOfUserIDs.length === 0) { return res.send("No doctor list")}
+    return res.status(200).json(listOfUserIDs);
+  })
+  .catch(err => next(err));
+});
+
+router.get('/getPatients', async (req, res) => {
+  UserDemoModel.find({ isAdmin: false },['userUID', 'firstName', 'lastName'])
+  .then(listOfUserIDs => {
+    if (listOfUserIDs.length === 0) { return res.send("No patients list")}
+    return res.status(200).json(listOfUserIDs);
+  })
+  .catch(err => next(err));
+});
+
+router.get('/getPatientPcp/:userId', async (req, res) => {
+  let pcp = await UserDemoModel.find({userUID: req.params.userId}, {_id: 0, primaryPhysician: 1})
+  if (!pcp) { return res.send("No PCP for user")}
+  return res.status(200).json(pcp)
 });
 
 router.get('/approvedDoctors/:userId', async (req, res) => {

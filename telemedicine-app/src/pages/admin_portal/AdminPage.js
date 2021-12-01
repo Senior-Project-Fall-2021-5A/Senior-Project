@@ -1,19 +1,14 @@
 import React from 'react'
-import Navbar from "../../components/Navbar/Navbar"
-import Footer from "../../components/Footer/Footer"
 import AdminSchedule from "./AdminSch/AdminSchedule"
 import Canvas from "../../components/Canvas"
 import ObjLink from '../../components/Objects/ObjLink'
 import PopUpAddAppt from './PopupPages/PopUpAddAppt'
-
-import './AdminPage.css'
-//import './PopupPages/PopUp.css'
 import AdminApts from "./AdminApts/AdminApts"
 import PopUpAddPatient from './PopupPages/PopUpAddPatient'
 import PopUpAddStaff from './PopupPages/PopUpAddStaff'
 import PopUpEditPatient from './PopupPages/PopUpEditPatient'
-// Test
-//Test 2
+import './AdminPage.css'
+
 
 function AdminPage() {
 
