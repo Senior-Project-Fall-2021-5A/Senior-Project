@@ -86,7 +86,7 @@ router.post(
 
 router.post('/createUserProfile/:userId', async (req, res) => {
   const userUID = req.params.userId;
-  const firstName = req.body.firstname;
+  const firstName = req.body.firstName;
   const midName = req.body.midName;
   const lastName = req.body.lastName;
   const DoB = req.body.DoB;

@@ -19,7 +19,7 @@ const UserDemoSchema = new mongoose.Schema({
         required: false,
     },
     DoB: {
-        type: Date,
+        type: String,
         required: false,
     },
     gender: {
