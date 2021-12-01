@@ -83,7 +83,7 @@ const UserDemoSchema = new mongoose.Schema({
         required: false,
     },
     isAdmin:{
-        type: boolean,
+        type: Boolean,
         required: false,
     },
 });
