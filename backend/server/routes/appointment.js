@@ -40,6 +40,7 @@ router.post('/addAppointment', async (req, res) => {
     const locationUID = req.body.locationUID;
     const apptNotes = req.body.apptNotes;
     const type = req.body.type;
+    const virtualID = req.body.virtualID,
     
     // Turn string input into ObjectIDs
     const userObjId = new ObjectID(userUID);
@@ -57,6 +58,7 @@ router.post('/addAppointment', async (req, res) => {
             locationUID: locationObjId,
             apptNotes: apptNotes,
             type: type,
+            virtualID: virtualID,
 
         });
     
@@ -77,4 +79,13 @@ router.post('/updateApptInfo/:apptId', async (req, res) => {
         })
 });
 
+
+router.get('/getVirtualID/:apptId', async (req, res) => {
+    AppointmentModel.find({_id: req.params.apptId}, ['virtualID'])
+    .then(virtualID => {
+        if (!virtualID) { return res.send("No VirtualId for the appointment")}
+        return res.status(200).json(virtualID);
+    })
+    .catch(err => next(err));
+});
 module.exports = router;

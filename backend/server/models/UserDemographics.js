@@ -82,6 +82,10 @@ const UserDemoSchema = new mongoose.Schema({
         type: [String],
         required: false,
     },
+    isAdmin:{
+        type: boolean,
+        required: false,
+    },
 });
 
 const UserDemoModel = mongoose.model('UserDemographics', UserDemoSchema)
