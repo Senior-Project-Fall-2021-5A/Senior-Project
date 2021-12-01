@@ -40,7 +40,7 @@ router.post('/addAppointment', async (req, res) => {
     const locationUID = req.body.locationUID;
     const apptNotes = req.body.apptNotes;
     const type = req.body.type;
-    const virtualID = req.body.virtualID,
+    const virtualID = req.body.virtualID;
     
     // Turn string input into ObjectIDs
     const userObjId = new ObjectID(userUID);
