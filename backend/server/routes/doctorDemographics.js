@@ -16,7 +16,7 @@ router.get('/getDoctorInfo/:userId', async (req, res) => {
 });
 
 router.get('/getDoctorInfo', async (req, res) => {
-    DoctorDemoModel.find({userUID: req.params.userId}, (err, result) => {
+    DoctorDemoModel.find({}, (err, result) => {
         if (err) {
             res.send(err);
         } else {
