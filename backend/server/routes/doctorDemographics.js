@@ -15,6 +15,16 @@ router.get('/getDoctorInfo/:userId', async (req, res) => {
     });
 });
 
+router.get('/getDoctorInfo', async (req, res) => {
+    DoctorDemoModel.find({userUID: req.params.userId}, (err, result) => {
+        if (err) {
+            res.send(err);
+        } else {
+            res.status(200).json(result);
+        }
+    });
+});
+
 router.post('/addDoctorInfo', async (req, res) => {
     const doctorUID = req.body.doctorUID;
     const fieldOfStudy = req.body.fieldOfStudy;
