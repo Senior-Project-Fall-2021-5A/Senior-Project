@@ -33,10 +33,6 @@ const AppointmentSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
-    virtualID: {
-        type: String,
-        required: false,
-    },
 });
 
 const AppointmentModel = mongoose.model('Appointments', AppointmentSchema)
