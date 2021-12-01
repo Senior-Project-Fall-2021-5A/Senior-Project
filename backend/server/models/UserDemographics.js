@@ -19,7 +19,7 @@ const UserDemoSchema = new mongoose.Schema({
         required: false,
     },
     DoB: {
-        type: Date,
+        type: String,
         required: false,
     },
     gender: {
@@ -80,6 +80,10 @@ const UserDemoSchema = new mongoose.Schema({
     },
     approvedDoctors: {
         type: [String],
+        required: false,
+    },
+    isAdmin:{
+        type: Boolean,
         required: false,
     },
 });
