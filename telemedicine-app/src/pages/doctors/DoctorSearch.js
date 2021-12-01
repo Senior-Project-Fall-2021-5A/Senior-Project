@@ -19,6 +19,8 @@ import moment from 'moment'
 
 import './doctors.css';
 
+import Axios from 'axios';
+
 const DoctorSearch = () => {
 
 	const [filter, setFilter] = useState('');
@@ -41,8 +43,20 @@ const DoctorSearch = () => {
 	  }
 	}
 
+	const [listOfDoctors, setListOfDoctors] = React.useState([]);
+
 	useEffect(() => {
 	  window.addEventListener("resize", handleResize)
+
+	   Axios.get('https://telemedicine5a-backend.herokuapp.com/doctors/getDoctorInfo')
+        //Axios.get('http://localhost:3000/doctors/getDoctorInfo')
+            .then((response) => {                
+                console.log("Doctors:",response);
+                setListOfDoctors(response.data);
+            })
+            .catch((err) => {
+                console.log(err, "Unable to get Doctors");
+            }, []);
 	})
 
 	let dataSearch = DoctorData.cardData.filter(item => {

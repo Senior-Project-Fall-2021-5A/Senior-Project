@@ -12,13 +12,9 @@ import '../appointments/appointments.css'
 
 import Axios from 'axios'
 
-import ObjLink from '../../components/Objects/ObjLink';
-
 
 const socket = io.connect('https://video-chat-telemedicine.herokuapp.com/')
-
 function Client() {
-
 	const [ me, setMe ] = useState("")
 	const [ stream, setStream ] = useState()
 	const [ receivingCall, setReceivingCall ] = useState(false)
@@ -32,32 +28,18 @@ function Client() {
 	const userVideo = useRef()
 	const connectionRef= useRef()
 
-	const [ copyClicked, setCopyClicked] = useState(false)
-	const [ captureId, setCaptureId] = useState("")
-
 	const submitId = () => {
-        /*Axios.post('https://telemedicine5a-backend.herokuapp.com/appointments/updateApptInfo/${apptId}', {
-        _id: {idToCall}
+        Axios.post('https://telemedicine5a-backend.herokuapp.com/appointments/addAppointments', {
+        virtualID: {idToCall}
         }).then((response) => {
             console.log(response)
-        });*/
-		window.location.reload(true);
-		console.log(me);
-		setCopyClicked(true);
-		setCaptureId(me);
-		
+        });
     }
-
-	const idCreate = () => {
-		window.location.reload(true);
-	}
 
 	useEffect(() => {
 		navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
-			setStream(stream);
-				if(myVideo.current) {
+			setStream(stream)
 				myVideo.current.srcObject = stream
-				}
 		})
 
 	socket.on("me", (id) => {
@@ -87,9 +69,8 @@ function Client() {
 			})
 		})
 		peer.on("stream", (stream) => {
-			if(userVideo.current) {
+			
 				userVideo.current.srcObject = stream
-			}
 			
 		})
 		socket.on("callAccepted", (signal) => {
@@ -123,29 +104,6 @@ function Client() {
 		connectionRef.current.destroy()
 	}
 
-	let myVid;
-	if(stream) {
-		myVid = (<video playsInline muted ref={myVideo} autoPlay style={{ width: "300px" }} />);
-	}
-
-	let partnerVid;
-	if(callAccepted) {
-		partnerVid = (<video playsInline ref={userVideo} autoPlay style={{ width: "300px"} } />);
-	}
-
-	let incomingCall;
-	if(receivingCall) {
-		incomingCall = (
-			<div className="caller">
-			<h1 >{captureId} is calling...</h1>
-			<Button variant="contained" color="primary" onClick={answerCall}>
-				Answer
-			</Button>
-			</div>
-		)
-	}
-
-
 	return (
 		<>
 
@@ -156,11 +114,11 @@ function Client() {
 			<div className="containerVid">
 				<div className="video-container">
 					<div className="video">
-						{myVid}
+						{stream &&  <video playsInline muted ref={myVideo} autoPlay style={{ width: "300px" }} />}
 					</div>
 					<div className="video">
-						{!callEnded ?
-						partnerVid:
+						{callAccepted && !callEnded ?
+						<video playsInline ref={userVideo} autoPlay style={{ width: "300px"}} />:
 						null}
 					</div>
 				</div>
@@ -173,38 +131,17 @@ function Client() {
 						onChange={(e) => setName(e.target.value)}
 						style={{ marginBottom: "20px" }}
 					/>
-
-					
-
 					<CopyToClipboard text={me} style={{ marginBottom: "2rem" }}>
 						<Button variant="contained" color="primary" onClick={submitId} startIcon={<AssignmentIcon fontSize="large" />}>
 							Copy ID
 						</Button>
 					</CopyToClipboard>
 
-					<div>
-						{copyClicked ? (
-							<h4>Your Id is {me}</h4>
-						) : (null)}
-					</div>
-
-					<ObjLink
-                        className="view-report-widget-btn"
-                        linkInfo = '/reportDisplay'
-                        text = "View"
-                        doLink = "false"
-                        btnWidth = "100px"
-                        data = {{
-                    
-                            id: {idToCall}
-                        }}
-                    />
-
 					<TextField
 						id="filled-basic"
 						label="ID to call"
 						variant="filled"
-						value={captureId}
+						value={idToCall}
 						onChange={(e) => setIdToCall(e.target.value)}
 					/>
 					<div className="call-button">
@@ -215,15 +152,19 @@ function Client() {
 						) : (
 							<IconButton color="primary" aria-label="call" onClick={() => callUser(idToCall)}>
 								<PhoneIcon fontSize="large" />
-								<h4>Call</h4>
 							</IconButton>
 						)}
 						{idToCall}
 					</div>
 				</div>
 				<div>
-					{!callAccepted ? (
-							incomingCall
+					{receivingCall && !callAccepted ? (
+							<div className="caller">
+							<h1 >{name} is calling...</h1>
+							<Button variant="contained" color="primary" onClick={answerCall}>
+								Answer
+							</Button>
+						</div>
 					) : null}
 				</div>
 			</div>
