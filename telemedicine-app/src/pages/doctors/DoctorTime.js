@@ -1,22 +1,22 @@
 const DoctorTime = [
 	
 		{
-			time: '9:00 a.m.'
+			time: 'T05:00:00.000Z'
 
 		},
 
 		{
-			time: '1:00 p.m.'
+			time: 'T05:00:00.000Z'
 
 		},
 
 		{
-			time: '3:00 p.m.'
+			time: 'T05:00:00.000Z'
 
 		},
 
 		{
-			time: '7:00 p.m.'
+			time: 'T05:00:00.000Z'
 
 		}
 	

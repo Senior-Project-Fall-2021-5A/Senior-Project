@@ -10,7 +10,7 @@ const ConfirmSchedule = () => {
 
     const submitAppointment = () => {
         Axios.post('https://telemedicine5a-backend.herokuapp.com/appointments/addAppointments', {
-        doctorName: doc,
+        doctorUID: doc,
         type: type,
         date: date,
         time: time,

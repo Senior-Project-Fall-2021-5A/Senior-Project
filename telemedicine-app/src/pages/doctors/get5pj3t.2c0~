@@ -21,8 +21,6 @@ import './doctors.css';
 
 import Axios from 'axios';
 
-import img1 from './avatar_placeholder.png';
-
 const DoctorSearch = () => {
 
 	const [filter, setFilter] = useState('');
@@ -157,7 +155,7 @@ const DoctorSearch = () => {
 								<div className="col-11 col-md-6 col-lg-3 mx-0 mb-4">
 				
 									<div className="card p-0 overflow-hidden h-100 shadow">
-										<img src={img1} className="card-img-top img-fluid" />
+										<img src="avatar_placeholder.png" className="card-img-top img-fluid" />
 										<div className="card-body">
 										<h5 className="card-title">{item.value}</h5>
 										<p className="card-text">{item.label}</p>

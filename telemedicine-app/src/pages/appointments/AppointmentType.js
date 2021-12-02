@@ -46,7 +46,7 @@ const { name } = useParams();
                         <Card.Text>
                           Face-to-face appointments are within normal hours. Precautionary measures will be taken against the coronavirus by both patient and doctor.
                         </Card.Text>
-                        <Link to={`/ScheduleCalendar/${name}/In-person`}>
+                        <Link to={`/ScheduleCalendar/${name}/inPerson`}>
                         <Button variant="primary">Book</Button>
                         </Link>
                       </Card.Body>
@@ -61,7 +61,7 @@ const { name } = useParams();
                         <Card.Text>
                           Save time and skip the waiting room. Schedule a video chat with your specialist.
                         </Card.Text>
-                        <Link to={`/ScheduleCalendar/${name}/Online`}>
+                        <Link to={`/ScheduleCalendar/${name}/virtual`}>
                         <Button variant="primary">Book</Button>
                         </Link>
                       </Card.Body>

@@ -1,16 +1,16 @@
 {
   "ExpandedNodes": [
     "",
+    "\\backend",
+    "\\backend\\server",
+    "\\backend\\server\\dbConfig",
     "\\telemedicine-app",
     "\\telemedicine-app\\src",
     "\\telemedicine-app\\src\\components",
-    "\\telemedicine-app\\src\\components\\inbox components",
-    "\\telemedicine-app\\src\\loaders",
+    "\\telemedicine-app\\src\\components\\Homepage",
     "\\telemedicine-app\\src\\pages",
-    "\\telemedicine-app\\src\\pages\\appointments",
-    "\\telemedicine-app\\src\\pages\\doctors",
-    "\\telemedicine-app\\src\\pages\\VideoChat"
+    "\\telemedicine-app\\src\\pages\\inbox"
   ],
-  "SelectedNode": "\\telemedicine-app\\src\\pages\\appointments\\Tabs.css",
+  "SelectedNode": "\\telemedicine-app\\src\\components\\Homepage\\ReportsWidget.js",
   "PreviewInSolutionExplorer": false
 }
