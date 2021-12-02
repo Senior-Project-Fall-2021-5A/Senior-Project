@@ -6,6 +6,12 @@ const app = express();
 const Grid = require("gridfs-stream");
 const mongoose = require("mongoose");
 
+//video call import
+const http = require("http");
+const server = http.createServer(app);
+const socket = require("socket.io");
+const io = socket(server);
+
 // Import models for testing
 const UserModel = require('./models/User')
 const AppointmentModel = require('./models/Appointment')
@@ -63,6 +69,5 @@ app.get('/register', async (req, res) => {
     await newTestUser.save();
     res.send('User Added!')
 })
-
-server.listen(PORT, () => { console.log('Connection SUCCESSFUL') });
+app.listen(PORT, () => { console.log('Connection SUCCESSFUL') });
 module.exports = app;
