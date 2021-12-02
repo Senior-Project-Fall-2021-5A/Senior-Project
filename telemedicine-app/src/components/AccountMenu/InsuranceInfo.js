@@ -1,36 +1,43 @@
 
-import {Form, Button} from 'react-bootstrap';
+import {Form} from 'react-bootstrap';
 import './InsuranceInfo.css'
-import React from 'react'
+import {React, useState,useEffect} from 'react';
+import  Axios  from 'axios';
+import authUserObject from '../../middleware/authUserObject';
 
 
 
 function InsuranceInfo() {
+    const [insuranceInfo, setinsuranceInfo] = useState([]);
+
+    useEffect(() => {
+        Axios.get(`http://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${authUserObject.userId}`)
+            .then((response) => {
+                console.log("insurance info:",response);
+                const myInsurance = response.data;
+                setinsuranceInfo(response.data);
+            })
+            .catch((err) => {
+                console.log(err, "Unable to get user information");
+            });
+    }, []);
     return (
         
         <Form className='insurance-info-form'>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Text className="text-muted" style={{fontSize:'25px'}}>
-                    <p style={{paddingRight:"10px"}}>USER'S FIRST </p> <p>USER'S LAST</p> <h4 className= 'UserID'>Insurance Policy: ******3454</h4>
+            {insuranceInfo.map((insurance) => (
+            <><Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Text className="text-muted" style={{ fontSize: '25px' }}>
+                    <p style={{ paddingRight: "10px" }}>{insurance.firstName} </p> <p>{insurance.lastName}</p> <h4 className='UserID'>Insurance Policy: {insurance.Insurance03UID}</h4>
                 </Form.Text>
             </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label style={{color:'black'}}>Current e-mail address: </Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
-                <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-                </Form.Text>
+            <Form.Group className="mb-3 insurance-provider" controlId="formBasicEmail">
+                <Form.Label style={{ color: 'black', fontSize: '25px', marginTop: '15%' }}>Insurance Provider: {insurance.Insurance02UID} </Form.Label>
             </Form.Group>
-
             <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label style={{color:'black'}}>Current Phone Number: </Form.Label>
-                <Form.Control type="phone" placeholder="Change Phone Number" />
+                <Form.Label style={{ color: 'black', fontSize: "25px" }}>Insuracne Account #: {insurance.Insurance03UID} </Form.Label>
             </Form.Group>
-            
-            <Button variant="primary" type="submit">
-                Save
-            </Button>
+            </>
+            ))}
         </Form>
         
     

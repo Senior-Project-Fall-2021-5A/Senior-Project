@@ -15,3 +15,17 @@
 .nav.card-header-pills.nav-pills {
     justify-content: center;
 }
+
+.Appointment-Widget.card {
+    overflow-y: scroll;
+
+}
+
+.Appointment-Widget.card {
+    -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.Appointment-Widget.card::-webkit-scrollbar {
+    display: none;
+
+}
