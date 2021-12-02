@@ -23,14 +23,19 @@ const AdminAptsTable = ({date}) => {
         Axios.get(`https://telemedicine5a-backend.herokuapp.com/appointments/getAppointmentsByDate/${authUserObject.userId}/${dateToSend}`)
         .then((appointmentResponse) => {
             console.log('IMPORTANT', appointmentResponse)
-            Object.entries(appointmentResponse.data).forEach(appointment => {
-                Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${authUserObject.userId}`)
-                .then((userProfileResponse) => {
-                    console.log(appointment)
-                    appointment.push('patientName', userProfileResponse.data[0].firstName + ' ' + userProfileResponse.data[0].lastName)
+            
+            //error checking
+            if(appointmentResponse.data != "No appointments for user on selected Date"){
+                Object.entries(appointmentResponse.data).forEach(appointment => {
+                    Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${authUserObject.userId}`)
+                    .then((userProfileResponse) => {
+                        console.log(appointment)
+                        appointment.push('patientName', userProfileResponse.data[0].firstName + ' ' + userProfileResponse.data[0].lastName)
+                    })
                 })
-            })
-            setListOfAppointments([appointmentResponse.data]);
+                setListOfAppointments(appointmentResponse.data);
+            }
+            
         })
         .catch((err) => {
             console.log(err, "Unable to get appointments for selected date");

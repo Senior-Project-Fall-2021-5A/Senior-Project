@@ -165,7 +165,7 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
         let loc = event.target.value;
         setLocSelect(loc);
         console.log("Radio Loc Select: ",loc);
-        let doInPerson = loc == "InPerson";
+        let doInPerson = loc == "inPerson";
         setShowLocation(doInPerson);
     }
     
@@ -227,14 +227,15 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
                 setTrigger(false);
             }).catch((err) => {
                 //get Error
-                let arrErrors = err.response.data.errors;
+                console.log("Org Error: ",err);
+                /* let arrErrors = err.response.data.errors;
                 console.log("arrErrors: ",arrErrors);
                 let txtError = "";
                 arrErrors.forEach(e => txtError=`${txtError}${e.msg}. `);
-                console.log("txtError: ",txtError);
+                console.log("txtError: ",txtError); */
 
                 //error display
-                setError(txtError);
+                setError("Unable to add time");
                 setBoolError(true);            
             });
     }
