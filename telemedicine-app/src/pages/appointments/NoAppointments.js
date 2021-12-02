@@ -10,6 +10,7 @@ import ReactDOM from "react-dom";
 import './Tabs.css';
 import Chevron from '../../components/inbox components/Chevron.js'
 
+
 function NoAppointments() {
 
     const [listOfAppointments, setListOfAppointments] = useState([]);
@@ -32,7 +33,6 @@ function NoAppointments() {
     const toggleTab = (index) => {
         setToggleState(index);
     };
-
 
     const toggleAccordion = (index) => {
 

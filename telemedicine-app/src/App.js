@@ -22,13 +22,10 @@ import Registration from './pages/Registration';
 import LoginLoading from './pages/loginloading';
 import Chevron from './components/inbox components/Chevron.js'
 
-import GlobalStore from './middleware/GlobalStore';
-
 
 
 function App() {
   return (
-    <GlobalStore>
       <Router>
         <div className="App">
           <Switch>
@@ -83,7 +80,6 @@ function App() {
           </Switch>
         </div>
       </Router>
-  </GlobalStore>
   );
 }
 
