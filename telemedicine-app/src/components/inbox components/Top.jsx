@@ -17,7 +17,7 @@ function Top() {
         console.log("Popup is ", bPop);
     }
     return (<div style={{
-        display: 'flex',
+        
         justifyContent: 'space-between'
     }}>
         <Title />
@@ -27,6 +27,8 @@ function Top() {
                 display: 'flex',
                 position: 'relative',
                 left: '30px',
+                justifyContent: 'flex-end'
+                
             }}
         >
             <ObjLink
@@ -34,6 +36,7 @@ function Top() {
                 btnWidth="125px"
                 onClick={e => newPatientClick(e)}
                 doLink="false"
+
             />
         </div>
         {/* New Patient */}
