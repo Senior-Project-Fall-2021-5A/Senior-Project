@@ -1,4 +1,6 @@
 import React from 'react';
+import { useEffect } from 'react';
+import Axios from 'axios';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import PopUpWindow from '../../../components/Objects/ObjPopUpWindow'
@@ -8,6 +10,8 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
     //declarations
     const [textPatientID,setPatientID] = React.useState("");
     const [textDoctorID,setDoctorID] = React.useState("");
+    const [listOfPatients,setListOfPatients] = React.useState([]);  
+    const [listOfDoctors,setListOfDoctors] = React.useState([]);
     const [date,setDate] = React.useState(new Date());
     const [textTime,setTime] = React.useState("");
     const [txtLocSelect,setLocSelect] = React.useState("");
@@ -16,26 +20,41 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
     const [boolError,setBoolError] = React.useState(false);
     const [txtError,setError] = React.useState("");
 
-    
-    //~~~~~~Remove when linked~~~~~
-    const listOfPatients =[
-        {
-            label: "patient1",
-            value: "00001",
-        },
-        {
-            label: "patient2",
-            value: "00002",
-        },
-        {
-            label: "patient3",
-            value: "00003",
-        },
-        {
-            label: "patient4",
-            value: "00004",
-        },
-    ];
+    //Load Patients and Doctors
+    useEffect(() => {
+        CreateListOfPatients();
+        CreateListOfDoctors();    
+    }, []);
+
+    const CreateListOfPatients = (  ) => {
+        Axios.get('https://telemedicine5a-backend.herokuapp.com/users/getPatients')        
+            .then((response) => {                
+                let data = response.data;           
+                console.log("response:",data);
+                data.forEach(e=>{setListOfPatients(listOfPatients => [...listOfPatients, {
+                    label: e.lastName+", "+e.firstName+" ["+e.userUID.slice(-4)+"]",
+                    value: e.userUID,
+                    }]
+                )});
+            }).catch((err) => {
+                console.log(err, "Unable to get Patients");
+            });
+    }
+
+    const CreateListOfDoctors = (  ) => {
+        Axios.get('https://telemedicine5a-backend.herokuapp.com/users/getDoctors')
+            .then((response) => {                
+                let data = response.data;           
+                console.log("response:",data);
+                data.forEach(e=>{setListOfDoctors(listOfDoctors => [...listOfDoctors, {
+                    label: e.lastName+", "+e.firstName+" ["+e.userUID.slice(-4)+"]",
+                    value: e.userUID,
+                    }]
+                )});
+            }).catch((err) => {
+                console.log(err, "Unable to get Patients");
+            });
+    }
 
     //set patient
     const onPatientSelect = ( event ) => {
@@ -43,26 +62,6 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
         console.log("Value set: ", event.target.value);
         setPatientID(event.target.value);
     }
-
-    //~~~~~~Remove when linked~~~~~
-    const listOfDoctors =[
-        {
-            label: "Doctor1",
-            value: "00001",
-        },
-        {
-            label: "Doctor2",
-            value: "00002",
-        },
-        {
-            label: "Doctor3",
-            value: "00003",
-        },
-        {
-            label: "Doctor4",
-            value: "00004",
-        },
-    ];
 
     //set Doctor
     const onDoctorSelect = ( event ) => {
