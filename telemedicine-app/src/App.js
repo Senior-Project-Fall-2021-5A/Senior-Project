@@ -16,6 +16,11 @@ import confirmSchedule from './pages/confirmSchedule';
 import Reports from './pages/reports';
 import ReportDisplay from './pages/reportDisplay';
 
+import React from 'react';
+import CreateRoom from "./components/routes/CreateRoom";
+import Room from "./components/routes/Room";
+import './App.css';
+
 
 import { Fragment } from 'react';
 
@@ -40,7 +45,9 @@ function App() {
 
           <Route path='/reports' component={Reports}/>
           <Route path='/reportDisplay' component={ReportDisplay}/>
-          <Route path="/" exact component={Login} />          
+          <Route path="/" exact component={Login} />   
+          <Route path="/videocall" exact component={CreateRoom} />
+          <Route path="/room/:roomID" component={Room} />       
 
         </Switch>
       </div>
