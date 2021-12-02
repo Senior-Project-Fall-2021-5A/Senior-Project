@@ -1,0 +1,57 @@
+.calendar-container {
+   margin: auto;
+   margin-top: -10vh;
+   height: 50vh;
+}
+
+.custom-style {
+   margin: auto;
+}
+
+.cont {
+    background-color: green;
+    border-radius: 20px;
+}
+
+.calendar-text {
+    margin-top: 50px;
+}
+
+.confirm-date {
+    margin-top: 30px;
+    
+}
+
+.btn.btn-success {
+    border-radius: 20px;
+}
+
+.btn.btn-primary {
+    border-radius: 20px;
+    
+}
+
+.buttons-container {
+    margin-top: 65px;
+}
+
+.custom-modal-style {
+    width: 200px;
+    height: 500px;
+}
+
+.time-btn {
+    background-color: green;
+    border-radius: 20px;
+    width: 150px;
+    font-weight: bold;
+    margin-left: 159px;
+    margin-bottom: 50px;
+
+}
+
+@media only screen and (max-width: 1000px) {
+    .calendar-container {
+        margin-top: 10vh;
+    }
+}

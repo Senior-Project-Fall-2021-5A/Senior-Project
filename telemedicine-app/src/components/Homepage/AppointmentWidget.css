@@ -1,0 +1,31 @@
+.Appointment-Widget.card {
+    height: 100%;
+    border-radius: 30px;
+    background: #33383b;
+    color: white;
+    padding: 5%;
+}
+
+.appointment-card-nav.card-header {
+    background: linear-gradient(45deg, cyan 35%, limegreen);
+    width: 100%;
+    border-radius: 29px;
+}
+
+.nav.card-header-pills.nav-pills {
+    justify-content: center;
+}
+
+.Appointment-Widget.card {
+    overflow-y: scroll;
+
+}
+
+.Appointment-Widget.card {
+    -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.Appointment-Widget.card::-webkit-scrollbar {
+    display: none;
+
+}

@@ -1,0 +1,38 @@
+.Report-Widget-Container.card {
+    border-radius: 30px;
+    height:100%;
+    color: white;
+    background: #33383b;
+    overflow-y: scroll;
+}
+
+h4.Report-widget-header {
+    background: linear-gradient(45deg, cyan 35%, limegreen);
+    width: 100%;
+    border-radius: 29px;
+}
+
+.view-report-widget-btn{
+    background-color: #0d6efd;
+}
+
+.Report-Widget-Container.card {
+    -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.Report-Widget-Container.card::-webkit-scrollbar {
+    display: none;
+
+}
+
+.report-card-content{
+    text-align-last: left;
+}
+
+.Report-header {
+    padding-inline: 15%;
+}
+
+.report-widget-body.card-body {
+    padding-inline: 15%;
+}

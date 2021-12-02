@@ -1,0 +1,27 @@
+.column {
+    float: left;
+    width: 46%;
+    padding: 0 65px;
+}
+
+.row {
+    margin: -10px 100px;
+}
+
+.heading {
+    margin-top: -100px;
+    padding: 50px;
+
+}
+
+.typeCard1 {
+    position: relative;
+    display: inline-block;
+    padding-right: 2vw;
+}
+
+.typeCard2 {
+    position: relative;
+    display: inline-block;
+    padding-left: 2vw;
+}

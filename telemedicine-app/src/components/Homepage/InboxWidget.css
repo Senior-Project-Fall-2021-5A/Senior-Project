@@ -1,0 +1,58 @@
+.inbox-widget.btn-group-vertical {
+    -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.inbox-widget-wrapper::-webkit-scrollbar {
+    display: none;
+
+}
+.inbox-item{
+    display: flex;
+}
+.inbox-widget-wrapper {
+    height: 100%;
+    background: #33383b;
+    border-radius: 0px 0px 30px 30px;
+    overflow: scroll;
+}
+
+button.inbox-item.btn.btn-primary {
+    height: 50px;
+    width: 100%;
+    display: block;
+    text-align: left;
+    background: #33383b;
+    border-radius: 0px;
+    border-color: #33383bd6;
+    color: #ffff;
+}
+
+button.inbox-item.btn.btn-primary:hover {
+    height: 65px;
+    width: 100%;
+    text-align: left;
+    border-radius: 0px;
+    background: #0a58ca;
+    border-color: #33383bd6;
+    color: #ffff;
+}
+
+.Inbox-Widget-Container.card {
+    border-radius: 30px;
+    background: transparent;
+    height: 100%;
+}
+
+.Inbox-header.card-header {
+    background: #33383b;
+    border-radius: 30px 30px 0px 0px;
+}
+
+h4.Inbox-header-widget {
+    background: linear-gradient(45deg, cyan 35%, limegreen);
+    border-radius: 30px;
+}
+
+.Inbox-header.card-header {
+    color: white;
+}

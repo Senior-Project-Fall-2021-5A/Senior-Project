@@ -1,0 +1,8 @@
+/searchPatients: http://localhost:3003/users/searchPatients/:firstName/:lastName
+/searchDoctors: http://localhost:3003/users/searchDoctor/:firstName/:lastName
+/getPatients: http://localhost:3003/users/getPatients
+/getDoctors: http://localhost:3003/users/getDoctors
+/getpcp: http://localhost:3003/users/getPatientPcp/:userId 
+/approved doc: http://localhost:3003/users/approvedDoctors/:userId
+/addUserInfo http://localhost:3003/users/createUserProfile/:userId
+/getUserInfo http://localhost:3003/users/getUserInfo/:userId

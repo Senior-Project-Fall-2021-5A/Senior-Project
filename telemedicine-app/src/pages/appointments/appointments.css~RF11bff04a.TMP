@@ -1,0 +1,246 @@
+
+.Appointments-container-outer {
+   
+    height: 100vh;
+    width: 100vw;
+    
+}
+
+.Appointments-container-inner {
+    text-align: -webkit-center;
+    padding: 5%;
+    padding-top: 10%;
+    height: 100vh;
+    width: 100vw;
+    border-radius: 35px;
+}
+
+.Appointments-card {
+    padding: 10%;
+    box-shadow: 0 5px 15px 5px rgb(0 0 0 / 20%);
+    place-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    overflow-y: auto;
+    background: linear-gradient(45deg, cyan 35%, limegreen);
+}
+
+.button {
+    background-color: #0d6efd;
+    border-radius: 25px;
+    color: white;
+    padding: 6px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    width: 200px;
+    height: 40px;
+    float: right;
+    margin-top: -11vh;
+    
+}
+
+
+.app {
+
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    flex-direction: column;
+    gap: 20px;
+
+}
+
+.sign {
+
+    font-size: 25px;
+    display: block;
+
+}
+
+.accordion {
+
+    width: calc(100% + 0px);
+    border: 1px solid rgb(133, 133, 133);
+    -webkit-box-shadow: 0px 13px 23px -13px rgba(0,0,0,0.5);
+    margin-top: 15px;
+    background-color: rgba(0,0,0, .4);
+    border-radius: 15px;
+
+}
+
+.accordion-header {
+
+    font-weight: 600;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 15px;
+    background-color: transparent;
+      
+}
+
+.accordion-container {
+
+    margin-top: 0px;
+
+}
+
+.subject {
+
+    margin: auto;
+    display: inline-block;
+    position: relative;
+   
+}
+
+.date {
+
+    margin-left: 0vw;
+    margin-top: -4vh;
+    position: relative;
+    
+}
+
+.time {
+
+    margin-left: -7vw;
+    margin-top: 2vh;
+    position: relative;
+
+}
+
+.doctor {
+
+    margin-left: -920px;
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 18px;
+
+}
+
+.address {
+
+    margin-left: -920px;
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 18px;
+
+}
+
+.textarea-container {
+
+    margin-top: -50px;
+
+}
+
+.textarea-edit {
+
+    height: 125px;
+    width: 600px;
+    margin-right: -400px;
+    margin-top: -50px;
+    border-radius: 10px;
+    border: 1px solid #000; 
+
+}
+
+.doctor-notes {
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 18px;
+    display: inline-block;
+    padding-left: 150px;
+    float: left;
+    padding-right: 200px;
+    color: blue;
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+.reschedule {
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 18px;
+    display: inline-block;
+    padding-right: 250px;
+    color: red;
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+.cancel-appointment {
+    
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 18px;
+    display: inline-block;
+    color: red;
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+    
+}
+
+.note {
+    margin-left: -275px;
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 18px;
+   
+}
+
+.status {
+   
+   margin-right: 90px;
+  
+}
+
+@media only screen and (max-width: 930px) {
+    .button {
+        float: none;
+        margin-top: 10vh;
+    }
+    .accordion-container {
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-pack: justify;
+       
+    }
+
+}
+
+@media only screen and (max-width: 890px) {
+    .time {
+        margin-top: 10vh;
+        margin-left: -15vw;
+    }
+
+    .date {
+        margin-top: -10vh;
+    }
+    
+}
+
+@media only screen and (max-width: 350px) {
+    .subject {
+        margin-top: 25vh;
+        margin-left: -35vw;
+    }
+
+    .date {
+        margin-top: -30vh;
+    }
+
+    .time {
+        margin-top: -10vh;
+        margin-left: -25vw;
+    }
+
+    .sign {
+        margin-top: 35vh;
+    }
+}
+
+

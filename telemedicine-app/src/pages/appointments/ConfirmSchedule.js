@@ -7,6 +7,7 @@ import {Link, useParams} from "react-router-dom";
 const ConfirmSchedule = () => {
 
     const { doc, type, date, time } = useParams();
+
     const submitAppointment = () => {
         Axios.post('https://telemedicine5a-backend.herokuapp.com/appointments/addAppointments', {
         doctorName: doc,
@@ -17,6 +18,8 @@ const ConfirmSchedule = () => {
             console.log(response)
         });
     }
+
+    
 
     return (
     <div className='appointments'>

@@ -1,0 +1,89 @@
+.col-sm-3 {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.col-sm-9 {
+    background: white;
+    height: 100%;
+    border-radius: 0px 30px 30px 0px;
+}
+.nav-item {
+    font-size: 30px;
+}
+
+.nav-item:hover {
+    font-size: 30px;
+    padding:1%;
+    background:linear-gradient(
+90deg, rgb(110,94, 254) 0%, rgb(73, 63, 252, 1) 100%);
+    height: 80px;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background:linear-gradient(90deg, rgb(110,94, 254) 0%, rgb(73, 63, 252, 1) 100%);
+    color: white;
+}
+
+a#left-tabs-example-tab-\/ {
+    color: white;
+}
+.col-sm-3 {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.col-sm-9 {
+    background: white;
+    height: 100%;
+    border-radius: 0px 30px 30px 0px;
+    overflow-y: scroll;
+}
+.col-sm-9::-webkit-scrollbar {
+    display: none;
+}
+.nav-item {
+    font-size: 30px;
+}
+
+.nav-item:hover {
+    font-size: 30px;
+    padding:1%;
+    background:linear-gradient(
+90deg, rgb(110,94, 254) 0%, rgb(73, 63, 252, 1) 100%);
+    height: 80px;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background:linear-gradient(90deg, rgb(110,94, 254) 0%, rgb(73, 63, 252, 1) 100%);
+    color: white;
+}
+
+a#left-tabs-example-tab-\/ {
+    color: white;
+}
+
+.row{
+    margin:0px
+}
+
+h3.info-header {
+    padding-top: 2%;
+    font-size: 20px;
+}
+
+.nav-link{
+    color: white;
+}
+
+.nav-link:hover{
+    color:white;
+}
+
+.row{
+    margin:0px
+}
+
+div#left-tabs-example-tabpane-first {
+    background-color: white;
+}

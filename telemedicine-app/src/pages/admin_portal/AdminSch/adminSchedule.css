@@ -1,0 +1,69 @@
+.adminschedule-container{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 50px 25px 50px 50px 300px;
+    gap: 5px;    
+    grid-template-areas: 
+    "adminschedule-header-frame"
+    "adminschedule-checkboxes-label-frame"
+    "adminschedule-checkboxes-frame"
+    "adminschedule-calender-label"
+    "adminschedule-calender-frame adminschedule-time-list-frame"
+}
+
+.adminschedule-header-frame {
+    grid-area: adminschedule-header-frame;
+    grid-row: 1;
+    grid-column: 1/3;
+}
+
+.adminschedule-checkboxes-label-frame {
+    grid-area: adminschedule-checkboxes-label-frame;
+    grid-row: 2;
+    grid-column: 1;
+    display: flex;    
+}
+
+.adminschedule-checkboxes-label {
+    margin-top: 1px;
+    font-weight: bold;    
+}
+
+.adminschedule-checkboxes-frame{    
+    grid-area: adminschedule-checkboxes-frame;
+    grid-row: 3;
+    grid-column: 1;    
+}
+
+.adminschedule-checkboxes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.adminschedule-calender-label-frame {
+    grid-area: adminschedule-calender-label;
+    grid-row: 4;
+    grid-column: 1;    
+}
+
+.adminschedule-calender-label {
+    display: flex;
+    margin-bottom: -10px;
+}
+
+.adminschedule-calender-frame {
+    grid-area: adminschedule-calender-frame;
+    grid-row: 5;
+    grid-column: 1;    
+    margin: 0 auto;
+}
+
+.adminschedule-time-list-frame {
+    grid-area: adminschedule-time-list-frame;
+    grid-row: 4/6;
+    grid-column: 2;
+    padding-top: 30px;
+    
+
+}
