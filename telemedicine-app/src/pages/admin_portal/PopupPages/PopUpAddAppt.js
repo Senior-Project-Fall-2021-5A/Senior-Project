@@ -169,26 +169,6 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
         setShowLocation(doInPerson);
     }
     
-    //~~~~~~Remove when linked~~~~~
-    /* const listOfLocations =[
-        {
-            label: "Location01",
-            value: "00001",
-        },
-        {
-            label: "Location02",
-            value: "00002",
-        },
-        {
-            label: "Location03",
-            value: "00003",
-        },
-        {
-            label: "Location04",
-            value: "00004",
-        },
-    ]; */
-
     const getLocations = (  ) => {
         Axios.get(`https://telemedicine5a-backend.herokuapp.com/location/getLocations`)
             .then((response) => {                
@@ -212,7 +192,7 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
         
     }
 
-    //create new Apt
+    //Submit Apt
     const onSubmit = (event) => {
         console.log(event);
         console.log("patient: ", textPatientID, " doctor: ", textDoctorID, " Date: ", date, " Time: ", textTime);        
@@ -222,13 +202,41 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
             setBoolError(true);
             setError("Missing Patient, Doctor, Location, or Time");
         }else{            
-            setBoolError(false);
-            setDoctorID("");
-            setPatientID("");
-            setLocSelect("");
-            setTime("");
-            setTrigger(false);
+            addAppointment();
         }
+    }
+
+    //Create Apt
+    const addAppointment = () => {
+        Axios.post('https://telemedicine5a-backend.herokuapp.com/appointments/addAppointment', {
+                userUID:        textPatientID,
+                doctorUID:      textDoctorID,
+                date:           date,
+                time:           textTime,
+                type:           txtLocSelect,
+                locationUID:    txtLocation,
+            }).then((response) => {
+                console.log("Add Appt, addAppointment(), response: ",response) 
+                
+                //cleanup
+                setBoolError(false);
+                setDoctorID("");
+                setPatientID("");
+                setLocSelect("");
+                setTime("");
+                setTrigger(false);
+            }).catch((err) => {
+                //get Error
+                let arrErrors = err.response.data.errors;
+                console.log("arrErrors: ",arrErrors);
+                let txtError = "";
+                arrErrors.forEach(e => txtError=`${txtError}${e.msg}. `);
+                console.log("txtError: ",txtError);
+
+                //error display
+                setError(txtError);
+                setBoolError(true);            
+            });
     }
     
     return (    
@@ -370,7 +378,7 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
                     {/* Btn In Person */}
                     <input
                         type="radio"
-                        value="InPerson"
+                        value="inPerson"
                         name="radioLocation"                        
                     />
                     <pre><p 
@@ -383,7 +391,7 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
                     {/* Btn Virtual */}
                     <input
                         type="radio"
-                        value="Virtual"
+                        value="virtual"
                         name="radioLocation"
                     />
                     <pre><p 
