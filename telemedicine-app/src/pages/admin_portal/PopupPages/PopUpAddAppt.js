@@ -12,6 +12,7 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
     const [textDoctorID,setDoctorID] = React.useState("");
     const [listOfPatients,setListOfPatients] = React.useState([]);  
     const [listOfDoctors,setListOfDoctors] = React.useState([]);
+    const [listOfLocations,setListOfLocations] = React.useState([]);
     const [date,setDate] = React.useState(new Date());
     const [textTime,setTime] = React.useState("");
     const [txtLocSelect,setLocSelect] = React.useState("");
@@ -20,10 +21,79 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
     const [boolError,setBoolError] = React.useState(false);
     const [txtError,setError] = React.useState("");
 
+    //Time Defaults
+    const listOfTimes =[
+        {
+            label: "09:00AM",
+            value: "09:00AM",
+        },   
+        {
+            label: "09:30PM",
+            value: "09:30PM",
+        },     
+        {
+            label: "10:00AM",
+            value: "10:00AM",
+        },
+        {
+            label: "10:30AM",
+            value: "10:30AM",
+        },
+        {
+            label: "11:00AM",
+            value: "11:00AM",
+        },
+        {
+            label: "11:30AM",
+            value: "11:30AM",
+        },
+        {
+            label: "12:00PM",
+            value: "12:00PM",
+        },
+        {
+            label: "12:30PM",
+            value: "12:30PM",
+        },
+        {
+            label: "01:00PM",
+            value: "01:00PM",
+        },
+        {
+            label: "01:30PM",
+            value: "01:30PM",
+        },
+        {
+            label: "02:00PM",
+            value: "02:00PM",
+        },
+        {
+            label: "02:30PM",
+            value: "02:30PM",
+        },
+        {
+            label: "03:00PM",
+            value: "03:00PM",
+        },
+        {
+            label: "03:30PM",
+            value: "03:30PM",
+        },
+        {
+            label: "04:00PM",
+            value: "04:00PM",
+        },
+        {
+            label: "04:30PM",
+            value: "04:30PM",
+        },
+    ];
+
     //Load Patients and Doctors
     useEffect(() => {
         CreateListOfPatients();
-        CreateListOfDoctors();    
+        CreateListOfDoctors();  
+        getLocations();  
     }, []);
 
     const CreateListOfPatients = (  ) => {
@@ -66,29 +136,22 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
     //set Doctor
     const onDoctorSelect = ( event ) => {
         console.log("onDoctorSelect - ",event);
-        console.log("Value set: ", event.target.value);
-        setDoctorID(event.target.value);
+        let docID = event.target.value;
+        console.log("Value set: ", docID);
+        setDoctorID(docID);
+        getScheduleAvail(docID);
     }
 
-    //~~~~~~Remove when linked~~~~~
-    const listOfTimes =[
-        {
-            label: "09:00AM",
-            value: "09:00AM",
-        },
-        {
-            label: "10:00AM",
-            value: "10:00AM",
-        },
-        {
-            label: "11:00AM",
-            value: "11:00AM",
-        },
-        {
-            label: "12:00PM",
-            value: "12:00PM",
-        },
-    ];
+    const getScheduleAvail = ( docID ) => {
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/schedule/getScheduled/${docID}`)
+            .then((response) => {                
+                let data = response.data;           
+                console.log("getScheduleAvail() - response:",data);
+                
+            }).catch((err) => {
+                console.log(err, "Unable to get Schedule");
+            });
+    }
 
     //set Time
     const onTimeSelect = ( event ) => {
@@ -107,7 +170,7 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
     }
     
     //~~~~~~Remove when linked~~~~~
-    const listOfLocations =[
+    /* const listOfLocations =[
         {
             label: "Location01",
             value: "00001",
@@ -124,13 +187,29 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
             label: "Location04",
             value: "00004",
         },
-    ];
+    ]; */
+
+    const getLocations = (  ) => {
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/location/getLocations`)
+            .then((response) => {                
+                let data = response.data;           
+                console.log("getLocations() - response:",data);
+                data.forEach(e=>{setListOfLocations(listOfLocations=>[...listOfLocations,{
+                        label: e.name,
+                        value: e._id,
+                    }]
+                )})
+            }).catch((err) => {
+                console.log(err, "Unable to get Locations");
+            });
+    }
 
     //set Location
     const onLocationInput = ( event ) => {
         let loc = event.target.value;
         setLocation(loc);
         console.log("Location: ",loc);
+        
     }
 
     //create new Apt
