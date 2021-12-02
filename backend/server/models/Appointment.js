@@ -3,15 +3,15 @@ const mongoose = require('mongoose');
 const AppointmentSchema = new mongoose.Schema({
     userUID: {
         type: mongoose.Schema.Types.ObjectId,
-        required: false,
+        required: true,
     },
     doctorUID: {
         type: mongoose.Schema.Types.ObjectId,
-        required: false,
+        required: true,
     },
     reportsUID: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
+        required: false,
     },
     date: {
         type: Date,
