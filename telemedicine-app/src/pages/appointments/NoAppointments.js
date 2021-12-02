@@ -11,7 +11,6 @@ import './Tabs.css';
 import Chevron from '../../components/inbox components/Chevron.js'
 import authUserObject from '../../middleware/authUserObject';
 
-const userInfo = require('../../middleware/authUserObject');
 
 function NoAppointments() {
 

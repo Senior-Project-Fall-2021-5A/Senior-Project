@@ -71,7 +71,7 @@ const AdminApts = ({  }) => {
                     top: '-30px'
                 }}
             >
-                <AdminAptsTable/>
+                <AdminAptsTable date={date}/>
             </div>
 
             {/* New Patient */}
