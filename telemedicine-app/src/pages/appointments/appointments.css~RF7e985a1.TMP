@@ -107,6 +107,12 @@
     align-items: center;
 }
 
+.accordion-container {
+
+    margin-top: 0px;
+
+}
+
 .subject {
 
     margin: auto;
@@ -135,12 +141,11 @@
 
 .doctor {
 
-    margin-left: -50vw;
+    margin-left: -61vw;
     margin-top: 0vh;
     font-weight: 600;
     font-size: 18px;
     padding-top: 1vh;
-    
 
 }
 
@@ -153,14 +158,22 @@
 
 }
 
+.textarea-container {
+
+    margin-top: 0px;
+
+}
+
 .textarea-edit {
 
     height: 15vh;
     width: calc(58% + 2px);
+    margin-right: -26vw;
+    margin-top: -6vh;
     border-radius: 10px;
     border: 1px solid #000; 
     position: relative;
-    display: flex;
+    display: inline-block;
     margin: auto;
 
 }
@@ -173,6 +186,7 @@
     display: inline-block;
     float: left;
     color: blue;
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
     position: relative;
 }
 
@@ -182,6 +196,7 @@
     font-size: 18px;
     display: inline-block;
     color: red;
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
     position: relative;
 }
 
@@ -194,6 +209,7 @@
     font-size: 18px;
     display: inline-block;
     color: red;
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
     
 }
 

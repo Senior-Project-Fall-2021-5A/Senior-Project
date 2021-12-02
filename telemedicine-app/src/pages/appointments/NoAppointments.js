@@ -2,31 +2,47 @@ import React, { useState, useEffect }  from 'react';
 import './appointments.css';
 import Footer from '../../components/Footer/Footer';
 import Navbar from '../../components/Navbar/Navbar';
-import Axios from 'axios'
-
+import Axios from 'axios';
 import { Accordion, Card, Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-import {Link,useParams} from "react-router-dom";
-
+import { Link, useParams } from "react-router-dom";
 import ReactDOM from "react-dom";
-
 import './Tabs.css';
+import Chevron from '../../components/inbox components/Chevron.js'
 
 function NoAppointments() {
 
     const [listOfAppointments, setListOfAppointments] = useState([]);
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState("");
 
-    const handleOpen = () => {
-    setShow(!show); // Toggle accordion
-    };
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [items, setItems] = useState([]);
+
+    //const handleOpen = () => {
+    //setShow(!show); // Toggle accordion
+    //};
+
+    function handleOpen() {
+       setShow(show === "" ? "active" : "");
+	}
 
     const [toggleState, setToggleState] = useState(1);
+    const [toggled, setToggled] = useState(false);
 
     const toggleTab = (index) => {
-    setToggleState(index);
+        setToggleState(index);
     };
+
+
+    const toggleAccordion = (index) => {
+
+        if(toggled === index){
+          return setToggled(null);
+        }
+    
+        setToggled(index);
+       
+    }
 
     useEffect(() => {
         Axios.get('https://telemedicine5a-backend.herokuapp.com/appointments/getAppointments')
@@ -37,131 +53,157 @@ function NoAppointments() {
             console.log(err, "Unable to get appointments");
         });
     }, []);
+    
 
    return (
 
        <div className='appointments'>
-            <Navbar/>
-                <div className='Appointments-container-outer'>
-                    <div className='Appointments-container-inner'>
-                        <div className='Appointments-card'>
-                            <Link to='/DoctorSearch'>
-                            <Button className="button">
-                                Create New
-                            </Button>
-                            </Link>
+           <Navbar/>
+               <div className='Appointments-container-outer'>
+                   <div className='Appointments-container-inner'>
+                       <div className='Appointments-card'>
 
-                            <div>
-                            <div className="bloc-tabs">
-                                <button
-                                    className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
-                                    onClick={() => toggleTab(1)}
-                                >
-                                    Upcoming 
-                                </button>
-                                <button
-                                    className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
-                                    onClick={() => toggleTab(2)}
-                                >
-                                    Past
-                                </button>
+
+                          <Link to='/DoctorSearch'>
+                              <Button className="button">
+                                 Create New
+                              </Button>
+                          </Link>
+
+                        
+                          <div className="bloc-tabs">
+
+                            <button className={toggleState === 1 ? "tabs active-tabs" : "tabs"} onClick={() => toggleTab(1)}>
+                                Upcoming 
+                            </button>
+
+                            <button className={toggleState === 2 ? "tabs active-tabs" : "tabs"} onClick={() => toggleTab(2)}>
+                                Past
+                            </button>
         
-                            </div>
+                          </div>
 
-                            <div className="content-tabs">
-                            <div
-                                className={toggleState === 1 ? "content  active-content" : "content"}
-                            >
+
+                          <div className="content-tabs">
+
+                             <div className={toggleState === 1 ? "content  active-content" : "content"}>
+
                                 <h4>All Upcoming Appointments</h4>
                                 <hr />
 
-                                {listOfAppointments.map((appointment) => {
-                                    return (
-                                        <div className="accordion-container">
+                                {listOfAppointments.map((appointment, index) => {
 
-                                        <div className="accordion">
-                  
-                                            <div className="accordion-header" onClick={handleOpen}>
-                                                <div className="date">{appointment.date}</div>
-                                                <div className="time">{appointment.time}</div>
-                                                <div className="subject">{appointment.type}</div>
+                                    return (
+                                        
+                                        <div className="accordion1">
+                    
+                                            <div className="accordion1-header" onClick={() => toggleAccordion(index)} key={appointment.index}>
+                                                <h5 className="date">{appointment.date}</h5>
+                                                <h5 className="time">{appointment.time}</h5>
+                                                <h5 className="subject">{appointment.type}</h5>
                                              
-                                                <div className="sign">{show ? '-' : '+'}</div>
+                                                
+                                                <b>
+                                                    {toggled === index ? 
+                                                        <Chevron className="accordion__icon" width={15} fill="#fc59ff"/> 
+                                                        : <Chevron className="accordion__icon rotate" width={15} fill="#fc59ff"/>
+                                                    }
+                                                </b>
+                                                
                                             </div>
-                                            {show && (
-                                                <div className="accordion-body">
-                                                <div className="note">Note:</div>
-                                                    <div className="doctor">{appointment.doctorName}</div>
-                                                    <div className="address">Address</div>
+                                           
+                                            
+                                          
+                                            {toggled === index && (
+
+                                                <div className="accordion1-body">
+                                                
+                                                    <h1 className="doctor">{appointment.doctorUID}</h1>
+                                                    <h1 className="address">Address</h1>
+                                                    
                                                     <Link to='/client'>
                                                         <button className="btnCall">Start Call</button>
                                                     </Link>
-                                                    <div className="textarea-container">
-                                                        <textarea className="textarea-edit">
-                                                        </textarea>
-                                                    </div>
-                                                    <div className="doctor-notes">Doctor Notes</div>
-                                                    <div className="reschedule">Reschedule</div>
-                                                    <div className="cancel-appointment">Cancel Appointment</div>
+                                                    <h1 className="note">Note:</h1>
+                                                    
+                                                    <textarea className="textarea-edit">
+                                                    </textarea>
+                                                 
+                                                    <h1 className="doctor-notes">Doctor Notes</h1>
+                                                    <h1 className="reschedule">Reschedule</h1>
+                                                    <h1 className="cancel-appointment">Cancel Appointment</h1>
                              
                                                 </div>
                                             )}
-                                        </div>
-                                     </div> 
+                                        
+                                        </div> 
                                     );
                                 })}
-                            </div>
+                             </div>
 
-                            <div
-                                className={toggleState === 2 ? "content  active-content" : "content"}
-                            >
+
+                             <div className={toggleState === 2 ? "content  active-content" : "content"}>
+
                                 <h4>All Past Appointments</h4>
                                 <hr />
 
-                                <div className="accordion-container">
-
-                                    <div className="accordion">
-              
-                                        <div className="accordion-header" onClick={handleOpen}>
-                                            <div className="date">September 5th 2021</div>
-                                            <div className="time">7:00 p.m.</div>
-                                            <div className="subject">In-person Appointment</div>
-                                         
-                                            <div className="sign">{show ? '-' : '+'}</div>
-                                        </div>
-                                        {show && (
-                                            <div className="accordion-body">
-                                            <div className="note">Note:</div>
-                                                <div className="doctor">Doctor E</div>
-                                                <div className="address">Address</div>
-                                                <Link to='/client'>
-                                                    <button className="btnCall">Start Call</button>
-                                                </Link>
-                                                <div className="textarea-container">
-                                                    <textarea className="textarea-edit">
-                                                    </textarea>
-                                                </div>
-                                                <div className="doctor-notes">Doctor Notes</div>
-                                                <div className="reschedule">Reschedule</div>
-                                                <div className="cancel-appointment">Cancel Appointment</div>
-                         
-                                            </div>
-                                        )}
+                                   
+                                <div className="accordion1">
+                    
+                                    <div className="accordion1-header">
+                                        <h5 className="date">November 23th, 2021</h5>
+                                        <h5 className="time">3:00 p.m.</h5>
+                                        <h5 className="subject">Online</h5>
+                                             
+                                                
+                                        <b>
+                                            {toggled ? 
+                                                <Chevron className="accordion__icon" width={15} fill="#fc59ff"/> 
+                                                : <Chevron className="accordion__icon rotate" width={15} fill="#fc59ff"/>
+                                            }
+                                        </b>
+                                                
                                     </div>
-                                 </div>
-                          
+                                           
+                                            
+                                          
+                                    {toggled && (
+
+                                        <div className="accordion1-body">
+                                                
+                                            <h1 className="doctor">Doctor B</h1>
+                                            <h1 className="address">Address</h1>
+                                                    
+                                            <Link to='/client'>
+                                                <button className="btnCall">Start Call</button>
+                                            </Link>
+                                            <h1 className="note">Note:</h1>
+                                                    
+                                            <textarea className="textarea-edit">
+                                            </textarea>
+                                                 
+                                            <h1 className="doctor-notes">Doctor Notes</h1>
+                                            <h1 className="reschedule">Reschedule</h1>
+                                            <h1 className="cancel-appointment">Cancel Appointment</h1>
+                             
+                                        </div>
+                                    )}
+                                        
+                                </div>
+                                   
                              </div>
 
-                          </div>
+                           </div>
 
-                        </div>
+                       </div>
 
-                      </div>
-                    </div>
-                </div>
-            <Footer/>
+                   </div>
+
+               </div>
+
+           <Footer/>
+
        </div>
-
 
    )
 

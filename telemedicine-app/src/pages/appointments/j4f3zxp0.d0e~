@@ -7,7 +7,6 @@ import {Link, useParams} from "react-router-dom";
 const ConfirmSchedule = () => {
 
     const { doc, type, date, time } = useParams();
-
     const submitAppointment = () => {
         Axios.post('https://telemedicine5a-backend.herokuapp.com/appointments/addAppointments', {
         doctorName: doc,
@@ -18,8 +17,6 @@ const ConfirmSchedule = () => {
             console.log(response)
         });
     }
-
-    
 
     return (
     <div className='appointments'>
@@ -41,6 +38,16 @@ const ConfirmSchedule = () => {
                 <Link to={`/DoctorSearch`}>
                     <button type="button" class="btn btn-primary">Start Over</button>
                 </Link>
+
+                <ObjLink
+                    linkInfo = '/reportDisplay'
+                    text = "View"
+                    doLink = "true"
+                    data = {{
+                        doctor: report.doctor, 
+                        _id: report._id,
+                    }}
+                />
 
             </div>
             
