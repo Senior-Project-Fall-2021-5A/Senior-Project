@@ -6,7 +6,6 @@ import { useHistory } from 'react-router-dom';
 import './Registration.css';
 import Logo from '../images/company-logo.png';
 import Axios from 'axios';
-import { GlobalContext } from '../middleware/GlobalStore';
 
 function Registration() {
 
@@ -14,7 +13,6 @@ function Registration() {
   let userRole = 0;
   let isAuth = false;
   const history = useHistory();
-  const [state, dispatch] = useContext(GlobalContext);
   const [registerState, setRegisterState] = useState({
     fName: '',
     lName: '',
@@ -28,14 +26,13 @@ function Registration() {
       console.log(registerState)
       // Create user with email and password
       Axios.post('https://telemedicine5a-backend.herokuapp.com/users/register', {
-        name: registerState.fName + ' ' + state.lName,
+        name: registerState.fName + ' ' + registerState.lName,
         email: registerState.email,
         password: registerState.password,
         }).then((response) => {
             userId = String(response.data.user._id);
             userRole = response.data.user.role;
-            dispatch({ type: 'STORE_AUTH_USERUID', payload: userId})
-            dispatch({ type: 'STORE_AUTH_USER_ROLE', payload: userRole})
+            console.log(userId, userRole);
             // Create user profile with first/last name and email
             return Axios.post(`https://telemedicine5a-backend.herokuapp.com/users/createUserProfile/${response.data.user._id}`, {
               firstName: registerState.fName,
