@@ -30,7 +30,7 @@ const AdminAptsTable = ({date}) => {
                     appointment.push('patientName', userProfileResponse.data[0].firstName + ' ' + userProfileResponse.data[0].lastName)
                 })
             })
-            setListOfAppointments(appointmentResponse.data);
+            setListOfAppointments([appointmentResponse.data]);
         })
         .catch((err) => {
             console.log(err, "Unable to get appointments for selected date");
