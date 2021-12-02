@@ -11,7 +11,7 @@
 }
 .inbox-widget-wrapper {
     height: 100%;
-    background: #0a58ca;
+    background: #33383b;
     border-radius: 0px 0px 30px 30px;
     overflow: scroll;
 }
@@ -32,7 +32,7 @@ button.inbox-item.btn.btn-primary:hover {
     width: 100%;
     text-align: left;
     border-radius: 0px;
-    background: #33383b0e;
+    background: #0a58ca;
     border-color: #33383bd6;
     color: #ffff;
 }

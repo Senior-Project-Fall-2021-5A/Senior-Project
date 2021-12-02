@@ -9,6 +9,8 @@ import { Link, useParams } from "react-router-dom";
 import ReactDOM from "react-dom";
 import './Tabs.css';
 import Chevron from '../../components/inbox components/Chevron.js'
+import authUserObject from '../../middleware/authUserObject';
+
 
 function NoAppointments() {
 
@@ -33,7 +35,6 @@ function NoAppointments() {
         setToggleState(index);
     };
 
-
     const toggleAccordion = (index) => {
 
         if(toggled === index){
@@ -43,9 +44,8 @@ function NoAppointments() {
         setToggled(index);
        
     }
-
     useEffect(() => {
-        Axios.get('https://telemedicine5a-backend.herokuapp.com/appointments/getAppointments')
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/appointments/getAppointments/${authUserObject.userId}`)
         .then((response) => {
             setListOfAppointments(response.data);
         })

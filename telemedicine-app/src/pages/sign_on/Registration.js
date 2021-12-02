@@ -4,17 +4,16 @@ import {Form, Button} from 'react-bootstrap';
 import {Link} from "react-router-dom";
 import { useHistory } from 'react-router-dom';
 import './Registration.css';
-import Logo from '../images/company-logo.png';
+import Logo from '../../images/company-logo.png';
 import Axios from 'axios';
-import { GlobalContext } from '../middleware/GlobalStore';
 
 function Registration() {
 
   let userId = '';
   let userRole = 0;
   let isAuth = false;
+  let isAdmin = false;
   const history = useHistory();
-  const [state, dispatch] = useContext(GlobalContext);
   const [registerState, setRegisterState] = useState({
     fName: '',
     lName: '',
@@ -28,19 +27,39 @@ function Registration() {
       console.log(registerState)
       // Create user with email and password
       Axios.post('https://telemedicine5a-backend.herokuapp.com/users/register', {
-        name: registerState.fName + ' ' + state.lName,
+        name: registerState.fName + ' ' + registerState.lName,
         email: registerState.email,
         password: registerState.password,
         }).then((response) => {
             userId = String(response.data.user._id);
-            userRole = response.data.user.role;
-            dispatch({ type: 'STORE_AUTH_USERUID', payload: userId})
-            dispatch({ type: 'STORE_AUTH_USER_ROLE', payload: userRole})
+            userRole = String(response.data.user.role);
+            userRole === 0 ? isAdmin = true : isAdmin = false;
+            console.log(userId, userRole);
+            localStorage.setItem('userId', userId);
+            localStorage.setItem('userRole', userRole);
             // Create user profile with first/last name and email
             return Axios.post(`https://telemedicine5a-backend.herokuapp.com/users/createUserProfile/${response.data.user._id}`, {
               firstName: registerState.fName,
+              midName: '',
               lastName: registerState.lName,
               email: registerState.email,
+              userUID: userId,
+              DoB: '',
+              gender: '',
+              address1: '',
+              address2: '',
+              city: '',
+              state: '',
+              zip: '',
+              phone1: '',
+              phone2: '',
+              phone3: '',
+              Insurance01UID: '',
+              Insurance02UID: '',
+              Insurance03UID: '',
+              primaryPhysician: '',
+              approvedDoctors: [''],
+              isAdmin: isAdmin,
             });
           }).then((response) => {
               isAuth = true;

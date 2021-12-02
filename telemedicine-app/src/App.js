@@ -2,7 +2,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from 'react';
 import {Route, BrowserRouter as Router, Switch, Link} from "react-router-dom";
-import Login from "./pages/login";
+import Login from "./pages/sign_on/login";
 import About from "./pages/about";
 import Homepage from './pages/homepage';
 import Appointments from './pages/appointments/appointments';
@@ -18,17 +18,14 @@ import AppointmentType from './pages/appointments/AppointmentType';
 import NoAppointments from './pages/appointments/NoAppointments';
 import MyAccount from './pages/MyAccount';
 import Client from './pages/VideoChat/Client';
-import Registration from './pages/Registration';
-import LoginLoading from './pages/loginloading';
+import Registration from './pages/sign_on/Registration';
+import LoginLoading from './pages/sign_on/loginloading';
 import Chevron from './components/inbox components/Chevron.js'
-
-import GlobalStore from './middleware/GlobalStore';
 
 
 
 function App() {
   return (
-    <GlobalStore>
       <Router>
         <div className="App">
           <Switch>
@@ -83,7 +80,6 @@ function App() {
           </Switch>
         </div>
       </Router>
-  </GlobalStore>
   );
 }
 

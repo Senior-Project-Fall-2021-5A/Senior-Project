@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import { Grid, Row, Col } from "react-styled-flexboxgrid";
 import { StyleSheet, css } from "aphrodite";
 
-import { Loader1} from "../loaders/index";
+import { Loader1 } from "../../loaders/index";
 import context from "react-bootstrap/esm/AccordionContext";
 
 const styles = StyleSheet.create({

@@ -1,6 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { UseState, useEffect } from 'react';
 import Axios from 'axios';
 import PopUpWindow from '../../../components/Objects/ObjPopUpWindow';
 import ObjButton from '../../../components/Objects/ObjButton';
@@ -19,41 +18,26 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
     const [txtError,setError] = React.useState("");
 
     /***************************************************** 
-            Temp Needs Link to get actual list of docs
+                    Pull List of Docs
     ******************************************************/
     //http://localhost:3003/doctors/getDoctorInfo
     
     useEffect(() => {
-        Axios.get('https://telemedicine5a-backend.herokuapp.com/doctors/getDoctorInfo')
-        //Axios.get('http://localhost:3000/doctors/getDoctorInfo')
-            .then((response) => {                
-                console.log("Doctors:",response);
-                setListOfDoctors(response.data);
+        Axios.get('https://telemedicine5a-backend.herokuapp.com/users/getDoctors')        
+            .then((response) => {     
+                let data = response.data;           
+                console.log("response:",data);
+                data.forEach(e=>{setListOfDoctors(listOfDoctors => [...listOfDoctors, {
+                    label: e.lastName+", "+e.firstName+" ["+e.userUID.slice(-4)+"]",
+                    value: e.userUID,
+                    },]
+                )});
+                
             })
             .catch((err) => {
                 console.log(err, "Unable to get Doctors");
             });
     }, []);
-
-    
-    /* const listOfDoctors =[
-        {
-            label: "Doctor1",
-            value: "00001",
-        },
-        {
-            label: "Doctor2",
-            value: "00002",
-        },
-        {
-            label: "Doctor3",
-            value: "00003",
-        },
-        {
-            label: "Doctor4",
-            value: "00004",
-        },
-    ]; */
 
     /***************************************************** 
                     Event Handlers
@@ -69,6 +53,7 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
     const onSubmit = ( event ) => {
         console.log(event);
         console.log("Add Patient, onSubmit()"); 
+        
         //textDoctorID == "_placeholder_" || textDoctorID == "" || 
         if (txtPatientFName == "" || txtPatientMName == "" ||
          txtPatientLName == "" || txtPatientEmail == "" || txtPatientPass == "") {
@@ -79,6 +64,7 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
                 name:       txtPatientLName +", " + txtPatientFName, 
                 email:      txtPatientEmail,        
                 password:   txtPatientPass,
+                role:       1,
             }).then((response) => {
                 console.log("Add Patient, onSubmit(), CreateUser, Axios response: ",response)
                 let patientID = String(response.data.user._id);
@@ -90,6 +76,7 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
                     lastName:           txtPatientLName,
                     email:              txtPatientEmail,
                     primaryPhysician:   textDoctorID,
+                    isAdmin:            false,
                 }).then((response) => {
                     console.log("Add Patient, onSubmit(), CreateDemo, Axios response: ",response)                
                 }).catch((err) => {
@@ -108,20 +95,11 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
         }
     }
 
-    /* const { doc, type, date, time } = useParams();
-    const submitAppointment = () => {
-        Axios.post('https://telemedicine5a-backend.herokuapp.com/appointments/addAppointments', {
-        doctorName: doc,
-        type: type,
-        date: date,
-        time: time,
-        }).then((response) => {
-            console.log(response)
-        });
-    } */
-    
-    return (
-    
+    /***************************************************** 
+                         HTML
+    ******************************************************/
+
+    return (    
         <PopUpWindow
                 trigger = {trigger}
                 setTrigger = {setTrigger}
