@@ -20,7 +20,8 @@ const AdminAptsTable = ({date}) => {
     const dateToSend = date.toLocaleDateString(`en-US`).split('/').join('-');
 
     useEffect(() => {
-        Axios.get(`https://telemedicine5a-backend.herokuapp.com/appointments/getAppointmentsByDate/${authUserObject.userId}/${dateToSend}`)
+        console.log("AdminAptTable HEREJKFBKDJF");
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/appointments/getAppointments/${authUserObject.userId}`)//${dateToSend}
         .then((appointmentResponse) => {
             console.log('IMPORTANT', appointmentResponse)
             
@@ -92,7 +93,7 @@ const AdminAptsTable = ({date}) => {
                     </tr>
                     {listOfAppointments !== undefined ? listOfAppointments.map((appointment, index) => (
                          <tr>
-                            <td style={styleTD}>{appointment.date}</td>
+                            <td style={styleTD}>{(new Date(appointment.date)).toLocaleDateString()}</td>
                             <td style={styleTD}>{appointment.time}</td>
                             <td style={styleTD}>{appointment.patientName}</td>
                             <td style={styleTD}>{appointment.type}</td>
