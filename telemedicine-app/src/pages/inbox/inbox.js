@@ -26,13 +26,13 @@ const Inbox = () => {
     }, []);
 
     const SendMessages = () => {
-        let userID = "61a83ebc22c98d53ae328249";
-        return Axios.post(`https://telemedicine5a-backend.herokuapp.com/users/createUserProfile/${userID}`, {
+        let userID = "61a80bf9d9e6a3effb3cc950";
+        return Axios.post(`https://telemedicine5a-backend.herokuapp.com/inbox/sendMessage`, {
             senderID: userID,
             recieverID: "61a7c275d35cf2796a2dcba8",
             subject: "subject",
             body: "a message",
-            date: new Date(),
+            // date: new Date(),
             isRead: false,
         }).then((response) => {
             console.log("SendMessages(), response: ", response);
@@ -80,8 +80,6 @@ const Inbox = () => {
 
             </Canvas>
         </div>
-
-
 
     )
 }
