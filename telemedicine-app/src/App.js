@@ -17,7 +17,6 @@ import adminPortal from './pages/admin_portal/AdminPage';
 import AppointmentType from './pages/appointments/AppointmentType';
 import NoAppointments from './pages/appointments/NoAppointments';
 import MyAccount from './pages/MyAccount';
-import Client from './pages/VideoChat/Client';
 import Registration from './pages/sign_on/Registration';
 import LoginLoading from './pages/sign_on/loginloading';
 import Chevron from './components/inbox components/Chevron.js'
@@ -35,52 +34,27 @@ function App() {
             <AppointmentType/>
             </Route>
             <Route path='/homepage' component={Homepage}/>
-
             <Route path='/appointments' exact component={Appointments}/>
             <Route path='/NoAppointments' exact component={NoAppointments}/>
-
             <Route path='/loginloading' exact component={LoginLoading}/>
-
             <Route path='/doctorsearch' component={DoctorSearch}/>
-
             <Route path="/ScheduleCalendar/:doc/:type">
             <ScheduleCalendar/>
             </Route>
-            <Route path="/" exact component={Login} /> 
             <Route path="/registration" component={Registration} />           
-
-            <Route path='/reports' component={Reports}/>
-            <Route path='/reportDisplay' component={ReportDisplay}/>
-            <Route path="/" exact component={Login} />
             <Route path="/videocall" exact component={CreateRoom} />
             <Route path="/room/:roomID" component={Room} />       
-
-
-
             <Route path="/appointments/:doc/:type/:date/:time">
             <Appointments/>
             </Route>
-
-
             <Route path="/ConfirmSchedule/:doc/:type/:date/:time" component={ConfirmSchedule}/>
-            <Route path="/" exact component={Login} /> 
             <Route path='/myaccount' component={MyAccount} />
-
             <Route path='/reports' component={Reports}/>
             <Route path='/reportDisplay' component={ReportDisplay}/>
             <Route path="/" exact component={Login} />   
-
             <Route path='/inbox' component={Inbox} />   
-
-            <Route path='/client' component={Client} />
-            <Route path='/inbox' component={Inbox} />  
             <Route path='/ComposeMessage' component={ComposeMessage} />
-
             <Route path='/adminPortal' component={adminPortal}/>
-            <Route path='/inbox' component={Inbox} />   
-
-            <Route path='/client' component={Client} />
-
             <Route path='/chevron' component={Chevron} />
           </Switch>
         </div>
