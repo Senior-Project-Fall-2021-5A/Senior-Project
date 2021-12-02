@@ -17,15 +17,17 @@ const AdminAptsTable = ({date}) => {
 
     const [notesInputPopup, setNotesInputPopup] = useState(false);
     const [listOfAppointments, setListOfAppointments] = useState([]);
+    const [reportInputPopup, setReportInputPopup] = useState(false);
+    const dateToSend = date.toLocaleDateString(`en-US`).split('/').join('-');
 
     useEffect(() => {
-        Axios.get(`https://telemedicine5a-backend.herokuapp.com/appointments/getAppointmentsByDate/${authUserObject.userId}/${date}`)
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/appointments/getAppointmentsByDate/${authUserObject.userId}/${dateToSend}`)
         .then((appointmentResponse) => {
-            appointmentResponse.map((appointment, index) => {
+            console.log(appointmentResponse)
+            Object.entries(appointmentResponse).forEach(appointment => {
                 Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${appointment.userUID}`)
                 .then((userProfileResponse) => {
                     appointmentResponse.append('patientName', userProfileResponse.firstName + ' ' + userProfileResponse.lastName)
-                    
                 })
             })
             setListOfAppointments(appointmentResponse);
@@ -43,8 +45,7 @@ const AdminAptsTable = ({date}) => {
         setNotesInputPopup(bPop);
         console.log("Popup is ",bPop);
     }
-    
-    const [reportInputPopup, setReportInputPopup] = React.useState(false);
+
 
     const reportClick = (e) => {
         console.log("Report Click");

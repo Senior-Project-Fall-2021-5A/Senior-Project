@@ -7,7 +7,7 @@ const DaysOffSchema = new mongoose.Schema({
         required: true,
     },
     daysOff: {
-        type: Date,
+        type: String,
         required: false,
     },
     time: {

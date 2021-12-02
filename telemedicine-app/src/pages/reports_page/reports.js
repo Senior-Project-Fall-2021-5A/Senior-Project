@@ -10,8 +10,7 @@ import './reports.css';
 import { MoveColumnFeature } from 'ag-grid-community';
 import Moment from 'moment';
 import ObjLink from '../../components/Objects/ObjLink';
-
-
+import authUserObject from '../../middleware/authUserObject';
 
 
 
@@ -26,16 +25,18 @@ const thStyle = {
 
 };
 
-
-
 const Reports = () =>{
+    //declarations
+    const [txtGlobalUserID, setGlobalUserID] = useState(authUserObject.userId);
+    const [txtGlobalRole, setGlobalRole] = useState(authUserObject.userId);
     const [listOfReports, setListOfReports] = useState([]);
 
     useEffect(() => {
-        Axios.get('https://telemedicine5a-backend.herokuapp.com/reports/getReports')
+        console.log("Page Open: ",txtGlobalUserID);
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/reports/getReports/${txtGlobalUserID}`)///
             .then((response) => {
                 console.log("reports:",response);
-                setListOfReports(response.data);
+                setListOfReports(response.data);                
             })
             .catch((err) => {
                 console.log(err, "Unable to get Reports");
@@ -75,6 +76,7 @@ const Reports = () =>{
                                                         doctor: report.doctor, 
                                                         _id: report._id,
                                                     }}
+                                                    
                                                 />
                                             </td>
                                         </tr>

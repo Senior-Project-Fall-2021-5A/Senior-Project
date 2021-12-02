@@ -33,7 +33,7 @@ const ReportsWidget = () => {
                             Reports
                         </h4>
                     </Card.Header>
-                {lastReport.map((report) => (
+                {lastReport === undefined ? lastReport.map((report) => (
                     <><Card.Header className='Report-header'>
                         <h4 className='Report-widget-header' key={report._id, report.doctor}>
                             {report.details}
@@ -62,7 +62,13 @@ const ReportsWidget = () => {
                             </div>
                         </Card.Body>
                         <Card.Footer className="text-muted">1 day(s) ago</Card.Footer></>
-                ))}
+                )) : <><Card.Header className='Report-header'>
+                            <h4 className='Report-widget-header' key={'Empty Key'}>
+                                {'No reports!'}
+                            </h4>
+                                </Card.Header><Card.Body className="report-widget-body">
+                            </Card.Body>
+                        <Card.Footer className="text-muted">1 day(s) ago</Card.Footer></>} 
             </Card>
     )
 }
