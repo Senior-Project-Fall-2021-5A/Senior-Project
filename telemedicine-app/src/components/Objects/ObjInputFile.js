@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ObjButton from './ObjButton';
+import ObjLink from './ObjLink';
 
 
 class ObjInputFile extends Component {
@@ -16,7 +17,7 @@ class ObjInputFile extends Component {
     render() {
         return (
             <div>
-                <label className="objbutton" for="inputFile">Upload</label>
+                <label className="objbutton" for="inputFile" style={{width:"100px"}}>Upload</label>
                 <input 
                     className="objinputfile-input-hidden" 
                     id="inputFile" 
