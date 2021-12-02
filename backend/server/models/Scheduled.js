@@ -3,15 +3,15 @@ const mongoose = require('mongoose');
 const ScheduledSchema = new mongoose.Schema({
 
     doctorUID: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'DoctorDemoModel',
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
-    booked: {
-        type: Boolean,
+    date: {
+        type: Date,
         required: false,
     },
-    date_time: {
-        type: Date,
+    time: {
+        type: [String],
         required: false,
     },
 });
