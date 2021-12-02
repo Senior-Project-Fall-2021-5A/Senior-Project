@@ -9,7 +9,9 @@ import { Link, useParams } from "react-router-dom";
 import ReactDOM from "react-dom";
 import './Tabs.css';
 import Chevron from '../../components/inbox components/Chevron.js'
+import authUserObject from '../../middleware/authUserObject';
 
+const userInfo = require('../../middleware/authUserObject');
 
 function NoAppointments() {
 
@@ -43,9 +45,8 @@ function NoAppointments() {
         setToggled(index);
        
     }
-
     useEffect(() => {
-        Axios.get('https://telemedicine5a-backend.herokuapp.com/appointments/getAppointments')
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/appointments/getAppointments/${authUserObject.userId}`)
         .then((response) => {
             setListOfAppointments(response.data);
         })

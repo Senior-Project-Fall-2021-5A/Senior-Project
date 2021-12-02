@@ -4,7 +4,7 @@ import {Form, Button} from 'react-bootstrap';
 import {Link} from "react-router-dom";
 import { useHistory } from 'react-router-dom';
 import './Registration.css';
-import Logo from '../images/company-logo.png';
+import Logo from '../../images/company-logo.png';
 import Axios from 'axios';
 
 function Registration() {
@@ -31,8 +31,10 @@ function Registration() {
         password: registerState.password,
         }).then((response) => {
             userId = String(response.data.user._id);
-            userRole = response.data.user.role;
+            userRole = String(response.data.user.role);
             console.log(userId, userRole);
+            localStorage.setItem('userId', userId);
+            localStorage.setItem('userRole', userRole);
             // Create user profile with first/last name and email
             return Axios.post(`https://telemedicine5a-backend.herokuapp.com/users/createUserProfile/${response.data.user._id}`, {
               firstName: registerState.fName,

@@ -50,17 +50,6 @@ app.use('/file', require('./routes/file'));
 app.use('/location', require('./routes/location'));
 app.use('/doctors', require('./routes/doctorDemographics'));
 
-// Test auth
-app.get('/register', async (req, res) => {
-    
-    const newTestUser = new UserModel({ 
-        name: 'Test User',
-        email: 'testuser@gmail.com',
-        password: 'password',
-    });
-    await newTestUser.save();
-    res.send('User Added!')
-})
 
 app.listen(PORT, () => { console.log('Connection SUCCESSFUL') });
 
