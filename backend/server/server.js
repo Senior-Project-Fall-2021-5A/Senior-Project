@@ -49,18 +49,10 @@ app.use('/inbox', require('./routes/inbox'));
 app.use('/file', require('./routes/file'));
 app.use('/location', require('./routes/location'));
 app.use('/doctors', require('./routes/doctorDemographics'));
+app.use('/schedule', require('./routes/scheduled'))
+app.use('/daysOff', require('./routes/daysOff'));
+app.use('/notifs', require('./routes/notifications'));
 
-// Test auth
-app.get('/register', async (req, res) => {
-    
-    const newTestUser = new UserModel({ 
-        name: 'Test User',
-        email: 'testuser@gmail.com',
-        password: 'password',
-    });
-    await newTestUser.save();
-    res.send('User Added!')
-})
 
 app.listen(PORT, () => { console.log('Connection SUCCESSFUL') });
 

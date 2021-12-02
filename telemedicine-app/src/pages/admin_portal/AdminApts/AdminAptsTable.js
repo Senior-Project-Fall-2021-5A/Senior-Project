@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState, useEffect }  from 'react';
 import PropTypes from 'prop-types'
 import ObjLink from '../../../components/Objects/ObjLink'
 import PopUpAddNotes from '../PopupPages/PopUpAddNotes'
 import PopUpAddReport from '../PopupPages/PopUpAddReport'
-
+import authUserObject from '../../../middleware/authUserObject';
+import Axios from 'axios';
 
 
 const styleTD = {
@@ -12,15 +13,28 @@ const styleTD = {
     
 }
 
-const AdminAptsTable = ({  }) => {
-    const data = [
-        {date: "04/04/2021", time: "09:00 am", patient: "Billy Bob Man", type:"Office", notesLink: '/reports', reportLink: '/reports', call: "call"},
-        {date: "04/04/2021", time: "09:00 am", patient: "Billy Bob Man", type:"Office", notesLink: '/reports', reportLink: '/reports', call: "call"},
-        {date: "04/04/2021", time: "09:00 am", patient: "Billy Bob Man", type:"Office", notesLink: '/reports', reportLink: '/reports', call: "call"},
-    ]
+const AdminAptsTable = ({date}) => {
 
-    const [notesInputPopup, setNotesInputPopup] = React.useState(false);
-    
+    const [notesInputPopup, setNotesInputPopup] = useState(false);
+    const [listOfAppointments, setListOfAppointments] = useState([]);
+
+    useEffect(() => {
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/appointments/getAppointmentsByDate/${authUserObject.userId}/${date}`)
+        .then((appointmentResponse) => {
+            appointmentResponse.map((appointment, index) => {
+                Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${appointment.userUID}`)
+                .then((userProfileResponse) => {
+                    appointmentResponse.append('patientName', userProfileResponse.firstName + ' ' + userProfileResponse.lastName)
+                    
+                })
+            })
+            setListOfAppointments(appointmentResponse);
+        })
+        .catch((err) => {
+            console.log(err, "Unable to get appointments for selected date");
+        });
+    }, []);
+
 
     const noteClick = (e) => {
         console.log("Note Click");
@@ -64,18 +78,18 @@ const AdminAptsTable = ({  }) => {
                     <tr>
                         <th>Date</th>
                         <th>Time</th>
-                        <th>Patient</th>
+                        <th>PatientName</th>
                         <th>Type</th>
                         <th>Notes</th>
                         <th>Report</th>
                         <th>Call</th>
                     </tr>
-                    {data.map(({date, time, patient, type, notesLink, reportLink, call}) => (
+                    {listOfAppointments.map((appointment, index) => (
                          <tr>
-                            <td style={styleTD}>{date}</td>
-                            <td style={styleTD}>{time}</td>
-                            <td style={styleTD}>{patient}</td>
-                            <td style={styleTD}>{type}</td>
+                            <td style={styleTD}>{appointment.date}</td>
+                            <td style={styleTD}>{appointment.time}</td>
+                            <td style={styleTD}>{appointment.patientName}</td>
+                            <td style={styleTD}>{appointment.type}</td>
                             <td style={styleTD}>
                                 <ObjLink
                                     doLink = "false"                                    

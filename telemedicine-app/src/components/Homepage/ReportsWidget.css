@@ -24,3 +24,15 @@ h4.Report-widget-header {
     display: none;
 
 }
+
+.report-card-content{
+    text-align-last: left;
+}
+
+.Report-header {
+    padding-inline: 15%;
+}
+
+.report-widget-body.card-body {
+    padding-inline: 15%;
+}

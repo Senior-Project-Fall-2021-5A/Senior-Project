@@ -21,7 +21,7 @@ router.get('/getLocation/:locationId', function (req, res) {
 });
 
 router.get('/getLocations', async (req, res) => {
-    InboxModel.find( {}, (err, result) => {
+    LocationModel.find( {}, (err, result) => {
         if (err) {
             res.send(err);
         } else {

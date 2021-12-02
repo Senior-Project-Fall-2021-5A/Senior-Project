@@ -24,9 +24,26 @@ router.get('/getAppointments/:userId', async (req, res) => {
             { doctorUID: req.params.userId }
         ]
     })
-    .then(appointment => {
-        if (!appointment) { return res.send("No appointments for User")}
-        return res.status(200).json(appointment);
+    .then(appointments => {
+        if (appointments.length === 0) { return res.send("No appointments for User")}
+        return res.status(200).json(appointments);
+    })
+    .catch(err => next(err));
+});
+
+router.get('/getAppointmentsByDate/:userId/:date', async (req, res) => {
+    AppointmentModel.find({
+        $or: [
+            { userUID: req.params.userId },
+            { doctorUID: req.params.userId }
+        ],
+        $and: [
+            { date: req.params.date }
+        ]
+    })
+    .then(appointments => {
+        if (appointments.length === 0) { return res.send("No appointments for user on selected Date")}
+        return res.status(200).json(appointments);
     })
     .catch(err => next(err));
 });
@@ -79,6 +96,16 @@ router.post('/updateApptInfo/:apptId', async (req, res) => {
         })
 });
 
+router.post('/cancelAppt/:apptId', async (req, res) => {
+    AppointmentModel.findByIdAndRemove(req.params.apptId, function (err, response) {
+        if (err){
+            console.log(err)
+        }
+        else{
+            console.log("RemovedAppt");
+        }
+    })
+});
 
 router.get('/getVirtualID/:apptId', async (req, res) => {
     AppointmentModel.find({_id: req.params.apptId}, ['virtualID'])
