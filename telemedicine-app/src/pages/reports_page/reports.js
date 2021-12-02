@@ -33,7 +33,7 @@ const Reports = () =>{
 
     useEffect(() => {
         console.log("Page Open: ",txtGlobalUserID);
-        Axios.get(`https://telemedicine5a-backend.herokuapp.com/reports/getReports/${txtGlobalUserID}`)///
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/reports/getReports`)////${txtGlobalUserID}
             .then((response) => {
                 console.log("reports:",response);
                 setListOfReports(response.data);                
