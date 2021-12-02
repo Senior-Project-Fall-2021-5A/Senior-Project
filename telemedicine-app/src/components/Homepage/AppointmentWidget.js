@@ -2,18 +2,20 @@ import {React,useEffect,useState} from 'react'
 import {Card, Button, Nav} from 'react-bootstrap'
 import './AppointmentWidget.css'
 import  Axios  from 'axios';
+import authUserObject from '../../middleware/authUserObject';
+
 
 function AppointmentWidget() {
     const [appointmentInfo, setinsuranceInfo] = useState([]);
 
-
+    var userId = String(authUserObject.userId)
 
     useEffect(() => {
-        Axios.get('https://telemedicine5a-backend.herokuapp.com/appointments/getappointments/618b428ba9310eb5cfa9de98')
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/appointments/getAppointments/${userId}`)
             .then((response) => {
                 console.log("appointment info:",response);
                 var arrdata = response.data.reverse();
-
+                console.log("this is the auth user:", authUserObject.userId);
                 console.log(arrdata[0])
                 setinsuranceInfo([arrdata[0]]);
             })
