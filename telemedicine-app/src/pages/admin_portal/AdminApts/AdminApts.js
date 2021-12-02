@@ -11,7 +11,7 @@ const AdminApts = ({  }) => {
 
     //New Patient Popup handler
     const [allApptsPopup, setAllApptsPopup] = React.useState(false);    
-    const [date,setDate] = React.useState(new Date());
+    const [date, setDate] = React.useState(new Date());
 
     const allApptsClick = ( event ) => {
         console.log("New Patient Click");
@@ -21,6 +21,7 @@ const AdminApts = ({  }) => {
         console.log("Popup is ",bPop);
     }
 
+    console.log('date', date)
     return (
         <div className="adminapts-container">
             <div className="adminapts-header">
@@ -70,7 +71,7 @@ const AdminApts = ({  }) => {
                     position: 'relative',
                     top: '-30px'
                 }}
-            >
+            >   
                 <AdminAptsTable date={date}/>
             </div>
 

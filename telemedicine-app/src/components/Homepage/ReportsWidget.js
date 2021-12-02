@@ -33,7 +33,7 @@ const ReportsWidget = () => {
                             Reports
                         </h4>
                     </Card.Header>
-                {lastReport === undefined ? lastReport.map((report) => (
+                {lastReport !== undefined ? lastReport.map((report) => (
                     <><Card.Header className='Report-header'>
                         <h4 className='Report-widget-header' key={report._id, report.doctor}>
                             {report.details}
