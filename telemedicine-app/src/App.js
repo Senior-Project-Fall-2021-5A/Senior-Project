@@ -21,7 +21,8 @@ import Client from './pages/VideoChat/Client';
 import Registration from './pages/sign_on/Registration';
 import LoginLoading from './pages/sign_on/loginloading';
 import Chevron from './components/inbox components/Chevron.js'
-
+import CreateRoom from "./components/routes/CreateRoom";
+import Room from "./components/routes/Room";
 
 
 function App() {
@@ -50,7 +51,11 @@ function App() {
 
             <Route path='/reports' component={Reports}/>
             <Route path='/reportDisplay' component={ReportDisplay}/>
-            <Route path="/" exact component={Login} />      
+            <Route path="/" exact component={Login} />
+            <Route path="/videocall" exact component={CreateRoom} />
+            <Route path="/room/:roomID" component={Room} />       
+
+
 
             <Route path="/appointments/:doc/:type/:date/:time">
             <Appointments/>
