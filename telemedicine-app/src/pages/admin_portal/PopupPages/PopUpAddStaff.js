@@ -1,4 +1,5 @@
 import React from 'react';
+import Axios from 'axios';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import PopUpWindow from '../../../components/Objects/ObjPopUpWindow'
@@ -19,28 +20,90 @@ const PopUpAddStaff = ( {trigger,setTrigger} ) => {
     /***************************************************** 
                     Event Handlers
     ******************************************************/
-    
     // Create Staff
     const onSubmit = ( event ) => {
         console.log(event);
-        console.log("idk yet");        
+        console.log("Add Staff, onSubmit()");        
         
         if (txtStaffFName == "" || txtStaffMName == "" ||
          txtStaffLName == "" || txtStaffEmail == "" || txtStaffPass == "" || txtFieldStudy == "") {
             setBoolError(true);
             setError("Please Fill out all the above Information.");
-        }else{            
-            setBoolError(false);
-            setStaffFName("");
-            setStaffMName("");
-            setStaffLName("");
-            setStaffEmail("");
-            setStaffPass("");
-            setFieldStudy("");
-            setTrigger(false);
+        }else{    
+            addRegister();            
         }
     }
+
+    //Register
+    const addRegister = () => {
+        Axios.post('https://telemedicine5a-backend.herokuapp.com/users/register', {
+                name:       txtStaffLName +", " + txtStaffFName, 
+                email:      txtStaffEmail,        
+                password:   txtStaffPass,
+                role:       1,
+            }).then((response) => {
+                console.log("Add Patient, onSubmit(), CreateUser, Axios response: ",response)
+                let userID = String(response.data.user._id);
+                console.log("userID: ",userID);
+                addDemo(userID);
+            }).catch((err) => {
+                let arrErrors = err.response.data.errors;
+                console.log("arrErrors: ",arrErrors);
+                let txtError = "";
+                arrErrors.forEach(e => txtError=`${txtError}${e.msg}. `);
+                console.log("txtError: ",txtError);
+
+                setError(txtError);
+                setBoolError(true);
+            });
+    }
+
+    //Create Demo Info
+    const addDemo = ( userID ) => {
+        return Axios.post(`https://telemedicine5a-backend.herokuapp.com/users/createUserProfile/${userID}`, {
+            firstName:          txtStaffFName,
+            midName:            txtStaffMName,
+            lastName:           txtStaffLName,
+            email:              txtStaffEmail,                    
+            isAdmin:            true,
+        }).then((response) => {
+            console.log("Add Patient, onSubmit(), CreateDemo, Axios response: ",response);
+            addDoctorInfo(userID);
+        }).catch((err) => {
+            console.log(err);
+            setError("Unable to add Demo");
+            setBoolError(true);
+        });
+    }
+
+    //Create Doctor Demo
+    const addDoctorInfo = ( userID ) => {
+        Axios.post(`https://telemedicine5a-backend.herokuapp.com/doctors/addDoctorInfo/${userID}`, {
+            fieldOfStudy:       txtFieldStudy,                        
+        }).then((response) => {
+            console.log("Add Staff, onSubmit(), Create Doc, Axios response: ",response);
+            
+        }).catch((err) => {
+            console.log(err);
+            setError("Unable to create Doctor Field.");
+            setBoolError(true);
+        });
+
+        //Cleanup
+        setBoolError(false);
+        setStaffFName("");
+        setStaffMName("");
+        setStaffLName("");
+        setStaffEmail("");
+        setStaffPass("");
+        setFieldStudy("");
+        setTrigger(false);
+    }
     
+    /***************************************************** 
+                         HTML
+    ******************************************************/
+
     return (
     
         <PopUpWindow
@@ -227,8 +290,7 @@ const PopUpAddStaff = ( {trigger,setTrigger} ) => {
                         gridColumnEnd:3,
                     }}
                 >
-                    <ObjButton                     
-                        
+                    <ObjButton
                         text="Create"
                         onClick={e=>onSubmit(e)}
                     />

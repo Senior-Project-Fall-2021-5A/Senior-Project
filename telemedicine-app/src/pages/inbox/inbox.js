@@ -1,6 +1,7 @@
 import React from 'react'
+import { UseState, useEffect } from 'react';
+import Axios from 'axios';
 import "./inbox.css";
-import { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import 'ag-grid-community/dist/styles/ag-grid.css'
 import 'ag-grid-community/dist/styles/ag-theme-balham.css'
@@ -9,96 +10,84 @@ import Footer from '../../components/Footer/Footer';
 import Top from "../../components/inbox components/Top"
 import InboxAccordion from '../../components/inbox components/InboxAccordion'
 import { Link } from 'react-router-dom';
-import Axios from 'axios'
+import Canvas from '../../components/Canvas'
 
 
 
 
-class Inbox extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            listOfMessages: []
-        };
-    }
-    
-    componentDidMount() {
-        this.getMessages();
-    }
 
 
-    getMessages(){
-        Axios.get('https://telemedicine5a-backend.herokuapp.com/inbox/getInbox')
-        .then((response) => {
-            this.setState({listOfMessages: response})
-            console.log(this.state.listOfMessages)
-        })
-        .catch((err) => {
-            console.log(err, "Unable to get Messages");
+const Inbox = () => {
+
+    const [listOfMessages, setListOfMessages] = React.useState([]);
+
+    useEffect(() => {
+        SendMessages();
+    }, []);
+
+    const SendMessages = () => {
+        let userID = "61a83ebc22c98d53ae328249";
+        return Axios.post(`https://telemedicine5a-backend.herokuapp.com/users/createUserProfile/${userID}`, {
+            senderID: userID,
+            recieverID: "61a7c275d35cf2796a2dcba8",
+            subject: "subject",
+            body: "a message",
+            date: new Date(),
+            isRead: false,
+        }).then((response) => {
+            console.log("SendMessages(), response: ", response);
+        }).catch((err) => {
+            console.log(err);
+
         });
     }
-    
-    render() {
 
-        return (
 
-            <div class="title">
-                <Navbar />
-                <div className='page-canvas-outer'>
-                    <div className='page-canvas-inner'>
-                        <div className='canvas'>
+    // componentDidMount() {
+    //     this.getMessages();
+    // }
 
-                            <Top />
-                            {/* <AccordionCustom />  */}
-                        <div className= 'inbox-body-container'>
-                        {Object.values(this.state.listOfMessages).map(Message => {
-                                <div className="inbox-body">
-                                    <InboxAccordion
-    
-                                        // Avatar image
-                                        from={Message.recieverEmail}
-    
-                                        // Put name here
-                                        title={Message.subject}
-    
-                                        // Date will go here
-                                        date={Message.date}
-    
-                                        // Message will go here
-                                        content={Message.body}
-    
-                                    />
-                                </div>
-                            })}   
-                            </div>
 
-                            {/* <Accordion /> */}
+    return (
 
+        <div class="title">
+            <Canvas>
+                <Top />
+                {/* <AccordionCustom />  */}
+                <div className='inbox-body-container'>
+                    {(listOfMessages).map(Message => {
+                        <div className="inbox-body">
+                            <InboxAccordion
+
+                                // Avatar image
+                                from={Message.recieverEmail}
+
+                                // Put name here
+                                title={Message.subject}
+
+                                // Date will go here
+                                date={Message.date}
+
+                                // Message will go here
+                                content={Message.body}
+
+                            />
                         </div>
-                    </div>
+                    })}
                 </div>
-                <Footer />
-            </div>
-            // comment for pushing
+
+                {/* <Accordion /> */}
+
+            </Canvas>
+        </div>
 
 
 
-        )
-    }
+    )
 }
 
-const data = [
-    {
-        message: "Message 1",
-        content: "Sowiejgowijgowjgwoijgoiwejgoijesethserthdrhse"
-    },
-    {
-        message: "Message 2",
-        content: "Sowiejgowijgowjgwoijgoiwejgoije"
-    }
-]
+
+
 
 
 export default Inbox;

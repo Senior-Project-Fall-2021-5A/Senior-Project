@@ -49,6 +49,9 @@ app.use('/inbox', require('./routes/inbox'));
 app.use('/file', require('./routes/file'));
 app.use('/location', require('./routes/location'));
 app.use('/doctors', require('./routes/doctorDemographics'));
+app.use('/schedule', require('./routes/scheduled'))
+app.use('/daysOff', require('./routes/daysOff'));
+app.use('/notifs', require('./routes/notifications'));
 
 
 app.listen(PORT, () => { console.log('Connection SUCCESSFUL') });
