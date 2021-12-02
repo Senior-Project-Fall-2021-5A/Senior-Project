@@ -31,8 +31,8 @@ router.get('/getInbox', async (req, res) => {
 });
 
 router.post('/sendMessage', async (req, res) => {
-    const senderID = req.body.sender;
-    const recieverID = req.body.reciever;
+    const senderID = req.body.senderID;
+    const recieverID = req.body.recieverID;
     const subject = req.body.subject;
     const body = req.body.body;
     const date = req.body.date;
