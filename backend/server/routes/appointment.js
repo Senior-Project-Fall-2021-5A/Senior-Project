@@ -79,6 +79,16 @@ router.post('/updateApptInfo/:apptId', async (req, res) => {
         })
 });
 
+router.post('/cancelAppt/:apptId', async (req, res) => {
+    AppointmentModel.findByIdAndRemove(req.params.apptId, function (err, response) {
+        if (err){
+            console.log(err)
+        }
+        else{
+            console.log("RemovedAppt");
+        }
+    })
+});
 
 router.get('/getVirtualID/:apptId', async (req, res) => {
     AppointmentModel.find({_id: req.params.apptId}, ['virtualID'])
