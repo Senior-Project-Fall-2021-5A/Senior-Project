@@ -18,11 +18,10 @@ const AdminAptsTable = ({date}) => {
     const [notesInputPopup, setNotesInputPopup] = useState(false);
     const [listOfAppointments, setListOfAppointments] = useState([]);
     const [reportInputPopup, setReportInputPopup] = useState(false);
-    console.log(authUserObject.userId)
-    console.log(date)
+    const dateToSend = date.toLocaleDateString(`en-US`).split('/').join('-');
 
     useEffect(() => {
-        Axios.get(`https://telemedicine5a-backend.herokuapp.com/appointments/getAppointmentsByDate/${authUserObject.userId}/${date}`)
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/appointments/getAppointmentsByDate/${authUserObject.userId}/${dateToSend}`)
         .then((appointmentResponse) => {
             console.log(appointmentResponse)
             Object.entries(appointmentResponse).forEach(appointment => {
