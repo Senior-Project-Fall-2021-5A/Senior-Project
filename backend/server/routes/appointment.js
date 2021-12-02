@@ -43,6 +43,7 @@ router.get('/getAppointmentsByDate/:userId/:date', async (req, res) => {
         return res.status(200).json(appointments);
     })
     .catch(err => next(err));
+});
 
 router.post('/addAppointment', async (req, res) => {
     const userUID = req.body.userUID;
