@@ -12,6 +12,7 @@ function Registration() {
   let userId = '';
   let userRole = 0;
   let isAuth = false;
+  let isAdmin = false;
   const history = useHistory();
   const [registerState, setRegisterState] = useState({
     fName: '',
@@ -32,14 +33,33 @@ function Registration() {
         }).then((response) => {
             userId = String(response.data.user._id);
             userRole = String(response.data.user.role);
+            userRole === 0 ? isAdmin = true : isAdmin = false;
             console.log(userId, userRole);
             localStorage.setItem('userId', userId);
             localStorage.setItem('userRole', userRole);
             // Create user profile with first/last name and email
             return Axios.post(`https://telemedicine5a-backend.herokuapp.com/users/createUserProfile/${response.data.user._id}`, {
               firstName: registerState.fName,
+              midName: '',
               lastName: registerState.lName,
               email: registerState.email,
+              userUID: userId,
+              DoB: '',
+              gender: '',
+              address1: '',
+              address2: '',
+              city: '',
+              state: '',
+              zip: '',
+              phone1: '',
+              phone2: '',
+              phone3: '',
+              Insurance01UID: '',
+              Insurance02UID: '',
+              Insurance03UID: '',
+              primaryPhysician: '',
+              approvedDoctors: [''],
+              isAdmin: isAdmin,
             });
           }).then((response) => {
               isAuth = true;
