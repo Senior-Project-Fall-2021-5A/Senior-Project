@@ -1,4 +1,4 @@
-import React, { useState, Component }from 'react';
+import React, { useState, Component, useEffect }from 'react';
 import "./homepage.css";
 import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
@@ -6,14 +6,32 @@ import MessageButton from '../components/MessageButton';
 import InboxWidget from '../components/Homepage/InboxWidget';
 import ReportsWidget from '../components/Homepage/ReportsWidget';
 import AppointmentWidget from '../components/Homepage/AppointmentWidget';
+import  Axios  from 'axios';
+import authUserObject from '../middleware/authUserObject';
 
 function Homepage() {
+    const [UserName, setUserName] = useState([]);
+
+    useEffect(() => {
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${authUserObject.userId}`)        
+            .then((response) => {                         
+                console.log("Username info:", response);
+                const myUserName = response.data;
+                setUserName(response.data);
+            })
+            .catch((err) => {
+                console.log(err, "Unable to get user information");
+            });
+    }, []);
+
     return (
         <div className='homepage'>
             <Navbar/>
+            {UserName.map((myusername) => (
             <div className='page-canvas-outer'>
                 <div className='page-canvas-inner'>
                     <div className='canvas'>
+                        <h3 style ={{color:'white', textAlign:'left', fontFamily:'sans-serif', fontWeight:'bolder'}}className= "welcoming-name">Welcome to your health dashboard! {myusername.firstName}</h3>
                         <div className='Dashboard-row'>
                             <div className='dash-left'>
                                 <AppointmentWidget/>
@@ -30,6 +48,7 @@ function Homepage() {
                     </div>
                 </div>  
             </div>
+            ))}
             <MessageButton/>
             <Footer/>
         </div>
