@@ -33,12 +33,9 @@ router.get('/getAppointments/:userId', async (req, res) => {
 
 router.get('/getAppointmentsByDate/:userId/:date', async (req, res) => {
     AppointmentModel.find({
-        $or: [
-            { userUID: req.params.userId },
-            { doctorUID: req.params.userId }
-        ],
         $and: [
-            { date: req.params.date }
+            { date: req.params.date },
+            { $or: [{ userUID: req.params.userId }, { doctorUID: req.params.userId }]}
         ]
     })
     .then(appointments => {

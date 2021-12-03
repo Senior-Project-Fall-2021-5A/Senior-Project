@@ -64,7 +64,7 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
                 name:       txtPatientLName +", " + txtPatientFName, 
                 email:      txtPatientEmail,        
                 password:   txtPatientPass,
-                role:       1,
+                role:       0,
             }).then((response) => {
                 console.log("Add Patient, onSubmit(), CreateUser, Axios response: ",response)
                 let patientID = String(response.data.user._id);
