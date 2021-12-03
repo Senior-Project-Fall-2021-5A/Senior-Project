@@ -55,6 +55,7 @@ const Inbox = () => {
                 <Top />
                 {/* <AccordionCustom />  */}
                 <div className='inbox-body-container'>
+                    <h5>No Messages Currently</h5>
                     {(listOfMessages).map(Message => {
                         <div className="inbox-body">
                             <InboxAccordion
