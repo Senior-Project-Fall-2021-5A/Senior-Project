@@ -14,23 +14,29 @@ const styleTD = {
 }
 
 const AdminAptsTable = ({date}) => {
-
     const [notesInputPopup, setNotesInputPopup] = useState(false);
     const [listOfAppointments, setListOfAppointments] = useState([]);
     const [reportInputPopup, setReportInputPopup] = useState(false);
     const dateToSend = date.toLocaleDateString(`en-US`).split('/').join('-');
 
     useEffect(() => {
-        Axios.get(`https://telemedicine5a-backend.herokuapp.com/appointments/getAppointmentsByDate/${authUserObject.userId}/${dateToSend}`)
+        console.log("AdminAptTable HEREJKFBKDJF");
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/appointments/getAppointments/${authUserObject.userId}`)//${dateToSend}
         .then((appointmentResponse) => {
-            console.log(appointmentResponse)
-            Object.entries(appointmentResponse).forEach(appointment => {
-                Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${appointment.userUID}`)
-                .then((userProfileResponse) => {
-                    appointmentResponse.append('patientName', userProfileResponse.firstName + ' ' + userProfileResponse.lastName)
+            console.log('IMPORTANT', appointmentResponse)
+            
+            //error checking
+            if(appointmentResponse.data != "No appointments for user on selected Date"){
+                Object.entries(appointmentResponse.data).forEach(appointment => {
+                    Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${authUserObject.userId}`)
+                    .then((userProfileResponse) => {
+                        console.log(appointment)
+                        appointment.push('patientName', userProfileResponse.data[0].firstName + ' ' + userProfileResponse.data[0].lastName)
+                    })
                 })
-            })
-            setListOfAppointments(appointmentResponse);
+                setListOfAppointments(appointmentResponse.data);
+            }
+            
         })
         .catch((err) => {
             console.log(err, "Unable to get appointments for selected date");
@@ -71,7 +77,7 @@ const AdminAptsTable = ({date}) => {
                                     trigger={notesInputPopup}
                                     setTrigger={setNotesInputPopup}
                                 /> */
-    
+    console.log('IMPORTANTLIST', listOfAppointments)
     return (
         <div>
             <table id="AptsToday" class='table'>
@@ -85,9 +91,9 @@ const AdminAptsTable = ({date}) => {
                         <th>Report</th>
                         <th>Call</th>
                     </tr>
-                    {listOfAppointments.map((appointment, index) => (
+                    {listOfAppointments !== undefined ? listOfAppointments.map((appointment, index) => (
                          <tr>
-                            <td style={styleTD}>{appointment.date}</td>
+                            <td style={styleTD}>{(new Date(appointment.date)).toLocaleDateString()}</td>
                             <td style={styleTD}>{appointment.time}</td>
                             <td style={styleTD}>{appointment.patientName}</td>
                             <td style={styleTD}>{appointment.type}</td>
@@ -125,7 +131,7 @@ const AdminAptsTable = ({date}) => {
                                 />
                             </td>                                             
                         </tr>
-                    ))}
+                    )) : <span>No appointments on selected Day</span>}
                 </tbody>
 
             </table>
