@@ -1,6 +1,8 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
+import authUserObject from './middleware/authUserObject';
+import Axios from 'axios';
 import {Route, BrowserRouter as Router, Switch, Link} from "react-router-dom";
 import Login from "./pages/sign_on/login";
 import About from "./pages/about";
@@ -25,37 +27,66 @@ import Room from "./components/routes/Room";
 
 
 function App() {
+  //declarations
+  const [txtGlobalUserID, setGlobalUserID] = useState(authUserObject.userId);
+  const [txtGlobalRole, setGlobalRole] = useState(authUserObject.userRole);
+  const [boolIsLogged, setIsLogged] = useState(authUserObject.boolIsLogged);
+
+  useEffect(() => {
+      console.log("AppJS - UID: ",txtGlobalUserID," role: ",txtGlobalRole);
+      Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${txtGlobalUserID}`)////${txtGlobalUserID}
+          .then((response) => {
+              console.log("AppJS - responce: ",response);
+              let data = response.data[0];
+              localStorage.setItem('firstName', data.firstName);
+              localStorage.setItem('midName', data.midName);
+              localStorage.setItem('lastName', data.lastName);
+              localStorage.setItem('email', data.email);
+              localStorage.setItem('primaryPhysician', data.primaryPhysician);
+              localStorage.setItem('approvedDoctors', data.approvedDoctors);
+              localStorage.setItem('isAdmin', data.isAdmin);
+          })
+          .catch((err) => {
+              console.log(err, "Unable to get Reports");
+          });
+  }, []);
+
   return (
       <Router>
         <div className="App">
           <Switch>
-            <Route path="/about" component={About} />
-            <Route path="/AppointmentType/:name">
-            <AppointmentType/>
-            </Route>
-            <Route path='/homepage' component={Homepage}/>
-            <Route path='/appointments' exact component={Appointments}/>
-            <Route path='/NoAppointments' exact component={NoAppointments}/>
-            <Route path='/loginloading' exact component={LoginLoading}/>
-            <Route path='/doctorsearch' component={DoctorSearch}/>
-            <Route path="/ScheduleCalendar/:doc/:type">
-            <ScheduleCalendar/>
-            </Route>
-            <Route path="/registration" component={Registration} />           
-            <Route path="/videocall" exact component={CreateRoom} />
-            <Route path="/room/:roomID" component={Room} />       
-            <Route path="/appointments/:doc/:type/:date/:time">
-            <Appointments/>
-            </Route>
-            <Route path="/ConfirmSchedule/:doc/:type/:date/:time" component={ConfirmSchedule}/>
-            <Route path='/myaccount' component={MyAccount} />
-            <Route path='/reports' component={Reports}/>
-            <Route path='/reportDisplay' component={ReportDisplay}/>
-            <Route path="/" exact component={Login} />   
-            <Route path='/inbox' component={Inbox} />   
-            <Route path='/ComposeMessage' component={ComposeMessage} />
-            <Route path='/adminPortal' component={adminPortal}/>
-            <Route path='/chevron' component={Chevron} />
+            {boolIsLogged && 
+              <div>
+                <Route path="/about" component={About} />
+                <Route path="/AppointmentType/:name">
+                <AppointmentType/>
+                </Route>
+                <Route path='/homepage' component={Homepage}/>
+                <Route path='/appointments' exact component={Appointments}/>
+                <Route path='/NoAppointments' exact component={NoAppointments}/>
+                <Route path='/loginloading' exact component={LoginLoading}/>
+                <Route path='/doctorsearch' component={DoctorSearch}/>
+                <Route path="/ScheduleCalendar/:doc/:type">
+                <ScheduleCalendar/>
+                </Route>
+                <Route path="/registration" component={Registration} />           
+                <Route path="/videocall" exact component={CreateRoom} />
+                <Route path="/room/:roomID" component={Room} />       
+                <Route path="/appointments/:doc/:type/:date/:time">
+                <Appointments/>
+                </Route>
+                <Route path="/ConfirmSchedule/:doc/:type/:date/:time" component={ConfirmSchedule}/>
+                <Route path='/myaccount' component={MyAccount} />
+                <Route path='/reports' component={Reports}/>
+                <Route path='/reportDisplay' component={ReportDisplay}/>
+                
+                <Route path='/inbox' component={Inbox} />   
+                <Route path='/ComposeMessage' component={ComposeMessage} />
+                <Route path='/adminPortal' component={adminPortal}/>
+                <Route path='/chevron' component={Chevron} />
+              </div>              
+            }
+            <Route path="/" exact component={Login} />  
           </Switch>
         </div>
       </Router>

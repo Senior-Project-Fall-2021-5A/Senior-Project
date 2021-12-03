@@ -28,7 +28,7 @@ const thStyle = {
 const Reports = () =>{
     //declarations
     const [txtGlobalUserID, setGlobalUserID] = useState(authUserObject.userId);
-    const [txtGlobalRole, setGlobalRole] = useState(authUserObject.userId);
+    const [txtGlobalRole, setGlobalRole] = useState(authUserObject.userRole);
     const [listOfReports, setListOfReports] = useState([]);
 
     useEffect(() => {

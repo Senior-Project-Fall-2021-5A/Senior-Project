@@ -16,6 +16,7 @@ const styleTD = {
 const AdminAptsTable = ({date}) => {
     const [notesInputPopup, setNotesInputPopup] = useState(false);
     const [listOfAppointments, setListOfAppointments] = useState([]);
+    const [listOfAppointmentsUpdate, setListOfAppointmentsUpdate] = useState([]);
     const [reportInputPopup, setReportInputPopup] = useState(false);
     const dateToSend = date.toLocaleDateString(`en-US`).split('/').join('-');
 
@@ -24,24 +25,67 @@ const AdminAptsTable = ({date}) => {
         Axios.get(`https://telemedicine5a-backend.herokuapp.com/appointments/getAppointments/${authUserObject.userId}`)//${dateToSend}
         .then((appointmentResponse) => {
             console.log('IMPORTANT', appointmentResponse)
+            let apptData = appointmentResponse.data;
+            console.log("apptData: ",apptData);
             
+
             //error checking
-            if(appointmentResponse.data != "No appointments for user on selected Date"){
-                Object.entries(appointmentResponse.data).forEach(appointment => {
-                    Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${authUserObject.userId}`)
+            /* if(appointmentResponse.data != "No appointments for user on selected Date"){
+                patientID.forEach(appointment => {
+                    console.log("User IDs",appointment.userUID);
+                    Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${appointment.userUID}`)
                     .then((userProfileResponse) => {
-                        console.log(appointment)
-                        appointment.push('patientName', userProfileResponse.data[0].firstName + ' ' + userProfileResponse.data[0].lastName)
+                        console.log("Feedback from user Info: ",userProfileResponse);
+                        let id = userProfileResponse.data[0].userUID;
+                        let name = userProfileResponse.data[0].firstName + ' ' + userProfileResponse.data[0].lastName;
+                        console.log("id: ",id," name: ",name);
+                        listOfAppointments.forEach(e=> {
+                            console.log("e.userUID: ",e.userUID);
+                            console.log("e.patientName: ",e.patientName);
+                            if (e.userUID == id){
+                                e.patientName = name;
+                            }
+                        })
+
+                        listOfAppointments.push('patientName', userProfileResponse.data[0].firstName + ' ' + userProfileResponse.data[0].lastName)
                     })
                 })
-                setListOfAppointments(appointmentResponse.data);
-            }
+                
+            }Appointments */
+            setTheNames( apptData );
+            
             
         })
         .catch((err) => {
             console.log(err, "Unable to get appointments for selected date");
         });
     }, []);
+
+    const setTheNames = ( apptData ) => {
+        let newList = [];
+        apptData.forEach(e=>{
+            let id = e.userUID;
+            Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${id}`)
+                .then((response) => {                
+                    let data = response.data;           
+                    console.log("setTheNames() - response:",data);
+                    
+                    let name = data[0].lastName+", "+data[0].firstName ;
+                    console.log("setTheNames() - name:",name);
+                    
+                    e.patientName = name;
+                    console.log("setTheNames() - e.patientName:",e.patientName);
+                    
+                    console.log("setTheNames() - apptData: ",apptData);
+                    newList = [...newList,e];
+                    
+                    setListOfAppointments(newList);
+                    
+                }).catch((err) => {
+                    console.log(err, "Unable to get Locations");
+                });
+        });
+    }
 
 
     const noteClick = (e) => {

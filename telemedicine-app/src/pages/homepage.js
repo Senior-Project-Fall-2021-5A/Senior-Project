@@ -2,6 +2,7 @@ import React, { useState, Component, useEffect }from 'react';
 import "./homepage.css";
 import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
+import Canvas from '../components/Canvas'
 import MessageButton from '../components/MessageButton';
 import InboxWidget from '../components/Homepage/InboxWidget';
 import ReportsWidget from '../components/Homepage/ReportsWidget';
@@ -26,31 +27,22 @@ function Homepage() {
 
     return (
         <div className='homepage'>
-            <Navbar/>
-            {UserName.map((myusername) => (
-            <div className='page-canvas-outer'>
-                <div className='page-canvas-inner'>
-                    <div className='canvas'>
-                        <h3 style ={{color:'white', textAlign:'left', fontFamily:'sans-serif', fontWeight:'bolder'}}className= "welcoming-name">Welcome to your health dashboard! {myusername.firstName}</h3>
-                        <div className='Dashboard-row'>
-                            <div className='dash-left'>
-                                <AppointmentWidget/>
-                            </div>
-                            <div className='dash-right'>
-                                <div className='right-top'>
-                                    <InboxWidget/>
-                                </div>
-                                <div className='right-bottom'>
-                                    <ReportsWidget/>
-                                </div>
-                            </div>
-                        </div> 
+            <Canvas>
+                <h3 style ={{color:'white', textAlign:'left', fontFamily:'sans-serif', fontWeight:'bolder'}}className= "welcoming-name">Welcome to your health dashboard! {myusername.firstName}</h3>
+                <div className='Dashboard-row'>
+                    <div className='dash-left'>
+                        <AppointmentWidget/>
                     </div>
-                </div>  
-            </div>
-            ))}
-            <MessageButton/>
-            <Footer/>
+                    <div className='dash-right'>
+                        <div className='right-top'>
+                            <InboxWidget/>
+                        </div>
+                        <div className='right-bottom'>
+                            <ReportsWidget/>
+                        </div>
+                    </div>
+                </div> 
+            </Canvas>
         </div>
     )
 }
