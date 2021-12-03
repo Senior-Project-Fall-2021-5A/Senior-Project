@@ -44,6 +44,7 @@ function NoAppointments() {
         setToggled(index);
        
     }
+
     useEffect(() => {
         Axios.get(`https://telemedicine5a-backend.herokuapp.com/appointments/getAppointments/${authUserObject.userId}`)
         .then((response) => {

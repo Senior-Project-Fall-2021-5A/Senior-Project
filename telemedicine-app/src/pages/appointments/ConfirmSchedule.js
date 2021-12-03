@@ -8,12 +8,17 @@ const ConfirmSchedule = () => {
 
     const { doc, type, date, time } = useParams();
 
+    const userId = '61a90dbcfeeffc47cc29bb84';
+
     const submitAppointment = () => {
-        Axios.post('https://telemedicine5a-backend.herokuapp.com/appointments/addAppointments', {
+    console.log(doc, type, time, date, userId);
+        Axios.post(`https://telemedicine5a-backend.herokuapp.com/appointments/addAppointments`, {
+        userUID: userId,
         doctorUID: doc,
-        type: type,
+      
         date: date,
         time: time,
+        
         }).then((response) => {
             console.log(response)
         });
