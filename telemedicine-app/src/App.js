@@ -45,6 +45,8 @@ function App() {
               localStorage.setItem('primaryPhysician', data.primaryPhysician);
               localStorage.setItem('approvedDoctors', data.approvedDoctors);
               localStorage.setItem('isAdmin', data.isAdmin);
+              localStorage.setItem('boolIsLogged', true);
+              setIsLogged(true);
           })
           .catch((err) => {
               console.log(err, "Unable to get Reports");

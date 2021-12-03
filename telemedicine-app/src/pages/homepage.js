@@ -28,7 +28,7 @@ function Homepage() {
     return (
         <div className='homepage'>
             <Canvas>
-                <h3 style ={{color:'white', textAlign:'left', fontFamily:'sans-serif', fontWeight:'bolder'}}className= "welcoming-name">Welcome to your health dashboard! {myusername.firstName}</h3>
+                
                 <div className='Dashboard-row'>
                     <div className='dash-left'>
                         <AppointmentWidget/>
