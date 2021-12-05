@@ -47,6 +47,11 @@ function Profile() {
             });
     }
 
+    const logout = ( event ) => {
+        console.log('logout',event);
+        localStorage.clear();
+    }
+
     return (
         <ButtonGroup className='nav-buttons'>
             <DropdownButton  className='profile-button' title={<span className='profile-icon'><i class="fas fa-user-circle fa-2x"></i></span>} >
@@ -55,8 +60,12 @@ function Profile() {
                 <Dropdown.Item eventKey="2" href='/appointments'>My Appointments</Dropdown.Item>
                 <Dropdown.Item eventKey="3" href='/reports'>My Reports</Dropdown.Item>
                 <Dropdown.Item eventKey="4" href='/inbox'>My Inbox</Dropdown.Item>
-                <Dropdown.Item eventKey="5" href= '/'>Logout</Dropdown.Item>
-                {boolPortal && <Dropdown.Item eventKey="6" href= '/adminPortal'>Portal</Dropdown.Item> } 
+                {boolPortal && <Dropdown.Item eventKey="5" href= '/adminPortal'>Portal</Dropdown.Item>} 
+                <Dropdown.Item 
+                    eventKey="6"
+                    href= '/'
+                    onClick={e=>logout(e)}
+                >Logout</Dropdown.Item>
             </DropdownButton>
 
             <DropdownButton  className='notification-btn' title={<span className='profile-icon'><i class="fas fa-inbox fa-2x"></i><Badge id="notificationToast" className = "notification-toast" bg="danger"> </Badge></span>}>

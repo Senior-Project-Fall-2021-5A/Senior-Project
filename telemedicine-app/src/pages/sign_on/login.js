@@ -27,7 +27,8 @@ function Login() {
         userRole = String(response.data.user.role);
         localStorage.setItem('userId', userId);
         localStorage.setItem('userRole', userRole);        
-        isAuth = true;
+        localStorage.setItem('boolIsLogged', "true");      
+        isAuth = true;        
         authReroute(isAuth);
     }).catch((err => {
         console.log(err)
@@ -35,8 +36,12 @@ function Login() {
   };
 
   const authReroute = (isAuth) => {
-    isAuth === true ? history.push('/loginloading') :
+    if(isAuth === true){
+      history.push('/loginloading');
+      window.location.reload(false);      
+    } else {
       alert("Invalid user registration! Account may already exist, validate if your email is correct");
+    } 
   }
 
   const handleChange = e => {
