@@ -133,3 +133,7 @@ img.nav-logo-img {
     color: #fff;
     border-color: #ffff;
 }
+
+ul.nav-menu {
+    margin-bottom: 0px;
+}

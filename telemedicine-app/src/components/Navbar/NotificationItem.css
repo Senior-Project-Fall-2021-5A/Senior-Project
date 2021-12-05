@@ -1,0 +1,25 @@
+.notification-item{
+    background:linear-gradient(
+        90deg, rgb(110,94, 254) 0%, rgb(73, 63, 252, 1) 100%);;
+    line-height: 20px;
+    border-top: solid transparent .5px;
+    border-bottom: solid black .5px;
+    transition: transform 0.5s;
+}
+
+.notification-item:hover{
+    cursor: pointer;
+    background: rgb(110,94, 254);
+    padding-inline: 3%;
+    transform: scale(0.95);
+}
+
+
+.notificaiton-message{
+    text-align: left;
+    color: white;
+}
+.notification-time{
+    text-align: left;
+    color: white;
+}
