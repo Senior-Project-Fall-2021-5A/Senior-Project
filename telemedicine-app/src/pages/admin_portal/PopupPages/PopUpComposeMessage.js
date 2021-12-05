@@ -50,7 +50,15 @@ const PopUpComposeMessage = ( {trigger,setTrigger} ) => {
     // Create Patient
     const onSubmit = ( event ) => {
         console.log(event);
-        console.log("idk yet");        
+        console.log("idk yet");   
+        
+        // This is the message object that will be sent
+        const person = {
+            firstName: "John",
+            lastName: "Doe",
+            age: 50,
+            eyeColor: "blue"
+          };
         
         if (textDoctorID == "_placeholder_" || textDoctorID == "" || txtPatientFName == "" || txtPatientMName == "" ||
          txtPatientLName == "" || txtPatientEmail == "" || txtPatientPass == "") {
@@ -115,7 +123,7 @@ const PopUpComposeMessage = ( {trigger,setTrigger} ) => {
                     </select>
                 </div>
 
-                {/* Middle Name */}
+                {/* Message */}
                 <div className="popup_label_grid"
                     style={{
                         gridRow:2,

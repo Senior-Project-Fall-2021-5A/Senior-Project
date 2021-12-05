@@ -27,7 +27,7 @@ function InsuranceInfo() {
             {insuranceInfo.map((insurance) => (
             <><Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Text className="text-muted" style={{ fontSize: '25px' }}>
-                    <p style={{ paddingRight: "10px" }}>{insurance.firstName} </p> <p>{insurance.lastName}</p> <h4 className='UserID'>Insurance Policy: {insurance.Insurance03UID}</h4>
+                    <p style={{ paddingRight: "10px" }}>{insurance.firstName} </p> <p>{insurance.lastName}</p> <h4 className='UserID'>Insurance Policy: {insurance.Insurance01UID}</h4>
                 </Form.Text>
             </Form.Group>
             <Form.Group className="mb-3 insurance-provider" controlId="formBasicEmail">

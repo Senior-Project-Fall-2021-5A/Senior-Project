@@ -16,7 +16,7 @@ class Navbar extends Component {
         return(
             <nav className= "NavbarItems">
                 <Link to = '/homepage' style ={{textDecoration:'none'}}>
-                <h1 className="navbar-logo"> Health Inc. <img className ='nav-logo-img'src ={navLogo} alt='navlogo'/> </h1>
+                    <h1 className="navbar-logo"> Health Inc. <img className ='nav-logo-img'src ={navLogo} alt='navlogo'/> </h1>                   
                 </Link>
                 <div className="menu-icon" onClick={this.handleClick}>
                     <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
