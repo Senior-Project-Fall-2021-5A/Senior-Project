@@ -5,7 +5,8 @@ myVideo.muted = true;
 
 var peer = new Peer(undefined, {
     path: '/peerjs',
-    host: '/',
+    host: 'https://telemedicine5a-backend.herokuapp.com',
+    secure: true,
     port: '443'
 });
 
@@ -61,7 +62,7 @@ const muteUnmute = () => {
 
 navigator.mediaDevices.getUserMedia({
     video: true,
-    audio: true
+    audio: false
 }).then(stream => {
     myVideoStream = stream;
     addVideoStream(myVideo, stream);
@@ -75,7 +76,9 @@ navigator.mediaDevices.getUserMedia({
     })
 
     socket.on('user-connected', (userId) => {
-        connectToNewUser(userId, stream);
+        console.log('New User Connected: ' + userId)
+        const fc = () => connectToNewUser(userId, stream)
+        timerid = setTimeout(fc, 1000 )
     })
 
     
