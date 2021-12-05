@@ -17,6 +17,9 @@ function GeneralInfo() {
     let userCity = '';
     let userState = '';
     let userZip = '';
+    let userDoB = '';
+    let userGender = '';
+
     const [generalInfo, setgeneralInfo] = useState([]);
     const [registerUserState, setRegisterUserState] = useState({
         email: '',
@@ -26,7 +29,9 @@ function GeneralInfo() {
         address2: '',
         city: '',
         state: '',
-        zip: ''
+        zip: '',
+        DoB: '',
+        gender: ''
       })
     
     const handleChange = e => {
@@ -53,11 +58,21 @@ function GeneralInfo() {
     }, []);
 
     const handleUserRegisterClick = () => {
-        Axios.post(`https://telemedicine5a-backend.herokuapp.com/users/updateUserInfo/${authUserObject.userId}`, {
+       return Axios.post(`https://telemedicine5a-backend.herokuapp.com/users/updateUserInfo/${authUserObject.userId}`, {
             email: registerUserState.email,
+            phone1: registerUserState.phone1,
+            password: registerUserState.password,
+            address1: registerUserState.address1,
+            address2: registerUserState.address2,
+            city: registerUserState.city,
+            state: registerUserState.state,
+            zip: registerUserState.zip,
+            DoB: registerUserState.DoB,
+            gender: registerUserState.gender,
+            
             }).then((response) => {
                 userEmail = String(response.data.user.email);
-                console.log(userEmail);
+                console.log("this is my email:",userEmail);
                 localStorage.setItem('userEmail');
 
                 userPhone = String(response.data.user.phone1);
@@ -87,6 +102,14 @@ function GeneralInfo() {
                 userZip = String(response.data.user.zip);
                 console.log(userZip);
                 localStorage.setItem('userZip');
+
+                userDoB = String(response.data.user.DoB);
+                console.log(userDoB);
+                localStorage.setItem('userDoB');
+
+                userGender = String(response.data.user.gender);
+                console.log(userGender);
+                localStorage.setItem('userGender');
             }
              )};
 
@@ -113,10 +136,20 @@ function GeneralInfo() {
                         <Form.Text className="text-muted">
                             We'll never share your email with anyone else.
                         </Form.Text>
-                    </Form.Group><Form.Group className="mb-3" controlId="formBasicPassword">
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <Form.Label style={{ color: 'black' }}>Date of Birth</Form.Label>
+                        <Form.Control name ="DoB"  value={registerUserState.DoB} onChange={handleChange} type="text" placeholder="Change Your Date of Birth" />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <Form.Label style={{ color: 'black' }}>Gender Setting:</Form.Label>
+                        <Form.Control name ="gender"  value={registerUserState.gender} onChange={handleChange} type="text" placeholder="Set your gender here" />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label style={{ color: 'black' }}>Current Phone Number: {info.phone1}</Form.Label>
                         <Form.Control name ="phone1"  value={registerUserState.phone1} onChange={handleChange} type="text" placeholder="Change Phone Number" />
-                    </Form.Group><Form.Group className="mb-3" controlId="formBasicPassword">
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label style={{ color: 'black' }}>Change Password</Form.Label> {info.password}
                         <Form.Control name= "password" value={registerUserState.password} onChange={handleChange} type="text" placeholder="Password" />
                     </Form.Group><Form.Group className="mb-3" controlId="formBasicAddress">

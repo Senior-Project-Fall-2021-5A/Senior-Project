@@ -26,7 +26,7 @@ function Login() {
         userId = String(response.data.user._id);
         userRole = String(response.data.user.role);
         localStorage.setItem('userId', userId);
-        localStorage.setItem('userRole', userRole);
+        localStorage.setItem('userRole', userRole);        
         isAuth = true;
         authReroute(isAuth);
     }).catch((err => {
