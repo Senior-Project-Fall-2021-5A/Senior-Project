@@ -22,7 +22,7 @@ app.set('view engine', 'ejs');
  
 
 
-app.get('/r', (req, res) => {
+app.get('/', (req, res) => {
     res.redirect(`/${uuidv4()}`);
 });
 
