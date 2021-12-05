@@ -44,26 +44,26 @@ function App() {
               localStorage.setItem('email', data.email);
               localStorage.setItem('primaryPhysician', data.primaryPhysician);
               localStorage.setItem('approvedDoctors', data.approvedDoctors);
-              localStorage.setItem('isAdmin', data.isAdmin);
-              localStorage.setItem('boolIsLogged', true);
-              setIsLogged(true);
+              localStorage.setItem('isAdmin', data.isAdmin);              
+              //setIsLogged(true);
           })
           .catch((err) => {
               console.log(err, "Unable to get Reports");
           });
   }, []);
-
+  
   return (
       <Router>
         <div className="App">
           <Switch>
-            {boolIsLogged && 
+            {authUserObject.boolIsLogged == "true" ? 
               <div>
                 <Route path="/about" component={About} />
                 <Route path="/AppointmentType/:name">
                 <AppointmentType/>
                 </Route>
                 <Route path='/homepage' component={Homepage}/>
+                <Route path="/" exact component={Homepage} />
                 <Route path='/appointments' exact component={Appointments}/>
                 <Route path='/NoAppointments' exact component={NoAppointments}/>
                 <Route path='/loginloading' exact component={LoginLoading}/>
@@ -87,8 +87,13 @@ function App() {
                 <Route path='/adminPortal' component={adminPortal}/>
                 <Route path='/chevron' component={Chevron} />
               </div>              
+            :
+              <div>
+                <Route path="/" component={Login} />  
+                
+              </div>              
             }
-            <Route path="/" exact component={Login} />  
+            
           </Switch>
         </div>
       </Router>
