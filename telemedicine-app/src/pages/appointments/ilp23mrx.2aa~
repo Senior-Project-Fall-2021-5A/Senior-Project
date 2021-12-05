@@ -10,7 +10,7 @@ import ReactDOM from "react-dom";
 import './Tabs.css';
 import Chevron from '../../components/inbox components/Chevron.js'
 import authUserObject from '../../middleware/authUserObject';
-import moment from 'moment'; 
+import moment from 'moment';
 
 
 function NoAppointments() {
@@ -52,12 +52,10 @@ function NoAppointments() {
 
      const [date,setDate] = React.useState(new Date());
 
-     
-
     useEffect(() => {
         Axios.get(`https://telemedicine5a-backend.herokuapp.com/appointments/getAppointments/${authUserObject.userId}`)
         .then((response) => {
-            /*setListOfAppointments(response.data);*/
+            setListOfAppointments(response.data);
 
             /*listOfAppointments.map((appnt, idx) => {
                 const current = moment(date, 'DD-MM-YYYY').valueOf()
@@ -75,44 +73,43 @@ function NoAppointments() {
                     setUpcomingAppointments(appnt.date);        
 				}
 			})*/
-            console.log(response.data);
 
 
             const past = [];
             const upcoming = [];
 
             var current = moment(date, 'YYYY-MM-DD').format();
-            var currDate = current.slice(0, 10);
-            console.log(currDate);
-         
-            /*var currentDate = y.valueOf;
-            console.log("currentDate: " + currentDate);*/
+            var y = current.slice(0, 10);
+            console.log(y);
+            console.log("x op: " + y);
+            var currentDate = y.valueOf;
+            console.log("currentDate: " + currentDate);
 
 
             var currentTime = moment();
             console.log("current time: " + currentTime);
 
-            var hashmap = new Map();
-
-            console.log(response.data.length);
-
             for(let key in response.data) {
         
-                var dataDate = response.data[key].date.slice(0, 10);
+                var x = response.data[key].date.slice(0, 10);
+                console.log("x: " + x);
+
 
                 var apiDate = moment(response.data[key].date, 'DD-MM-YYYY').valueOf()
 
-                hashmap.set(response.data[key].date, apiDate);
-               
+                
+                var t = response.data[key].time;
+                const spaced = t.replace(/(\d{5})/g, '$1 ').trim();
+                console.log("Tyme: " + spaced)
                 var apiTime = moment(response.data[key].time, "hh:mm a");
                 console.log("apiTime: " + apiTime);
                 
 
-                if(moment(currDate).isAfter(dataDate) || moment(currDate).isSame(dataDate)) {
+                if(moment(y).isAfter(x)) {
                     if(currentTime > apiTime) {
                         past.push(response.data[key]); 
 					} else {
-                        upcoming.push(response.data[key]);
+                        upcoming.push(response.data[key]); 
 					}
                            
 				} else {
@@ -120,31 +117,12 @@ function NoAppointments() {
 				}
 			}
 
-            const mapSort = new Map([...hashmap.entries()].sort(function(entryA, entryB) {
-              return entryB[0] - entryA[0];
-            }));
-
-            console.log(hashmap);
-            console.log(mapSort);
-
-            mapSort.forEach(function(value, key) {
-                console.log(value + " " + key);
-			})
-
-            var pastDateList = [];
-
-            for(let i in past) {
-
-                pastDateList.push(past[i].date);
-                console.log("past: " + past[i].date);     
-			}
-            console.log("past: " + past.data);
-            console.log("upcoming: " + upcoming.data);
-
             setPastAppointments(past);
             setUpcomingAppointments(upcoming);
 
-           
+
+
+            console.log("Blimey!", listOfAppointments);
         })
         .catch((err) => {
             console.log(err, "Unable to get appointments");

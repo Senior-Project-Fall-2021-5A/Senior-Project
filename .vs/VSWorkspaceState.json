@@ -3,14 +3,15 @@
     "",
     "\\backend",
     "\\backend\\server",
-    "\\backend\\server\\dbConfig",
+    "\\backend\\server\\models",
+    "\\backend\\server\\routes",
     "\\telemedicine-app",
     "\\telemedicine-app\\src",
     "\\telemedicine-app\\src\\components",
-    "\\telemedicine-app\\src\\components\\Homepage",
+    "\\telemedicine-app\\src\\components\\routes",
     "\\telemedicine-app\\src\\pages",
-    "\\telemedicine-app\\src\\pages\\inbox"
+    "\\telemedicine-app\\src\\pages\\doctors"
   ],
-  "SelectedNode": "\\telemedicine-app\\src\\components\\Homepage\\ReportsWidget.js",
+  "SelectedNode": "\\backend\\server\\models\\Appointment.js",
   "PreviewInSolutionExplorer": false
 }

@@ -63,7 +63,7 @@ const ScheduleCalendar = () => {
                 />
 
                   <div className="calendar-text">
-                     <p>Current selected date is <b>{moment(date).format('YYYY-MM-DD')}</b></p>
+                     <p>Current selected date is <b></b></p>
                   </div>
                   
                   <div className="confirm-date">

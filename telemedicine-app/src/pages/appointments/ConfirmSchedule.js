@@ -1,3 +1,4 @@
+import React from 'react';
 import './appointments.css';
 import Footer from '../../components/Footer/Footer';
 import Navbar from '../../components/Navbar/Navbar';
@@ -10,18 +11,27 @@ const ConfirmSchedule = () => {
 
     const userId = '61a90dbcfeeffc47cc29bb84';
 
+     const [txtLocSelect,setLocSelect] = React.useState("");
+     const [txtLocation,setLocation] = React.useState("");
+
     const submitAppointment = () => {
-    console.log(doc, type, time, date, userId);
-        Axios.post(`https://telemedicine5a-backend.herokuapp.com/appointments/addAppointments`, {
-        userUID: userId,
-        doctorUID: doc,
-      
-        date: date,
-        time: time,
+    console.log("Patient: " + userId, "Doctor: " + doc, "Date: " + date, "Time: " + time);
+        Axios.post('https://telemedicine5a-backend.herokuapp.com/appointments/addAppointment', {
+                userUID:        userId,
+                doctorUID:      doc,
+                date:           date,
+                time:           time,
+                type:           type,
+                locationUID:    "",
         
         }).then((response) => {
             console.log(response)
+
         });
+    }
+
+    const onSubmit = (event) => {
+        submitAppointment();
     }
 
     
@@ -38,7 +48,7 @@ const ConfirmSchedule = () => {
             <div className="buttons-container">
 
                 <Link to={'/NoAppointments'}>
-                    <button type="button" class="btn btn-success" onClick={submitAppointment}>Continue</button>
+                    <button type="button" class="btn btn-success" onClick={e=>onSubmit(e)}>Continue</button>
                 </Link>
 
                 {" "}

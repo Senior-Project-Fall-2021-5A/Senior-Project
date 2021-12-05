@@ -10,16 +10,11 @@ import ReactDOM from "react-dom";
 import './Tabs.css';
 import Chevron from '../../components/inbox components/Chevron.js'
 import authUserObject from '../../middleware/authUserObject';
-import moment from 'moment'; 
 
 
 function NoAppointments() {
 
     const [listOfAppointments, setListOfAppointments] = useState([]);
-
-    const [pastAppointments, setPastAppointments] = useState([]);
-    const [upcomingAppointments, setUpcomingAppointments] = useState([]);
-
     const [show, setShow] = useState("");
 
     const [isLoaded, setIsLoaded] = useState(false);
@@ -50,101 +45,11 @@ function NoAppointments() {
        
     }
 
-     const [date,setDate] = React.useState(new Date());
-
-     
-
     useEffect(() => {
         Axios.get(`https://telemedicine5a-backend.herokuapp.com/appointments/getAppointments/${authUserObject.userId}`)
         .then((response) => {
-            /*setListOfAppointments(response.data);*/
-
-            /*listOfAppointments.map((appnt, idx) => {
-                const current = moment(date, 'DD-MM-YYYY').valueOf()
-                const apiDate = moment(appnt.date, 'DD-MM-YYYY').valueOf()
-
-                var i = 0;
-                
-                console.log("Datey: " + apiDate + ", Current: " + current);
-                if(current > apiDate) {
-                i++;
-                    console.log("truey" + " " + i);
-                    setPastAppointments(appnt.date);
-
-				} else {
-                    setUpcomingAppointments(appnt.date);        
-				}
-			})*/
-            console.log(response.data);
-
-
-            const past = [];
-            const upcoming = [];
-
-            var current = moment(date, 'YYYY-MM-DD').format();
-            var currDate = current.slice(0, 10);
-            console.log(currDate);
-         
-            /*var currentDate = y.valueOf;
-            console.log("currentDate: " + currentDate);*/
-
-
-            var currentTime = moment();
-            console.log("current time: " + currentTime);
-
-            var hashmap = new Map();
-
-            console.log(response.data.length);
-
-            for(let key in response.data) {
-        
-                var dataDate = response.data[key].date.slice(0, 10);
-
-                var apiDate = moment(response.data[key].date, 'DD-MM-YYYY').valueOf()
-
-                hashmap.set(response.data[key].date, apiDate);
-               
-                var apiTime = moment(response.data[key].time, "hh:mm a");
-                console.log("apiTime: " + apiTime);
-                
-
-                if(moment(currDate).isAfter(dataDate) || moment(currDate).isSame(dataDate)) {
-                    if(currentTime > apiTime) {
-                        past.push(response.data[key]); 
-					} else {
-                        upcoming.push(response.data[key]);
-					}
-                           
-				} else {
-                    upcoming.push(response.data[key]);        
-				}
-			}
-
-            const mapSort = new Map([...hashmap.entries()].sort(function(entryA, entryB) {
-              return entryB[0] - entryA[0];
-            }));
-
-            console.log(hashmap);
-            console.log(mapSort);
-
-            mapSort.forEach(function(value, key) {
-                console.log(value + " " + key);
-			})
-
-            var pastDateList = [];
-
-            for(let i in past) {
-
-                pastDateList.push(past[i].date);
-                console.log("past: " + past[i].date);     
-			}
-            console.log("past: " + past.data);
-            console.log("upcoming: " + upcoming.data);
-
-            setPastAppointments(past);
-            setUpcomingAppointments(upcoming);
-
-           
+            setListOfAppointments(response.data);
+            console.log("Blimey!", listOfAppointments.date);
         })
         .catch((err) => {
             console.log(err, "Unable to get appointments");
@@ -153,8 +58,6 @@ function NoAppointments() {
     
 
    return (
-
-       
 
        <div className='appointments'>
            <Navbar/>
@@ -190,7 +93,7 @@ function NoAppointments() {
                                 <h4>All Upcoming Appointments</h4>
                                 <hr />
 
-                                {upcomingAppointments.map((appointment, index) => {
+                                {listOfAppointments.map((appointment, index) => {
 
                                     return (
                                         
@@ -246,57 +149,49 @@ function NoAppointments() {
                                 <h4>All Past Appointments</h4>
                                 <hr />
 
-                                  {pastAppointments.map((appointment, index) => {
-
-                                    return (
-                                        
-                                        <div className="accordion1">
+                                   
+                                <div className="accordion1">
                     
-                                            <div className="accordion1-header" onClick={() => toggleAccordion(index)} key={appointment.index}>
-                                                <h5 className="date">{appointment.date}</h5>
-                                                <h5 className="time">{appointment.time}</h5>
-                                                <h5 className="subject">{appointment.type}</h5>
+                                    <div className="accordion1-header">
+                                        <h5 className="date">November 23th, 2021</h5>
+                                        <h5 className="time">3:00 p.m.</h5>
+                                        <h5 className="subject">Online</h5>
                                              
                                                 
-                                                <b>
-                                                    {toggled === index ? 
-                                                        <Chevron className="accordion__icon" width={15} fill="#fc59ff"/> 
-                                                        : <Chevron className="accordion__icon rotate" width={15} fill="#fc59ff"/>
-                                                    }
-                                                </b>
+                                        <b>
+                                            {toggled ? 
+                                                <Chevron className="accordion__icon" width={15} fill="#fc59ff"/> 
+                                                : <Chevron className="accordion__icon rotate" width={15} fill="#fc59ff"/>
+                                            }
+                                        </b>
                                                 
-                                            </div>
+                                    </div>
                                            
                                             
                                           
-                                            {toggled === index && (
+                                    {toggled && (
 
-                                                <div className="accordion1-body">
+                                        <div className="accordion1-body">
                                                 
-                                                    <h1 className="doctor">{appointment.doctorUID}</h1>
-                                                    <h1 className="address">{appointment.locationUID}</h1>
+                                            <h1 className="doctor">Doctor B</h1>
+                                            <h1 className="address">Address</h1>
                                                     
-                                                    <Link to='/client'>
-                                                        <button className="btnCall">Start Call</button>
-                                                    </Link>
-                                                    <h1 className="note">Note:</h1>
+                                            <Link to='/client'>
+                                                <button className="btnCall">Start Call</button>
+                                            </Link>
+                                            <h1 className="note">Note:</h1>
                                                     
-                                                    <textarea className="textarea-edit">
-                                                    </textarea>
+                                            <textarea className="textarea-edit">
+                                            </textarea>
                                                  
-                                                    <h1 className="doctor-notes">Doctor Notes</h1>
-                                                    <h1 className="reschedule">Reschedule</h1>
-                                                    <h1 className="cancel-appointment">Cancel Appointment</h1>
+                                            <h1 className="doctor-notes">Doctor Notes</h1>
+                                            <h1 className="reschedule">Reschedule</h1>
+                                            <h1 className="cancel-appointment">Cancel Appointment</h1>
                              
-                                                </div>
-                                            )}
+                                        </div>
+                                    )}
                                         
-                                        </div> 
-                                    );
-                                })} 
-                                
-                                        
-                                
+                                </div>
                                    
                              </div>
 
