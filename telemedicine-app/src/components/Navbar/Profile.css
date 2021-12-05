@@ -40,6 +40,7 @@ div#popover-contained {
 .dropdown-menu.show {
     height: 300px;
     overflow-y: scroll;
+    scrollbar-width: none;
 }
 .dropdown-menu.show::-webkit-scrollbar {
     display: none;
