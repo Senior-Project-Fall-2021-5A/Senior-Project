@@ -11,6 +11,7 @@ import Top from "../../components/inbox components/Top"
 import InboxAccordion from '../../components/inbox components/InboxAccordion'
 import { Link } from 'react-router-dom';
 import Canvas from '../../components/Canvas'
+import authUserObject from '../../middleware/authUserObject';
 
 
 
@@ -19,33 +20,33 @@ import Canvas from '../../components/Canvas'
 
 const Inbox = () => {
 
-    const [listOfMessages, setListOfMessages] = React.useState([]);
+    const [listOfMessages, setMessages] = React.useState([]);
+
+
+
+
 
     useEffect(() => {
-        SendMessages();
+        getMessages();
     }, []);
 
-    const SendMessages = () => {
-        let userID = "61a80bf9d9e6a3effb3cc950";
-        return Axios.post(`https://telemedicine5a-backend.herokuapp.com/inbox/sendMessage`, {
-            senderID: userID,
-            recieverID: "61a7c275d35cf2796a2dcba8",
-            subject: "subject",
-            body: "a message",
-            // date: new Date(),
-            isRead: false,
-        }).then((response) => {
-            console.log("SendMessages(), response: ", response);
-        }).catch((err) => {
-            console.log(err);
+    const getMessages = () => {
 
-        });
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/inbox/getMessages/${authUserObject.userId}`)////${txtGlobalUserID}
+            .then((response) => {
+                console.log("Response Data: ", response.data);
+                // setMessages(response.data);
+                setMessages(response.data);
+            })
+            .catch((err) => {
+                console.log(err, "Unable to get Messages");
+            });
     }
 
 
-    // componentDidMount() {
-    //     this.getMessages();
-    // }
+
+
+
 
 
     return (
@@ -55,9 +56,9 @@ const Inbox = () => {
                 <Top />
                 {/* <AccordionCustom />  */}
                 <div className='inbox-body-container'>
-                    <h5>No Messages Currently</h5>
-                    {(listOfMessages).map(Message => {
+                    
                         <div className="inbox-body">
+                        {listOfMessages.map((Message => (
                             <InboxAccordion
 
                                 // Avatar image
@@ -67,14 +68,15 @@ const Inbox = () => {
                                 title={Message.subject}
 
                                 // Date will go here
-                                date={Message.date}
+                                date={(new Date(Message.date)).toLocaleDateString()}
 
                                 // Message will go here
                                 content={Message.body}
 
                             />
+                            )))}
                         </div>
-                    })}
+                   
                 </div>
 
                 {/* <Accordion /> */}
@@ -82,7 +84,7 @@ const Inbox = () => {
             </Canvas>
         </div>
 
-    )
+    );
 }
 
 
