@@ -7,10 +7,39 @@ const Grid = require("gridfs-stream");
 const mongoose = require("mongoose");
 
 //video call import
-const http = require("http");
-const server = http.createServer(app);
-const socket = require("socket.io");
-const io = socket(server);
+const server = require('http').Server(app);
+const { v4: uuidv4} = require('uuid');
+const io = require('socket.io')(server); 
+const {ExpressPeerServer} = require('peer');
+const peerServer = ExpressPeerServer(server, {
+    debug: true
+});
+app.use(express.static('public'));
+app.use('/peerjs', peerServer);
+
+app.set('view engine', 'ejs');
+
+ 
+
+
+app.get('/r', (req, res) => {
+    res.redirect(`/${uuidv4()}`);
+});
+
+app.get('/:room', (req, res) => {
+    res.render('room', { roomId: req.param.room })
+});
+
+
+io.on('connection', socket => {
+    socket.on('join-room', (roomId, userId) => {
+        socket.join(roomId);
+        socket.to(roomId).broadcast.emit('user-connected', userId);
+        socket.on('message', message => {
+            io.to(roomId).emit('createMessage', message)
+        })
+    })
+})
 
 // Import models for testing
 const UserModel = require('./models/User')
@@ -69,5 +98,7 @@ app.get('/register', async (req, res) => {
     await newTestUser.save();
     res.send('User Added!')
 })
-app.listen(PORT, () => { console.log('Connection SUCCESSFUL') });
+
+
+server.listen(PORT, () => { console.log('Connection SUCCESSFUL') });
 module.exports = app;
