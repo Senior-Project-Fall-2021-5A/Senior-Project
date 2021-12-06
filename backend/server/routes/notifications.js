@@ -30,6 +30,20 @@ router.get('/getNotifications/:userId', async (req, res) => {
     .catch(err => next(err));
 });
 
+router.post('/updateNotification/:notifId', async (req, res) => {
+    const updateFields = req.body;
+    const notifId = req.params.notifId;
+    NotificationsModel.findOneAndUpdate({_id: notifId}, 
+        updateFields, {new: true},
+        (err, result) => {
+            if (err) {
+            res.send("Unable to update info for", {notifId})
+            } else {
+            res.status(200).json(result);
+            }
+        })
+});
+
 router.post('/addNotifications', async (req, res) => {
     const userUID = req.body.userUID;
     const appointmentsUID = req.body.appointmentsUID;

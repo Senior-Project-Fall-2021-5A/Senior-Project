@@ -4,35 +4,35 @@ const NotificationsSchema = new mongoose.Schema({
 
     userUID: {
         type: mongoose.Schema.Types.ObjectId, ref: 'UserModel',
-        required: true,
+        required: false,
     },
     appointmentsUID: {
         type: mongoose.Schema.Types.ObjectId, ref: 'AppointmentsModel',
-        required: true, 
+        required: false, 
     },
     reportsUID: {
         type: mongoose.Schema.Types.ObjectId, ref: 'ReportsModel',
-        required: true,
+        required: false,
     },
     inboxUID: {
         type: mongoose.Schema.Types.ObjectId, ref: 'InboxModel',
-        required: true,
+        required: false,
     },
     message: {
         type: String,
-        required: true,
+        required: false,
     },
     notif_type: {
         type: String,
-        required: true,
+        required: false,
     },
     date_time: {
         type: String,
-        required: true,
+        required: false,
     },
     isRead: {
         type: Boolean,
-        required: true,
+        required: false,
     },
 });
 

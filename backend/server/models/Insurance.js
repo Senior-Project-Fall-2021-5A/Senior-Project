@@ -4,15 +4,15 @@ const InsuranceSchema = new mongoose.Schema({
 
     usersOnPlan: [{
         type: mongoose.Schema.Types.ObjectId,
-        required: true, 
+        required: false, 
     }],
     insuranceName: {
         type: String,
-        required: true,
+        required: false,
     },
     accountNum: {
         type: String,
-        required: true,
+        required: false,
     },
 });
 
