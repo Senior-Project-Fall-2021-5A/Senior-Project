@@ -21,13 +21,18 @@ import authUserObject from '../../middleware/authUserObject';
 const Inbox = () => {
 
     const [listOfMessages, setMessages] = React.useState([]);
-
+    const [listOfDoctors, setName] = React.useState([]);
+    const [senderID, setSenderID] = React.useState("");
 
 
 
 
     useEffect(() => {
         getMessages();
+        // CreateListOfDoctors();
+
+
+
     }, []);
 
     const getMessages = () => {
@@ -35,13 +40,69 @@ const Inbox = () => {
         Axios.get(`https://telemedicine5a-backend.herokuapp.com/inbox/getMessages/${authUserObject.userId}`)////${txtGlobalUserID}
             .then((response) => {
                 console.log("Response Data: ", response.data);
-                // setMessages(response.data);
-                setMessages(response.data);
+                let arrMessage = response.data;
+                console.log("apptData: ",arrMessage);
+                setTheNames( arrMessage );
             })
             .catch((err) => {
                 console.log(err, "Unable to get Messages");
             });
     }
+
+    const setTheNames = ( arrMessage ) => {
+        let newList = [];
+        arrMessage.forEach(e=>{
+            let id = e.senderID;
+            Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${id}`)
+                .then((response) => {                
+                    let data = response.data;           
+                    console.log("setTheNames() - response:",data);
+                    
+                    let name = data[0].lastName+", "+data[0].firstName ;
+                    console.log("setTheNames() - name:",name);
+                    
+                    e.senderName = name;
+                    console.log("setTheNames() - e.senderName:",e.senderName);
+                    
+                    console.log("setTheNames() - arrMessage: ",arrMessage);
+                    newList = [...newList,e];
+                    
+                    setMessages(newList);
+                    
+                }).catch((err) => {
+                    console.log(err, "Unable to get Locations");
+                });
+        });
+    }
+
+
+
+
+
+    // const CreateListOfDoctors = () => {
+    //     Axios.get('https://telemedicine5a-backend.herokuapp.com/users/getDoctors')
+    //         .then((response) => {
+    //             let data = response.data;
+    //             console.log("response:", data);
+    //             data.forEach(e => {
+    //                 setName(listOfDoctors => [...listOfDoctors, {
+    //                     label: e.lastName + ", " + e.firstName + " [" + e.userUID.slice(-4) + "]",
+    //                     value: e.userUID,
+    //                 }]
+    //                 )
+    //             });
+    //         }).catch((err) => {
+    //             console.log(err, "Unable to get Doctors");
+    //         });
+    // }
+
+
+    // {
+    //     listOfDoctors.map((doctorIDs) => {
+    //         let doctorName = doctorIDs.firstName
+    //         console.log("Look here: ", doctorName)
+    //     })
+    // }
 
 
 
@@ -56,15 +117,15 @@ const Inbox = () => {
                 <Top />
                 {/* <AccordionCustom />  */}
                 <div className='inbox-body-container'>
-                    
-                        <div className="inbox-body">
+
+                    <div className="inbox-body">
                         {listOfMessages.map((Message => (
                             <InboxAccordion
 
-                                // Avatar image
-                                from={Message.recieverEmail}
+                                // Name
+                                from={Message.senderName}
 
-                                // Put name here
+                                // Put Subject
                                 title={Message.subject}
 
                                 // Date will go here
@@ -74,9 +135,9 @@ const Inbox = () => {
                                 content={Message.body}
 
                             />
-                            )))}
-                        </div>
-                   
+                        )))}
+                    </div>
+
                 </div>
 
                 {/* <Accordion /> */}
