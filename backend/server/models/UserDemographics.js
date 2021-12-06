@@ -4,7 +4,7 @@ const UserDemoSchema = new mongoose.Schema({
     
     userUID: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
+        required: false,
     },
     firstName: {
         type: String,

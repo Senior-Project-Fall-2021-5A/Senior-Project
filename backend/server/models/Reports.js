@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const ReportsSchema = new mongoose.Schema({
     userUID: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
+        required: false,
     },
     appointmentsUID: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true, 
+        required: false, 
     },
     doctorUID: {
         type: mongoose.Schema.Types.ObjectId,
