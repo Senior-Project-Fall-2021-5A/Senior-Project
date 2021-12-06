@@ -22,8 +22,8 @@ const PopUpAddStaff = ( {trigger,setTrigger} ) => {
     ******************************************************/
     // Create Staff
     const onSubmit = ( event ) => {
-        console.log(event);
-        console.log("Add Staff, onSubmit()");        
+        //console.log(event);
+        //console.log("Add Staff, onSubmit()");        
         
         if (txtStaffFName == "" || txtStaffMName == "" ||
          txtStaffLName == "" || txtStaffEmail == "" || txtStaffPass == "" || txtFieldStudy == "") {
@@ -42,16 +42,16 @@ const PopUpAddStaff = ( {trigger,setTrigger} ) => {
                 password:   txtStaffPass,
                 role:       1,
             }).then((response) => {
-                console.log("Add Patient, onSubmit(), CreateUser, Axios response: ",response)
+                //console.log("Add Patient, onSubmit(), CreateUser, Axios response: ",response)
                 let userID = String(response.data.user._id);
-                console.log("userID: ",userID);
+                //console.log("userID: ",userID);
                 addDemo(userID);
             }).catch((err) => {
                 let arrErrors = err.response.data.errors;
-                console.log("arrErrors: ",arrErrors);
+                //console.log("arrErrors: ",arrErrors);
                 let txtError = "";
                 arrErrors.forEach(e => txtError=`${txtError}${e.msg}. `);
-                console.log("txtError: ",txtError);
+                //console.log("txtError: ",txtError);
 
                 setError(txtError);
                 setBoolError(true);
@@ -67,7 +67,7 @@ const PopUpAddStaff = ( {trigger,setTrigger} ) => {
             email:              txtStaffEmail,                    
             isAdmin:            true,
         }).then((response) => {
-            console.log("Add Patient, onSubmit(), CreateDemo, Axios response: ",response);
+            //console.log("Add Patient, onSubmit(), CreateDemo, Axios response: ",response);
             addDoctorInfo(userID);
         }).catch((err) => {
             console.log(err);
@@ -81,7 +81,7 @@ const PopUpAddStaff = ( {trigger,setTrigger} ) => {
         Axios.post(`https://telemedicine5a-backend.herokuapp.com/doctors/addDoctorInfo/${userID}`, {
             fieldOfStudy:       txtFieldStudy,                        
         }).then((response) => {
-            console.log("Add Staff, onSubmit(), Create Doc, Axios response: ",response);
+            //console.log("Add Staff, onSubmit(), Create Doc, Axios response: ",response);
             
         }).catch((err) => {
             console.log(err);

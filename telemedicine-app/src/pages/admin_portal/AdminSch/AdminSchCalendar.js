@@ -6,15 +6,15 @@ const AdminSchCalendar = () => {
     const [CalValue, setCal] = React.useState(new Date());
 
     const handleCalendar = (date) => {
-        console.log("date:",date);
+        //console.log("date:",date);
         setCal(date);
         
-        console.log("getDate:", date.getDate());
-        console.log("toDateString:", date.toDateString());
-        console.log("valueOf:", date.valueOf());
-        console.log("toUTCString:", date.toUTCString());
-        console.log("toLocaleDateString:", date.toLocaleDateString());
-        console.log("toJSON:", date.toJSON());
+        //console.log("getDate:", date.getDate());
+        //console.log("toDateString:", date.toDateString());
+        //console.log("valueOf:", date.valueOf());
+        //console.log("toUTCString:", date.toUTCString());
+        //console.log("toLocaleDateString:", date.toLocaleDateString());
+        //console.log("toJSON:", date.toJSON());
 
         localStorage.setItem('adminCurrentDate',date.toLocaleDateString());        
     }

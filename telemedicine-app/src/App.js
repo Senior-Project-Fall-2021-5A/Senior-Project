@@ -33,10 +33,10 @@ function App() {
   const [boolIsLogged, setIsLogged] = useState(authUserObject.boolIsLogged);
 
   useEffect(() => {
-      console.log("AppJS - UID: ",txtGlobalUserID," role: ",txtGlobalRole);
+      //console.log("AppJS - UID: ",txtGlobalUserID," role: ",txtGlobalRole);
       Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${txtGlobalUserID}`)////${txtGlobalUserID}
           .then((response) => {
-              console.log("AppJS - responce: ",response);
+              //console.log("AppJS - responce: ",response);
               let data = response.data[0];
               localStorage.setItem('firstName', data.firstName);
               localStorage.setItem('midName', data.midName);

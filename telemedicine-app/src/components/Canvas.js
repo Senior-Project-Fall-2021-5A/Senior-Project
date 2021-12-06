@@ -14,12 +14,12 @@ const Canvas = ( props ) => {
 
     
     useEffect(() => {
-        console.log("Page Open - UserID: ",txtGlobalUserID, " role: ",txtGlobalRole);
+        //console.log("Page Open - UserID: ",txtGlobalUserID, " role: ",txtGlobalRole);
         Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${txtGlobalUserID}`)////${txtGlobalUserID}
             .then((response) => {
-                console.log("reports:",response);
+                //console.log("reports:",response);
                 let lName = response.data[0].firstName+" "+response.data[0].lastName;
-                console.log("What's my Name? ", lName)
+                //console.log("What's my Name? ", lName)
                 setName(lName);
             })
             .catch((err) => {

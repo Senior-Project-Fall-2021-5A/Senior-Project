@@ -6,10 +6,8 @@ import AdminAptsTable from './AdminAptsTable'
 
 
 
-const AdminApts = ({ dateValue, boolShowAll }) => {
+const AdminApts = ({ dateValue, txtPatientID, apptInputPopup }) => {
 
-    //New Patient Popup handler
-    const [date, setDate] = React.useState(new Date);
     
     
    
@@ -31,7 +29,8 @@ const AdminApts = ({ dateValue, boolShowAll }) => {
             >   
                 <AdminAptsTable 
                     dateValue={dateValue}
-                    boolShowAll={boolShowAll}  
+                    txtPatientID={txtPatientID} 
+                    apptInputPopup={apptInputPopup}
                 />
             </div>
 

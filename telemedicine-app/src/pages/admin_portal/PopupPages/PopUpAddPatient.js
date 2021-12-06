@@ -26,7 +26,7 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
         Axios.get('https://telemedicine5a-backend.herokuapp.com/users/getDoctors')        
             .then((response) => {     
                 let data = response.data;           
-                console.log("response:",data);
+                //console.log("response:",data);
                 data.forEach(e=>{setListOfDoctors(listOfDoctors => [...listOfDoctors, {
                     label: e.lastName+", "+e.firstName+" ["+e.userUID.slice(-4)+"]",
                     value: e.userUID,
@@ -44,18 +44,18 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
     ******************************************************/
     //Doctor Select
     const onDoctorSelect = ( event ) => {
-        console.log("onDoctorSelect - ",event);
-        console.log("Value set: ", event.target.value);
+        //console.log("onDoctorSelect - ",event);
+        //console.log("Value set: ", event.target.value);
         setDoctorID(event.target.value);
     }
     
     // Create Patient
     const onSubmit = ( event ) => {
-        console.log(event);
-        console.log("Add Patient, onSubmit()"); 
+        //console.log(event);
+        //console.log("Add Patient, onSubmit()"); 
         
-        //textDoctorID == "_placeholder_" || textDoctorID == "" || 
-        if (txtPatientFName == "" || txtPatientMName == "" ||
+        //
+        if (textDoctorID == "_placeholder_" || textDoctorID == "" || txtPatientFName == "" || txtPatientMName == "" ||
          txtPatientLName == "" || txtPatientEmail == "" || txtPatientPass == "") {
             setBoolError(true);
             setError("Please Fill out all the above Information.");
@@ -66,9 +66,9 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
                 password:   txtPatientPass,
                 role:       0,
             }).then((response) => {
-                console.log("Add Patient, onSubmit(), CreateUser, Axios response: ",response)
+                //console.log("Add Patient, onSubmit(), CreateUser, Axios response: ",response)
                 let patientID = String(response.data.user._id);
-                console.log("PatientID: ",patientID)
+                //console.log("PatientID: ",patientID)
                 
                 return Axios.post(`https://telemedicine5a-backend.herokuapp.com/users/createUserProfile/${patientID}`, {
                     firstName:          txtPatientFName,
@@ -78,7 +78,7 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
                     primaryPhysician:   textDoctorID,
                     isAdmin:            false,
                 }).then((response) => {
-                    console.log("Add Patient, onSubmit(), CreateDemo, Axios response: ",response)                
+                    //console.log("Add Patient, onSubmit(), CreateDemo, Axios response: ",response)                
                 }).catch((err) => {
                     console.log(err)
                 });
@@ -272,9 +272,9 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
                         }}                        
                         onChange={e=>onDoctorSelect(e)}  
                     >
-                        <option value="_placeholder_">Select Doctor</option>
+                        <option key="puap_doctor_placeholder" value="_placeholder_">Select Doctor</option>
                         {listOfDoctors.map((option) => (
-                            <option value={option.value}>{option.label}</option>
+                            <option key={option.value} value={option.value}>{option.label}</option>
                         ))}
 
                     </select>

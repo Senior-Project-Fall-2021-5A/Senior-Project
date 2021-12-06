@@ -16,7 +16,7 @@ function Homepage() {
     useEffect(() => {
         Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${authUserObject.userId}`)        
             .then((response) => {                         
-                console.log("Username info:", response);
+                //console.log("Username info:", response);
                 const myUserName = response.data;
                 setUserName(response.data);
             })

@@ -1,4 +1,7 @@
 import React from 'react';
+import { useEffect } from 'react';
+import Axios from 'axios';
+import authUserObject from '../../middleware/authUserObject';
 import AdminSchedule from "./AdminSch/AdminSchedule";
 import Canvas from "../../components/Canvas";
 import ObjLink from '../../components/Objects/ObjLink';
@@ -18,61 +21,80 @@ function AdminPage() {
     //New Patient Popup handler
     const [newPatientPopup, setnewPatientPopup] = React.useState(false);    
     const newPatientClick = (e) => {
-        console.log("New Patient Click");
-        console.log("click", e);
+        //console.log("New Patient Click");
+        //console.log("click", e);
         let bPop = !newPatientPopup;
         setnewPatientPopup(bPop);
-        console.log("Popup is ",bPop);
+        //console.log("Popup is ",bPop);
     }
 
     //Edit Patient Popup handler
     const [editPatientPopup, seteditPatientPopup] = React.useState(false);    
     const editPatientClick = (e) => {
-        console.log("edit Patient Click");
-        console.log("click", e);
+        //console.log("edit Patient Click");
+        //console.log("click", e);
         let bPop = !editPatientPopup;
         seteditPatientPopup(bPop);
-        console.log("Popup is ",bPop);
+        //console.log("Popup is ",bPop);
     }
 
     //New Staff Popup handler
     const [newStaffPopup, setnewStaffPopup] = React.useState(false);    
     const newStaffClick = (e) => {
-        console.log("New Patient Click");
-        console.log("click", e);
+        //console.log("New Patient Click");
+        //console.log("click", e);
         let bPop = !newStaffPopup;
         setnewStaffPopup(bPop);
-        console.log("Popup is ",bPop);
+        //console.log("Popup is ",bPop);
     }
 
     //New Appt Popup handler
     const [apptInputPopup, setApptInputPopup] = React.useState(false);    
     const apptClick = (e) => {
-        console.log("Appointment Click");
-        console.log("click", e);
+        //console.log("Appointment Click");
+        //console.log("click", e);
         let bPop = !apptInputPopup;
         setApptInputPopup(bPop);
-        console.log("Popup is ",bPop);
-    }
-
-    //All Apts
-    const [allApptsPopup, setAllApptsPopup] = React.useState(false);   
-    const allApptsClick = ( event ) => {
-        console.log("New Patient Click");
-        console.log("click", event);
-        let bPop = !allApptsPopup;
-        setAllApptsPopup(bPop);
-        console.log("Popup is ",bPop);
+        //console.log("Popup is ",bPop);
     }
 
     //dates
     const [dateValue, setDateValue] = React.useState(new Date());
     const [txtDateValue, setTxtDateValue] = React.useState(new Date().toLocaleDateString("en-US").split('/').join('-'));
-    const [boolShowAll, setBoolShowAll] = React.useState(false);
     const dateSelected = ( event ) => {
         setDateValue(event);
         //convert date to string
         setTxtDateValue(event.toLocaleDateString("en-US").split('/').join('-'));
+    }
+
+    //Load Patients
+    useEffect(() => {
+        CreateListOfPatients();
+    }, [authUserObject.patientCounter]);
+
+    //create List of Patients
+    const [listOfPatients,setListOfPatients] = React.useState([]);  
+    const [txtPatientID,setPatientID] = React.useState("_self_");  
+    const CreateListOfPatients = (  ) => {
+        Axios.get('https://telemedicine5a-backend.herokuapp.com/users/getPatients')        
+            .then((response) => {                
+                let data = response.data;           
+                //console.log("AdminPage - response:",data);
+                data.forEach(e=>{setListOfPatients(listOfPatients => [...listOfPatients, {
+                    label: e.lastName+", "+e.firstName+" ["+e.userUID.slice(-4)+"]",
+                    value: e.userUID,
+                    }]
+                )});
+            }).catch((err) => {
+                console.log(err, "Unable to get Patients");
+            });
+    }
+
+    //set patient
+    const onPatientSelect = ( event ) => {
+        //console.log("onPatientSelect - ",event);
+        //console.log("Value set: ", event.target.value);
+        setPatientID(event.target.value);
     }
 
     return (
@@ -156,21 +178,19 @@ function AdminPage() {
                                     
                                 </div>  
 
-                                {/* all Appts Button  */}
+                                
+
+                                {/* Date Text  */}
                                 <div
                                     style={{
                                         display: 'flex',
                                         position: 'relative',
-                                        left: '30px',                        
+                                        left: '30px', 
+                                        top: '10px',
                                     }}
                                 >
-                                    <ObjLink                                                        
-                                        text="All Appts"
-                                        btnWidth = "125px"
-                                        onClick={e => allApptsClick(e)}
-                                        doLink = "false"   
-                                    />              
-                                </div>  
+                                    <h6>Select Date: </h6>             
+                                </div> 
 
                                 {/* Date Select */}
                                 <div className="popup_spread_grid"
@@ -188,8 +208,7 @@ function AdminPage() {
                                         />
                                     </div> 
                                 </div>
-
-                                {/* Date Text  */}
+                                {/* Patient Text  */}
                                 <div
                                     style={{
                                         display: 'flex',
@@ -198,15 +217,40 @@ function AdminPage() {
                                         top: '10px',
                                     }}
                                 >
-                                    <h6>Select Date</h6>             
+                                    <h6>Or see All Apt for: </h6>             
                                 </div> 
+                                {/* Patient Select */}
+                                <div 
+                                    style={{
+                                        display: 'flex',
+                                        position: 'relative',
+                                        left: '30px', 
+                                        top: '8px',
+                                    }}
+                                >
+                                    <select
+                                        style={{
+                                            height: "25px",
+                                            width: "200px",
+                                            textAlign: "left",
+                                        }}
+                                        onChange={e=>onPatientSelect(e)}  
+                                    >
+                                        <option key="ap_patient_self" value="_self_">{authUserObject.lastName+", "+authUserObject.firstName}</option>
+                                        {listOfPatients.map((option) => (
+                                            <option key={option.value} value={option.value}>{option.label}</option>
+                                        ))}
+
+                                    </select>
+                                </div>
                             </div>
                             
                                 
                             {/* Appointment Frame  */}
                             <AdminApts
                                 dateValue={txtDateValue}
-                                boolShowAll={allApptsPopup}                               
+                                txtPatientID={txtPatientID}  
+                                apptInputPopup={apptInputPopup}                             
                             />
                         </div>
                             
@@ -242,14 +286,7 @@ function AdminPage() {
                                     setTrigger={setApptInputPopup}
                                 />
                             </div>
-
-                            {/* All Apts */}
-                            <div>
-                                <PopUpApptSelect
-                                    trigger={allApptsPopup}
-                                    setTrigger={setAllApptsPopup}
-                                />
-                            </div>
+                            
                         
                     </div>
                 </Canvas>

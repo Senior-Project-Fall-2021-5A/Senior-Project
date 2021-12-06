@@ -9,6 +9,8 @@ module.exports = {
     primaryPhysician:   localStorage.getItem('primaryPhysician'),
     approvedDoctors:    localStorage.getItem('approvedDoctors'),
     isAdmin:            localStorage.getItem('isAdmin'),
-    adminCurrentDate:   localStorage.getItem('adminCurrentDate'),
-    
+    patientCount:       localStorage.getItem('patientCount'),
+    doctorCount:        localStorage.getItem('doctorCount'),
+    apptCount:          localStorage.getItem('apptCount'),
+    testCount:          localStorage.getItem('testCount'),
 };

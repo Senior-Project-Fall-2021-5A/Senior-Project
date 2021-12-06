@@ -32,7 +32,7 @@ const PopUpComposeMessage = ({ trigger, setTrigger }) => {
         Axios.get('https://telemedicine5a-backend.herokuapp.com/users/getPatients')
             .then((response) => {
                 let data = response.data;
-                console.log("response:", data);
+                //console.log("response:", data);
                 data.forEach(e => {
                     setListOfPatients(listOfPatients => [...listOfPatients, {
                         label: e.lastName + ", " + e.firstName + " [" + e.userUID.slice(-4) + "]",
@@ -49,7 +49,7 @@ const PopUpComposeMessage = ({ trigger, setTrigger }) => {
         Axios.get('https://telemedicine5a-backend.herokuapp.com/users/getDoctors')
             .then((response) => {
                 let data = response.data;
-                console.log("response:", data);
+                //console.log("response:", data);
                 data.forEach(e => {
                     setListOfDoctors(listOfDoctors => [...listOfDoctors, {
                         label: e.lastName + ", " + e.firstName + " [" + e.userUID.slice(-4) + "]",
@@ -70,7 +70,7 @@ const PopUpComposeMessage = ({ trigger, setTrigger }) => {
     const onRadioSendSelect = (event) => {
         let type = event.target.value;
         setTypeSelect(type);
-        console.log("Radio type Select: ", type);
+        //console.log("Radio type Select: ", type);
         let doTypePatient = type == "patient";
         setShowPatient(doTypePatient);
     }
@@ -80,8 +80,8 @@ const PopUpComposeMessage = ({ trigger, setTrigger }) => {
 
     //Doctor Select
     const onDoctorSelect = (event) => {
-        console.log("onDoctorSelect - ", event);
-        console.log("Value set: ", event.target.value);
+        //console.log("onDoctorSelect - ", event);
+        //console.log("Value set: ", event.target.value);
         setDoctorUID(event.target.value);
     }
 
@@ -91,10 +91,10 @@ const PopUpComposeMessage = ({ trigger, setTrigger }) => {
 
     // Create Message
     const onSubmit = (event) => {
-        console.log(event);
-        console.log("The subject is", txtSubject)
-        console.log("The message is", txtBody);
-        console.log("User ID!!!!!", authUserObject.userId);
+        //console.log(event);
+        //console.log("The subject is", txtSubject)
+        //console.log("The message is", txtBody);
+        //console.log("User ID!!!!!", authUserObject.userId);
 
 
         const date = new Date();
@@ -125,7 +125,7 @@ const PopUpComposeMessage = ({ trigger, setTrigger }) => {
             body: txtBody,
             date: date
         }).then((response) => {
-            console.log("Add Appt, addAppointment(), response: ", response)
+            //console.log("Add Appt, addAppointment(), response: ", response)
 
             //cleanup
             setBoolError(false);

@@ -1,10 +1,12 @@
 import React from 'react';
 import { useEffect } from 'react';
 import Axios from 'axios';
+import authUserObject from '../../../middleware/authUserObject';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import PopUpWindow from '../../../components/Objects/ObjPopUpWindow'
 import ObjButton from '../../../components/Objects/ObjButton'
+
 
 const PopUpAddAppt = ( {trigger,setTrigger} ) => {
     //declarations
@@ -92,6 +94,7 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
 
     //Load Patients and Doctors
     useEffect(() => {
+        onDateSelect(new Date());
         CreateListOfPatients();
         CreateListOfDoctors();  
         getLocations();  
@@ -101,7 +104,7 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
         Axios.get('https://telemedicine5a-backend.herokuapp.com/users/getPatients')        
             .then((response) => {                
                 let data = response.data;           
-                console.log("response:",data);
+                //console.log("response:",data);
                 data.forEach(e=>{setListOfPatients(listOfPatients => [...listOfPatients, {
                     label: e.lastName+", "+e.firstName+" ["+e.userUID.slice(-4)+"]",
                     value: e.userUID,
@@ -116,7 +119,7 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
         Axios.get('https://telemedicine5a-backend.herokuapp.com/users/getDoctors')
             .then((response) => {                
                 let data = response.data;           
-                console.log("response:",data);
+                //console.log("response:",data);
                 data.forEach(e=>{setListOfDoctors(listOfDoctors => [...listOfDoctors, {
                     label: e.lastName+", "+e.firstName+" ["+e.userUID.slice(-4)+"]",
                     value: e.userUID,
@@ -129,16 +132,16 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
 
     //set patient
     const onPatientSelect = ( event ) => {
-        console.log("onPatientSelect - ",event);
-        console.log("Value set: ", event.target.value);
+        //console.log("onPatientSelect - ",event);
+        //console.log("Value set: ", event.target.value);
         setPatientID(event.target.value);
     }
 
     //set Doctor
     const onDoctorSelect = ( event ) => {
-        console.log("onDoctorSelect - ",event);
+        //console.log("onDoctorSelect - ",event);
         let docID = event.target.value;
-        console.log("Value set: ", docID);
+        //console.log("Value set: ", docID);
         setDoctorID(docID);
         getScheduleAvail(docID);
     }
@@ -147,7 +150,7 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
         Axios.get(`https://telemedicine5a-backend.herokuapp.com/schedule/getScheduled/${docID}`)
             .then((response) => {                
                 let data = response.data;           
-                console.log("getScheduleAvail() - response:",data);
+                //console.log("getScheduleAvail() - response:",data);
                 
             }).catch((err) => {
                 console.log(err, "Unable to get Schedule");
@@ -156,8 +159,8 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
 
     //set Time
     const onTimeSelect = ( event ) => {
-        console.log("onTimeSelect - ",event);
-        console.log("Value set: ", event.target.value);
+        //console.log("onTimeSelect - ",event);
+        //console.log("Value set: ", event.target.value);
         setTime(event.target.value);
     }
 
@@ -165,7 +168,7 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
     const onRadioLocSelect = ( event ) => {
         let loc = event.target.value;
         setLocSelect(loc);
-        console.log("Radio Loc Select: ",loc);
+        //console.log("Radio Loc Select: ",loc);
         let doInPerson = loc == "inPerson";
         setShowLocation(doInPerson);
     }
@@ -174,7 +177,7 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
         Axios.get(`https://telemedicine5a-backend.herokuapp.com/location/getLocations`)
             .then((response) => {                
                 let data = response.data;           
-                console.log("getLocations() - response:",data);
+                //console.log("getLocations() - response:",data);
                 data.forEach(e=>{setListOfLocations(listOfLocations=>[...listOfLocations,{
                         label: e.name,
                         value: e._id,
@@ -189,7 +192,7 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
     const onLocationInput = ( event ) => {
         let loc = event.target.value;
         setLocation(loc);
-        console.log("Location: ",loc);
+        //console.log("Location: ",loc);
         
     }
 
@@ -203,8 +206,8 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
 
     //Submit Apt
     const onSubmit = (event) => {
-        console.log(event);
-        console.log("patient: ", textPatientID, " doctor: ", textDoctorID, " Date: ", date, " Time: ", textTime); 
+        //console.log(event);
+        //console.log("patient: ", textPatientID, " doctor: ", textDoctorID, " Date: ", date, " Time: ", textTime); 
 
         if (textPatientID == "_placeholder_" || textDoctorID == "_placeholder_" || textPatientID == "" || 
         textDoctorID == "" || textTime == "_placeholder_" || textTime == "" || txtLocSelect == "") {
@@ -217,8 +220,8 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
 
     //Create Apt
     const addAppointment = () => {
-        console.log("Final Add Apt -  textPatientID: ",textPatientID," textDoctorID: ",textDoctorID, " txtDate: ",txtDate,
-            " textTime: ",textTime, " txtLocSelect: ",txtLocSelect," txtLocation: ",txtLocation);
+        /* console.log("Final Add Apt -  textPatientID: ",textPatientID," textDoctorID: ",textDoctorID, " txtDate: ",txtDate,
+            " textTime: ",textTime, " txtLocSelect: ",txtLocSelect," txtLocation: ",txtLocation); */
         Axios.post('https://telemedicine5a-backend.herokuapp.com/appointments/addAppointment', {
                 userUID:        textPatientID,
                 doctorUID:      textDoctorID,
@@ -227,15 +230,15 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
                 type:           txtLocSelect,
                 locationUID:    txtLocation,
             }).then((response) => {
-                console.log("Add Appt, addAppointment(), response: ",response) 
+                //console.log("Add Appt, addAppointment(), response: ",response) 
                 
                 //cleanup
                 setBoolError(false);
                 setDoctorID("");
                 setPatientID("");
                 setLocation("6179e7aba30ceaeeec949c21");
-                setLocSelect("");
-                setDate(new Date());
+                setLocSelect("");                
+                onDateSelect(new Date());
                 setTime("");
                 setTrigger(false);
             }).catch((err) => {
@@ -290,9 +293,9 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
                         
                         onChange={e=>onPatientSelect(e)}  
                     >
-                        <option value="_placeholder_">Select Patient</option>
+                        <option key="puaa_patient_placeholder" value="_placeholder_">Select Patient</option>
                         {listOfPatients.map((option) => (
-                            <option value={option.value}>{option.label}</option>
+                            <option key={option.value} value={option.value}>{option.label}</option>
                         ))}
     
                     </select>
@@ -324,9 +327,9 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
                         
                         onChange={e=>onDoctorSelect(e)}  
                     >
-                        <option value="_placeholder_">Select Doctor</option>
+                        <option key="puaa_doctor_placeholder" value="_placeholder_">Select Doctor</option>
                         {listOfDoctors.map((option) => (
-                            <option value={option.value}>{option.label}</option>
+                            <option key={option.value} value={option.value}>{option.label}</option>
                         ))}        
                     </select>
                 </div>
@@ -363,9 +366,9 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
                         }}                        
                         onChange={e=>onTimeSelect(e)}  
                     >
-                        <option value="_placeholder_">Time</option>
+                        <option key="puaa_time_placeholder" value="_placeholder_">Time</option>
                         {listOfTimes.map((option) => (
-                            <option value={option.value}>{option.label}</option>
+                            <option key={option.value} value={option.value}>{option.label}</option>
                         ))}    
                     </select>
                 </div>
@@ -442,7 +445,7 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
                             onChange={e=>onLocationInput(e)}  
                         >
                             {listOfLocations.map((option) => (
-                                <option value={option.value}>{option.label}</option>
+                                <option key={option.value} value={option.value}>{option.label}</option>
                             ))}        
                         </select>
                     </div>
