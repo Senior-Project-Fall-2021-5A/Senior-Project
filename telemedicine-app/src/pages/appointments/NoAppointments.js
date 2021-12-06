@@ -10,15 +10,17 @@ import ReactDOM from "react-dom";
 import './Tabs.css';
 import Chevron from '../../components/inbox components/Chevron.js'
 import authUserObject from '../../middleware/authUserObject';
+import { v1 as uuid } from "uuid";
+import { useHistory } from 'react-router-dom';
 
 
 function NoAppointments() {
 
     const [listOfAppointments, setListOfAppointments] = useState([]);
     const [show, setShow] = useState("");
-
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
+    const history = useHistory();
 
     //const handleOpen = () => {
     //setShow(!show); // Toggle accordion
@@ -34,6 +36,23 @@ function NoAppointments() {
     const toggleTab = (index) => {
         setToggleState(index);
     };
+
+    const CreateRoom = (apptId) => {
+        const id = uuid();
+        history.push(`/room/${id}`);
+        updateVirtualID(id, apptId);
+    }
+
+    const updateVirtualID = (virtualID, apptId) => {
+        Axios.post(`https://telemedicine5a-backend.herokuapp.com/appointments/updateApptInfo/${apptId}`, {
+            virtualID: virtualID,
+        }).then(response => {
+            console.log('ID to update with', virtualID)
+            console.log(response)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
 
     const toggleAccordion = (index) => {
 
@@ -92,6 +111,8 @@ function NoAppointments() {
                                 <hr />
 
                                 {listOfAppointments.map((appointment, index) => {
+                                    let currApptId = appointment._id;
+                                    console.log('PEEP THIS', currApptId);
 
                                     return (
                                         
@@ -121,9 +142,7 @@ function NoAppointments() {
                                                     <h1 className="doctor">{appointment.doctorUID}</h1>
                                                     <h1 className="address">Address</h1>
                                                     
-                                                    <Link to='/client'>
-                                                        <button className="btnCall">Start Call</button>
-                                                    </Link>
+                                                    <button onClick={CreateRoom(currApptId)} className="btnCall">Start Call</button>
                                                     <h1 className="note">Note:</h1>
                                                     
                                                     <textarea className="textarea-edit">
@@ -173,10 +192,8 @@ function NoAppointments() {
                                                 
                                             <h1 className="doctor">Doctor B</h1>
                                             <h1 className="address">Address</h1>
-                                                    
-                                            <Link to='/client'>
-                                                <button className="btnCall">Start Call</button>
-                                            </Link>
+    
+                                            
                                             <h1 className="note">Note:</h1>
                                                     
                                             <textarea className="textarea-edit">
