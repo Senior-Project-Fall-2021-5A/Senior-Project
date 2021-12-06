@@ -1,5 +1,6 @@
 import React from 'react'
 import ObjCalendar from '../../../components/Objects/ObjCalendar';
+import AdminAptsTable from '../AdminApts/AdminAptsTable';
 
 const AdminSchCalendar = () => {
     const [CalValue, setCal] = React.useState(new Date());
@@ -14,6 +15,8 @@ const AdminSchCalendar = () => {
         console.log("toUTCString:", date.toUTCString());
         console.log("toLocaleDateString:", date.toLocaleDateString());
         console.log("toJSON:", date.toJSON());
+
+        localStorage.setItem('adminCurrentDate',date.toLocaleDateString());        
     }
 
     return (

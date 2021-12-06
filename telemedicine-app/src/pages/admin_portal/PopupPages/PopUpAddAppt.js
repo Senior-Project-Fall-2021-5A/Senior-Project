@@ -14,10 +14,11 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
     const [listOfDoctors,setListOfDoctors] = React.useState([]);
     const [listOfLocations,setListOfLocations] = React.useState([]);
     const [date,setDate] = React.useState(new Date());
+    const [txtDate,setTxtDate] = React.useState("");
     const [textTime,setTime] = React.useState("");
     const [txtLocSelect,setLocSelect] = React.useState("");
     const [boolShowLocation,setShowLocation] = React.useState(false);
-    const [txtLocation,setLocation] = React.useState("");
+    const [txtLocation,setLocation] = React.useState("6179e7aba30ceaeeec949c21");
     const [boolError,setBoolError] = React.useState(false);
     const [txtError,setError] = React.useState("");
 
@@ -192,11 +193,19 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
         
     }
 
+    //date select
+    const onDateSelect = ( event ) => {
+        setDate(event);
+        //convert date to string
+        setTxtDate(event.toLocaleDateString("en-US").split('/').join('-'));
+        //console.log("Date: ",event," txtDate: ",event.toLocaleDateString("en-US").split('/').join('-'));
+    }
+
     //Submit Apt
     const onSubmit = (event) => {
         console.log(event);
-        console.log("patient: ", textPatientID, " doctor: ", textDoctorID, " Date: ", date, " Time: ", textTime);        
-        
+        console.log("patient: ", textPatientID, " doctor: ", textDoctorID, " Date: ", date, " Time: ", textTime); 
+
         if (textPatientID == "_placeholder_" || textDoctorID == "_placeholder_" || textPatientID == "" || 
         textDoctorID == "" || textTime == "_placeholder_" || textTime == "" || txtLocSelect == "") {
             setBoolError(true);
@@ -208,10 +217,12 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
 
     //Create Apt
     const addAppointment = () => {
+        console.log("Final Add Apt -  textPatientID: ",textPatientID," textDoctorID: ",textDoctorID, " txtDate: ",txtDate,
+            " textTime: ",textTime, " txtLocSelect: ",txtLocSelect," txtLocation: ",txtLocation);
         Axios.post('https://telemedicine5a-backend.herokuapp.com/appointments/addAppointment', {
                 userUID:        textPatientID,
                 doctorUID:      textDoctorID,
-                date:           date,
+                date:           txtDate,
                 time:           textTime,
                 type:           txtLocSelect,
                 locationUID:    txtLocation,
@@ -222,20 +233,17 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
                 setBoolError(false);
                 setDoctorID("");
                 setPatientID("");
+                setLocation("6179e7aba30ceaeeec949c21");
                 setLocSelect("");
+                setDate(new Date());
                 setTime("");
                 setTrigger(false);
             }).catch((err) => {
                 //get Error
                 console.log("Org Error: ",err);
-                /* let arrErrors = err.response.data.errors;
-                console.log("arrErrors: ",arrErrors);
-                let txtError = "";
-                arrErrors.forEach(e => txtError=`${txtError}${e.msg}. `);
-                console.log("txtError: ",txtError); */
 
                 //error display
-                setError("Unable to add time");
+                setError("Unable to add Appointment");
                 setBoolError(true);            
             });
     }
@@ -339,7 +347,7 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
                     <div>
                         <DatePicker                            
                             selected={date}
-                            onChange={e=>setDate(e)}
+                            onChange={e=>onDateSelect(e)}
                         />
                     </div>
 

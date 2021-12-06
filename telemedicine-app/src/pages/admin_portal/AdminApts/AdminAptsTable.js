@@ -13,53 +13,27 @@ const styleTD = {
     
 }
 
-const AdminAptsTable = ({date}) => {
+const AdminAptsTable = ({ dateValue, boolShowAll }) => {
     const [notesInputPopup, setNotesInputPopup] = useState(false);
     const [listOfAppointments, setListOfAppointments] = useState([]);
     const [listOfAppointmentsUpdate, setListOfAppointmentsUpdate] = useState([]);
-    const [reportInputPopup, setReportInputPopup] = useState(false);
-    const dateToSend = date.toLocaleDateString(`en-US`).split('/').join('-');
+    const [reportInputPopup, setReportInputPopup] = useState(false);    
+    //const dateToSend = date.toLocaleDateString(`en-US`).split('/').join('-');
 
     useEffect(() => {
-        console.log("AdminAptTable HEREJKFBKDJF");
-        Axios.get(`https://telemedicine5a-backend.herokuapp.com/appointments/getAppointments/${authUserObject.userId}`)//${dateToSend}
+        console.log("AdminAptTable date: ",dateValue);
+        let axiosUrl = boolShowAll ? `https://telemedicine5a-backend.herokuapp.com/appointments/getAppointments/${authUserObject.userId}` : `https://telemedicine5a-backend.herokuapp.com/appointments/getAppointmentsByDate/${authUserObject.userId}/${dateValue}`;
+        Axios.get(axiosUrl)//${dateToSend}
         .then((appointmentResponse) => {
-            console.log('IMPORTANT', appointmentResponse)
+            //console.log('IMPORTANT', appointmentResponse)
             let apptData = appointmentResponse.data;
             console.log("apptData: ",apptData);
-            
-
-            //error checking
-            /* if(appointmentResponse.data != "No appointments for user on selected Date"){
-                patientID.forEach(appointment => {
-                    console.log("User IDs",appointment.userUID);
-                    Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${appointment.userUID}`)
-                    .then((userProfileResponse) => {
-                        console.log("Feedback from user Info: ",userProfileResponse);
-                        let id = userProfileResponse.data[0].userUID;
-                        let name = userProfileResponse.data[0].firstName + ' ' + userProfileResponse.data[0].lastName;
-                        console.log("id: ",id," name: ",name);
-                        listOfAppointments.forEach(e=> {
-                            console.log("e.userUID: ",e.userUID);
-                            console.log("e.patientName: ",e.patientName);
-                            if (e.userUID == id){
-                                e.patientName = name;
-                            }
-                        })
-
-                        listOfAppointments.push('patientName', userProfileResponse.data[0].firstName + ' ' + userProfileResponse.data[0].lastName)
-                    })
-                })
-                
-            }Appointments */
             setTheNames( apptData );
-            
-            
         })
         .catch((err) => {
             console.log(err, "Unable to get appointments for selected date");
         });
-    }, []);
+    }, [dateValue, boolShowAll]);
 
     const setTheNames = ( apptData ) => {
         let newList = [];
@@ -78,12 +52,16 @@ const AdminAptsTable = ({date}) => {
                     
                     console.log("setTheNames() - apptData: ",apptData);
                     newList = [...newList,e];
+
+                    
                     
                     setListOfAppointments(newList);
                     
                 }).catch((err) => {
                     console.log(err, "Unable to get Locations");
                 });
+            //Covnert string to Date.
+            e.date = new Date(e.date.split('-').join('/'));            
         });
     }
 
@@ -114,16 +92,12 @@ const AdminAptsTable = ({date}) => {
         );
     }
 
-    //linkInfo={reportLink} linkInfo ='/adminPortal'
-    //doNewWindow= {Boolean} true
 
-   /*  <ObjPopUpWindow 
-                                    trigger={notesInputPopup}
-                                    setTrigger={setNotesInputPopup}
-                                /> */
+
+   
     console.log('IMPORTANTLIST', listOfAppointments)
     return (
-        <div>
+        <div>                
             <table id="AptsToday" class='table'>
                 <tbody>
                     <tr>
@@ -162,6 +136,7 @@ const AdminAptsTable = ({date}) => {
                                     onClick={e => reportClick(e)}
                                 />
                                 <PopUpAddReport
+                                    appointmentsUID={appointment._id}
                                     trigger={reportInputPopup}
                                     setTrigger={setReportInputPopup}
                                 />

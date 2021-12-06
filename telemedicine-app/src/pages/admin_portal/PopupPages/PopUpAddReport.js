@@ -3,7 +3,7 @@ import PopUpWindow from '../../../components/Objects/ObjPopUpWindow'
 import ObjLink from '../../../components/Objects/ObjLink'
 import ObjInputFile from '../../../components/Objects/ObjInputFile'
 
-const PopUpAddReport = ( {trigger,setTrigger} ) => {
+const PopUpAddReport = ( {appointmentsUID,trigger,setTrigger} ) => {
     const [textInput, setTextInput] = React.useState("");
 
     const onTextChange = (event) => {
