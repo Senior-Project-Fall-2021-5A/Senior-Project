@@ -33,9 +33,6 @@ const AdminSchedule = ({  }) => {
             <div className='adminschedule-time-list-frame'>
                 <AdminSchTimes/>
             </div>
-            
-       
-
         </div>
     )
 }

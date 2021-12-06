@@ -8,5 +8,7 @@ module.exports = {
     email:              localStorage.getItem('email'),
     primaryPhysician:   localStorage.getItem('primaryPhysician'),
     approvedDoctors:    localStorage.getItem('approvedDoctors'),
-    isAdmin:            localStorage.getItem('isAdmin'),   
+    isAdmin:            localStorage.getItem('isAdmin'),
+    adminCurrentDate:   localStorage.getItem('adminCurrentDate'),
+    
 };

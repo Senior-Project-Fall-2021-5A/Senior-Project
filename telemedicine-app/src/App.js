@@ -43,8 +43,8 @@ function App() {
               localStorage.setItem('lastName', data.lastName);
               localStorage.setItem('email', data.email);
               localStorage.setItem('primaryPhysician', data.primaryPhysician);
-              localStorage.setItem('approvedDoctors', data.approvedDoctors);
-              localStorage.setItem('isAdmin', data.isAdmin);              
+              localStorage.setItem('approvedDoctors', JSON.stringify(data.approvedDoctors));
+              localStorage.setItem('isAdmin', data.isAdmin.toString());  
               //setIsLogged(true);
           })
           .catch((err) => {
