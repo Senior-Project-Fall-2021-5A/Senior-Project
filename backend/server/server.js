@@ -93,7 +93,7 @@ app.use('/notifs', require('./routes/notifications'));
 
 //video call
 
-
-server.listen(PORT, () => { console.log('Connection SUCCESSFUL') });
+app.listen(PORT, () => {console.log('API Connection SUCCESSFUL')});
+server.listen(PORT, () => { console.log('Server Connection SUCCESSFUL') });
 
 module.exports = app;
