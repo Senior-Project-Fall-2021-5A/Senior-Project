@@ -12,6 +12,7 @@ const http = require("http");
 const server = http.createServer(app);
 const socket = require("socket.io");
 const io = socket(server);
+const path = require('path');
 
 const rooms = {};
 
@@ -42,7 +43,11 @@ io.on("connection", socket => {
     });
 });
 
-if(process){
+if(process.env.PROD){
+    app.use(express.static(path.join(__dirname,'./telemedicine-app/build')));
+    app.get('*', (req,res) => {
+        res.sendFile(path.json(__dirname, './client/build/index.html'));
+    });
 
 }
 
