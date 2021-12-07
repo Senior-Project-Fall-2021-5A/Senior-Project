@@ -43,13 +43,6 @@ io.on("connection", socket => {
     });
 });
 
-if(process.env.PROD){
-    app.use(express.static(path.join(__dirname,'./telemedicine-app/build')));
-    app.get('*', (req,res) => {
-        res.sendFile(path.json(__dirname, './client/build/index.html'));
-    });
-
-}
 
 // Import models for testing
 const UserModel = require('./models/User')

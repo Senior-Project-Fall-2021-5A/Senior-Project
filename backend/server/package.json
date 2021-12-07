@@ -8,8 +8,7 @@
   "main": "server.js",
   "type": "commonjs",
   "scripts": {
-    "start": "PROD= true node server.js",
-    "postinstall": "cd ./telemedicine-app @@ npm"
+    "start": "PROD= true node server.js"
   },
   "author": "",
   "license": "ISC",
