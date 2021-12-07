@@ -26,16 +26,19 @@ function Top() {
             style={{
                 display: 'flex',
                 position: 'relative',
-                left: '30px',
-                justifyContent: 'flex-end'
-                
-            }}
+                left: '-10px',
+                justifyContent: 'flex-end',
+                top: '-40px'
+            }
+            
+        }
         >
             <ObjLink
                 text="Compose Message"
                 btnWidth="125px"
                 onClick={e => newPatientClick(e)}
                 doLink="false"
+                
 
             />
         </div>

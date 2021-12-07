@@ -5,9 +5,9 @@ import ObjLink from './ObjLink';
 
 class ObjInputFile extends Component {
     fileHandler = (event) => {
-        console.log(event);
-        console.log(event.target);
-        console.log(event.target.files);
+        //console.log(event);
+        //console.log(event.target);
+        //console.log(event.target.files);
     }
 
     inputClick = (event) => {

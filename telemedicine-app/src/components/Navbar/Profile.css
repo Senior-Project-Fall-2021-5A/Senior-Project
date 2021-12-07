@@ -27,3 +27,33 @@ span.notification-icon {
 .dropdown-item {
     white-space: inherit;
 }
+div#popover-contained {
+    width:154%;
+}
+.content{
+    display:block;
+}
+.notification{
+    background: #33383b;
+}
+
+.dropdown-menu.show {
+    height: 300px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+.dropdown-menu.show::-webkit-scrollbar {
+    display: none;
+}
+
+span#notificationToast {
+    height: 15px;
+    width: 15px;
+    border-radius: 50px;
+    position: absolute;
+    transform: translateX(-5px);
+}
+.dropdown-menu.show {
+    background:linear-gradient(
+        90deg, rgb(110,94, 254) 0%, rgb(73, 63, 252, 1) 100%);
+}

@@ -54,9 +54,9 @@ const AdminSchTimes = ({}) => {
     ]
 
     const handleBoxTimeChange = (event) => {
-        console.log("event:",event);
-        console.log("name:",event.target.name);
-        console.log("label:",event.target.parentNode.control.attributes.label.nodeValue);
+        //console.log("event:",event);
+        //console.log("name:",event.target.name);
+        //console.log("label:",event.target.parentNode.control.attributes.label.nodeValue);
 
         let boxName = event.target.name;
         if (boxName == "time01"){
@@ -99,7 +99,7 @@ const AdminSchTimes = ({}) => {
             <table id="timesSch" class='table'>
                 <tbody>
                     {data.map(({boxName, boxValue, text}) =>(
-                        <tr>
+                        <tr key={boxName}>
                             <td style={styleTDBox}>
                                 <ObjCheckBox
                                     label=""

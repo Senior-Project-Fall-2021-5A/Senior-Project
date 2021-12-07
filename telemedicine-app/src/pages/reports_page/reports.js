@@ -28,12 +28,12 @@ const thStyle = {
 const Reports = () =>{
     //declarations
     const [txtGlobalUserID, setGlobalUserID] = useState(authUserObject.userId);
-    const [txtGlobalRole, setGlobalRole] = useState(authUserObject.userId);
+    const [txtGlobalRole, setGlobalRole] = useState(authUserObject.userRole);
     const [listOfReports, setListOfReports] = useState([]);
 
     useEffect(() => {
         console.log("Page Open: ",txtGlobalUserID);
-        Axios.get(`https://telemedicine5a-backend.herokuapp.com/reports/getReports/${txtGlobalUserID}`)///
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/reports/getReports`)////${txtGlobalUserID}
             .then((response) => {
                 console.log("reports:",response);
                 setListOfReports(response.data);                

@@ -30,15 +30,15 @@ const PopUpApptSelect = ( {trigger,setTrigger} ) => {
 
     //set patient
     const onPatientSelect = ( event ) => {
-        console.log("onPatientSelect - ",event);
-        console.log("Value set: ", event.target.value);
+        //console.log("onPatientSelect - ",event);
+        //console.log("Value set: ", event.target.value);
         setPatientID(event.target.value);
     }
     
     //View All Appointments
     const onSubmit = (event) => {
-        console.log(event);
-        console.log("patient: ", textPatientID);        
+        //console.log(event);
+        //console.log("patient: ", textPatientID);        
         
         if (textPatientID == "_placeholder_" || textPatientID == "") {
             setBoolError(true);
