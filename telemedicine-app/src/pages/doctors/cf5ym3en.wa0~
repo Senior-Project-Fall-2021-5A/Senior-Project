@@ -98,7 +98,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 
 		//CreateDocListOfAprrovedFamily();
 		//newCreateListOfDoctors();
-		//getDocNames();
+		getDocNames();
 	}, [])
 
 	
@@ -139,17 +139,12 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
                     //console.log("setTheNames() - arrData: ", arrData);
                     newList = [...newList, e];
 
-					setMyDocs(newList);
-					//console.log("myDocs - " + newList);
                     
                 }).catch((err) => {
                     console.log(err, "Unable to set Names of Doctors");
                 });
-
-				
 			});
-			//console.log("myDocs - " + myDocs);
-			
+			setMyDocs(newList);
 	}
 
 	
@@ -272,7 +267,6 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 				setLocation("");
 				setApptInputPopup(false);
 				setTime("");
-				setMyDocs("");
 				
 
             }).catch((err) => {
@@ -430,7 +424,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 							<div className="search-label"><h1>Find a Specialist</h1></div>
 												
 
-							  {listOfDoctors.map((item, index) => {
+							  {myDocs.map((item, index) => {
 								return(
 						
 				
@@ -459,7 +453,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 											>  
 
 											
-												<h5><b>Schedule Your Appointment with {}</b></h5>
+												<h5><b>Schedule Your Appointment with {item.first}</b></h5>
 
 												
 

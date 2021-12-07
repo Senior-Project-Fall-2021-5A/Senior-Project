@@ -38,7 +38,6 @@
     height: 40px;
     float: right;
     margin-top: -11vh;
-   
     
 }
 
@@ -52,11 +51,9 @@
     font-size: 20px;
     width: 100px;
     height: 40px;
-    position: center;
-    margin-top: 0vh;
-    float: left;
-    display: inline;
-    margin-left: 23vw;
+    float: right;
+    margin-top: -5vh;
+    margin-right: 5vw;
 }
 
 
@@ -137,24 +134,23 @@
 }
 
 .doctor {
-    margin-left: -15vw;
+
+    margin-left: -40vw;
+    margin-top: 0vh;
     font-weight: 600;
     font-size: 18px;
-    position: relative;
+    padding-top: 1vh;
+    
+
 }
 
 .address {
-    margin-left: -15vw;
-    font-weight: 600;
-    font-size: 18px;
-    position: relative;
-}
 
-.patient {
-    margin-left: -15vw;
+    margin-left: -39vw;
+    margin-top: 0vh;
     font-weight: 600;
     font-size: 18px;
-    position: relative;
+
 }
 
 .textarea-edit {
@@ -226,7 +222,6 @@
     padding: 0px;
     width: 7vw;
     height: 4vh;
-
 }
 
     .btnCreateAppnt:hover {
@@ -235,25 +230,25 @@
     }
 
 .cancelBtn {
-    margin-top: 2vh;
-    margin-right: 2vw;
-    display: inline;
-    position: relative;
-    float: right;
+    margin-top: 5vh;
+    margin-left: 10vw;
+    float: left;
     font-weight: 600;
     font-size: 18px;
+    display: inline;
     color: red;
+    position: relative;
 }
 
 .notesBtn {
-    margin-top: 2vh;
-    margin-right: 3vw;
-    display: inline;
-    position: relative;
-    float: right;
+    margin-top: 5vh;
+    margin-left: 2vw;
     font-weight: 600;
     font-size: 18px;
+    display: inline;
+    float: left;
     color: blue;
+    position: relative;
 }
 
 
@@ -285,23 +280,93 @@
    
 }
 
-@media only screen and (max-width: 850px) {
-  
-    .button {
-        margin-top: 1vh;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 1000px) {
+
+    .textarea-edit {
+        margin: auto;
+        margin-top: 15vh;
+    }
+
+    .note {
+        margin: auto;
+        margin-top: 4vh;
+    }
+
+    .doctor {
+        margin: auto;
+        margin-top: -11vh;
+    }
+
+    .address {
+        margin: auto;
+        margin-top: -1vh;
     }
 
 }
 
-@media only screen and (max-width: 931px) {
-
+@media only screen and (max-width: 930px) {
+    .button {
+        float: none;
+        margin-top: 10vh;
+    }
     .accordion-container {
         display: -webkit-box;
         display: flex;
         -webkit-box-pack: justify;
+       
     }
+
 }
 
+@media only screen and (max-width: 890px) {
+    .time {
+        margin-top: 10vh;
+        margin-left: -15vw;
+    }
+
+    .date {
+        margin-top: -10vh;
+    }
+    
+}
+
+@media only screen and (max-width: 350px) {
+    .subject {
+        margin-top: 25vh;
+        margin-left: -35vw;
+    }
+
+    .date {
+        margin-top: -30vh;
+    }
+
+    .time {
+        margin-top: -10vh;
+        margin-left: -25vw;
+    }
+
+    .sign {
+        margin-top: 35vh;
+    }
+}
 
 
 

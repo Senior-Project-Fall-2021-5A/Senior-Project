@@ -94,11 +94,11 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 		
 		getLocations();
 		
-		//CreateListOfPatientDocFamily(userId);
+		CreateListOfPatientDocFamily(userId);
 
-		//CreateDocListOfAprrovedFamily();
+		CreateDocListOfAprrovedFamily();
 		//newCreateListOfDoctors();
-		//getDocNames();
+
 	}, [])
 
 	
@@ -123,7 +123,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
         let newList = [];
         listOfDoctors.forEach(e => {
             console.log("e: ",e);
-            let id = e.value; //set ID to doctor
+            let id = e.userUID; //set ID to doctor
             console.log("id: ",id);
             Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${id}`)
                 .then((response) => {
@@ -139,19 +139,12 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
                     //console.log("setTheNames() - arrData: ", arrData);
                     newList = [...newList, e];
 
-					setMyDocs(newList);
-					//console.log("myDocs - " + newList);
-                    
+                    setListOfReports(newList);
                 }).catch((err) => {
                     console.log(err, "Unable to set Names of Doctors");
                 });
-
-				
-			});
-			//console.log("myDocs - " + myDocs);
-			
+            });
 	}
-
 	
 
 	/*const newCreateListOfDoctors = (  ) => {
@@ -272,7 +265,6 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 				setLocation("");
 				setApptInputPopup(false);
 				setTime("");
-				setMyDocs("");
 				
 
             }).catch((err) => {
@@ -459,7 +451,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 											>  
 
 											
-												<h5><b>Schedule Your Appointment with {}</b></h5>
+												<h5><b>Schedule Your Appointment with {item.first}</b></h5>
 
 												
 

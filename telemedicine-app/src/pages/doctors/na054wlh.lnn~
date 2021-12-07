@@ -98,7 +98,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 
 		//CreateDocListOfAprrovedFamily();
 		//newCreateListOfDoctors();
-		//getDocNames();
+		getDocNames();
 	}, [])
 
 	
@@ -272,7 +272,6 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 				setLocation("");
 				setApptInputPopup(false);
 				setTime("");
-				setMyDocs("");
 				
 
             }).catch((err) => {
@@ -430,7 +429,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 							<div className="search-label"><h1>Find a Specialist</h1></div>
 												
 
-							  {listOfDoctors.map((item, index) => {
+							  {myDocs.map((item, index) => {
 								return(
 						
 				

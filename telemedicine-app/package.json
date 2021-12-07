@@ -30,6 +30,7 @@
     "react-scripts": "^4.0.3",
     "react-select": "^5.2.1",
     "react-styled-flexboxgrid": "^3.2.1",
+    "reactjs-popup": "^2.0.5",
     "simple-peer": "^9.11.0",
     "socket.io": "^4.4.0",
     "socket.io-client": "^4.3.2",

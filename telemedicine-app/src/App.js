@@ -24,6 +24,7 @@ import LoginLoading from './pages/sign_on/loginloading';
 import Chevron from './components/inbox components/Chevron.js'
 import CreateRoom from "./components/routes/CreateRoom";
 import Room from "./components/routes/Room";
+import NotesPopUp from './pages/doctors/NotesPopUp.js';
 
 
 function App() {
@@ -86,6 +87,8 @@ function App() {
                 <Route path='/ComposeMessage' component={ComposeMessage} />
                 <Route path='/adminPortal' component={adminPortal}/>
                 <Route path='/chevron' component={Chevron} />
+
+                <Route path='/NotesPopUp' component={NotesPopUp} />
               </div>              
             }
             <Route path="/" exact component={Login} />  

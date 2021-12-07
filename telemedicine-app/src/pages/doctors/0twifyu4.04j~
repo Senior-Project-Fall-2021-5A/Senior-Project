@@ -90,18 +90,16 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 
 	 
         CreateListOfDoctors();
-
-		
 		getLocations();
 		
-		//CreateListOfPatientDocFamily(userId);
+		CreateListOfPatientDocFamily(userId);
 
-		//CreateDocListOfAprrovedFamily();
-		//newCreateListOfDoctors();
-		//getDocNames();
+		CreateDocListOfAprrovedFamily();
+		
+
 	}, [])
 
-	
+	/*
 	const CreateListOfDoctors = (  ) => {
         Axios.get('https://telemedicine5a-backend.herokuapp.com/users/getDoctors')
             .then((response) => {                
@@ -110,52 +108,16 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
                 data.forEach(e=>{setListOfDoctors(listOfDoctors => [...listOfDoctors, {
                     label: e.lastName+", "+e.firstName+" ["+e.userUID.slice(-4)+"]",
                     value: e.userUID,
-					
                     }]
                 )});
             }).catch((err) => {
                 console.log(err, "Unable to get Patients");
             });
     }
+	*/
 
-	const getDocNames = (  ) => {
-		//console.log("arrData - ",);
-        let newList = [];
-        listOfDoctors.forEach(e => {
-            console.log("e: ",e);
-            let id = e.value; //set ID to doctor
-            console.log("id: ",id);
-            Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${id}`)
-                .then((response) => {
-                    let data = response.data;
-                    console.log("setTheNames() - response:", data);
-
-                    let name = data[0].lastName + ", " + data[0].firstName;
-                    console.log("setTheNames() - name:", name);
-
-                    e.doctorName = name;
-                    console.log("setTheNames() - e.doctorName:", e.doctorName);
-
-                    //console.log("setTheNames() - arrData: ", arrData);
-                    newList = [...newList, e];
-
-					setMyDocs(newList);
-					//console.log("myDocs - " + newList);
-                    
-                }).catch((err) => {
-                    console.log(err, "Unable to set Names of Doctors");
-                });
-
-				
-			});
-			//console.log("myDocs - " + myDocs);
-			
-	}
-
-	
-
-	/*const newCreateListOfDoctors = (  ) => {
-		Axios.get('https://telemedicine5a-backend.herokuapp.com/doctors/getDoctorInfo')
+	const newCreateListOfDoctors = (  ) => {
+		Axios.get('http://telemedicine5a-backend.herokuapp.com/doctors/getDoctorInfo')
 			.then((response) => {
 				let data = response.data; 
 				console.log("list of new docs response:",data);
@@ -168,7 +130,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 			}).catch((err) => {
 				console.log(err, "Unable to get Docs");
 			});
-	}*/
+	}
 
 	const [txtLocSelect,setLocSelect] = React.useState("");
 
@@ -272,7 +234,6 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 				setLocation("");
 				setApptInputPopup(false);
 				setTime("");
-				setMyDocs("");
 				
 
             }).catch((err) => {
@@ -393,21 +354,21 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 		function CreateDocListOfAprrovedFamily() {
 
 		
-			
-			for(let i in listOfNewDocs.label) {
+			/*
+			for(let i in listOfDoctors) {
 
 				for(let j in listOfApprovedDocFamily) {
 
-					if(listOfApprovedDocFamily[i].toLowerCase()  == listOfApprovedDocFamily[j].label.toLowerCase()) {
+					if(listOfApprovedDocFamily[i] === listOfApprovedDocFamily[j]) {
 
-						listy.push(listOfNewDocs[i]);
+						listy.push(listOfDoctors[i].fieldOfStudy);
 
 					}
 				}
 			}
 
 			setMyDocs(listy);
-			
+			*/
 			
 		}
 	
@@ -430,7 +391,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 							<div className="search-label"><h1>Find a Specialist</h1></div>
 												
 
-							  {listOfDoctors.map((item, index) => {
+							  {myDocs.map((item, index) => {
 								return(
 						
 				
@@ -439,7 +400,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 									<div className="card p-0 overflow-hidden h-100 shadow">
 										<img src={img1} className="card-img-top img-fluid" />
 										<div className="card-body">
-											<h5 className="card-title">{item.label}</h5>
+											<h5 className="card-title">{item.value}</h5>
 											<p className="card-text">{item.label}</p>
 
 										
@@ -459,7 +420,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 											>  
 
 											
-												<h5><b>Schedule Your Appointment with {}</b></h5>
+												<h5><b>Schedule Your Appointment with {doctorID}</b></h5>
 
 												
 
