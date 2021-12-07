@@ -7,7 +7,7 @@ const LocationSchema = new mongoose.Schema({
     },
     address1: {
         type: String,
-        required: true,
+        required: false,
     },
     address2: {
         type: String,
@@ -15,15 +15,15 @@ const LocationSchema = new mongoose.Schema({
     },
     city: {
         type: String,
-        required: true,
+        required: false,
     },
     state: {
         type: String,
-        required: true,
+        required: false,
     },
     zip: {
         type: String,
-        required: true,
+        required: false,
     },
 });
 

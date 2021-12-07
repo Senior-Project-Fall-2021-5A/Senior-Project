@@ -4,7 +4,7 @@ const ScheduledSchema = new mongoose.Schema({
 
     doctorUID: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
+        required: false,
     },
     date: {
         type: String,

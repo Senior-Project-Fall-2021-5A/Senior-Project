@@ -37,6 +37,7 @@ router.post("/uploadFiles",upload.single('file'), async (req, res) => {
     if (req.file === undefined) return res.send("you must select a file.");
     return res.send('file upload'); 
     */
+    const reportUID = req.body.reportUID;
     const title = req.body.title;
     const description = req.body.description;
     const file_path = req.body.file_path;
@@ -44,12 +45,10 @@ router.post("/uploadFiles",upload.single('file'), async (req, res) => {
     const timestamps = req.body.timestamps;
 
      // Turn string input into ObjectIDs
-    const userObjId = new ObjectID(userUID);
-    const doctorObjId = new ObjectID(doctorUID);
-    const fileObjId = new ObjectID(fileUID);
 
     const newFile = 
         new FileModel({ 
+            reportUID: reportUID,
             title: title,
             description: description,
             file_path: file_path,

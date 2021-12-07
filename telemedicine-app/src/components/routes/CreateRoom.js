@@ -8,8 +8,8 @@ const CreateRoom = (props) => {
     }
 
     return (
-        <button onClick={create}>Create Room</button>
+        <button onClick={create}>Create room</button>
     );
-}
+};
 
 export default CreateRoom;

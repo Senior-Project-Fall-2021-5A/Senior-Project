@@ -22,7 +22,7 @@ import MyAccount from './pages/MyAccount';
 import Registration from './pages/sign_on/Registration';
 import LoginLoading from './pages/sign_on/loginloading';
 import Chevron from './components/inbox components/Chevron.js'
-import CreateRoom from "./components/routes/CreateRoom";
+//import CreateRoom from "./components/routes/CreateRoom";
 import Room from "./components/routes/Room";
 import NotesPopUp from './pages/doctors/NotesPopUp.js';
 
@@ -34,37 +34,37 @@ function App() {
   const [boolIsLogged, setIsLogged] = useState(authUserObject.boolIsLogged);
 
   useEffect(() => {
-      console.log("AppJS - UID: ",txtGlobalUserID," role: ",txtGlobalRole);
+      //console.log("AppJS - UID: ",txtGlobalUserID," role: ",txtGlobalRole);
       Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${txtGlobalUserID}`)////${txtGlobalUserID}
           .then((response) => {
-              console.log("AppJS - responce: ",response);
+              //console.log("AppJS - responce: ",response);
               let data = response.data[0];
               localStorage.setItem('firstName', data.firstName);
               localStorage.setItem('midName', data.midName);
               localStorage.setItem('lastName', data.lastName);
               localStorage.setItem('email', data.email);
               localStorage.setItem('primaryPhysician', data.primaryPhysician);
-              localStorage.setItem('approvedDoctors', data.approvedDoctors);
-              localStorage.setItem('isAdmin', data.isAdmin);
-              localStorage.setItem('boolIsLogged', true);
-              setIsLogged(true);
+              localStorage.setItem('approvedDoctors', JSON.stringify(data.approvedDoctors));
+              localStorage.setItem('isAdmin', data.isAdmin.toString());  
+              //setIsLogged(true);
           })
           .catch((err) => {
               console.log(err, "Unable to get Reports");
           });
   }, []);
-
+  
   return (
       <Router>
         <div className="App">
           <Switch>
-            {boolIsLogged && 
+            {authUserObject.boolIsLogged == "true" ? 
               <div>
                 <Route path="/about" component={About} />
                 <Route path="/AppointmentType/:name">
                 <AppointmentType/>
                 </Route>
                 <Route path='/homepage' component={Homepage}/>
+                <Route path="/" exact component={Homepage} />
                 <Route path='/appointments' exact component={Appointments}/>
                 <Route path='/NoAppointments' exact component={NoAppointments}/>
                 <Route path='/loginloading' exact component={LoginLoading}/>
@@ -73,7 +73,6 @@ function App() {
                 <ScheduleCalendar/>
                 </Route>
                 <Route path="/registration" component={Registration} />           
-                <Route path="/videocall" exact component={CreateRoom} />
                 <Route path="/room/:roomID" component={Room} />       
                 <Route path="/appointments/:doc/:type/:date/:time">
                 <Appointments/>
@@ -90,8 +89,13 @@ function App() {
 
                 <Route path='/NotesPopUp' component={NotesPopUp} />
               </div>              
+            :
+              <div>
+                <Route path="/" component={Login} />  
+                
+              </div>              
             }
-            <Route path="/" exact component={Login} />  
+            
           </Switch>
         </div>
       </Router>

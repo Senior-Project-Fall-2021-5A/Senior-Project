@@ -24,39 +24,39 @@ const AdminSchDaysOff = () => {
     };*/
 
     const handleDayCBChange = (event) => {
-        console.log("event:",event);
-        console.log("name:",event.target.name);
-        console.log("label:",event.target.parentNode.control.attributes.label.nodeValue);
+        //console.log("event:",event);
+        //console.log("name:",event.target.name);
+        //console.log("label:",event.target.parentNode.control.attributes.label.nodeValue);
 
         let targetName = event.target.name;
         if (targetName === "boxMonday") {
             let bCheck = !checkedMon;
             setCheckedMon(bCheck);
-            console.log("Monday", bCheck);
+            //console.log("Monday", bCheck);
         } else if (targetName === "boxTuesday") {
             let bCheck = !checkedTues;
             setCheckedTues(bCheck);
-            console.log("boxTuesday", bCheck);
+            //console.log("boxTuesday", bCheck);
         } else if (targetName === "boxWednesday") {
             let bCheck = !checkedWed;
             setCheckedWed(bCheck);
-            console.log("boxWednesday", bCheck);
+            //console.log("boxWednesday", bCheck);
         } else if (targetName === "boxThursday") {
             let bCheck = !checkedThurs;
             setCheckedThurs(bCheck);
-            console.log("boxThursday", bCheck);
+            //console.log("boxThursday", bCheck);
         } else if (targetName === "boxFriday") {
             let bCheck = !checkedFri;
             setCheckedFri(bCheck);
-            console.log("boxFriday", bCheck);
+            //console.log("boxFriday", bCheck);
         } else if (targetName === "boxSaturday") {
             let bCheck = !checkedSat;
             setCheckedSat(bCheck);
-            console.log("boxSaturday", bCheck);
+            //console.log("boxSaturday", bCheck);
         } else if (targetName === "boxSunday") {
             let bCheck = !checkedSun;
             setCheckedSun(bCheck);
-            console.log("boxSunday", bCheck);
+            //console.log("boxSunday", bCheck);
         }
     }
 

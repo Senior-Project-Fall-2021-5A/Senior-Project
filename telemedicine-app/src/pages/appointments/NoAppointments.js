@@ -11,6 +11,8 @@ import './Tabs.css';
 import Chevron from '../../components/inbox components/Chevron.js'
 import authUserObject from '../../middleware/authUserObject';
 import moment from 'moment'; 
+import { v1 as uuid } from "uuid";
+import { useHistory } from 'react-router-dom';
 
 
 import Popup from 'reactjs-popup';
@@ -28,9 +30,9 @@ function NoAppointments() {
     const [upcomingAppointments, setUpcomingAppointments] = useState([]);
 
     const [show, setShow] = useState("");
-
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
+    const history = useHistory();
 
     function handleOpen() {
        setShow(show === "" ? "active" : "");
@@ -42,6 +44,23 @@ function NoAppointments() {
     const toggleTab = (index) => {
         setToggleState(index);
     };
+
+    const CreateRoom = (apptId) => {
+        const id = uuid();
+        history.push(`/room/${id}`);
+        updateVirtualID(id, apptId);
+    }
+
+    const updateVirtualID = (virtualID, apptId) => {
+        Axios.post(`https://telemedicine5a-backend.herokuapp.com/appointments/updateApptInfo/${apptId}`, {
+            virtualID: virtualID,
+        }).then(response => {
+            console.log('ID to update with', virtualID)
+            console.log(response)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
 
     const toggleAccordion = (index) => {
 
@@ -255,19 +274,10 @@ function NoAppointments() {
                                                     <h1 className="address">Location Id: {appointment.locationUID}</h1>
                                                     
                                                     
-                                                    <Link to='/client'>
-                                                        <button className="btnCall">Start Call</button>
-                                                    </Link>
                                                     
+                                                   
                                                  
-                                                    
-                                                                       
-                                                    <h1><button className="cancelBtn" onClick={()=>triggerCancel(appointment._id)}>Cancel</button></h1>
-                                                    <NotesPopUp
-                                                    value={appointment.appntNotes}
-         
-                                                    />  
-                                                    
+                                               
                              
                                                 </div>
                                             )}
@@ -324,7 +334,7 @@ function NoAppointments() {
                                                     
                                                     <Link to='/client'>
                                                         <h1>
-                                                        <button className="btnCall">Start Call</button>
+                                                        <button onClick={CreateRoom(currApptId)} className="btnCall">Start Call</button>
                                                         </h1>
                                                     </Link>
                                                     

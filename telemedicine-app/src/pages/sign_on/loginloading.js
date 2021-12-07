@@ -52,6 +52,7 @@ class LoginLoading extends Component {
     }
   
     render() {
+      
       return this.state.redirect
         ? <Redirect to="/homepage" />
         : <div className ='loading-page' style ={{background: 'linear-gradient(90deg, rgb(110, 94, 254) 60%, rgb(73, 63, 252) 100%)', height:'100%', width:'100%'}}>

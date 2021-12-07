@@ -4,7 +4,7 @@ const DaysOffSchema = new mongoose.Schema({
 
     doctorUID: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
+        required: false,
     },
     daysOff: {
         type: String,

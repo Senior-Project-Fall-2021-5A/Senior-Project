@@ -31,7 +31,7 @@ const PopUpEditPatient = ( {trigger,setTrigger} ) => {
         Axios.get('https://telemedicine5a-backend.herokuapp.com/users/getPatients')        
             .then((response) => {                
                 let data = response.data;           
-                console.log("response:",data);
+                //console.log("response:",data);
                 data.forEach(e=>{setListOfPatients(listOfPatients => [...listOfPatients, {
                     label: e.lastName+", "+e.firstName+" ["+e.userUID.slice(-4)+"]",
                     value: e.userUID,
@@ -43,11 +43,11 @@ const PopUpEditPatient = ( {trigger,setTrigger} ) => {
     }
 
     const CreateListOfPatientDocFamily = ( userID ) => {
-        console.log("CreateListOfPatientDocFamily() - userID: ",userID);
+        //console.log("CreateListOfPatientDocFamily() - userID: ",userID);
         Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${userID}`)        
             .then((response) => {                
                 let data = response.data[0].approvedDoctors;           
-                console.log("CreateListOfPatientDocFamily - response:",data);
+                //console.log("CreateListOfPatientDocFamily - response:",data);
                 data.forEach(e=>{setlistOfApprovedDocFamily(listOfApprovedDocFamily=> [...listOfApprovedDocFamily, {
                     label:  e,
                     value:  e,
@@ -62,7 +62,7 @@ const PopUpEditPatient = ( {trigger,setTrigger} ) => {
         Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getPatientPcp/${userID}`)        
             .then((response) => {                
                 let docID = response.data[0].primaryPhysician;           
-                console.log("setPatientsPCPDoctor - response:",docID);
+                //console.log("setPatientsPCPDoctor - response:",docID);
 
                 if (docID) {
                     setDoctorWithID(docID);                    
@@ -79,7 +79,7 @@ const PopUpEditPatient = ( {trigger,setTrigger} ) => {
         Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${docID}`)        
             .then((response) => {                
                 let docData = response.data[0];           
-                console.log("setDoctorWithID - response:",docData);
+                //console.log("setDoctorWithID - response:",docData);
 
                 let value = docData.userUID;
                 var index = listOfDoctors.findIndex(arr=> arr.value === value);
@@ -99,7 +99,7 @@ const PopUpEditPatient = ( {trigger,setTrigger} ) => {
         Axios.get('https://telemedicine5a-backend.herokuapp.com/users/getDoctors')
             .then((response) => {                
                 let data = response.data;           
-                console.log("response:",data);
+                //console.log("response:",data);
                 data.forEach(e=>{setListOfDoctors(listOfDoctors => [...listOfDoctors, {
                     label: e.lastName+", "+e.firstName+" ["+e.userUID.slice(-4)+"]",
                     value: e.userUID,
@@ -112,8 +112,8 @@ const PopUpEditPatient = ( {trigger,setTrigger} ) => {
 
     //set patient
     const OnPatientSelect = ( event ) => {
-        console.log("OnPatientSelect - ",event);
-        console.log("Value set: ", event.target.value);
+        //console.log("OnPatientSelect - ",event);
+        //console.log("Value set: ", event.target.value);
         
         let userId = event.target.value;
         setPatientID(userId);
@@ -124,8 +124,8 @@ const PopUpEditPatient = ( {trigger,setTrigger} ) => {
     
     //set Doctor
     const onDoctorSelect = ( event ) => {
-        console.log("onDoctorSelect - ",event);
-        console.log("Value set: ", event.target.value);
+        //console.log("onDoctorSelect - ",event);
+        //console.log("Value set: ", event.target.value);
         setDoctorID(event.target.value);
     }
 
@@ -180,14 +180,14 @@ const PopUpEditPatient = ( {trigger,setTrigger} ) => {
 
     //Sets Doctor Family List
     const updateDocFamList = ( event ) => {
-       console.log(event);
+       //console.log(event);
        setlistOfApprovedDocFamily(event);       
     }
     
     //Edit Patient
     const onSubmit = (event) => {
-        console.log(event);
-        console.log("patient: ", textPatientID, " doctor: ", textDoctorID, " docFamily: ", listOfApprovedDocFamily);        
+        //console.log(event);
+        //console.log("patient: ", textPatientID, " doctor: ", textDoctorID, " docFamily: ", listOfApprovedDocFamily);        
 
         if (textPatientID == "_placeholder_" || textDoctorID == "_placeholder_" || textPatientID == "" || textDoctorID == "" ) {
             setBoolError(true);
@@ -200,12 +200,12 @@ const PopUpEditPatient = ( {trigger,setTrigger} ) => {
     const postPatientInfoUpdate = ( textPatientID ) => {
         let docList = [];
         listOfApprovedDocFamily.forEach(e=>{docList=[...docList,e.label]});
-        console.log("postPatientInfoUpdate: ",docList);
+        //console.log("postPatientInfoUpdate: ",docList);
         Axios.post(`https://telemedicine5a-backend.herokuapp.com/users/updateUserInfo/${textPatientID}`, {
             primaryPhysician:   textDoctorID,
             approvedDoctors:    docList,            
         }).then((response) => {
-            console.log("Edit Patient, postPatientInfoUpdate(), response: ",response);
+            //console.log("Edit Patient, postPatientInfoUpdate(), response: ",response);
             
             //cleanup
             setBoolError(false);
@@ -262,9 +262,9 @@ const PopUpEditPatient = ( {trigger,setTrigger} ) => {
                         placeholder="select patient"
                         onChange={e=>OnPatientSelect(e)}  
                     >
-                        <option value="_placeholder_">Select Patient</option>
+                        <option key="puep_patient_placeholder" value="_placeholder_">Select Patient</option>
                         {listOfPatients.map((option) => (
-                            <option value={option.value}>{option.label}</option>
+                            <option key={option.value} value={option.value}>{option.label}</option>
                         ))}
     
                     </select>
@@ -297,9 +297,9 @@ const PopUpEditPatient = ( {trigger,setTrigger} ) => {
                         label={textDoctorName}
                         onChange={e=>onDoctorSelect(e)}  
                     >
-                        <option value="_placeholder_">Select Doctor</option>
+                        <option key="puep_doctor_placeholder" value="_placeholder_">Select Doctor</option>
                         {listOfDoctors.map((option) => (
-                            <option value={option.value}>{option.label}</option>
+                            <option key={option.value} value={option.value}>{option.label}</option>
                         ))}        
                     </select>
                 </div>

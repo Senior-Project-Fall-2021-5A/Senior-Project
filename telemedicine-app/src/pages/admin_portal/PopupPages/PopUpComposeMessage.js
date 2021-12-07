@@ -1,88 +1,152 @@
 import React from 'react';
-import DatePicker from "react-datepicker";
+import { useEffect } from 'react';
 import "react-datepicker/dist/react-datepicker.css";
-import PopUpWindow from '../../../components/Objects/ObjPopUpWindow'
-import ObjButton from '../../../components/Objects/ObjButton'
+import PopUpWindow from '../../../components/Objects/ObjPopUpWindow';
+import ObjButton from '../../../components/Objects/ObjButton';
+import Axios from 'axios';
+import authUserObject from '../../../middleware/authUserObject';
 
-const PopUpComposeMessage = ( {trigger,setTrigger} ) => {
+
+const PopUpComposeMessage = ({ trigger, setTrigger }) => {
     //declarations
-    const [txtPatientFName,setPatientFName] = React.useState("");
-    const [txtPatientMName,setPatientMName] = React.useState("");
-    const [txtPatientLName,setPatientLName] = React.useState("");
-    const [txtPatientEmail,setPatientEmail] = React.useState("");
-    const [txtPatientPass,setPatientPass] = React.useState("");
-    const [textDoctorID,setDoctorID] = React.useState("");
-    const [boolError,setBoolError] = React.useState(false);
-    const [txtError,setError] = React.useState("");
+    const [txtBody, setBody] = React.useState("");
+    const [txtSubject, setSubject] = React.useState("");
+    const [txtPatientLName, setPatientLName] = React.useState("");
+    const [textDoctor, setDoctor] = React.useState([]);
+    const [listOfPatients, setListOfPatients] = React.useState([]);
+    const [listOfDoctors, setListOfDoctors] = React.useState([]);
+    const [boolError, setBoolError] = React.useState(false);
+    const [txtError, setError] = React.useState("");
+    const [userID, setUserID] = React.useState(authUserObject.userId);
+    const [doctorUID, setDoctorUID] = React.useState("");
+    const [txtTypeSelect, setTypeSelect] = React.useState("");
+    const [boolShowPatient, setShowPatient] = React.useState(true);
 
-    /***************************************************** 
-            Temp Needs Link to get actual list of docs
-    ******************************************************/
-    const listOfDoctors =[
-        {
-            label: "Doctor1",
-            value: "00001",
-        },
-        {
-            label: "Doctor2",
-            value: "00002",
-        },
-        {
-            label: "Doctor3",
-            value: "00003",
-        },
-        {
-            label: "Doctor4",
-            value: "00004",
-        },
-    ];
+    //Load Patients and Doctors
+    useEffect(() => {
+        CreateListOfPatients();
+        CreateListOfDoctors();
+    }, []);
+
+    const CreateListOfPatients = () => {
+        Axios.get('https://telemedicine5a-backend.herokuapp.com/users/getPatients')
+            .then((response) => {
+                let data = response.data;
+                //console.log("response:", data);
+                data.forEach(e => {
+                    setListOfPatients(listOfPatients => [...listOfPatients, {
+                        label: e.lastName + ", " + e.firstName + " [" + e.userUID.slice(-4) + "]",
+                        value: e.userUID,
+                    }]
+                    )
+                });
+            }).catch((err) => {
+                console.log(err, "Unable to get Patients");
+            });
+    }
+
+    const CreateListOfDoctors = () => {
+        Axios.get('https://telemedicine5a-backend.herokuapp.com/users/getDoctors')
+            .then((response) => {
+                let data = response.data;
+                //console.log("response:", data);
+                data.forEach(e => {
+                    setListOfDoctors(listOfDoctors => [...listOfDoctors, {
+                        label: e.lastName + ", " + e.firstName + " [" + e.userUID.slice(-4) + "]",
+                        value: e.userUID,
+                    }]
+                    )
+                });
+            }).catch((err) => {
+                console.log(err, "Unable to get Doctors");
+            });
+    }
+
 
     /***************************************************** 
                     Event Handlers
     ******************************************************/
-    //Doctor Select
-    const onDoctorSelect = ( event ) => {
-        console.log("onDoctorSelect - ",event);
-        console.log("Value set: ", event.target.value);
-        setDoctorID(event.target.value);
+    //Set who to send it    
+    const onRadioSendSelect = (event) => {
+        let type = event.target.value;
+        setTypeSelect(type);
+        //console.log("Radio type Select: ", type);
+        let doTypePatient = type == "patient";
+        setShowPatient(doTypePatient);
     }
-    
-    // Create Patient
-    const onSubmit = ( event ) => {
-        console.log(event);
-        console.log("idk yet");   
-        
-        // This is the message object that will be sent
-        const person = {
-            firstName: "John",
-            lastName: "Doe",
-            age: 50,
-            eyeColor: "blue"
-          };
-        
-        if (textDoctorID == "_placeholder_" || textDoctorID == "" || txtPatientFName == "" || txtPatientMName == "" ||
-         txtPatientLName == "" || txtPatientEmail == "" || txtPatientPass == "") {
+
+
+
+
+    //Doctor Select
+    const onDoctorSelect = (event) => {
+        //console.log("onDoctorSelect - ", event);
+        //console.log("Value set: ", event.target.value);
+        setDoctorUID(event.target.value);
+    }
+
+
+
+
+
+    // Create Message
+    const onSubmit = (event) => {
+        //console.log(event);
+        //console.log("The subject is", txtSubject)
+        //console.log("The message is", txtBody);
+        //console.log("User ID!!!!!", authUserObject.userId);
+
+
+        const date = new Date();
+        date.getDate();
+
+        if (textDoctor == "_placeholder_" || txtBody == "" || txtSubject == "") {
             setBoolError(true);
             setError("Please Fill out all the above Information.");
-        }else{            
+        } else {
             setBoolError(false);
-            setDoctorID("");
-            setPatientFName("");
-            setPatientMName("");
+            // setDoctor("");
+            setBody("");
+            setSubject("");
             setPatientLName("");
-            setPatientEmail("");
-            setPatientPass("");
             setTrigger(false);
+            sendMessage();
         }
     }
-    
+
+    const date = new Date();
+    date.getDate();
+
+    const sendMessage = () => {
+        Axios.post('https://telemedicine5a-backend.herokuapp.com/inbox/sendMessage', {
+            senderID: userID,
+            recieverID: doctorUID,
+            subject: txtSubject,
+            body: txtBody,
+            date: date
+        }).then((response) => {
+            //console.log("Add Appt, addAppointment(), response: ", response)
+
+            //cleanup
+            setBoolError(false);
+            setTrigger(false);
+        }).catch((err) => {
+            //get Error
+            console.log("Org Error: ", err);
+
+            //error display
+            setError("Unable to add time");
+            setBoolError(true);
+        });
+    }
+   
     return (
-    
+
         <PopUpWindow
-                trigger = {trigger}
-                setTrigger = {setTrigger}
-                header = "Compose Message"
-        >    
+            trigger={trigger}
+            setTrigger={setTrigger}
+            header="Compose Message"
+        >
             {/* Grid */}
             <div className="popup_container"
                 style={{
@@ -91,92 +155,189 @@ const PopUpComposeMessage = ( {trigger,setTrigger} ) => {
                     gridTemplateRows: "35px 35px 35px 35px 35px 35px 50px",
                     gridTemplateColumns: "125px 325px",
                 }}
-            >
-                {/* Doctor Select */}
+
+
+            > {/* Radio Type of Visit Select */}
+                <div className="popup_spread_grid"
+                    style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gridRow: 1,
+                        gridColumnStart: 1,
+                        gridColumnEnd: 3,
+                        justifyContent: "center",
+                        position: 'relative',
+                        top: "-10px"
+                    }}
+                    onChange={e => onRadioSendSelect(e)}
+                >
+                    {/* btn patient */}
+                    <input
+                        type="radio"
+                        value="patient"
+                        name="radioLocation"
+                    />
+                    <pre><p
+                        style={{
+                            position: "relative",
+                            top: "16px"
+                        }}
+                    > Patient     </p></pre>
+
+                    {/* Btn doctor */}
+                    <input
+                        type="radio"
+                        value="doctor"
+                        name="radioLocation"
+                    />
+                    <pre><p
+                        style={{
+                            position: "relative",
+                            top: "16px"
+                        }}
+                    > Doctor</p></pre>
+                </div>
+                {/* Send To Select */}
                 <div className="popup_label_grid"
                     style={{
-                        gridRow:1,
-                        gridColumn:1,
+                        gridRow: 2,
+                        gridColumn: 1,
                     }}
                 >
-                    <h5 className="popup_label">Doctor:</h5>
+                    <h5 className="popup_label">Send To:</h5>
                 </div>
                 <div className="popup_inputs_grid"
                     style={{
-                        gridRow:1,
-                        gridColumn:2,
+                        gridRow: 2,
+                        gridColumn: 2,
                     }}
-                >                 
-                    <select
+                >
+
+
+                    {boolShowPatient == true ?
+                        <div>
+                            <select
+                                style={{
+                                    height: "25px",
+                                    width: "300px",
+                                    textAlign: "left",
+                                }}
+                                onChange={e => onDoctorSelect(e)}
+                            >
+                                <option value="_placeholder_">Select Patient</option>
+                                {listOfPatients.map((option) => (
+                                    <option value={option.value}>{option.label}</option>
+                                ))}
+                            </select>
+                        </div>
+
+                        :
+                        <div>
+
+                            <select
+                                style={{
+                                    height: "25px",
+                                    width: "300px",
+                                    textAlign: "left",
+                                }}
+                                onChange={e => onDoctorSelect(e)}
+                            >
+
+                                <option value="_placeholder_">Select Doctor</option>
+                                {listOfDoctors.map((option) => (
+                                    <option value={option.value}>{option.label}</option>
+                                ))}
+                            </select>
+                        </div>
+
+                    }
+
+
+
+                </div>
+
+                {/* Subject */}
+                <div className="popup_label_grid"
+                    style={{
+                        gridRow: 3,
+                        gridColumn: 1,
+                    }}
+                >
+                    <h5 className="popup_label">Subject:</h5>
+                </div>
+                <div className="popup_inputs_grid"
+                    style={{
+                        gridRow: 3,
+                        gridColumn: 2,
+                    }}
+                >
+                    <input
+                        type="text"
+                        value={txtSubject}
+                        onChange={e => setSubject(e.target.value)}
                         style={{
                             height: "25px",
                             width: "300px",
                             textAlign: "left",
-                        }}                        
-                        onChange={e=>onDoctorSelect(e)}  
-                    >
-                        <option value="_placeholder_">Select Doctor</option>
-                        {listOfDoctors.map((option) => (
-                            <option value={option.value}>{option.label}</option>
-                        ))}
-
-                    </select>
+                        }}
+                    />
                 </div>
 
                 {/* Message */}
                 <div className="popup_label_grid"
                     style={{
-                        gridRow:2,
-                        gridColumn:1,
+                        gridRow: 4,
+                        gridColumn: 1,
                     }}
                 >
                     <h5 className="popup_label">Message:</h5>
                 </div>
                 <div className="popup_inputs_grid"
                     style={{
-                        gridRow:2,
-                        gridColumn:2,
+                        gridRow: 4,
+                        gridColumn: 2,
                     }}
-                >    
+                >
                     <textarea
                         type="text"
-                        value={txtPatientMName}
-                        onChange={e=>setPatientMName(e.target.value)}
+                        value={txtBody}
+                        onChange={e => setBody(e.target.value)}
                         style={{
-                            height: "175px",
+                            height: "160px",
                             width: "300px",
                             textAlign: "left",
                         }}
                     />
                 </div>
-    
+
                 
+
                 {/* Button Create */}
                 <div className="popup_spread_grid"
                     style={{
-                        gridRow:7,
-                        gridColumnStart:1,
-                        gridColumnEnd:3,
+                        gridRow: 9,
+                        gridColumnStart: 1,
+                        gridColumnEnd: 3,
                     }}
                 >
-                    <ObjButton                     
-                        
+                    <ObjButton
                         text="Send"
-                        onClick={e=>onSubmit(e)}
+                        onClick={e => onSubmit(e)}
                     />
                 </div>
             </div>
-            
+
             {/* Button Error Message */}
-            {boolError &&
+            {
+                boolError &&
                 <p
                     style={{
                         color: 'red',
                     }}
                 >{txtError}</p>
             }
-        </PopUpWindow>
-        
+        </PopUpWindow >
+
     )
 }
 

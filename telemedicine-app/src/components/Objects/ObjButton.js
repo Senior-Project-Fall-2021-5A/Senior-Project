@@ -6,7 +6,7 @@ const ObjButton = ({ text, onClick, nHeight, nWidth}) => {
     
     //const doHeight = (nHeight != null);
     //const doWidth = (nWidth != null);
-    console.log("text:",text,"onClick:",onClick,"nHeight:",nHeight,"nWidth:",nWidth);
+    //console.log("text:",text,"onClick:",onClick,"nHeight:",nHeight,"nWidth:",nWidth);
 
     return (
         <button
