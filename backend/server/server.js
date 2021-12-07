@@ -56,11 +56,6 @@ const LocationModel = require('./models/Location');
 connection();
 
 // Initialize middleware
-app.all('*', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    next();
- });
 app.use(cors());
 app.use(express.json({ extended: false }));
 let gfs;
