@@ -12,7 +12,7 @@ router.get('/getMessages/:userId', function (req, res) {
             { senderID: req.params.userId },
             { recieverID: req.params.userId }
         ]
-    })
+    }).sort({ $natural: 1 })
     .then(inbox => {
         if (!inbox) { return res.send("No Message for User")}
         return res.status(200).json(inbox);

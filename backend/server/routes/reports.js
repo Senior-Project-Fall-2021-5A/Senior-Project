@@ -54,8 +54,9 @@ router.post('/addReport', async (req, res) => {
             attachments: attachments,
         });
     
-    await newReport.save();
-    res.send("Added report!")
+    await newReport.save().then(response => {
+        res.send({ success: true, data: response })
+    });
 });
 
 module.exports = router;
