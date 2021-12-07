@@ -42,6 +42,9 @@ io.on("connection", socket => {
     });
 });
 
+if(process){
+
+}
 
 // Import models for testing
 const UserModel = require('./models/User')
