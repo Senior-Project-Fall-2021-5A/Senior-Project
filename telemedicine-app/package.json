@@ -41,8 +41,7 @@
     "build": "react-scripts build",
     "start": "react-scripts start",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "postinstall": "npm build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
