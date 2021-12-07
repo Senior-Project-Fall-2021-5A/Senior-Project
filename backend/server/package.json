@@ -8,7 +8,7 @@
   "main": "server.js",
   "type": "commonjs",
   "scripts": {
-    "start": "PROD= true node server.js",
+    "start": "PROD= true node server.js"
   },
   "author": "",
   "license": "ISC",
