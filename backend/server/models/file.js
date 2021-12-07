@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const fileSchema = mongoose.Schema({
+    reportUID:{
+        type: mongoose.Schema.Types.ObjectId, ref:'ReportsModel',
+        require: false,
+      },
     title: {
         type: String,
         required: false,
