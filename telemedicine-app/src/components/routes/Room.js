@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import io from "socket.io-client";
+import io, { Socket } from "socket.io-client";
 import Peer from "simple-peer";
 import styled from "styled-components";
+
+const ENDPOINT = "https://telemedicine5a-backend.herokuapp.com/";
 
 const Container = styled.div`
     padding: 20px;
@@ -45,7 +47,8 @@ const Room = (props) => {
     const roomID = props.match.params.roomID;
 
     useEffect(() => {
-        socketRef.current = io.connect("/");
+        Socket = io(ENDPOINT);
+        socketRef.current = Socket.conection(ENDPOINT)
         navigator.mediaDevices.getUserMedia({ video: videoConstraints, audio: true }).then(stream => {
             userVideo.current.srcObject = stream;
             socketRef.current.emit("join room", roomID);
