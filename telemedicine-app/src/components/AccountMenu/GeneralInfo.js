@@ -48,7 +48,6 @@ function GeneralInfo() {
     useEffect(() => {
         Axios.get(`http://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${authUserObject.userId}`)
             .then((response) => {
-                console.log("last report:",response);
                 const myInfo = response.data;
                 setgeneralInfo(response.data);
             })
@@ -72,43 +71,33 @@ function GeneralInfo() {
             
             }).then((response) => {
                 userEmail = String(response.data.user.email);
-                console.log("this is my email:",userEmail);
                 localStorage.setItem('userEmail');
 
                 userPhone = String(response.data.user.phone1);
-                console.log(userPhone);
                 localStorage.setItem('userPhone');
 
                 userPassword = String(response.data.user.password);
-                console.log(userPassword);
                 localStorage.setItem('userPassword');
 
                 userAddress1 = String(response.data.user.address1);
-                console.log(userAddress1);
                 localStorage.setItem('userAddress1');
 
                 userAddress2 = String(response.data.user.address2);
-                console.log(userAddress2);
                 localStorage.setItem('userAddress2');
 
                 userCity = String(response.data.user.city);
-                console.log(userCity);
                 localStorage.setItem('userCity');
 
                 userState = String(response.data.user.state);
-                console.log(userState);
                 localStorage.setItem('userState');
                 
                 userZip = String(response.data.user.zip);
-                console.log(userZip);
                 localStorage.setItem('userZip');
 
                 userDoB = String(response.data.user.DoB);
-                console.log(userDoB);
                 localStorage.setItem('userDoB');
 
                 userGender = String(response.data.user.gender);
-                console.log(userGender);
                 localStorage.setItem('userGender');
             }
              )};
