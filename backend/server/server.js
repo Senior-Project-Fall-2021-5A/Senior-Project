@@ -57,19 +57,13 @@ connection();
 
 // Initialize middleware
 app.use(cors());
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
+    //Enabling CORS
     res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE");
-    res.header("Access-Control-Allow-Credentials", true); 
-    if (req.method === "OPTIONS") {
-      return res.sendStatus(204);
-    }
-    next();
-  });
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+      next();
+    });
 app.use(express.json({ extended: false }));
 let gfs;
 const conn = mongoose.connection;
