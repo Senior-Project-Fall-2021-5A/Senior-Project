@@ -56,19 +56,12 @@ const LocationModel = require('./models/Location');
 connection();
 
 // Initialize middleware
-app.use(cors());
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "https://gracious-lichterman-6add6d.netlify.app/", "https://jovial-haibt-74c356.netlify.app/");
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept, Authorization, 'Content-Type' : 'multipart/form-data' ,* "
-    );
-    res.header(
-      "Access-Control-Allow-Methods",
-      "GET, POST, PATCH, PUT, DELETE, OPTIONS"
-    );
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
     next();
-  });
+ });
+app.use(cors());
 app.use(express.json({ extended: false }));
 let gfs;
 const conn = mongoose.connection;
