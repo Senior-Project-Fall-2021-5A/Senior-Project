@@ -243,7 +243,7 @@ function NoAppointments() {
                                     var day = dateSlice.slice(8, 10);
 
                                     var returnDate = month + "-" + day + "-" + year;
-                                
+                                     //  <button onClick={CreateRoom(currApptId)} className="btnCall">Start Call</button>  
                                     return (
                                         
                                         <div className="accordion1">
@@ -274,9 +274,17 @@ function NoAppointments() {
                                                     <h1 className="address">Location Id: {appointment.locationUID}</h1>
                                                     
                                                     
+                                                    <Link to='/client'>
+                                                        <h1>
+                                                        <button className="btnCall">Start Call</button>     
+                                                        </h1>
+                                                    </Link>
                                                     
-                                                   
-                                                 
+                                                     
+                                                    <h1><button className="cancelBtn" onClick={()=>triggerCancel(appointment._id)}>Cancel</button></h1>
+                                                    <NotesPopUp
+                                                    value={appointment.appntNotes}
+                                                    />
                                                
                              
                                                 </div>
@@ -302,7 +310,7 @@ function NoAppointments() {
                                     var day = dateSlice.slice(8, 10);
 
                                     var returnDate = month + "-" + day + "-" + year;
-
+                                    //  <button onClick={CreateRoom(currApptId)} className="btnCall">Start Call</button>  
                                     return (
                                         
                                         <div className="accordion1">
@@ -334,7 +342,7 @@ function NoAppointments() {
                                                     
                                                     <Link to='/client'>
                                                         <h1>
-                                                        <button onClick={CreateRoom(currApptId)} className="btnCall">Start Call</button>
+                                                        <button className="btnCall">Start Call</button>     
                                                         </h1>
                                                     </Link>
                                                     
