@@ -139,8 +139,7 @@ const PopUpComposeMessage = ({ trigger, setTrigger }) => {
             setBoolError(true);
         });
     }
-
-
+   
     return (
 
         <PopUpWindow
@@ -311,6 +310,7 @@ const PopUpComposeMessage = ({ trigger, setTrigger }) => {
                     />
                 </div>
 
+                
 
                 {/* Button Create */}
                 <div className="popup_spread_grid"
@@ -321,7 +321,6 @@ const PopUpComposeMessage = ({ trigger, setTrigger }) => {
                     }}
                 >
                     <ObjButton
-
                         text="Send"
                         onClick={e => onSubmit(e)}
                     />

@@ -13,7 +13,7 @@
     transition: .5s;
     outline: none;
     cursor: pointer;    
-    transform: translate(-40px, -10px);
+    
   }
   
   .objbutton:hover{    
