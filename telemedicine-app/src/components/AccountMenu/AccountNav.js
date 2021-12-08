@@ -6,6 +6,11 @@ import InsuranceInfo from './InsuranceInfo'
 
 
 function AccountNav() {
+  
+  const logout = ( event ) => {
+    console.log('logout',event);
+    localStorage.clear();
+  }
     return (
         <Tab.Container id="left-tabs-example" defaultActiveKey="first">
   <Row style={{width:'100%', marginLeft:'0px', marginRight:'0px', height:'100%'}}>
@@ -19,7 +24,7 @@ function AccountNav() {
           <Nav.Link eventKey="second">Insurance</Nav.Link>
         </Nav.Item>
 
-        <Nav.Item>
+        <Nav.Item onClick={e=>logout(e)}>
           <Nav.Link href='/'>Logout</Nav.Link>
         </Nav.Item>
       </Nav>

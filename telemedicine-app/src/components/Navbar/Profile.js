@@ -12,20 +12,18 @@ function Profile() {
     const [txtGlobalRole, setGlobalRole] = useState(authUserObject.userRole);
     const [boolPortal, setBoolPortal] = useState(false);
     const [userNotifications, setUserNotifications] = useState([]);
-    const [notifUID, setnotifUID] = React.useState("");
 
-
-    let isRead = false;
+    //values set for the red circle button indicating everythihng is not read on the notifcation button
+    let isReadRed = false;
     let readCount = userNotifications.length;
     
-    
-    function isClicked(){
-
-            isRead = true;
+    //the onClick function handled when clicking on the notification Item
+    function isClicked(id){
+            isReadRed= true;
             readCount--
-            console.log("isRead is: ", isRead)
+            console.log("isRead is: ", isReadRed)
             console.log("This is readCount: ", readCount);
-            updateNotification();
+            updateNotification(id);
         if(readCount === 0){
             document.getElementById("notificationToast").style.display="none";
         }
@@ -35,60 +33,45 @@ function Profile() {
         console.log("Page Open: ",txtGlobalUserID, " Role: ",txtGlobalRole);
         getUserInfo();
     }, []);
-
-    const onNotificaitonSelect = (event) => {
-        //console.log("onDoctorSelect - ", event);
-        //console.log("Value set: ", event.target.value);
-        setnotifUID(event.target.value);
-    }
-    
-    const updateNotification = () =>{
+    //Updates the notificaiton isRead to false
+    const updateNotification = (id) =>{
             Axios({
                 method: 'post',
-                url: `https://telemedicine5a-backend.herokuapp.com/notifs/updateNotification/${userNotifications._id}`,
+                url: `https://telemedicine5a-backend.herokuapp.com/notifs/updateNotification/${id}`,
                 data: {
                   isRead: true
                 }
               });
-              console.log("is read post: ", isRead)
+              console.log("is read post: ", isReadRed)
             }
     
     const getUserInfo = (  ) => {
         Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${txtGlobalUserID}`)        
             .then((response) => {                
                 let data = response.data;           
-                console.log("response:",data);
+                console.log("response:",data[0].isAdmin);
                 setBoolPortal(data[0].isAdmin);
             }).catch((err) => {
                 console.log(err, "Unable to get Patients");
             });
     }
-
+   //Gets the notificaitons
     useEffect(() => {
         Axios.get(`https://telemedicine5a-backend.herokuapp.com/notifs/getNotifications/${authUserObject.userId}`)        
             .then((response) => { 
-                console.log("here are your notifications:",response.data);
-                setUserNotifications(response.data);
+                let notifdata = response.data;
+                const result = notifdata.filter(notifdata => notifdata.isRead === false);
+                setUserNotifications(result);
+                //takes away the red circle if there is nothing intially in the array
+                if(result.length === 0){
+                    document.getElementById("notificationToast").style.display="none";
+                }
+
+                console.log("here are your notifications: ", result);
             }).catch((err) => {
                 console.log(err, "Unable to get notifications");
             });
-    }, []);
-
-    function gettingnotificationID(notificationID) {
-
-        // var self = this;
-        // var title;
-      
-        Axios.get(`https://telemedicine5a-backend.herokuapp.com/notifs/getNotifications/${authUserObject.userId}`+notificationID)
-        .then(response => {
-          this.notifID = response.data._id
-          console.log(response.data._id) //returns the correct title
-        })
-        // return title // not needed
-      
-      }
-
-    
+    }, [userNotifications]);
 
     const logout = ( event ) => {
         console.log('logout',event);
@@ -100,7 +83,7 @@ function Profile() {
             <DropdownButton  className='profile-button' id="pro"title={<span className='profile-icon'><i class="fas fa-user-circle fa-2x"></i></span>} >
                 <span className="visually-hidden">unread messages</span>
                 <Dropdown.Item eventKey="1" href='/myaccount'>My Account</Dropdown.Item>
-                <Dropdown.Item eventKey="2" href='/NoAppointments'>My Appointments</Dropdown.Item>
+                <Dropdown.Item eventKey="2" href='/appointments'>My Appointments</Dropdown.Item>
                 <Dropdown.Item eventKey="3" href='/reports'>My Reports</Dropdown.Item>
                 <Dropdown.Item eventKey="4" href='/inbox'>My Inbox</Dropdown.Item>
                 {boolPortal && <Dropdown.Item eventKey="5" href= '/adminPortal'>Portal</Dropdown.Item>} 
@@ -114,7 +97,7 @@ function Profile() {
             <DropdownButton  className='notification-btn' title={<span className='profile-icon'><i class="fas fa-inbox fa-2x"></i><Badge id="notificationToast" className = "notification-toast" bg="danger"> </Badge></span>}>
                 <span className="visually-hidden">unread messages</span>
                 {userNotifications.map((notificaitons) => (
-                    <div onChange={e => onNotificaitonSelect(e)} value ={notificaitons._id}className={notificaitons._id} id="notificaitonItem" onClick={isClicked} >
+                    <div value ={notificaitons._id} className="notification-item" id="notificaitonItem" onClick={e => isClicked(notificaitons._id)} >
                         <p className="notificaiton-message">You have a new {notificaitons.notif_type} notification!</p>
                         <p className="notification-time">{notificaitons.date_time}</p>
                     </div>
