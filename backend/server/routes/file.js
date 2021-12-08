@@ -63,7 +63,7 @@ var gfs = Grid('mongodb+srv://Admin:uMUAkKcITOdFYFLr@telemedicine0.3ifgy.mongodb
 
 // set up connection to db for file storage
 const storage = new GridFsStorage({
-  db: connection.db,
+  db: 'mongodb+srv://Admin:uMUAkKcITOdFYFLr@telemedicine0.3ifgy.mongodb.net/Telemedicine_Backend?retryWrites=true&w=majority',
   file: (req, file) => {
     return {
       filename: file.originalname
