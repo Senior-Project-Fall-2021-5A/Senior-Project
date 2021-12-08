@@ -13,6 +13,8 @@ const server = http.createServer(app);
 const socket = require("socket.io");
 const io = socket(server);
 const path = require('path');
+const connect = mongoose.createConnection('mongodb+srv://Admin:uMUAkKcITOdFYFLr@telemedicine0.3ifgy.mongodb.net/Telemedicine_Backend?retryWrites=true&w=majority', 
+    { useNewUrlParser: true, useUnifiedTopology: true });
 
 const rooms = {};
 

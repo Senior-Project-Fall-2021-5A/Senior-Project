@@ -27,7 +27,7 @@ router.get('/getFiles/:reportId', async (req, res) => {
     .catch(err => next(err));
 });
 
-router.post("/uploadFiles", upload.single('file'), async (req, res) => {
+router.post("/uploadFiles",upload.single('file'), async (req, res) => {
     /*
     if (req.file === undefined) return res.send("you must select a file.");
     return res.send('file upload'); 
