@@ -88,7 +88,14 @@ app.use('/daysOff', require('./routes/daysOff'));
 app.use('/notifs', require('./routes/notifications'));
 
 
-//video call
+////////////// ///////////////upload file
+const crypto = require("crypto");
+const multer = require("multer");
+const {GridFsStorage}= require("multer-gridfs-storage");
+
+// Middlewares
+//app.use(express.json());
+//app.set("view engine", "ejs");
 
 server.listen(PORT, () => { console.log('Server Connection SUCCESSFUL') });
 
