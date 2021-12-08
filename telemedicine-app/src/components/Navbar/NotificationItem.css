@@ -1,10 +1,13 @@
 .notification-item{
-    background:linear-gradient(
-        90deg, rgb(110,94, 254) 0%, rgb(73, 63, 252, 1) 100%);;
+    background: linear-gradient( 90deg, rgb(110,94, 254) 0%, rgb(73, 63, 252, 1) 100%);
     line-height: 20px;
-    border-top: solid transparent .5px;
-    border-bottom: solid black .5px;
+    padding: 4%;
+    border-radius: 8px;
+    border-top: solid transparent 0.5px;
+    border: solid white 0.5px;
+    margin-bottom: 5px;
     transition: transform 0.5s;
+    box-shadow: 0 25px 15px 0px rgb(0 0 0 / 20%);
 }
 
 .notification-item:hover{

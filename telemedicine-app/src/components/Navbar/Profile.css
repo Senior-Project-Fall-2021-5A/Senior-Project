@@ -26,6 +26,13 @@ span.notification-icon {
 }
 .dropdown-item {
     white-space: inherit;
+    background: linear-gradient( 90deg, rgb(110,94, 254) 0%, rgb(73, 63, 252, 1) 100%);
+    color: white;
+}
+.dropdown-item:hover {
+    white-space: inherit;
+    background: linear-gradient( 90deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%);
+    color: linear-gradient( 90deg, rgb(110,94, 254) 0%, rgb(141, 135, 248) 100%);
 }
 div#popover-contained {
     width:154%;
@@ -54,6 +61,6 @@ span#notificationToast {
     transform: translateX(-5px);
 }
 .dropdown-menu.show {
-    background:linear-gradient(
-        90deg, rgb(110,94, 254) 0%, rgb(73, 63, 252, 1) 100%);
+    background: transparent;
+    border: none;
 }
