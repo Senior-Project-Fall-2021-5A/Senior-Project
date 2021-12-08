@@ -7,52 +7,42 @@ const Grid = require("gridfs-stream");
 const mongoose = require("mongoose");
 
 //video call import
-require('dotenv').config();
+require("dotenv").config();
 const http = require("http");
 const server = http.createServer(app);
 const socket = require("socket.io");
 const io = socket(server);
+const path = require('path');
 
-const users = {};
+const rooms = {};
 
-const socketToRoom = {};
-
-io.on('connection', socket => {
+io.on("connection", socket => {
     socket.on("join room", roomID => {
-        if (users[roomID]) {
-            const length = users[roomID].length;
-            if (length === 4) {
-                socket.emit("room full");
-                return;
-            }
-            users[roomID].push(socket.id);
+        if (rooms[roomID]) {
+            rooms[roomID].push(socket.id);
         } else {
-            users[roomID] = [socket.id];
+            rooms[roomID] = [socket.id];
         }
-        socketToRoom[socket.id] = roomID;
-        const usersInThisRoom = users[roomID].filter(id => id !== socket.id);
-
-        socket.emit("all users", usersInThisRoom);
-    });
-
-    socket.on("sending signal", payload => {
-        io.to(payload.userToSignal).emit('user joined', { signal: payload.signal, callerID: payload.callerID });
-    });
-
-    socket.on("returning signal", payload => {
-        io.to(payload.callerID).emit('receiving returned signal', { signal: payload.signal, id: socket.id });
-    });
-
-    socket.on('disconnect', () => {
-        const roomID = socketToRoom[socket.id];
-        let room = users[roomID];
-        if (room) {
-            room = room.filter(id => id !== socket.id);
-            users[roomID] = room;
+        const otherUser = rooms[roomID].find(id => id !== socket.id);
+        if (otherUser) {
+            socket.emit("other user", otherUser);
+            socket.to(otherUser).emit("user joined", socket.id);
         }
     });
 
+    socket.on("offer", payload => {
+        io.to(payload.target).emit("offer", payload);
+    });
+
+    socket.on("answer", payload => {
+        io.to(payload.target).emit("answer", payload);
+    });
+
+    socket.on("ice-candidate", incoming => {
+        io.to(incoming.target).emit("ice-candidate", incoming.candidate);
+    });
 });
+
 
 // Import models for testing
 const UserModel = require('./models/User')
@@ -68,7 +58,7 @@ connection();
 // Initialize middleware
 app.use(cors());
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "https://gracious-lichterman-6add6d.netlify.app/");
+    res.header("Access-Control-Allow-Origin", "https://gracious-lichterman-6add6d.netlify.app", "https://jovial-haibt-74c356.netlify.app/");
     res.header(
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept, Authorization, 'Content-Type' : 'multipart/form-data' ,* "

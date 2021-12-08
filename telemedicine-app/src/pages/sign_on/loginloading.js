@@ -55,7 +55,7 @@ class LoginLoading extends Component {
       
       return this.state.redirect
         ? <Redirect to="/homepage" />
-        : <div className ='loading-page' style ={{background: 'linear-gradient(90deg, rgb(110, 94, 254) 60%, rgb(73, 63, 252) 100%)', height:'100%', width:'100%'}}>
+        : <div className ='loading-page' style ={{background: 'linear-gradient(90deg, rgb(110, 94, 254) 60%, rgb(73, 63, 252) 100%)', height:'100vh', width:'100%'}}>
             <div className={css(styles.container)}>
     <Row className ='loading-page-row' style= {{justifyContent:'center', height:'100%', alignItems:'center'}}>
       <Col xs={12} sm={6} md={3}style= {{height:'100%'}} className={css(styles.loadContainer)}>
