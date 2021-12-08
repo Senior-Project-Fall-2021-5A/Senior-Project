@@ -99,7 +99,7 @@ router.get('/files', (req, res) => {
   });
 });
 
-router.post('/files', singleUpload, (req, res) => {
+router.post('/uploadFiles', singleUpload, (req, res) => {
   if (req.file) {
     return res.json({
       success: true,
