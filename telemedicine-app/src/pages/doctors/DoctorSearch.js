@@ -280,7 +280,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
             });
     }
 
-	 const onDoctorSelect = ( event ) => {
+	 /*const onDoctorSelect = ( event ) => {
         
         let docID = event.target.value;
       
@@ -288,7 +288,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 		getScheduleAvail(docID);
 		CreateListOfPatientDocFamily(userId);
         
-    }
+    }*/
 
 	const [doctorID, setDoctorID] = useState('');
 
@@ -390,26 +390,31 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 				});
 		}
 
-		function CreateDocListOfAprrovedFamily() {
+	function CreateDocListOfAprrovedFamily() {
 
 		
 			
-			for(let i in listOfNewDocs.label) {
+		for(let i in listOfNewDocs.label) {
 
-				for(let j in listOfApprovedDocFamily) {
+			for(let j in listOfApprovedDocFamily) {
 
-					if(listOfApprovedDocFamily[i].toLowerCase()  == listOfApprovedDocFamily[j].label.toLowerCase()) {
+				if(listOfApprovedDocFamily[i].toLowerCase()  == listOfApprovedDocFamily[j].label.toLowerCase()) {
 
-						listy.push(listOfNewDocs[i]);
+					listy.push(listOfNewDocs[i]);
 
-					}
 				}
 			}
-
-			setMyDocs(listy);
-			
-			
 		}
+
+		setMyDocs(listy);
+			
+			
+	}
+
+	const convertDate() {
+	
+		
+	}
 	
 
 	return(
