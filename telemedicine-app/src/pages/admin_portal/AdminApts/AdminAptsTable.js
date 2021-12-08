@@ -17,31 +17,57 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
     const [notesInputPopup, setNotesInputPopup] = useState(false);
     const [listOfAppointments, setListOfAppointments] = useState([]);
     const [listOfAppointmentsUpdate, setListOfAppointmentsUpdate] = useState([]);
-    const [reportInputPopup, setReportInputPopup] = useState(false);    
+    const [reportInputPopup, setReportInputPopup] = useState(false);
+    const [apptUrl, setApptUrl] = useState("");
     //const dateToSend = date.toLocaleDateString(`en-US`).split('/').join('-');
 
     useEffect(() => {
-        //console.log("AdminAptTable date: ",dateValue);
-        let axiosUrl = (txtPatientID == "_self_") ? 
-            `https://telemedicine5a-backend.herokuapp.com/appointments/getAppointmentsByDate/${authUserObject.userId}/${dateValue}`
-            :
-            `https://telemedicine5a-backend.herokuapp.com/appointments/getAppointments/${txtPatientID}`;
-        Axios.get(axiosUrl)//${dateToSend}
+        if(txtPatientID && apptUrl){
+            getAppointments(apptUrl);
+        }
+    }, [apptInputPopup]);
+
+    useEffect(() => {
+        //console.log("useEffect - dateValue - dateValue: ", dateValue, " txtPatientID: ",txtPatientID);
+        if(txtPatientID){
+            createApptUrl();
+        }
+    }, [dateValue]);
+
+    useEffect(() => {
+        //console.log("useEffect - txtPatientID - dateValue: ", dateValue, " txtPatientID: ",txtPatientID);
+        if(txtPatientID != "_self_" || (txtPatientID == "_self_" && dateValue) ){
+            createApptUrl();
+        }
+    }, [txtPatientID]);
+
+    const createApptUrl = (  ) => {
+        let url = "";
+        if(txtPatientID == "_self_"){
+            url = `https://telemedicine5a-backend.herokuapp.com/appointments/getAppointmentsByDate/${authUserObject.userId}/${dateValue}`;
+        } else {
+            url = `https://telemedicine5a-backend.herokuapp.com/appointments/getAppointments/${txtPatientID}`;
+        }
+        setApptUrl(url);
+        getAppointments(url);
+    }
+
+    const getAppointments = ( url ) => {
+        Axios.get(url)
         .then((appointmentResponse) => {
             //console.log('IMPORTANT', appointmentResponse)
             let apptData = appointmentResponse.data;
-            //console.log("apptData: ",apptData);
+            console.log("apptData: ",apptData);
             if(Array.isArray(apptData)){
                 setTheNames( apptData );
             } else {
                 setListOfAppointments([]);
             }
-            
         })
         .catch((err) => {
             console.log(err, "Unable to get appointments for selected date");
         });
-    }, [apptInputPopup, dateValue, txtPatientID]);
+    }
 
     const setTheNames = ( apptData ) => {
         let newList = [];
@@ -50,7 +76,7 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
             Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${id}`)
                 .then((response) => {                
                     let data = response.data;           
-                    //console.log("setTheNames() - response:",data);
+                    console.log("setTheNames() - response:",data);
                     
                     let name = data[0].lastName+", "+data[0].firstName ;
                     //console.log("setTheNames() - name:",name);
@@ -82,8 +108,21 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
         //console.log("Popup is ",bPop);
     }
 
-
-    const reportClick = (e) => {
+    //report click
+    const [tempuserUID,         settempuserUID          ] = React.useState("");
+    const [tempappointmentsUID, settempappointmentsUID  ] = React.useState("");
+    const [tempdoctorUID,       settempdoctorUID        ] = React.useState("");
+    const [tempdate,            settempdate             ] = React.useState("");
+    const [templocationUID,     settemplocationUID      ] = React.useState("");
+    const reportClick = (e, userUID, appointmentsUID, doctorUID, txtDateFix, locationUID) => {
+       
+        console.log("report click: ", userUID, appointmentsUID, doctorUID, txtDateFix, locationUID)
+        settempuserUID(userUID)  ;      
+        settempappointmentsUID(appointmentsUID);
+        settempdoctorUID(doctorUID) ;     
+        settempdate(txtDateFix) ;          
+        settemplocationUID(locationUID);    
+        
         //console.log("Report Click");
         //console.log("click", e);
         let bPop = !reportInputPopup;
@@ -141,14 +180,20 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
                                     doLink = "false"                                    
                                     text="Add"
                                     btnWidth = "60px"
-                                    onClick={e => reportClick(e)}
+                                    onClick={e => reportClick(e, 
+                                            appointment.userUID,
+                                            appointment._id,
+                                            appointment.doctorUID,
+                                            (new Date(appointment.date)).toLocaleDateString(`en-US`).split('/').join('-'),
+                                            appointment.locationUID
+                                        )}
                                 />
                                 <PopUpAddReport
-                                    userUID={appointment.userUID}
-                                    appointmentsUID={appointment._id}
-                                    doctor={appointment.doctorUID}
-                                    date={appointment.date}
-                                    locationUID={appointment.locationUID}
+                                    userUID={tempuserUID}
+                                    appointmentsUID={tempappointmentsUID}
+                                    doctorUID={tempdoctorUID}
+                                    txtDate={tempdate}
+                                    locationUID={templocationUID}
                                     trigger={reportInputPopup}
                                     setTrigger={setReportInputPopup}
                                 />

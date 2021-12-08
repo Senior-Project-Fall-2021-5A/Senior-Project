@@ -8,11 +8,6 @@ import AdminAptsTable from './AdminAptsTable'
 
 const AdminApts = ({ dateValue, txtPatientID, apptInputPopup }) => {
 
-    
-    
-   
-
-
     return (
         <div className="adminapts-container">
             <div className="adminapts-header">
@@ -41,8 +36,6 @@ const AdminApts = ({ dateValue, txtPatientID, apptInputPopup }) => {
 }
 
 AdminApts.defaultProps = {
-    dateValue: "12-06-2021",
-    
 }
 
 AdminApts.propTypes = {

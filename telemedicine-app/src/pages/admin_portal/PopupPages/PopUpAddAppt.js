@@ -8,7 +8,7 @@ import PopUpWindow from '../../../components/Objects/ObjPopUpWindow'
 import ObjButton from '../../../components/Objects/ObjButton'
 
 
-const PopUpAddAppt = ( {trigger,setTrigger} ) => {
+const PopUpAddAppt = ( { trigger, setTrigger, newPatientPopup, newStaffPopup} ) => {
     //declarations
     const [textPatientID,setPatientID] = React.useState("");
     const [textDoctorID,setDoctorID] = React.useState("");
@@ -94,13 +94,20 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
 
     //Load Patients and Doctors
     useEffect(() => {
-        onDateSelect(new Date());
         CreateListOfPatients();
-        CreateListOfDoctors();  
+    }, [newPatientPopup]);
+
+    useEffect(() => {
+        CreateListOfDoctors();
+    }, [newStaffPopup]);
+
+    useEffect(() => {
+        onDateSelect(new Date());
         getLocations();  
     }, []);
 
     const CreateListOfPatients = (  ) => {
+        setListOfPatients([]);
         Axios.get('https://telemedicine5a-backend.herokuapp.com/users/getPatients')        
             .then((response) => {                
                 let data = response.data;           
@@ -116,6 +123,7 @@ const PopUpAddAppt = ( {trigger,setTrigger} ) => {
     }
 
     const CreateListOfDoctors = (  ) => {
+        setListOfDoctors([]);
         Axios.get('https://telemedicine5a-backend.herokuapp.com/users/getDoctors')
             .then((response) => {                
                 let data = response.data;           

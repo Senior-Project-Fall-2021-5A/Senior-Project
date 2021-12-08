@@ -24,10 +24,14 @@ const PopUpEditPatient = ( {trigger,setTrigger} ) => {
     //Load Patients and Doctors
     useEffect(() => {
         CreateListOfPatients();
+    }, []);
+    
+    useEffect(() => {        
         CreateListOfDoctors();    
     }, []);
 
     const CreateListOfPatients = (  ) => {
+        setListOfPatients([]);
         Axios.get('https://telemedicine5a-backend.herokuapp.com/users/getPatients')        
             .then((response) => {                
                 let data = response.data;           
@@ -96,6 +100,7 @@ const PopUpEditPatient = ( {trigger,setTrigger} ) => {
     }
 
     const CreateListOfDoctors = (  ) => {
+        setListOfDoctors([]);
         Axios.get('https://telemedicine5a-backend.herokuapp.com/users/getDoctors')
             .then((response) => {                
                 let data = response.data;           
@@ -130,23 +135,26 @@ const PopUpEditPatient = ( {trigger,setTrigger} ) => {
     }
 
     //List of Doctor Familes
-
     const listOfFamilies = [
         {
             label:  "Allergist",
-            value:  "allergist",
+            value:  "Allergist",
         },
         {
             label:  "Anesthesiologist",
-            value:  "anesthesiologist",
+            value:  "Anesthesiologist",
         },
         {
             label:  "Cardiologist",
-            value:  "cardiologist",
+            value:  "Cardiologist",
         },
         {
             label:  "Dermatologist",
-            value:  "dermatologist",
+            value:  "Dermatologist",
+        },
+        {
+            label:  "Family Physician",
+            value:  "Family Physician",
         },
         {
             label:  "Infectious Disease",
@@ -154,27 +162,27 @@ const PopUpEditPatient = ( {trigger,setTrigger} ) => {
         },
         {
             label:  "Neurologist",
-            value:  "neurologist",
+            value:  "Neurologist",
         },
         {
             label:  "Oncologist",
-            value:  "oncologist",
+            value:  "Oncologist",
         },
         {
             label:  "Pathologist",
-            value:  "pathologist",
+            value:  "Pathologist",
         },
         {
             label:  "Pediatrician",
-            value:  "pediatrician",
+            value:  "Pediatrician",
         },
         {
             label:  "Physiatrist",
-            value:  "physiatrist",
+            value:  "Physiatrist",
         },
         {
             label:  "Radiologist",
-            value:  "radiologist",
+            value:  "Radiologist",
         },
     ];
 
@@ -322,13 +330,13 @@ const PopUpEditPatient = ( {trigger,setTrigger} ) => {
                     }}
                 >     
                    <Select
-                    isMulti
-                    name="docFam"
-                    options={listOfFamilies}
-                    className="basic-multi-select"
-                    classNamePrefix="select"
-                    value={listOfApprovedDocFamily}
-                    onChange={e=>updateDocFamList(e)}
+                        isMulti
+                        name="docFam"
+                        options={listOfFamilies}
+                        className="basic-multi-select"
+                        classNamePrefix="select"
+                        value={listOfApprovedDocFamily}
+                        onChange={e=>updateDocFamList(e)}
                    />
                 </div>
 

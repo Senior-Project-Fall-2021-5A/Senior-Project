@@ -33,15 +33,58 @@ const Reports = () =>{
 
     useEffect(() => {
         console.log("Page Open: ",txtGlobalUserID);
-        Axios.get(`https://telemedicine5a-backend.herokuapp.com/reports/getReports`)////${txtGlobalUserID}
+        getReports();
+    }, []);
+
+    //get Reports
+    const getReports = () => {
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/reports/getReports/${authUserObject.userId}`)
             .then((response) => {
                 console.log("reports:",response);
-                setListOfReports(response.data);                
+                let arrData = response.data;
+                arrData.forEach(e=> {
+                    e.date = new Date(e.date.split('-').join('/')); 
+                })
+                setDoctors(arrData); // send to lop to get doctors
             })
             .catch((err) => {
                 console.log(err, "Unable to get Reports");
             });
-    }, []);
+    }
+
+    //set Doctors
+    const setDoctors = ( arrData ) => {
+        console.log("arrData - ",arrData);
+        let newList = [];
+        arrData.forEach(e => {
+            console.log("e: ",e);
+            let id = e.doctorUID; //set ID to doctor
+            console.log("id: ",id);
+            Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${id}`)
+                .then((response) => {
+                    let data = response.data;
+                    console.log("setTheNames() - response:", data);
+
+                    let name = "";
+                    if (data[0]){
+                        name = data[0].lastName + ", " + data[0].firstName;
+                        console.log("setTheNames() - name:", name);
+                    } else {
+                        name = "unknown";
+                    }
+
+                    e.doctorName = name;
+                    console.log("setTheNames() - e.doctorName:", e.doctorName);
+
+                    console.log("setTheNames() - arrData: ", arrData);
+                    newList = [...newList, e];
+
+                    setListOfReports(newList);
+                }).catch((err) => {
+                    console.log(err, "Unable to set Names of Doctors");
+                });
+            });
+    }
 
 
     return (
@@ -62,7 +105,7 @@ const Reports = () =>{
                                     return (
                                         <tr key={report._id} >
                                             <td style={tdStyle}>{report.details}</td>
-                                            <td style={tdStyle}>{report.doctor}</td>
+                                            <td style={tdStyle}>{report.doctorName}</td>
                                             <td style={tdStyle}>{
                                                 (new Date(report.date)).toLocaleDateString()
                                             }</td>
@@ -73,7 +116,7 @@ const Reports = () =>{
                                                     doLink = "true"
                                                     btnWidth = "100px"
                                                     data = {{
-                                                        doctor: report.doctor, 
+                                                        doctor: report.doctorName, 
                                                         _id: report._id,
                                                     }}
                                                     

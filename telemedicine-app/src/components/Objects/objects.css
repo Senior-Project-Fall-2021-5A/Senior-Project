@@ -12,8 +12,7 @@
     font-weight: 700;
     transition: .5s;
     outline: none;
-    cursor: pointer;    
-    
+    cursor: pointer;
   }
   
   .objbutton:hover{    

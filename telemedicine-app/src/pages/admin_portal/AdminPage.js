@@ -258,6 +258,7 @@ function AdminPage() {
                             {/* New Patient */}
                             <div>
                                 <PopUpAddPatient
+                                    newStaffPopup={newStaffPopup}
                                     trigger={newPatientPopup}
                                     setTrigger={setnewPatientPopup}
                                 />
@@ -266,6 +267,8 @@ function AdminPage() {
                             {/* Edit Patient */}
                             <div>
                                 <PopUpEditPatient
+                                    newPatientPopup={newPatientPopup}
+                                    newStaffPopup={newStaffPopup}
                                     trigger={editPatientPopup}
                                     setTrigger={seteditPatientPopup}
                                 />
@@ -282,6 +285,8 @@ function AdminPage() {
                             {/* New Apt */}
                             <div>
                                 <PopUpAddAppt
+                                    newPatientPopup={newPatientPopup}
+                                    newStaffPopup={newStaffPopup}
                                     trigger={apptInputPopup}
                                     setTrigger={setApptInputPopup}
                                 />

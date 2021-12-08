@@ -23,6 +23,7 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
     //http://localhost:3003/doctors/getDoctorInfo
     
     useEffect(() => {
+        setListOfDoctors([]);
         Axios.get('https://telemedicine5a-backend.herokuapp.com/users/getDoctors')        
             .then((response) => {     
                 let data = response.data;           
