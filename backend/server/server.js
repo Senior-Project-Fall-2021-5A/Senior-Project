@@ -68,12 +68,11 @@ app.use(function (req, res, next) {
     });
 app.use(express.json({ extended: false }));
 let gfs;
+const conn = mongoose.connection;
 
-connect.once('open', () => {
-    // initialize stream
-    gfs = new mongoose.mongo.GridFSBucket(connect.db, {
-        bucketName: "files"
-    });
+conn.once("open", function() {
+    gfs = Grid(conn.db, mongoose.mongo);
+    gfs.collection('upload');
 });
 
 app.use('/auth', require('./routes/auth'));

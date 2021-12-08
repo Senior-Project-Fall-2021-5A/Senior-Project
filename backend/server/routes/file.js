@@ -1,4 +1,4 @@
-/* const upload = require("../middleware/file");
+const upload = require("../middleware/file");
 const express = require("express");
 const router = express.Router();
 const cors = require('cors')
@@ -27,7 +27,11 @@ router.get('/getFiles/:reportId', async (req, res) => {
     .catch(err => next(err));
 });
 
-router.post("/uploadFiles", upload.single('file'), async (req, res) => {
+router.post("/uploadFiles",upload.single('file'), async (req, res) => {
+    /*
+    if (req.file === undefined) return res.send("you must select a file.");
+    return res.send('file upload'); 
+    */
     const reportUID = req.body.reportUID;
     const title = req.body.title;
     const description = req.body.description;
@@ -49,71 +53,6 @@ router.post("/uploadFiles", upload.single('file'), async (req, res) => {
 
 await newFile.save();
 res.send("File Upload!") 
-});
-
-module.exports = router; */
-
-const router = require('express').Router();
-const multer = require('multer');
-const { mongo, connection } = require('mongoose');
-const Grid = require('gridfs-stream');
-const {GridFsStorage} = require("multer-gridfs-storage");
-Grid.mongo = mongo;
-var gfs = Grid('mongodb+srv://Admin:uMUAkKcITOdFYFLr@telemedicine0.3ifgy.mongodb.net/Telemedicine_Backend?retryWrites=true&w=majority');
-
-// set up connection to db for file storage
-const storage = new GridFsStorage({
-  db: 'mongodb+srv://Admin:uMUAkKcITOdFYFLr@telemedicine0.3ifgy.mongodb.net/Telemedicine_Backend?retryWrites=true&w=majority',
-  file: (req, file) => {
-    return {
-      filename: file.originalname
-    }
-  }
-});
-
-// sets file input to single file
-const singleUpload = multer({ storage: storage }).single('file');
-router.get('/files/:filename', (req, res) => {
-  gfs.files.find({ filename: req.params.filename }).toArray((err, files) => {
-    if(!files || files.length === 0){
-      return res.status(404).json({
-        message: "Could not find file"
-      });
-    }
-    var readstream = gfs.createReadStream({
-      filename: files[0].filename
-    })
-    res.set('Content-Type', files[0].contentType);
-    return readstream.pipe(res);
-  });
-});
-
-router.get('/files', (req, res) => {
-  gfs.files.find().toArray((err, files) => {
-    if(!files || files.length === 0){
-      return res.status(404).json({
-        message: "Could not find files"
-      });
-    }
-    return res.json(files);
-  });
-});
-
-router.post('/uploadFiles', singleUpload, (req, res) => {
-  if (req.file) {
-    return res.json({
-      success: true,
-      file: req.file
-    });
-  }
-  res.send({ success: false });
-});
-
-router.delete('/files/:id', (req, res) => {
-  gfs.remove({ _id: req.params.id }, (err) => {
-    if (err) return res.status(500).json({ success: false })
-      return res.json({ success: true });
-    })
 });
 
 module.exports = router;
