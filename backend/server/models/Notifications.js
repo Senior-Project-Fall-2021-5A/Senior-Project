@@ -3,19 +3,19 @@ const mongoose = require('mongoose');
 const NotificationsSchema = new mongoose.Schema({
 
     userUID: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'UserModel',
+        type: mongoose.Schema.Types.ObjectId,
         required: false,
     },
     appointmentsUID: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'AppointmentsModel',
+        type: mongoose.Schema.Types.ObjectId,
         required: false, 
     },
     reportsUID: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'ReportsModel',
+        type: mongoose.Schema.Types.ObjectId,
         required: false,
     },
     inboxUID: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'InboxModel',
+        type: mongoose.Schema.Types.ObjectId,
         required: false,
     },
     message: {
