@@ -6,6 +6,10 @@ const DoctorDemoSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: false, 
     },
+    locationUID: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: false,
+    },
     fieldOfStudy: {
         type: String,
         required: false,
