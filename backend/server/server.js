@@ -72,7 +72,7 @@ let gfs;
 connect.once('open', () => {
     // initialize stream
     gfs = new mongoose.mongo.GridFSBucket(connect.db, {
-        bucketName: "test"
+        bucketName: "files"
     });
 });
 
