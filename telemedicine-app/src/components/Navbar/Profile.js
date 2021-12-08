@@ -19,11 +19,13 @@ function Profile() {
     
     //the onClick function handled when clicking on the notification Item
     function isClicked(id){
+            //sets the read variable for the toast notificaiton to true
             isReadRed= true;
+            //iterates the count of the read indexes down 1
             readCount--
-            console.log("isRead is: ", isReadRed)
-            console.log("This is readCount: ", readCount);
+            //performs the post function on click updating the isRead value in the DB
             updateNotification(id);
+        //displays the toast as none when the count reaches 0 by clicking
         if(readCount === 0){
             document.getElementById("notificationToast").style.display="none";
         }
@@ -42,7 +44,6 @@ function Profile() {
                   isRead: true
                 }
               });
-              console.log("is read post: ", isReadRed)
             }
     
     const getUserInfo = (  ) => {
@@ -66,8 +67,6 @@ function Profile() {
                 if(result.length === 0){
                     document.getElementById("notificationToast").style.display="none";
                 }
-
-                console.log("here are your notifications: ", result);
             }).catch((err) => {
                 console.log(err, "Unable to get notifications");
             });
