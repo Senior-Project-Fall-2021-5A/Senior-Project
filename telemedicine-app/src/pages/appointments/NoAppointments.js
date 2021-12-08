@@ -384,10 +384,9 @@ function NoAppointments() {
                                                         <h1><button className="btnCall" onClick={() => CreateRoom(currApptId)}>Start Call</button></h1>
                                                          : ''}
                                                     
-                                                     
                                                     <h1><button className="cancelBtn" onClick={()=>triggerCancel(appointment._id)}>Cancel</button></h1>
                                                     <NotesPopUp
-                                                    value={appointment.appntNotes}
+                                                    value={appointment.apptNotes}
                                                     />
                                                
                              
@@ -443,17 +442,8 @@ function NoAppointments() {
                                                     <h1 className="patient">Patient: {appointment.patientName}</h1>
                                                     <h1 className="doctor">Doctor: {appointment.doctorName}</h1>
                                                     <h1 className="address">Location: {appointment.locationName}</h1>
-                                                    
-                                                    <Link to='/client'>
-                                                        <h1>
-                                                        <button className="btnCall">Start Call</button>     
-                                                        </h1>
-                                                    </Link>
-                                                    
-                                                     
-                                                    <h1><button className="cancelBtn" onClick={()=>triggerCancel(appointment._id)}>Cancel</button></h1>
                                                     <NotesPopUp
-                                                    value={appointment.appntNotes}
+                                                    value={appointment.apptNotes}
          
                                                     />
                                                     
