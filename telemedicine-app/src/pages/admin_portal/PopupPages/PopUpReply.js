@@ -7,10 +7,10 @@ import Axios from 'axios';
 import authUserObject from '../../../middleware/authUserObject';
 
 
-const PopUpComposeMessage = ({ trigger, setTrigger }) => {
+const PopUpReply = ({ trigger, setTrigger, subject }) => {
     //declarations
     const [txtBody, setBody] = React.useState("");
-    const [txtSubject, setSubject] = React.useState("");
+    const [txtSubject, setSubject] = React.useState(subject);
     const [txtPatientLName, setPatientLName] = React.useState("");
     const [textDoctor, setDoctor] = React.useState([]);
     const [listOfPatients, setListOfPatients] = React.useState([]);
@@ -86,17 +86,7 @@ const PopUpComposeMessage = ({ trigger, setTrigger }) => {
     }
 
 
-    const sendNotification = () => {
-        Axios({
-            method: 'post',
-            url: 'https://telemedicine5a-backend.herokuapp.com/notifs/addNotifications',
-            data: {
-                userUID: doctorUID,
-                notif_type: 'inbox',
-                isRead: false
-            }
-        });
-    }
+
 
 
     // Create Message
@@ -121,7 +111,6 @@ const PopUpComposeMessage = ({ trigger, setTrigger }) => {
             setPatientLName("");
             setTrigger(false);
             sendMessage();
-            sendNotification();
         }
     }
 
@@ -150,13 +139,13 @@ const PopUpComposeMessage = ({ trigger, setTrigger }) => {
             setBoolError(true);
         });
     }
-
+   
     return (
 
         <PopUpWindow
             trigger={trigger}
             setTrigger={setTrigger}
-            header="Compose Message"
+            header="Reply"
         >
             {/* Grid */}
             <div className="popup_container"
@@ -301,7 +290,7 @@ const PopUpComposeMessage = ({ trigger, setTrigger }) => {
                         gridColumn: 1,
                     }}
                 >
-                    <h5 className="popup_label">Message:</h5>
+                    <h5 className="popup_label">Reply:</h5>
                 </div>
                 <div className="popup_inputs_grid"
                     style={{
@@ -321,7 +310,7 @@ const PopUpComposeMessage = ({ trigger, setTrigger }) => {
                     />
                 </div>
 
-
+                
 
                 {/* Button Create */}
                 <div className="popup_spread_grid"
@@ -352,4 +341,4 @@ const PopUpComposeMessage = ({ trigger, setTrigger }) => {
     )
 }
 
-export default PopUpComposeMessage
+export default PopUpReply

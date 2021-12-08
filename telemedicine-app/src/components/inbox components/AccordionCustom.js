@@ -5,6 +5,7 @@ import { IconContext } from 'react-icons';
 import { FiPlus, FiMinus } from 'react-icons/fi';
 import avatar from "./assets/img_avatar.png";
 
+
 const avatarStyle = {
     verticalAlign: "middle",
     width: "50px",
@@ -68,7 +69,7 @@ const Accordion = () => {
     const [clicked, setClicked] = useState(false)
 
     const toggle = index => {
-        // if clicked thing is alrady active then close it
+        // if clicked thing is already active then close it
         if (clicked === index) {
             return setClicked(null)
         }
@@ -90,7 +91,7 @@ const Accordion = () => {
                             </Wrap>
                             {clicked === index ? (
                                 <Dropdown>
-                                    <p>{item.Message}</p>
+                                    <p class="lead">{item.Message}</p>
                                 </Dropdown>
                             ) : null}
 

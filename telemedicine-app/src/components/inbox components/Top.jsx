@@ -42,7 +42,7 @@ function Top() {
 
             />
         </div>
-        {/* New Patient */}
+        {/* Compose Message */}
         <div>
             <PopUpComposeMessage
                 trigger={newPatientPopup}
