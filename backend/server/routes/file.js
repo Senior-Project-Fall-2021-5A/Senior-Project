@@ -57,11 +57,12 @@ const router = require('express').Router();
 const multer = require('multer');
 const { mongo, connection } = require('mongoose');
 const Grid = require('gridfs-stream');
+const {GridFsStorage} = require("multer-gridfs-storage");
 Grid.mongo = mongo;
 var gfs = Grid('mongodb+srv://Admin:uMUAkKcITOdFYFLr@telemedicine0.3ifgy.mongodb.net/Telemedicine_Backend?retryWrites=true&w=majority');
 
 // set up connection to db for file storage
-const storage = require('multer-gridfs-storage')({
+const storage = new GridFsStorage({
   db: connection.db,
   file: (req, file) => {
     return {
