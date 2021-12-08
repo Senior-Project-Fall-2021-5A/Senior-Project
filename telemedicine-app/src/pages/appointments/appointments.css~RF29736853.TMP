@@ -38,7 +38,6 @@
     height: 40px;
     float: right;
     margin-top: -11vh;
-   
     
 }
 
@@ -56,7 +55,7 @@
     margin-top: 0vh;
     float: left;
     display: inline;
-    margin-left: 23vw;
+    margin-left: 11vw;
 }
 
 
@@ -137,24 +136,26 @@
 }
 
 .doctor {
-    margin-left: -15vw;
+
     font-weight: 600;
     font-size: 18px;
     position: relative;
+
 }
 
 .address {
-    margin-left: -15vw;
+    
     font-weight: 600;
     font-size: 18px;
     position: relative;
 }
 
 .patient {
-    margin-left: -15vw;
+   
     font-weight: 600;
     font-size: 18px;
     position: relative;
+ 
 }
 
 .textarea-edit {
@@ -226,7 +227,6 @@
     padding: 0px;
     width: 7vw;
     height: 4vh;
-
 }
 
     .btnCreateAppnt:hover {
@@ -254,6 +254,10 @@
     font-weight: 600;
     font-size: 18px;
     color: blue;
+}
+
+.accBodyContainer {
+    float: left;
 }
 
 
@@ -285,21 +289,15 @@
    
 }
 
-@media only screen and (max-width: 850px) {
+@media only screen and (max-width: 930px) {
   
-    .button {
-        margin-top: 1vh;
-    }
-
-}
-
-@media only screen and (max-width: 931px) {
-
     .accordion-container {
         display: -webkit-box;
         display: flex;
         -webkit-box-pack: justify;
+       
     }
+
 }
 
 

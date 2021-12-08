@@ -100,7 +100,7 @@ function Profile() {
             <DropdownButton  className='profile-button' id="pro"title={<span className='profile-icon'><i class="fas fa-user-circle fa-2x"></i></span>} >
                 <span className="visually-hidden">unread messages</span>
                 <Dropdown.Item eventKey="1" href='/myaccount'>My Account</Dropdown.Item>
-                <Dropdown.Item eventKey="2" href='/appointments'>My Appointments</Dropdown.Item>
+                <Dropdown.Item eventKey="2" href='/NoAppointments'>My Appointments</Dropdown.Item>
                 <Dropdown.Item eventKey="3" href='/reports'>My Reports</Dropdown.Item>
                 <Dropdown.Item eventKey="4" href='/inbox'>My Inbox</Dropdown.Item>
                 {boolPortal && <Dropdown.Item eventKey="5" href= '/adminPortal'>Portal</Dropdown.Item>} 

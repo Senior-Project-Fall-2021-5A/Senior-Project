@@ -8,9 +8,10 @@ const OBJPopUpInput = ( props ) => {
                 
                 <button 
                     className="close-btn" 
+                    class="close"
                     onClick={()=> props.setTrigger(false)}
                 >
-                    close
+                   
                 </button>
                 <h1>{props.header}</h1>
                 { props.children }

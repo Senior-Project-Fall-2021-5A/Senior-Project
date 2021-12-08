@@ -1,0 +1,33 @@
+.btn.outline {
+    background: none;
+    padding: 16px 40px;
+    border-radius: 20px;
+}
+
+.btn-primary.outline {
+    border: 2px solid #0099cc;
+    color: #0099cc;
+    margin-left: 90px;
+    transition: transform .2s;
+}
+
+    .btn-primary.outline:hover, .btn-primary.outline:focus, .btn-primary.outline:active, .btn-primary.outline.active, .open > .dropdown-toggle.btn-primary {
+        color: seagreen;
+        border-color: #33a6cc;
+        transform: scale(1.2);
+        background-color: rgb(220,220,220);
+    }
+
+.btn-primary.outline:active, .btn-primary.outline.active {
+    border-color: #007299;
+    color: #007299;
+    box-shadow: none;
+}
+
+.time-container {
+   
+    margin-top: 2vh;
+    margin-left: 5vw;
+    position: relative;
+    
+}

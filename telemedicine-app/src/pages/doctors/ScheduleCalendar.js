@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './Calendar.css';
@@ -14,6 +14,10 @@ import { Link, useParams } from "react-router-dom";
 import DoctorTime from './DoctorTime';
 import './DoctorTime.css';
 
+import Axios from 'axios';
+
+import DatePicker from "react-datepicker";
+
 const ScheduleCalendar = () => {
   const [dateState, setDateState] = useState(new Date());
 
@@ -27,6 +31,25 @@ const ScheduleCalendar = () => {
 
   const { doc, type } = useParams();
 
+  const [daysOff, setDaysOff] = useState([]);
+
+   const [date,setDate] = React.useState(new Date());
+
+  useEffect(() => {
+	 
+        createSchedule();
+		
+	}, [])
+
+  const createSchedule = () => {
+        Axios.get('https://telemedicine5a-backend.herokuapp.com/users/getDaysOff')
+            .then((response) => {                
+                setDaysOff(response.data);
+            }).catch((err) => {
+                console.log(err, "Unable to get days off");
+            });
+    }
+
   return (
      <div className='appointments'>
         <Navbar/>
@@ -34,13 +57,13 @@ const ScheduleCalendar = () => {
             <div className='Appointments-container-inner'>
               <div className='Appointments-card'>
              
-                  <Calendar className="calendar-container"
-                    value={dateState}
-                    onChange={changeDate}
-                  />
+                 <DatePicker                            
+                    selected={date}
+                    onChange={e=>setDate(e)}
+                />
 
                   <div className="calendar-text">
-                     <p>Current selected date is <b>{moment(dateState).format('MMMM Do YYYY')}</b></p>
+                     <p>Current selected date is <b></b></p>
                   </div>
                   
                   <div className="confirm-date">
@@ -56,9 +79,9 @@ const ScheduleCalendar = () => {
 
                        {DoctorTime.map((item, index) => {
                           return (
-                             <Link to={`/ConfirmSchedule/${doc}/${type}/${moment(dateState).format('MMMM Do YYYY')}/${item.time}`}>
+                             <Link to={`/ConfirmSchedule/${doc}/${type}/${date}/${item.label}`}>
                                <div className="time-container">
-                                <button class="btn btn-primary btn-lg outline">{item.time}</button>
+                                <button class="btn btn-primary btn-sm outline">{item.label}</button>
                                </div>
                              </Link>
                           )
