@@ -7,12 +7,7 @@ var ObjectID = require('mongodb').ObjectId;
 router.use(cors({origin: '*'}));
 
 router.get('/getLocation/:locationId', function (req, res) {
-    LocationModel.find({
-        $or: [
-            { userUID: req.params.userId },
-            { doctorUID: req.params.userId }
-        ]
-    })
+    LocationModel.find({_id: req.params.locationId })
     .then(location => {
         if (!location) { return res.send("Invalid Location ID")}
         return res.status(200).json(location);
