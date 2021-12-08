@@ -67,8 +67,11 @@ const PopUpAddReport = ( {userUID, appointmentsUID, doctorUID, txtDate, location
                     date:               txtDate,
                     details:            textInput,
                 }).then((response) => {
-                    console.log("Add Report, response: ",response) 
-                    addFile(response);
+                    console.log("Add Report, response: ",response);
+                    console.log("Add Report, response reportID: ",response.data.data._id);
+                    let reportID = response.data.data._id;
+                    addFile(reportID);
+
                     
                    
                 }).catch((err) => {
@@ -88,9 +91,10 @@ const PopUpAddReport = ( {userUID, appointmentsUID, doctorUID, txtDate, location
     }
 
     //send File
-    const addFile = ( response ) => {
-        Axios.post('https://telemedicine5a-backend.herokuapp.com/file/uploadFiles', {
-                    reportUID:  response.data._id,
+    const addFile = ( reportID ) => {
+        Axios.post('https://telemedicine5a-backend.herokuapp.com/file/uploadFiles',file, {
+                    reportUID:  reportID,
+                    description: userUID+txtDate,
                     //file:    
                 }).then((response) => {
                     console.log("Add Report, response: ",response) 
@@ -101,7 +105,7 @@ const PopUpAddReport = ( {userUID, appointmentsUID, doctorUID, txtDate, location
                     console.log("Org Error: ",err);
 
                     //error display
-                    setError("Unable to add Report");
+                    setError("Unable to add File");
                     setBoolError(true);            
                 });
     }

@@ -6,3 +6,7 @@
 /approved doc: http://localhost:3003/users/approvedDoctors/:userId
 /addUserInfo http://localhost:3003/users/createUserProfile/:userId
 /getUserInfo http://localhost:3003/users/getUserInfo/:userId
+
+Jamie@jamiesquared.com
+
+James@GetJames.com
