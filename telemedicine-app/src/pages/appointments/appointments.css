@@ -38,9 +38,18 @@
     height: 40px;
     float: right;
     margin-top: -11vh;
-   
-    
+     
 }
+
+.refreshBtn {
+    background-color: transparent;
+    margin-top: -20vh;
+    color: black;
+    font-size: 30px;
+    text-align: center;
+    border: 2px;
+}
+
 
 .btnCall {
     background-color: #0d6efd;
@@ -289,6 +298,14 @@
   
     .button {
         margin-top: 1vh;
+    }
+
+    .refreshBtn {
+        margin-top: 1vh;
+    }
+
+    .refreshLabel {
+        float:left;
     }
 
 }

@@ -60,6 +60,9 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 
 	 const [listOfApprovedDocFamily, setlistOfApprovedDocFamily] = React.useState([]);
 
+	 const [dateValue, setDateValue] = React.useState(new Date());
+     const [txtDateValue, setTxtDateValue] = React.useState(new Date().toLocaleDateString("en-US").split('/').join('-'));
+
 	const searchText = (event) => {
 		setFilter(event.target.value);
 	}
@@ -258,7 +261,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
         Axios.post('https://telemedicine5a-backend.herokuapp.com/appointments/addAppointment', {
                 userUID:        userId,
                 doctorUID:		doctorID,
-                date:           date,
+                date:           txtDateValue,
                 time:           textTime,
 				type:			typeSelect,
                 locationUID:    txtLocation,
@@ -273,6 +276,8 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 				setApptInputPopup(false);
 				setTime("");
 				setMyDocs("");
+				setDateValue("");
+				setTxtDateValue("");
 				
 
             }).catch((err) => {
@@ -411,10 +416,17 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 			
 	}
 
-	const convertDate() {
-	
-		
-	}
+    const dateSelected = ( event ) => {
+
+		setDate(event);
+        setDateValue(event);
+
+        //convert date to string
+        setTxtDateValue(event.toLocaleDateString("en-US").split('/').join('-'));
+
+		console.log("local string date: " + dateValue);
+		console.log("text date value: " + txtDateValue);
+    }
 	
 
 	return(
@@ -473,7 +485,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 												 <div>
 													<DatePicker                            
 														selected={date}
-														onChange={e=>setDate(e)}
+														onChange={e=>dateSelected(e)}
 													/>
 
 													

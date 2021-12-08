@@ -152,7 +152,7 @@ function NoAppointments() {
 
             
 
-            setPastAppointments(past.sort(byDate).reverse());
+            setPastAppointments(past.sort(byDate));
             setUpcomingAppointments(upcoming.sort(byDate));
 
            
@@ -210,7 +210,7 @@ function NoAppointments() {
        window.location.reload();
 	}
 
-
+    const [isShownRefresh, setIsShownRefresh] = useState(false);
     
 
    return (
@@ -224,11 +224,17 @@ function NoAppointments() {
                        <div className='Appointments-card'>
 
 
-                          <div className="refreshLabel"><h6>View new appointment</h6></div>
-                          <Button className="refreshBtn" onClick={refreshPage}>
-                                <i class="fas fa-redo-alt"></i>   
+                          <h6>View new appointment</h6>
+                          <Button className="refreshBtn" onClick={refreshPage} 
+                             
+                                <i class="fas fa-redo-alt"></i>
+                                
                           </Button>
-                          
+                          {isShownRefresh && (
+                            <div>
+                              Click to view new appointment
+                            </div>
+						  )}
                          
 
                           <Link to='/DoctorSearch'>
