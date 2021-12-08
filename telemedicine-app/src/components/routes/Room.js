@@ -44,17 +44,12 @@ const Room = (props) => {
 
     function createPeer(userID) {
         const peer = new RTCPeerConnection({
-            iceServers: [
+            iceServers:[
                 {
-                    urls: "stun:stun.stunprotocol.org"
-                },
-                {
-                    urls: 'turn:numb.viagenie.ca',
-                    credential: 'muazkh',
-                    username: 'webrtc@live.com'
+                    urls: ['stun:stun1.l.google.com:19302', 'stun:stun2.l.google.com:19302']
                 },
             ]
-        });
+        }); 
 
         peer.onicecandidate = handleICECandidateEvent;
         peer.ontrack = handleTrackEvent;
