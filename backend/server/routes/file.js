@@ -59,6 +59,7 @@ const { mongo, connection } = require('mongoose');
 const Grid = require('gridfs-stream');
 Grid.mongo = mongo;
 var gfs = Grid(connection.db);
+
 // set up connection to db for file storage
 const storage = require('multer-gridfs-storage')({
   db: connection.db,
@@ -85,6 +86,7 @@ router.get('/files/:filename', (req, res) => {
     return readstream.pipe(res);
   });
 });
+
 router.get('/files', (req, res) => {
   gfs.files.find().toArray((err, files) => {
     if(!files || files.length === 0){
@@ -93,8 +95,10 @@ router.get('/files', (req, res) => {
       });
     }
     return res.json(files);
+  });
 });
-router.post('/uploadFiles', singleUpload, (req, res) => {
+
+router.post('/files', singleUpload, (req, res) => {
   if (req.file) {
     return res.json({
       success: true,
@@ -103,10 +107,12 @@ router.post('/uploadFiles', singleUpload, (req, res) => {
   }
   res.send({ success: false });
 });
+
 router.delete('/files/:id', (req, res) => {
   gfs.remove({ _id: req.params.id }, (err) => {
     if (err) return res.status(500).json({ success: false })
       return res.json({ success: true });
     })
-})
+});
+
 module.exports = router;
