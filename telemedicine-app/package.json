@@ -2,7 +2,7 @@
   "name": "telemedicine-app",
   "version": "0.1.0",
   "private": true,
- "proxy": "https://telemedicine5a-backend.herokuapp.com/",
+  "proxy": "https://telemedicine5a-backend.herokuapp.com/",
   "dependencies": {
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",

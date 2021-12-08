@@ -22,34 +22,59 @@ import NotesPopUp from '../doctors/NotesPopUp.js';
 
 
 function NoAppointments() {
-
-    const [listOfAppointments, setListOfAppointments] = useState([]);
+    //declarations
+    
     const [listOfLocations,setListOfLocations] = React.useState([]);
-
-    const [pastAppointments, setPastAppointments] = useState([]);
-    const [upcomingAppointments, setUpcomingAppointments] = useState([]);
-
+    
     const [show, setShow] = useState("");
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
     const history = useHistory();
+    const [toggleState, setToggleState] = useState(1);
+    const [toggled, setToggled] = useState(false);
+    const [date,setDate] = React.useState(new Date());
+    const [cancel, setCancel] = useState('');
 
+    /***************************************************** 
+                    Handlers
+    ******************************************************/
+    //On Open
+    useEffect(() => {
+        getAppointments();
+    }, []);
+
+    /***************************************************** 
+                    Am I used???
+    ******************************************************/
     function handleOpen() {
        setShow(show === "" ? "active" : "");
 	}
-
-    const [toggleState, setToggleState] = useState(1);
-    const [toggled, setToggled] = useState(false);
-
-    const toggleTab = (index) => {
-        setToggleState(index);
-    };
 
     const CreateRoom = (apptId) => {
         const id = uuid();
         history.push(`/room/${id}`);
         updateVirtualID(id, apptId);
     }
+
+    /***************************************************** 
+                    Functions
+    ******************************************************/
+    const toggleTab = (index) => {
+        setToggleState(index);
+    };
+
+    const toggleAccordion = (index) => {
+
+        if(toggled === index){
+          return setToggled(null);
+        }
+    
+        setToggled(index);       
+    }
+
+    /***************************************************** 
+                    Axios Post
+    ******************************************************/
 
     const updateVirtualID = (virtualID, apptId) => {
         Axios.post(`https://telemedicine5a-backend.herokuapp.com/appointments/updateApptInfo/${apptId}`, {
@@ -62,117 +87,208 @@ function NoAppointments() {
         })
     }
 
-    const toggleAccordion = (index) => {
+    /***************************************************** 
+                    Axios Get
+    ******************************************************/
+    //Get Appointments by ID
+    const [listOfAppointments, setListOfAppointments] = useState([]);
+    const [pastAppointments, setPastAppointments] = useState([]);
+    const [upcomingAppointments, setUpcomingAppointments] = useState([]);
+    const getAppointments = (  ) => {
+        setListOfAppointments([]);
+        setPastAppointments([]);
+        setUpcomingAppointments([]);
+        let arrData = [];
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/appointments/getAppointments/${authUserObject.userId}`)        
+            .then((response) => {                
+                arrData = response.data;           
+                //console.log("getAppointments() - response:",arrData);
 
-        if(toggled === index){
-          return setToggled(null);
-        }
-    
-        setToggled(index);
-       
+                //send to get Patient Names
+                setPatientNames(arrData);
+            }).catch((err) => {
+                console.log(err, "Unable to get Patients");
+            });
+            
+            
     }
 
-     const [date,setDate] = React.useState(new Date());
+    //set Patient Name
+    const setPatientNames = ( arrData ) => {
+        //console.log("setPatientNames() - arrData:",arrData);
 
-     const [cancel, setCancel] = useState('');
+        arrData.forEach(e=> {
+            //console.log("e: ",e);
+            let id = e.userUID; //UID
+            //console.log("id: ",id);
+            Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${id}`)
+                .then((response) => {
+                    let data = response.data;
+                    //console.log("setPatientNames() - response:", data);
+
+                    //set Name
+                    let name = "";
+                    if (data[0]){
+                        name = data[0].lastName + ", " + data[0].firstName;
+                        //console.log("setPatientNames() - name: ",name);
+                    } else {
+                        name = "unknown";
+                    }
+
+                    //add new column
+                    e.patientName = name;
+
+                    
+                }).catch((err) => {
+                    console.log(err, "Unable to get Patients");
+                });
+        });
+        //check array
+        console.log("setPatientNames() - Updated arrData: ",arrData);
+        //send to get Doctors Names
+        setDoctorsNames(arrData);
+    }
+
+    //set Doctors Names
+    const setDoctorsNames = ( arrData ) => {
+        //console.log("setDoctorsNames() - arrData:",arrData);
+
+        arrData.forEach(e=> {
+            //console.log("e: ",e);
+            let id = e.doctorUID; //UID
+            //console.log("id: ",id);
+            Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${id}`)
+                .then((response) => {
+                    let data = response.data;
+                    //console.log("setDoctorsNames() - response:", data);
+
+                    //set Name
+                    let name = "";
+                    if (data[0]){
+                        name = data[0].lastName + ", " + data[0].firstName;
+                        //console.log("setDoctorsNames() - name: ",name);
+                    } else {
+                        name = "unknown";
+                    }
+
+                    //add new column
+                    e.doctorName = name;
+
+                    
+
+                }).catch((err) => {
+                    console.log(err, "Unable to get Doctors");
+                });
+        });
+        //check array
+        console.log("setDoctorsNames() - Updated arrData: ",arrData);
+        //send to get Location Fields
+        setLocationName(arrData);
+    }
+
+    //set Location Names
+    const setLocationName = ( arrData ) => {
+        //console.log("setLocationName() - arrData:",arrData);
+
+        arrData.forEach(e=> {
+            //console.log("e: ",e);
+            let id = e.locationUID; //UID
+            //console.log("id: ",id);
+            Axios.get(`https://telemedicine5a-backend.herokuapp.com/location/getLocation/${id}`)
+                .then((response) => {
+                    let data = response.data;
+                    //console.log("setLocationName() - response:", data);
+
+                    //set Name
+                    let name = "";
+                    if (data[0]){
+                        name = data[0].name + " in " + data[0].city + data[0].zip;
+                        //console.log("setLocationName() - name: ",name);
+                    } else {
+                        name = "unknown";
+                    }
+
+                    //add new column
+                    e.locationName = name;
+
+                    
+
+                }).catch((err) => {
+                    console.log(err, "Unable to get Locations");
+                });
+        });
+        //check array
+        console.log("setLocationName() - Updated arrData: ",arrData);
+        //send to get Location Fields
+        setApptLists(arrData);
+    }
+
+    const setApptLists = (arrData) => {
+        console.log("setLocationName() - arrData:",arrData);
+
+        //declarations
+        const past = [];
+        const upcoming = [];
+        var current = moment(date, 'mm-dd-yyyy').format();
+        var currDate = current.slice(0, 10);
+        var currentTime = moment();
+        // console.log("current time: " + currentTime);
+
+        // loop through arrays and place them in the correct bucket
+        for(let key in arrData) {
+    
+            var dataDate = arrData[key].date.slice(0, 10);
+
+            var apiDate = moment(arrData[key].date, 'mm-dd-yyyy').valueOf()
+            console.log("api date: " + arrData[key].date);
+
+        
+            
+            var apiTime = moment(arrData[key].time, "hh:mm a");
+            console.log("apiTime: " + apiTime);
+            
+                console.log("dataDate: " + dataDate);
+
+                console.log("currentTime: " + currentTime);
+
+                console.log("currDate: " + currDate);
+
+                console.log('\n');
+            
+            if(moment(currDate).isAfter(dataDate)) {
+
+            
+                past.push(arrData[key]); 
+                
+                        
+            } 
+
+            if(moment(currDate).isBefore(dataDate)) {
+                upcoming.push(arrData[key]);
+            }
+
+            if(moment(currDate).isSame(dataDate)) {
+                    if(currentTime > apiTime) {
+                    past.push(arrData[key]); 
+                    
+                } else {
+                    upcoming.push(arrData[key]);
+                    
+                }
+            } 
+        }
+        //check array
+        console.log("setApptLists() - Updated past: ",past);
+        console.log("setApptLists() - Updated upcoming: ",upcoming);
+
+        setPastAppointments(past);
+        setUpcomingAppointments(upcoming);
+    }
+     
 
     
 
-    useEffect(() => {
-
-        Axios.get(`https://telemedicine5a-backend.herokuapp.com/appointments/getAppointments/${authUserObject.userId}`)
-        .then((response) => {
-
-            setListOfAppointments(response.data);
-
-           
-            console.log(response.data);
-
-
-            const past = [];
-            const upcoming = [];
-
-            var current = moment(date, 'mm-dd-yyyy').format();
-            var currDate = current.slice(0, 10);
-
-
-            var currentTime = moment();
-           // console.log("current time: " + currentTime);
-
-
-            for(let key in response.data) {
-        
-                var dataDate = response.data[key].date.slice(0, 10);
-
-                var apiDate = moment(response.data[key].date, 'mm-dd-yyyy').valueOf()
-                console.log("api date: " + response.data[key].date);
-
-          
-               
-                var apiTime = moment(response.data[key].time, "hh:mm a");
-                console.log("apiTime: " + apiTime);
-                
-                 console.log("dataDate: " + dataDate);
-
-                  console.log("currentTime: " + currentTime);
-
-                  console.log("currDate: " + currDate);
-
-                  console.log('\n');
-                
-                if(moment(currDate).isAfter(dataDate)) {
-
-               
-                    past.push(response.data[key]); 
-                   
-                           
-				} 
-
-                if(moment(currDate).isBefore(dataDate)) {
-                    upcoming.push(response.data[key]);
-                }
-
-                if(moment(currDate).isSame(dataDate)) {
-                     if(currentTime > apiTime) {
-                        past.push(response.data[key]); 
-                        
-					} else {
-                        upcoming.push(response.data[key]);
-                       
-					}
-				} 
-
-               
-			}
-
-            
-
-            setPastAppointments(past);
-            setUpcomingAppointments(upcoming);
-
-           
-        })
-        .catch((err) => {
-            console.log(err, "Unable to get appointments");
-        }, []);
-
-
-        const getLocations = (  ) => {
-        Axios.get(`https://telemedicine5a-backend.herokuapp.com/location/getLocations`)
-            .then((response) => {                
-                let data = response.data;           
-                console.log("getLocations() - response:",data);
-                data.forEach(e=>{setListOfLocations(listOfLocations=>[...listOfLocations,{
-                        label: e.name,
-                        value: e._id,
-                    }]
-                )})
-            }).catch((err) => {
-                console.log(err, "Unable to get Locations");
-            });
-        }
-
-    }, []);
+    
 
 
     //Cancel appnt function
@@ -182,17 +298,7 @@ function NoAppointments() {
         console.log(e);
         setCancel(e);
         
-        
 
-        /*Axios.post('.../cancelAppt/:apptId', {
-           
-            
-        }).then((response) => {
-
-
-        }).catch((err) => {
-                          
-        });*/
 	}
     
 
@@ -269,9 +375,9 @@ function NoAppointments() {
 
                                                 <div className="accordion1-body">
                                                 
-                                                    <h1 className="patient">Patient: </h1>
-                                                    <h1 className="doctor">Doctor Id: {appointment.doctorUID}</h1>
-                                                    <h1 className="address">Location Id: {appointment.locationUID}</h1>
+                                                    <h1 className="patient">Patient: {appointment.patientName}</h1>
+                                                    <h1 className="doctor">Doctor: {appointment.doctorName}</h1>
+                                                    <h1 className="address">Location: {appointment.locationName}</h1>
                                                     
                                                     
                                                     <Link to='/client'>
@@ -336,9 +442,9 @@ function NoAppointments() {
 
                                                 <div className="accordion1-body">
                                                 
-                                                    <h1 className="patient">Patient: </h1>
-                                                    <h1 className="doctor">{appointment.doctorUID}</h1>
-                                                    <h1 className="address">{appointment.locationUID}</h1>
+                                                    <h1 className="patient">Patient: {appointment.patientName}</h1>
+                                                    <h1 className="doctor">Doctor: {appointment.doctorName}</h1>
+                                                    <h1 className="address">Location: {appointment.locationName}</h1>
                                                     
                                                     <Link to='/client'>
                                                         <h1>
