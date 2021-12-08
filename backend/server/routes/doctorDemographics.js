@@ -28,12 +28,15 @@ router.get('/getDoctorInfo', async (req, res) => {
 router.post('/addDoctorInfo', async (req, res) => {
     const doctorUID = req.body.doctorUID;
     const fieldOfStudy = req.body.fieldOfStudy;
+    const locationUID = req.body.locationUID;
 
     const doctorObjId = new ObjectID(doctorUID);
+    const locationObjId = new ObjectID(locationUID);
 
     const newDoctorInfo = 
         new DoctorDemoModel({
             doctorUID: doctorObjId,
+            locationUID: locationObjId,
             fieldOfStudy: fieldOfStudy
         });
     

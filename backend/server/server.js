@@ -57,18 +57,13 @@ connection();
 
 // Initialize middleware
 app.use(cors());
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "https://gracious-lichterman-6add6d.netlify.app", "https://jovial-haibt-74c356.netlify.app/");
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept, Authorization, 'Content-Type' : 'multipart/form-data' ,* "
-    );
-    res.header(
-      "Access-Control-Allow-Methods",
-      "GET, POST, PATCH, PUT, DELETE, OPTIONS"
-    );
-    next();
-  });
+app.use(function (req, res, next) {
+    //Enabling CORS
+    res.header("Access-Control-Allow-Origin", "https://gracious-lichterman-6add6d.netlify.app/");
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+      next();
+    });
 app.use(express.json({ extended: false }));
 let gfs;
 const conn = mongoose.connection;
@@ -93,7 +88,6 @@ app.use('/notifs', require('./routes/notifications'));
 
 //video call
 
-
-server.listen(PORT, () => { console.log('Connection SUCCESSFUL') });
+server.listen(PORT, () => { console.log('Server Connection SUCCESSFUL') });
 
 module.exports = app;

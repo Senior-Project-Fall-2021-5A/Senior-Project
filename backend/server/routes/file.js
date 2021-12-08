@@ -18,13 +18,8 @@ router.get('/getFiles', async (req, res) => {
     });
 });
 
-router.get('/getFiles/:userId', async (req, res) => {
-    FileModel.find({
-        $or: [
-            { userUID: req.params.userId },
-            { doctorUID: req.params.userId }
-        ]
-    })
+router.get('/getFiles/:reportId', async (req, res) => {
+    FileModel.find({reportUID: req.params.reportId})
     .then(file => {
         if (!file) { return res.send("No documents for User")}
         return res.status(200).json(file);
@@ -32,7 +27,7 @@ router.get('/getFiles/:userId', async (req, res) => {
     .catch(err => next(err));
 });
 
-router.post("/uploadFiles",upload.single('file'), async (req, res) => {
+router.post("/uploadFiles", upload.single('file'), async (req, res) => {
     /*
     if (req.file === undefined) return res.send("you must select a file.");
     return res.send('file upload'); 
