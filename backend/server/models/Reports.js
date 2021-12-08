@@ -21,11 +21,11 @@ const ReportsSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
-    attachments: {
-        file: {
-            type: Buffer,
-        },
-        contentType: String,
+    fileName: {
+        
+        type: String,
+        required: false
+        
     },
 });
 

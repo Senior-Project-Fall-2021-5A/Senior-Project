@@ -38,6 +38,7 @@ router.post('/addReport', async (req, res) => {
     const date = req.body.date;
     const details = req.body.details;
     const attachments = req.body.attachments;
+    const fileName = req.body.fileName;
 
     // Turn string input into ObjectIDs
     const userObjId = new ObjectID(userUID);
@@ -52,6 +53,7 @@ router.post('/addReport', async (req, res) => {
             date: date,
             details: details,
             attachments: attachments,
+            fileName: fileName
         });
     
     await newReport.save().then(response => {

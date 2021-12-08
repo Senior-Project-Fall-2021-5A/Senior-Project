@@ -56,7 +56,7 @@ const UserModel = require('./models/User')
 const AppointmentModel = require('./models/Appointment')
 const ReportsModel = require('./models/Reports')
 const InboxModel = require('./models/Inbox')
-const FileModel = require ('./models/file')
+//const FileModel = require ('./models/file')
 const LocationModel = require('./models/Location');
 
 // Initialize MongoDB Atlas connection
@@ -77,6 +77,8 @@ app.use((req, res, next) => {
     next();
   });
 app.use(express.json({ extended: false }));
+
+/*
 let gfs;
 const conn = mongoose.connection;
 
@@ -84,7 +86,7 @@ conn.once("open", function() {
     gfs = Grid(conn.db, mongoose.mongo);
     gfs.collection('upload');
 });
-
+*/
 app.use('/auth', require('./routes/auth'));
 app.use('/users', require('./routes/user'));
 app.use('/appointments', require('./routes/appointment'));
@@ -98,7 +100,17 @@ app.use('/daysOff', require('./routes/daysOff'));
 app.use('/notifs', require('./routes/notifications'));
 
 
-//video call
+////////////// ///////////////upload file
+const crypto = require("crypto");
+const multer = require("multer");
+const {GridFsStorage}= require("multer-gridfs-storage");
+
+// Middlewares
+//app.use(express.json());
+//app.set("view engine", "ejs");
+
+
+
 
 
 server.listen(PORT, () => { console.log('Connection SUCCESSFUL') });
