@@ -34,9 +34,14 @@ const PopUpAddReport = ( {userUID, appointmentsUID, doctorUID, txtDate, location
 
         console.log("tempfile", tempFile);
 
-        file.append("file",tempFile)
+        file.append("file",tempFile);
 
         console.log("file:", file);
+        //for(const [k,v] of file) {console.log("index: ",k," value: ",v)}
+
+        /* let testFile = new FormData();
+        testFile.append("file",tempFile);
+        console.log("testFile: ",testFile); */
 
         setBoolError(false);
         setError("");
@@ -92,6 +97,11 @@ const PopUpAddReport = ( {userUID, appointmentsUID, doctorUID, txtDate, location
 
     //send File
     const addFile = ( reportID ) => {
+        /* const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };config */
         Axios.post('https://telemedicine5a-backend.herokuapp.com/file/uploadFiles',file, {
                     reportUID:  reportID,
                     description: userUID+txtDate,
