@@ -241,9 +241,10 @@ function NoAppointments() {
                                     var year = dateSlice.slice(0, 4);
                                     var month = dateSlice.slice(5, 7);
                                     var day = dateSlice.slice(8, 10);
+                                    var currApptId = appointment._id;
 
                                     var returnDate = month + "-" + day + "-" + year;
-                                     //  <button onClick={CreateRoom(currApptId)} className="btnCall">Start Call</button>  
+                              
                                     return (
                                         
                                         <div className="accordion1">
@@ -273,12 +274,9 @@ function NoAppointments() {
                                                     <h1 className="doctor">Doctor Id: {appointment.doctorUID}</h1>
                                                     <h1 className="address">Location Id: {appointment.locationUID}</h1>
                                                     
-                                                    
-                                                    <Link to='/client'>
-                                                        <h1>
-                                                        <button className="btnCall">Start Call</button>     
-                                                        </h1>
-                                                    </Link>
+                                                    {appointment.type === 'virtual' ? 
+                                                        <h1><button className="btnCall" onClick={() => CreateRoom(currApptId)}>Start Call</button></h1>
+                                                         : ''}
                                                     
                                                      
                                                     <h1><button className="cancelBtn" onClick={()=>triggerCancel(appointment._id)}>Cancel</button></h1>
