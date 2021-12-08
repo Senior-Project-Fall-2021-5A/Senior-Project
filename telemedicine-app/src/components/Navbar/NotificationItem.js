@@ -13,8 +13,13 @@ function NotificationItem() {
 
     return (
         <div className="notification-item" onClick= {isClicked}>
-            <p className="notificaiton-message">{update}</p>
-            <p className="notification-time">{timestamp}</p>
+            <div>
+                <p className="notificaiton-message">{update}</p>
+                <p className="notification-time">{timestamp}</p>
+            </div>
+            <div>
+                <i class="fas fa-exclamation"></i>
+            </div>
         </div>
     )
 }

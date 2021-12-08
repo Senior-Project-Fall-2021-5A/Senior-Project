@@ -97,8 +97,13 @@ function Profile() {
                 <span className="visually-hidden">unread messages</span>
                 {userNotifications.map((notificaitons) => (
                     <div value ={notificaitons._id} className="notification-item" id="notificaitonItem" onClick={e => isClicked(notificaitons._id)} >
-                        <p className="notificaiton-message">You have a new {notificaitons.notif_type} notification!</p>
-                        <p className="notification-time">{notificaitons.date_time}</p>
+                        <div className="notification-content">
+                            <p className="notificaiton-message">You have a new {notificaitons.notif_type} notification!</p>
+                            <p className="notification-time">{notificaitons.date_time}</p>
+                        </div>
+                        <div clsassName="notification-icon">
+                            <i class="fas fa-exclamation fa-2x" ></i>
+                        </div>
                     </div>
                 ))}
             </DropdownButton>
