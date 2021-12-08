@@ -19,8 +19,7 @@ router.get('/getNotifications', async (req, res) => {
 router.get('/getNotifications/:userId', async (req, res) => {
     NotificationsModel.find({
         $or: [
-            { userUID: req.params.userId },
-            { doctorUID: req.params.userId }
+            { userUID: req.params.userId }
         ]
     })
     .then(notification => {
