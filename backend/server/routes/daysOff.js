@@ -7,7 +7,7 @@ var ObjectID = require('mongodb').ObjectId;
 router.use(cors({origin: '*'}));
 
 router.get('/getDaysOff', async (req, res) => {
-    AppointmentModel.find( {}, (err, result) => {
+    DaysOffModel.find( {}, (err, result) => {
         if (err) {
             res.send(err);
         } else {
@@ -31,11 +31,7 @@ router.get('/getDaysOff/:userId', async (req, res) => {
 
 router.post('/updateDaysOff/:doctorUID', async (req, res) => {
     const updateFields = req.body;
-    DaysOffModel.find({
-        $or: [
-            { doctorUID: req.params.userId }
-        ]
-    }).then(daysOff => {
+    DaysOffModel.find({doctorUID: req.params.userId }).then(daysOff => {
         if (daysOff.length !== 0) {
             DaysOffModel.findOneAndUpdate({doctorUID: req.params.doctorUID}, 
                 updateFields, {new: true},
@@ -63,7 +59,7 @@ router.post('/updateDaysOff/:doctorUID', async (req, res) => {
 
                 });
     
-            await newDaysOff.save();
+            newDaysOff.save();
             res.send("Added Days Off!")
         } 
     }).catch(err => next(err));
