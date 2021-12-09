@@ -23,6 +23,12 @@ const PopUpAddReport = ( {trigger,setTrigger, AptInfo} ) => {//userUID, appointm
         //console.log(textInput);
     }
 
+    const readFile = (e) => {
+        const name = e[0].name;
+		document.getElementById("file-label").textContent = name;
+        //console.log(name);
+    }
+
     const fileHandler = (event) => {
         //console.log(event);
         //console.log(event.target);
@@ -171,9 +177,10 @@ const PopUpAddReport = ( {trigger,setTrigger, AptInfo} ) => {//userUID, appointm
                         style={{visibility:"hidden"}} 
                         onChange={e=>fileHandler(e)}
                     /> */}
-                    <form action="file/upload" method="post" enctype="multipart/form-data">
+                    <iframe name="fileUpload"></iframe>
+                    <form target="fileUpload" action="file/upload" method="post" enctype="multipart/form-data">
 					<div class="custom-file mb-3">
-						<input type="file" class="custom-file-input" name="file" id="file1" onchange="readSingleFile(this.files)"/>
+						<input type="file" class="custom-file-input" name="file" id="file1" onchange={e=>readFile(e)}/>
 						<label class="custom-file-label" for="file1" id="file-label">Choose file</label>
 					</div>
 					<input type="submit" value="Submit" class="btn btn-primary btn-block"/>
