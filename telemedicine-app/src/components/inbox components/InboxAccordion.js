@@ -15,8 +15,7 @@ function InboxAccordion(props) {
 
     const [newPatientPopup, setnewPatientPopup] = React.useState(false);
     const newPatientClick = (e) => {
-        console.log("New Patient Click");
-        console.log("click", e);
+        console.log("Reply click", e);
         let bPop = !newPatientPopup;
         setnewPatientPopup(bPop);
         console.log("Popup is ", bPop);
@@ -43,7 +42,7 @@ function InboxAccordion(props) {
             <div ref={content} style={{maxHeight: `${setHeight}`}} className="accordion__content">
                 <div
                     className="accordion__text"
-                    dangerouslySetInnerHTML={{ __html: props.content }}
+                    dangerouslySetInnerHTML={{ __html: (props.body.slice(0,props.body.search("________"))) }}
                     
                 />
                 <ObjLink
@@ -57,6 +56,7 @@ function InboxAccordion(props) {
             </div>
             <PopUpReply
                 subject={props.title}
+                message={props.body}
                 trigger={newPatientPopup}
                 setTrigger={setnewPatientPopup}
             />

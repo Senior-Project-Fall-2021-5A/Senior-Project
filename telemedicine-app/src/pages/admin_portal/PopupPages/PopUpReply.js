@@ -7,7 +7,7 @@ import Axios from 'axios';
 import authUserObject from '../../../middleware/authUserObject';
 
 
-const PopUpReply = ({ trigger, setTrigger, subject }) => {
+const PopUpReply = ({ trigger, setTrigger, subject, message }) => {
     //declarations
     const [txtBody, setBody] = React.useState("");
     const [txtSubject, setSubject] = React.useState(subject);
@@ -24,6 +24,7 @@ const PopUpReply = ({ trigger, setTrigger, subject }) => {
 
     //Load Patients and Doctors
     useEffect(() => {
+        setBody("\n _______________________________________ \n" + message);
         CreateListOfPatients();
         CreateListOfDoctors();
     }, []);
