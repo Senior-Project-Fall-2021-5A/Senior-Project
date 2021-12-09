@@ -1,7 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-
-import './adminSchTimes.css'
+import React from 'react';
+import { useEffect } from 'react';
+import Axios from 'axios';
+import authUserObject from '../../../middleware/authUserObject';
+import PropTypes from 'prop-types';
+import './adminSchTimes.css';
 import ObjCheckBox from '../../../components/Objects/ObjCheckBox'
 
 const styleTD = {
@@ -15,7 +17,8 @@ const styleTDBox = {
     
 }
 
-const AdminSchTimes = ({}) => {
+const AdminSchTimes = ({ calDate }) => {
+    //declarations
     const [checkedTime01, setCheckedTime01] = React.useState(false);
     const [checkedTime02, setCheckedTime02] = React.useState(false);
     const [checkedTime03, setCheckedTime03] = React.useState(false);
@@ -33,6 +36,7 @@ const AdminSchTimes = ({}) => {
     const [checkedTime15, setCheckedTime15] = React.useState(false);
     const [checkedTime16, setCheckedTime16] = React.useState(false);
 
+    //Time Fields
     const data = [
         {boxName: "time01", boxValue: checkedTime01, text: "09:00 am"},
         {boxName: "time02", boxValue: checkedTime02, text: "09:30 am"},
@@ -40,18 +44,37 @@ const AdminSchTimes = ({}) => {
         {boxName: "time04", boxValue: checkedTime04, text: "10:30 am"},
         {boxName: "time05", boxValue: checkedTime05, text: "11:00 am"},
         {boxName: "time06", boxValue: checkedTime06, text: "11:30 am"},
-        {boxName: "time07", boxValue: checkedTime07, text: "12:00 am"},
-        {boxName: "time08", boxValue: checkedTime08, text: "12:30 am"},
-        {boxName: "time09", boxValue: checkedTime09, text: "01:00 am"},
-        {boxName: "time10", boxValue: checkedTime10, text: "01:30 am"},
-        {boxName: "time11", boxValue: checkedTime11, text: "02:00 am"},
-        {boxName: "time12", boxValue: checkedTime12, text: "02:30 am"},
-        {boxName: "time13", boxValue: checkedTime13, text: "03:00 am"},
-        {boxName: "time14", boxValue: checkedTime14, text: "03:30 am"},
-        {boxName: "time15", boxValue: checkedTime15, text: "04:00 am"},
-        {boxName: "time16", boxValue: checkedTime16, text: "04:30 am"},
-        
-    ]
+        {boxName: "time07", boxValue: checkedTime07, text: "12:00 pm"},
+        {boxName: "time08", boxValue: checkedTime08, text: "12:30 pm"},
+        {boxName: "time09", boxValue: checkedTime09, text: "01:00 pm"},
+        {boxName: "time10", boxValue: checkedTime10, text: "01:30 pm"},
+        {boxName: "time11", boxValue: checkedTime11, text: "02:00 pm"},
+        {boxName: "time12", boxValue: checkedTime12, text: "02:30 pm"},
+        {boxName: "time13", boxValue: checkedTime13, text: "03:00 pm"},
+        {boxName: "time14", boxValue: checkedTime14, text: "03:30 pm"},
+        {boxName: "time15", boxValue: checkedTime15, text: "04:00 pm"},
+        {boxName: "time16", boxValue: checkedTime16, text: "04:30 pm"},        
+    ];
+
+    /************************************************************************
+                Axios Get
+    ************************************************************************/
+    const getAppointments = (  ) => {
+        /* Axios.get(`https://telemedicine5a-backend.herokuapp.com/appointments/getAppointmentsByDate/${authUserObject.userId}/${calDate}`)
+        .then((appointmentResponse) => {
+            //console.log('IMPORTANT', appointmentResponse)
+            let apptData = appointmentResponse.data;
+            console.log("apptData: ",apptData);
+            if(Array.isArray(apptData)){
+                //setTheNames( apptData );
+            } else {
+                //setListOfAppointments([]);
+            }
+        })
+        .catch((err) => {
+            console.log(err, "Unable to get appointments for selected date");
+        }); */
+    }
 
     const handleBoxTimeChange = (event) => {
         //console.log("event:",event);

@@ -6,7 +6,6 @@ import PopUpAddNotes from '../PopupPages/PopUpAddNotes'
 import PopUpAddReport from '../PopupPages/PopUpAddReport'
 import authUserObject from '../../../middleware/authUserObject';
 
-
 const styleTD = {
     paddingTop: '0px',
     paddingBottom: '0px',
@@ -41,6 +40,12 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
 
     //when dateValue is revised
     useEffect(() => {
+        console.log("useEffect - listOfAppointments:",listOfAppointments);
+        
+    }, [listOfAppointments]);
+
+    //when dateValue is revised
+    useEffect(() => {
         //console.log("useEffect - txtPatientID - dateValue: ", dateValue, " txtPatientID: ",txtPatientID);
         if(txtPatientID != "_self_" || (txtPatientID == "_self_" && dateValue) ){
             createApptUrl();
@@ -70,6 +75,43 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
         //console.log("Popup is ",bPop);
     }
 
+    //report click    
+    const reportClick = (e, appointment) => { //userUID, appointmentsUID, doctorUID, txtDateFix, locationUID
+       
+        console.log("reportClick e:",e, "appointment:", appointment) //userUID, appointmentsUID, doctorUID, txtDateFix, locationUID
+        setAptInfo(appointment);
+        let bPop = !reportInputPopup;
+        setReportInputPopup(bPop);
+        //console.log("Popup is ",bPop);
+    }
+
+    const handleCall = (event) => {
+        window.open(
+            'https://www.youtube.com/watch?v=vLRyJ0dawjM&ab_channel=EDMBot',
+            '_blank'
+        );
+    }
+
+    function compare(a,b) {
+        const dateA = a.date;
+        const dateB = b.date;
+        const timeA = a.time;
+        const timeB = b.time;
+    
+        let comparison = 0;
+        if (dateA > dateB){
+            comparison = 1;            
+        } else if (dateA < dateB){
+            comparison = -1;
+        } else if (timeA > timeB) {
+            comparison = 1;            
+        } else if (timeA < timeB){
+            comparison = -1;
+        }
+        
+        return comparison
+    }
+
     /***************************************************** 
                     Axios Get
     ******************************************************/
@@ -78,7 +120,7 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
         .then((appointmentResponse) => {
             //console.log('IMPORTANT', appointmentResponse)
             let apptData = appointmentResponse.data;
-            console.log("apptData: ",apptData);
+            //console.log("apptData: ",apptData);
             if(Array.isArray(apptData)){
                 setTheNames( apptData );
             } else {
@@ -91,26 +133,19 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
     }
 
     const setTheNames = ( apptData ) => {
-        let newList = [];
-        apptData.forEach(e=>{
+        //console.log("setTheNames() - arrData:",arrData);
+        apptData.forEach(e=> {
             let id = e.userUID;
+            //console.log("id: ",id);
             Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${id}`)
                 .then((response) => {                
                     let data = response.data;           
-                    console.log("setTheNames() - response:",data);
+                    //console.log("setTheNames() - response:",data);
                     
-                    let name = data[0].lastName+", "+data[0].firstName ;
-                    //console.log("setTheNames() - name:",name);
-                    
-                    e.patientName = name;
+                    e.patientName = data[0].lastName+", "+data[0].firstName ;
                     //console.log("setTheNames() - e.patientName:",e.patientName);
                     
-                    //console.log("setTheNames() - apptData: ",apptData);
-                    newList = [...newList,e];
-
                     
-                    
-                    setListOfAppointments(newList);
                     
                 }).catch((err) => {
                     console.log(err, "Unable to get Locations");
@@ -118,39 +153,16 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
             //Covnert string to Date.
             e.date = new Date(e.date.split('-').join('/'));            
         });
+        //sort Array
+        apptData.sort(compare);
+        //console.log("HEY I MADE IT!");
+        //console.log("setTheNames - apptData",apptData);
+        setListOfAppointments(apptData);
     }
 
-    
-   
-
-    //report click
-    const [tempuserUID,         settempuserUID          ] = React.useState("");
-    const [tempappointmentsUID, settempappointmentsUID  ] = React.useState("");
-    const [tempdoctorUID,       settempdoctorUID        ] = React.useState("");
-    const [tempdate,            settempdate             ] = React.useState("");
-    const [templocationUID,     settemplocationUID      ] = React.useState("");
-    const reportClick = (e, appointment) => { //userUID, appointmentsUID, doctorUID, txtDateFix, locationUID
-       
-        console.log("reportClick e:",e, "appointment:", appointment) //userUID, appointmentsUID, doctorUID, txtDateFix, locationUID
-        setAptInfo(appointment);
-        let bPop = !reportInputPopup;
-        setReportInputPopup(bPop);
-        //console.log("Popup is ",bPop);
-    }
-
-
-
-    const handleCall = (event) => {
-        window.open(
-            'https://www.youtube.com/watch?v=vLRyJ0dawjM&ab_channel=EDMBot',
-            '_blank'
-        );
-    }
-
-
-
-   
-    //console.log('IMPORTANTLIST', listOfAppointments)
+    /******************************************************
+                HTML
+    ******************************************************/   
     return (
         <div>                
             <table id="AptsToday" class='table'>
@@ -164,7 +176,7 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
                         <th>Report</th>
                         <th>Call</th>
                     </tr>
-                    {listOfAppointments !== undefined ? listOfAppointments.map((appointment) => (
+                    {listOfAppointments !== undefined ? listOfAppointments.map((appointment, index) => (
                          <tr key={appointment._id} >
                             <td style={styleTD}>{(new Date(appointment.date)).toLocaleDateString()}</td>
                             <td style={styleTD}>{appointment.time}</td>
@@ -192,12 +204,7 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
                                     onClick={e => reportClick(e, appointment)}
                                 />
                                 <PopUpAddReport
-                                    AptInfo = {AptInfo}
-                                    /* userUID={tempuserUID}
-                                    appointmentsUID={tempappointmentsUID}
-                                    doctorUID={tempdoctorUID}
-                                    txtDate={tempdate}
-                                    locationUID={templocationUID} */
+                                    AptInfo = {AptInfo}                       
                                     trigger={reportInputPopup}
                                     setTrigger={setReportInputPopup}
                                 />
