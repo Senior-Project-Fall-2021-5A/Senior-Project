@@ -63,7 +63,7 @@ router.post('/updateDaysOff/:doctorUID', async (req, res) => {
 
                 });
     
-            await newDaysOff.save();
+            newDaysOff.save();
             res.send("Added Days Off!")
         } 
     }).catch(err => next(err));
