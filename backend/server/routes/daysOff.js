@@ -7,7 +7,7 @@ var ObjectID = require('mongodb').ObjectId;
 router.use(cors({origin: '*'}));
 
 router.get('/getDaysOff', async (req, res) => {
-    AppointmentModel.find( {}, (err, result) => {
+    DaysOffModel.find( {}, (err, result) => {
         if (err) {
             res.send(err);
         } else {
