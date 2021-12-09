@@ -69,7 +69,10 @@ const PopUpAddReport = ( {trigger,setTrigger, AptInfo} ) => {//userUID, appointm
                 'content-type': 'multipart/form-data'
             }
         };config */
-        Axios.post('https://telemedicine5a-backend.herokuapp.com/file/upload',file, {                       
+        
+        
+        Axios.post('https://telemedicine5a-backend.herokuapp.com/file/upload',file, { 
+                    headers: {'content-type': 'multipart/form-data'}                      
                 }).then((response) => {
                     console.log("Add Report, response: ",response);
                     console.log("Add Report, response: ",response.data.filename);
