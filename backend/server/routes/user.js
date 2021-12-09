@@ -238,8 +238,8 @@ router.get('/approvedDoctors/:userId', async (req, res) => {
   for (let i = 0; i < approvedDoctors.length; i++) {
     fieldOfStudy.push(approvedDoctors[i].approvedDoctors[i])
   }
-  let approvedDoctorList = await DoctorDemoModel.find({fieldOfStudy: fieldOfStudy}, {_id: 0, doctorUID: 1})
-  if (!approvedDoctorList) { return res.send("Invalid field of study")}
+  let approvedDoctorList = await DoctorDemoModel.find({fieldOfStudy: fieldOfStudy}, {_id: 0, doctorUID: 1, fieldOfStudy: 1})
+  if (approvedDoctorList === 0) { return res.send("Invalid field of study")}
   return res.status(200).json(approvedDoctorList)
 });
 
