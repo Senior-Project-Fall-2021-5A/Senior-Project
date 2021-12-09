@@ -46,16 +46,15 @@ const AdminSchDaysOff = () => {
     /***************************************************** 
                     Axios Post
     ******************************************************/
-    const setListDaysOff = (arrDaysPush) => {
-        console.log("setListDaysOff() - arrDaysPush:",arrDaysPush );
-        /* Axios.post(`https://telemedicine5a-backend.herokuapp.com/appointments/addDaysOff`, {
-            doctorUID:  authUserObject.userId,
-            daysOff:    arrDaysPush.join("|"),
+    const setListDaysOff = (txtDays) => {
+        console.log("setListDaysOff() - txtDays:",txtDays );
+        Axios.post(`https://telemedicine5a-backend.herokuapp.com/appointments/updateDaysOff/${authUserObject.userId}`, {
+            daysOff:    txtDays,
         }).then(response => {
             console.log(response)
         }).catch((err) => {
             console.log(err)
-        }) */
+        })
     }
 
     /***************************************************** 
@@ -65,19 +64,51 @@ const AdminSchDaysOff = () => {
         console.log("setBoxDaysOff() - arrDaysGet:",arrDaysGet);
         if(arrDaysGet.includes("Monday")){
             setCheckedMon(true);
-        } else if(arrDaysGet.includes("Tuesday")){
+        }
+        if(arrDaysGet.includes("Tuesday")){
             setCheckedTues(true);
-        } else if(arrDaysGet.includes("Wednesday")){
+        }
+        if(arrDaysGet.includes("Wednesday")){
             setCheckedWed(true);
-        } else if(arrDaysGet.includes("Thursday")){
+        }
+        if(arrDaysGet.includes("Thursday")){
             setCheckedThurs(true);
-        } else if(arrDaysGet.includes("Friday")){
+        }
+        if(arrDaysGet.includes("Friday")){
             setCheckedFri(true);
-        } else if(arrDaysGet.includes("Saturday")){
+        }
+        if(arrDaysGet.includes("Saturday")){
             setCheckedSat(true);
-        } else if(arrDaysGet.includes("Sunday")){
+        }
+        if(arrDaysGet.includes("Sunday")){
             setCheckedSun(true);
         }
+    }
+
+    const createValueToSend = ( newDay, doAdd )=> {
+        let dayArray = [];
+
+        if(checkedMon){dayArray.push("Monday");}
+        if(checkedTues){dayArray.push("Tuesday");}
+        if(checkedWed){dayArray.push("Wednesday");}
+        if(checkedThurs){dayArray.push("Thursday");}
+        if(checkedFri){dayArray.push("Friday");}
+        if(checkedSat){dayArray.push("Saturday");}
+        if(checkedSun){dayArray.push("Sunday");}
+
+        if(doAdd){
+            dayArray.push(newDay);
+        } else {
+            var index = dayArray.indexOf(newDay);
+            if(index !== -1){
+                dayArray.splice(index,1);
+            }
+        }
+
+        console.log("dayArray:",dayArray.join("|"));
+        setListDaysOff(dayArray.join("|"));
+        
+
     }
 
     const handleDayCBChange = (event) => {
@@ -88,40 +119,48 @@ const AdminSchDaysOff = () => {
         let arrDaysPush = arrDays;
         console.log("handleDayCBChange() - targetName:",targetName,"targetLabel:",targetLabel,"arrDaysPush:",arrDaysPush);
 
+        let doAdd = false;
         if (targetName === "boxMonday") {
             let bCheck = !checkedMon;
             setCheckedMon(bCheck);
+            doAdd = bCheck;
             //console.log("Monday", bCheck);
         } else if (targetName === "boxTuesday") {
             let bCheck = !checkedTues;
             setCheckedTues(bCheck);
+            doAdd = bCheck;
             //console.log("boxTuesday", bCheck);
         } else if (targetName === "boxWednesday") {
             let bCheck = !checkedWed;
             setCheckedWed(bCheck);
+            doAdd = bCheck;
             //console.log("boxWednesday", bCheck);
         } else if (targetName === "boxThursday") {
             let bCheck = !checkedThurs;
             setCheckedThurs(bCheck);
+            doAdd = bCheck;
             //console.log("boxThursday", bCheck);
         } else if (targetName === "boxFriday") {
             let bCheck = !checkedFri;
             setCheckedFri(bCheck);
+            doAdd = bCheck;
             //console.log("boxFriday", bCheck);
         } else if (targetName === "boxSaturday") {
             let bCheck = !checkedSat;
             setCheckedSat(bCheck);
+            doAdd = bCheck;
             //console.log("boxSaturday", bCheck);
         } else if (targetName === "boxSunday") {
             let bCheck = !checkedSun;
             setCheckedSun(bCheck);
+            doAdd = bCheck;
             //console.log("boxSunday", bCheck);
         }
 
-        arrDaysPush.push(targetLabel);
-        setArrDays(arrDaysPush);
-        setListDaysOff(arrDaysPush);
-        console.log("handleDayCBChange() - arrDaysPush:",arrDaysPush);
+        console.log("for createValueToSend - targetLabel:",targetLabel," doAdd: ",doAdd);
+        createValueToSend(targetLabel, doAdd);
+        
+        
     }
 
     return (

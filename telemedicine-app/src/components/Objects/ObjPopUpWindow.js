@@ -6,7 +6,9 @@ const OBJPopUpInput = ( props ) => {
         <div className="objpopup-popup">            
             <div className="objpopup-popup-inner">
                 
+            
                 <button 
+                    type='button'
                     className="close-btn" 
                     class="close"
                     onClick={()=> props.setTrigger(false)}

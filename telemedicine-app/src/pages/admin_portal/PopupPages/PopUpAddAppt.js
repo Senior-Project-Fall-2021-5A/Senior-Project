@@ -15,6 +15,7 @@ const PopUpAddAppt = ( { trigger, setTrigger, newPatientPopup, newStaffPopup} ) 
     const [listOfPatients,setListOfPatients] = React.useState([]);  
     const [listOfDoctors,setListOfDoctors] = React.useState([]);
     const [listOfLocations,setListOfLocations] = React.useState([]);
+    const [listTimesSelect,setlistTimesSelect] = React.useState([]);
     const [date,setDate] = React.useState(new Date());
     const [txtDate,setTxtDate] = React.useState("");
     const [textTime,setTime] = React.useState("");
@@ -92,6 +93,10 @@ const PopUpAddAppt = ( { trigger, setTrigger, newPatientPopup, newStaffPopup} ) 
         },
     ];
 
+    /******************************************************************
+                    Handlers
+    ******************************************************************/
+
     //Load Patients and Doctors
     useEffect(() => {
         CreateListOfPatients();
@@ -101,10 +106,21 @@ const PopUpAddAppt = ( { trigger, setTrigger, newPatientPopup, newStaffPopup} ) 
         CreateListOfDoctors();
     }, [newStaffPopup]);
 
+    useEffect(() => {        
+        //get Appts
+        console.log("useEffect[trigger] - textDoctorID:",textDoctorID," txtDate: ",txtDate);
+        getAppointments(textDoctorID,txtDate);
+
+    }, [trigger]);
+
     useEffect(() => {
         onDateSelect(new Date());
         getLocations();  
     }, []);
+
+    /******************************************************************
+                    Axios Gets
+    ******************************************************************/
 
     const CreateListOfPatients = (  ) => {
         setListOfPatients([]);
@@ -138,49 +154,28 @@ const PopUpAddAppt = ( { trigger, setTrigger, newPatientPopup, newStaffPopup} ) 
             });
     }
 
-    //set patient
-    const onPatientSelect = ( event ) => {
-        //console.log("onPatientSelect - ",event);
-        //console.log("Value set: ", event.target.value);
-        setPatientID(event.target.value);
+    const getAppointments = ( docID, date ) => {
+        console.log("getAppointments - textDoctorID:",docID," txtDate: ",date);
+        if(docID.length >0 && date.length>0){
+            Axios.get(`https://telemedicine5a-backend.herokuapp.com/appointments/getAppointmentsByDate/${docID}/${date}`)
+                .then((response) => {
+                    console.log('getAppointments - response:', response)
+                    let arrData = response.data;            
+                    //console.log("arrData: ",arrData);
+                    if(Array.isArray(arrData)){
+                        adjustTimeDT(arrData);
+                    } else {
+                        //setListOfAppointments([]);
+                    }
+                })
+                .catch((err) => {
+                    console.log(err, "Unable to get appointments for selected date");
+                });
+        } else {
+            setlistTimesSelect([]);
+        }       
     }
 
-    //set Doctor
-    const onDoctorSelect = ( event ) => {
-        //console.log("onDoctorSelect - ",event);
-        let docID = event.target.value;
-        //console.log("Value set: ", docID);
-        setDoctorID(docID);
-        getScheduleAvail(docID);
-    }
-
-    const getScheduleAvail = ( docID ) => {
-        Axios.get(`https://telemedicine5a-backend.herokuapp.com/schedule/getScheduled/${docID}`)
-            .then((response) => {                
-                let data = response.data;           
-                //console.log("getScheduleAvail() - response:",data);
-                
-            }).catch((err) => {
-                console.log(err, "Unable to get Schedule");
-            });
-    }
-
-    //set Time
-    const onTimeSelect = ( event ) => {
-        //console.log("onTimeSelect - ",event);
-        //console.log("Value set: ", event.target.value);
-        setTime(event.target.value);
-    }
-
-    //Set Type of Visit    
-    const onRadioLocSelect = ( event ) => {
-        let loc = event.target.value;
-        setLocSelect(loc);
-        //console.log("Radio Loc Select: ",loc);
-        let doInPerson = loc == "inPerson";
-        setShowLocation(doInPerson);
-    }
-    
     const getLocations = (  ) => {
         Axios.get(`https://telemedicine5a-backend.herokuapp.com/location/getLocations`)
             .then((response) => {                
@@ -196,35 +191,9 @@ const PopUpAddAppt = ( { trigger, setTrigger, newPatientPopup, newStaffPopup} ) 
             });
     }
 
-    //set Location
-    const onLocationInput = ( event ) => {
-        let loc = event.target.value;
-        setLocation(loc);
-        //console.log("Location: ",loc);
-        
-    }
-
-    //date select
-    const onDateSelect = ( event ) => {
-        setDate(event);
-        //convert date to string
-        setTxtDate(event.toLocaleDateString("en-US").split('/').join('-'));
-        console.log("Date: ",event," txtDate: ",event.toLocaleDateString("en-US").split('/').join('-'));
-    }
-
-    //Submit Apt
-    const onSubmit = (event) => {
-        //console.log(event);
-        //console.log("patient: ", textPatientID, " doctor: ", textDoctorID, " Date: ", date, " Time: ", textTime); 
-
-        if (textPatientID == "_placeholder_" || textDoctorID == "_placeholder_" || textPatientID == "" || 
-        textDoctorID == "" || textTime == "_placeholder_" || textTime == "" || txtLocSelect == "") {
-            setBoolError(true);
-            setError("Missing Patient, Doctor, Location, or Time");
-        }else{            
-            addAppointment();
-        }
-    }
+    /******************************************************************
+                    Axios Post
+    ******************************************************************/
 
     //Create Apt
     const addAppointment = () => {
@@ -258,6 +227,93 @@ const PopUpAddAppt = ( { trigger, setTrigger, newPatientPopup, newStaffPopup} ) 
                 setBoolError(true);            
             });
     }
+
+    /******************************************************************
+                    Functions
+    ******************************************************************/
+    const findTime = (e,v) => e.label == v;
+
+    //Time Select
+    const adjustTimeDT = ( arrAppt ) => {
+        //make new list
+        var newArray = JSON.parse(JSON.stringify(listOfTimes));
+
+        //go through list remove any in arrApt
+        arrAppt.forEach(e=> {
+            var index = newArray.findIndex(ele=>findTime(ele,e.time));
+            if(index >= 0){
+                newArray.splice(index,1);
+            }
+        });
+
+        setlistTimesSelect(newArray);
+    }
+
+    //set patient
+    const onPatientSelect = ( event ) => {
+        //console.log("onPatientSelect - ",event);
+        //console.log("Value set: ", event.target.value);
+        setPatientID(event.target.value);
+    }
+
+    //set Doctor
+    const onDoctorSelect = ( event ) => {
+        //console.log("onDoctorSelect - ",event);
+        let docID = event.target.value;
+        //console.log("Value set: ", docID);
+        setDoctorID(docID);  
+        getAppointments(docID, txtDate);       
+    }
+
+    //Set Type of Visit    
+    const onRadioLocSelect = ( event ) => {
+        let loc = event.target.value;
+        setLocSelect(loc);
+        //console.log("Radio Loc Select: ",loc);
+        let doInPerson = loc == "inPerson";
+        setShowLocation(doInPerson);
+    }
+
+    //set Location
+    const onLocationInput = ( event ) => {
+        let loc = event.target.value;
+        setLocation(loc);
+        //console.log("Location: ",loc);
+        
+    }
+
+    //date select
+    const onDateSelect = ( event ) => {
+        setDate(event);
+        //convert date to string
+        let dt = event.toLocaleDateString("en-US").split('/').join('-');
+        setTxtDate(dt);
+        console.log("Date: ",event," txtDate: ",event.toLocaleDateString("en-US").split('/').join('-'));
+        getAppointments(textDoctorID, dt);   
+    }
+
+    //set Time
+    const onTimeSelect = ( event ) => {
+        //console.log("onTimeSelect - ",event);
+        //console.log("Value set: ", event.target.value);
+        setTime(event.target.value);
+    }
+
+    //Submit Apt
+    const onSubmit = (event) => {
+        //console.log(event);
+        //console.log("patient: ", textPatientID, " doctor: ", textDoctorID, " Date: ", date, " Time: ", textTime); 
+
+        if (textPatientID == "_placeholder_" || textDoctorID == "_placeholder_" || textPatientID == "" || 
+        textDoctorID == "" || textTime == "_placeholder_" || textTime == "" || txtLocSelect == "") {
+            setBoolError(true);
+            setError("Missing Patient, Doctor, Location, or Time");
+        }else{            
+            addAppointment();
+        }
+    }
+
+    
     
     return (    
         <PopUpWindow
@@ -375,7 +431,7 @@ const PopUpAddAppt = ( { trigger, setTrigger, newPatientPopup, newStaffPopup} ) 
                         onChange={e=>onTimeSelect(e)}  
                     >
                         <option key="puaa_time_placeholder" value="_placeholder_">Time</option>
-                        {listOfTimes.map((option) => (
+                        {listTimesSelect.map((option) => (
                             <option key={option.value} value={option.value}>{option.label}</option>
                         ))}    
                     </select>

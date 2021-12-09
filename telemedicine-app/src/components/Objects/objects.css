@@ -45,32 +45,28 @@
     background-color: white;
   }
 
-    .objpopup-popup-inner .close {
-        position: absolute;
-        top: 16px;
-        right: 16px;
-        width: 32px;
-        height: 0px;
-        opacity: 0.3;
-    }
-
-.close:hover {
-    opacity: 1;
+    
+.close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: block;
+  width: 25px;
+  height: 25px;
+  font-size: 0;
 }
-
-.close:before, .close:after {
-    position: absolute;
-    left: 15px;
-    content: ' ';
-    height: 33px;
-    width: 2px;
-    background-color: #333;
-}
-
-.close:before {
-    transform: rotate(45deg);
-}
-
+.close:before, 
 .close:after {
-    transform: rotate(-45deg);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 20px;
+  background-color:black;
+  transform: rotate(45deg) translate(-50%, -50%);
+  transform-origin: top left;
+  content: '';
+}
+.close:after {
+  transform: rotate(-45deg) translate(-50%, -50%);
 }
