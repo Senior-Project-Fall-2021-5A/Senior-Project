@@ -26,13 +26,13 @@ const PopUpAddReport = ( {trigger,setTrigger, AptInfo} ) => {//userUID, appointm
     const fileHandler = (event) => {
         //console.log(event);
         //console.log(event.target);
-        let tempFile = event.target.files[0]; 
+        // let tempFile = event.target.files[0]; 
 
-        console.log("tempfile", tempFile);
+        // console.log("tempfile", tempFile);
 
-        file.append("file",tempFile);
+        // file.append("file",tempFile);
 
-        console.log("file:", file);
+        // console.log("file:", file);
         //for(const [k,v] of file) {console.log("index: ",k," value: ",v)}
 
         /* let testFile = new FormData();
@@ -163,19 +163,22 @@ const PopUpAddReport = ( {trigger,setTrigger, AptInfo} ) => {//userUID, appointm
                     onChange={e=>onTextChange(e)}   
                 />
                 <div>
-                    <label className="objbutton" for="inputFile" style={{width:"100px"}}>Upload</label>
+                    {/* <label className="objbutton" for="inputFile" style={{width:"100px"}}>Upload</label>
                     <input 
                         className="objinputfile-input-hidden" 
                         id="inputFile" 
                         type="file" 
                         style={{visibility:"hidden"}} 
                         onChange={e=>fileHandler(e)}
-                    />
+                    /> */}
+                    <form action="file/upload" method="post" enctype="multipart/form-data">
+					<div class="custom-file mb-3">
+						<input type="file" class="custom-file-input" name="file" id="file1" onchange="readSingleFile(this.files)"/>
+						<label class="custom-file-label" for="file1" id="file-label">Choose file</label>
+					</div>
+					<input type="submit" value="Submit" class="btn btn-primary btn-block"/>
+				</form>
                 </div>
-                <ObjButton                     
-                    text="Submit"
-                    onClick={e=>onSubmit(e)}
-                />
                 {/* Button Error Message */}
             {boolError &&
                 <p
