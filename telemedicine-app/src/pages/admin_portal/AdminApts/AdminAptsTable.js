@@ -1,10 +1,10 @@
 import React, { useState, useEffect }  from 'react';
+import Axios from 'axios';
 import PropTypes from 'prop-types'
 import ObjLink from '../../../components/Objects/ObjLink'
 import PopUpAddNotes from '../PopupPages/PopUpAddNotes'
 import PopUpAddReport from '../PopupPages/PopUpAddReport'
 import authUserObject from '../../../middleware/authUserObject';
-import Axios from 'axios';
 
 
 const styleTD = {
@@ -14,19 +14,24 @@ const styleTD = {
 }
 
 const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
+    //declarations
     const [notesInputPopup, setNotesInputPopup] = useState(false);
     const [listOfAppointments, setListOfAppointments] = useState([]);
-    const [listOfAppointmentsUpdate, setListOfAppointmentsUpdate] = useState([]);
     const [reportInputPopup, setReportInputPopup] = useState(false);
     const [apptUrl, setApptUrl] = useState("");
-    //const dateToSend = date.toLocaleDateString(`en-US`).split('/').join('-');
-
+    const [AptInfo, setAptInfo] = React.useState([]);
+    
+    /***************************************************** 
+                    Handlers
+    ******************************************************/
+   //On open and when apptInputPopup cloes
     useEffect(() => {
         if(txtPatientID && apptUrl){
             getAppointments(apptUrl);
         }
-    }, [apptInputPopup]);
+    }, [apptInputPopup == false]);
 
+    //when dateValue is revised
     useEffect(() => {
         //console.log("useEffect - dateValue - dateValue: ", dateValue, " txtPatientID: ",txtPatientID);
         if(txtPatientID){
@@ -34,6 +39,7 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
         }
     }, [dateValue]);
 
+    //when dateValue is revised
     useEffect(() => {
         //console.log("useEffect - txtPatientID - dateValue: ", dateValue, " txtPatientID: ",txtPatientID);
         if(txtPatientID != "_self_" || (txtPatientID == "_self_" && dateValue) ){
@@ -41,6 +47,9 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
         }
     }, [txtPatientID]);
 
+    /***************************************************** 
+                    Functions
+    ******************************************************/
     const createApptUrl = (  ) => {
         let url = "";
         if(txtPatientID == "_self_"){
@@ -52,6 +61,18 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
         getAppointments(url);
     }
 
+    const noteClick = (e, appointment) => {
+        //console.log("Note Click");
+        console.log("noteClick e:", e, "appointment: ",appointment);
+        setAptInfo(appointment);
+        let bPop = !notesInputPopup;
+        setNotesInputPopup(bPop);
+        //console.log("Popup is ",bPop);
+    }
+
+    /***************************************************** 
+                    Axios Get
+    ******************************************************/
     const getAppointments = ( url ) => {
         Axios.get(url)
         .then((appointmentResponse) => {
@@ -99,14 +120,8 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
         });
     }
 
-
-    const noteClick = (e) => {
-        //console.log("Note Click");
-        //console.log("click", e);
-        let bPop = !notesInputPopup;
-        setNotesInputPopup(bPop);
-        //console.log("Popup is ",bPop);
-    }
+    
+   
 
     //report click
     const [tempuserUID,         settempuserUID          ] = React.useState("");
@@ -114,17 +129,10 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
     const [tempdoctorUID,       settempdoctorUID        ] = React.useState("");
     const [tempdate,            settempdate             ] = React.useState("");
     const [templocationUID,     settemplocationUID      ] = React.useState("");
-    const reportClick = (e, userUID, appointmentsUID, doctorUID, txtDateFix, locationUID) => {
+    const reportClick = (e, appointment) => { //userUID, appointmentsUID, doctorUID, txtDateFix, locationUID
        
-        console.log("report click: ", userUID, appointmentsUID, doctorUID, txtDateFix, locationUID)
-        settempuserUID(userUID)  ;      
-        settempappointmentsUID(appointmentsUID);
-        settempdoctorUID(doctorUID) ;     
-        settempdate(txtDateFix) ;          
-        settemplocationUID(locationUID);    
-        
-        //console.log("Report Click");
-        //console.log("click", e);
+        console.log("reportClick e:",e, "appointment:", appointment) //userUID, appointmentsUID, doctorUID, txtDateFix, locationUID
+        setAptInfo(appointment);
         let bPop = !reportInputPopup;
         setReportInputPopup(bPop);
         //console.log("Popup is ",bPop);
@@ -167,9 +175,10 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
                                     doLink = "false"                                    
                                     text="Add"
                                     btnWidth = "60px"
-                                    onClick={e => noteClick(e)}
+                                    onClick={e => noteClick(e,appointment)}
                                 />
                                 <PopUpAddNotes
+                                    AptInfo={AptInfo}
                                     trigger={notesInputPopup}
                                     setTrigger={setNotesInputPopup}
                                 />
@@ -180,20 +189,15 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
                                     doLink = "false"                                    
                                     text="Add"
                                     btnWidth = "60px"
-                                    onClick={e => reportClick(e, 
-                                            appointment.userUID,
-                                            appointment._id,
-                                            appointment.doctorUID,
-                                            (new Date(appointment.date)).toLocaleDateString(`en-US`).split('/').join('-'),
-                                            appointment.locationUID
-                                        )}
+                                    onClick={e => reportClick(e, appointment)}
                                 />
                                 <PopUpAddReport
-                                    userUID={tempuserUID}
+                                    AptInfo = {AptInfo}
+                                    /* userUID={tempuserUID}
                                     appointmentsUID={tempappointmentsUID}
                                     doctorUID={tempdoctorUID}
                                     txtDate={tempdate}
-                                    locationUID={templocationUID}
+                                    locationUID={templocationUID} */
                                     trigger={reportInputPopup}
                                     setTrigger={setReportInputPopup}
                                 />

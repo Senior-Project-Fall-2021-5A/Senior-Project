@@ -2,7 +2,7 @@ import React from 'react'
 import ObjCalendar from '../../../components/Objects/ObjCalendar';
 import AdminAptsTable from '../AdminApts/AdminAptsTable';
 
-const AdminSchCalendar = () => {
+const AdminSchCalendar = (calDate) => {
     const [CalValue, setCal] = React.useState(new Date());
 
     const handleCalendar = (date) => {
