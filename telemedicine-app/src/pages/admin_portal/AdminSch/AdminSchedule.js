@@ -8,10 +8,15 @@ import AdminSchTimes from './AdminSchTimes'
 
 const AdminSchedule = ({  }) => {
     const [calDate, setCalDate] = React.useState(new Date());
+    
+    /***************************************************************
+                Functions
+    ***************************************************************/
     const pullDate = ( date ) => {
         console.log("AdminSchedule - date: ",date);
         setCalDate(date);
     }
+
     
     //draw
     return (

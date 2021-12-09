@@ -1,10 +1,10 @@
 import React, { useState, useEffect }  from 'react';
 import Axios from 'axios';
-import PropTypes from 'prop-types'
-import ObjLink from '../../../components/Objects/ObjLink'
-import PopUpAddNotes from '../PopupPages/PopUpAddNotes'
-import PopUpAddReport from '../PopupPages/PopUpAddReport'
+import ObjLink from '../../../components/Objects/ObjLink';
+import PopUpAddNotes from '../PopupPages/PopUpAddNotes';
+import PopUpAddReport from '../PopupPages/PopUpAddReport';
 import authUserObject from '../../../middleware/authUserObject';
+
 
 const styleTD = {
     paddingTop: '0px',
@@ -14,8 +14,11 @@ const styleTD = {
 
 const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
     //declarations
+    const [isLoading, setLoading] = useState(false);
     const [notesInputPopup, setNotesInputPopup] = useState(false);
     const [listOfAppointments, setListOfAppointments] = useState([]);
+    const [appt, setAppt] = useState({});
+    const [listOfAppointmentsTemp, setListOfAppointmentsTemp] = useState([]);
     const [reportInputPopup, setReportInputPopup] = useState(false);
     const [apptUrl, setApptUrl] = useState("");
     const [AptInfo, setAptInfo] = React.useState([]);
@@ -26,6 +29,7 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
    //On open and when apptInputPopup cloes
     useEffect(() => {
         if(txtPatientID && apptUrl){
+            setListOfAppointments([]);
             getAppointments(apptUrl);
         }
     }, [apptInputPopup == false]);
@@ -34,23 +38,34 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
     useEffect(() => {
         //console.log("useEffect - dateValue - dateValue: ", dateValue, " txtPatientID: ",txtPatientID);
         if(txtPatientID){
+            setListOfAppointments([]);
             createApptUrl();
         }
     }, [dateValue]);
 
     //when dateValue is revised
     useEffect(() => {
-        console.log("useEffect - listOfAppointments:",listOfAppointments);
-        
-    }, [listOfAppointments]);
-
-    //when dateValue is revised
-    useEffect(() => {
         //console.log("useEffect - txtPatientID - dateValue: ", dateValue, " txtPatientID: ",txtPatientID);
         if(txtPatientID != "_self_" || (txtPatientID == "_self_" && dateValue) ){
+            setListOfAppointments([]);
             createApptUrl();
         }
     }, [txtPatientID]);
+
+    //when dateValue is revised
+    useEffect(() => {
+        //console.log("useEffect - appt: ",appt); 
+        let doAdd = true;  
+        listOfAppointments.forEach(e=>{
+            if (e._id == appt._id){
+                doAdd = false;                
+            }
+        });   
+        if (doAdd){
+            setListOfAppointments([...listOfAppointments,appt]);
+        }
+        
+    }, [appt]);
 
     /***************************************************** 
                     Functions
@@ -61,24 +76,23 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
             url = `https://telemedicine5a-backend.herokuapp.com/appointments/getAppointmentsByDate/${authUserObject.userId}/${dateValue}`;
         } else {
             url = `https://telemedicine5a-backend.herokuapp.com/appointments/getAppointments/${txtPatientID}`;
-        }
+        }        
         setApptUrl(url);
         getAppointments(url);
     }
 
     const noteClick = (e, appointment) => {
         //console.log("Note Click");
-        console.log("noteClick e:", e, "appointment: ",appointment);
+        //console.log("noteClick e:", e, "appointment: ",appointment);
         setAptInfo(appointment);
         let bPop = !notesInputPopup;
         setNotesInputPopup(bPop);
         //console.log("Popup is ",bPop);
     }
 
-    //report click    
+    //report click
     const reportClick = (e, appointment) => { //userUID, appointmentsUID, doctorUID, txtDateFix, locationUID
-       
-        console.log("reportClick e:",e, "appointment:", appointment) //userUID, appointmentsUID, doctorUID, txtDateFix, locationUID
+        //console.log("reportClick e:",e, "appointment:", appointment) //userUID, appointmentsUID, doctorUID, txtDateFix, locationUID
         setAptInfo(appointment);
         let bPop = !reportInputPopup;
         setReportInputPopup(bPop);
@@ -92,30 +106,11 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
         );
     }
 
-    function compare(a,b) {
-        const dateA = a.date;
-        const dateB = b.date;
-        const timeA = a.time;
-        const timeB = b.time;
-    
-        let comparison = 0;
-        if (dateA > dateB){
-            comparison = 1;            
-        } else if (dateA < dateB){
-            comparison = -1;
-        } else if (timeA > timeB) {
-            comparison = 1;            
-        } else if (timeA < timeB){
-            comparison = -1;
-        }
-        
-        return comparison
-    }
 
     /***************************************************** 
                     Axios Get
     ******************************************************/
-    const getAppointments = ( url ) => {
+    const getAppointments = ( url ) => {        
         Axios.get(url)
         .then((appointmentResponse) => {
             //console.log('IMPORTANT', appointmentResponse)
@@ -133,36 +128,30 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
     }
 
     const setTheNames = ( apptData ) => {
-        //console.log("setTheNames() - arrData:",arrData);
-        apptData.forEach(e=> {
+        setListOfAppointments([]);
+        var newArray = JSON.parse(JSON.stringify(apptData));
+        
+        //console.log("newArray:",newArray);
+        newArray.forEach(e=>{
             let id = e.userUID;
-            //console.log("id: ",id);
             Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${id}`)
-                .then((response) => {                
-                    let data = response.data;           
-                    //console.log("setTheNames() - response:",data);
-                    
-                    e.patientName = data[0].lastName+", "+data[0].firstName ;
-                    //console.log("setTheNames() - e.patientName:",e.patientName);
-                    
-                    
-                    
-                }).catch((err) => {
-                    console.log(err, "Unable to get Locations");
-                });
+            .then((response) => {                
+                let data = response.data;           
+                //console.log("setTheNames() - response:",data);
+                
+                e.patientName = data[0].lastName+", "+data[0].firstName;
+                //console.log("setTheNames() - name:",name);
+                setAppt(e);
+            }).catch((err) => {
+                console.log(err, "Unable to get Locations");
+                return "unknown";
+            });            
             //Covnert string to Date.
             e.date = new Date(e.date.split('-').join('/'));            
         });
-        //sort Array
-        apptData.sort(compare);
-        //console.log("HEY I MADE IT!");
-        //console.log("setTheNames - apptData",apptData);
-        setListOfAppointments(apptData);
     }
 
-    /******************************************************
-                HTML
-    ******************************************************/   
+    //console.log('IMPORTANTLIST', listOfAppointments)
     return (
         <div>                
             <table id="AptsToday" class='table'>
@@ -176,7 +165,8 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
                         <th>Report</th>
                         <th>Call</th>
                     </tr>
-                    {listOfAppointments !== undefined ? listOfAppointments.map((appointment, index) => (
+                    
+                    {listOfAppointments !== undefined ? listOfAppointments.map((appointment) => (
                          <tr key={appointment._id} >
                             <td style={styleTD}>{(new Date(appointment.date)).toLocaleDateString()}</td>
                             <td style={styleTD}>{appointment.time}</td>
@@ -204,7 +194,7 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
                                     onClick={e => reportClick(e, appointment)}
                                 />
                                 <PopUpAddReport
-                                    AptInfo = {AptInfo}                       
+                                    AptInfo = {AptInfo}                                    
                                     trigger={reportInputPopup}
                                     setTrigger={setReportInputPopup}
                                 />

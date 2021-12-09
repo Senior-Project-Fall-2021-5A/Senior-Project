@@ -250,7 +250,7 @@ function AdminPage() {
                             <AdminApts
                                 dateValue={txtDateValue}
                                 txtPatientID={txtPatientID}  
-                                apptInputPopup={apptInputPopup}                             
+                                apptInputPopup={apptInputPopup}                                                           
                             />
                         </div>
                             
