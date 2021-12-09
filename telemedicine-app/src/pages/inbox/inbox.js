@@ -135,7 +135,7 @@ const Inbox = () => {
                                 date={(new Date(Message.date)).toLocaleDateString()}
 
                                 // Message will go here
-                                content={Message.body}
+                                body={Message.body}
 
                             />
                         )))}

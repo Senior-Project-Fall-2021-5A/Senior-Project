@@ -209,7 +209,7 @@ const PopUpAddAppt = ( { trigger, setTrigger, newPatientPopup, newStaffPopup} ) 
         setDate(event);
         //convert date to string
         setTxtDate(event.toLocaleDateString("en-US").split('/').join('-'));
-        //console.log("Date: ",event," txtDate: ",event.toLocaleDateString("en-US").split('/').join('-'));
+        console.log("Date: ",event," txtDate: ",event.toLocaleDateString("en-US").split('/').join('-'));
     }
 
     //Submit Apt

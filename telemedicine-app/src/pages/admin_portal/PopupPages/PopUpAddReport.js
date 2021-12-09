@@ -5,7 +5,7 @@ import PopUpWindow from '../../../components/Objects/ObjPopUpWindow';
 import ObjButton from '../../../components/Objects/ObjButton'
 import ObjInputFile from '../../../components/Objects/ObjInputFile';
 
-const PopUpAddReport = ( {userUID, appointmentsUID, doctorUID, txtDate, locationUID, trigger,setTrigger} ) => {
+const PopUpAddReport = ( {trigger,setTrigger, AptInfo} ) => {//userUID, appointmentsUID, doctorUID, txtDate, locationUID, 
     const [textInput, setTextInput] = React.useState("");
     const [file, setFile] = React.useState(new FormData());
     const [boolError,setBoolError] = React.useState(false);
@@ -13,11 +13,7 @@ const PopUpAddReport = ( {userUID, appointmentsUID, doctorUID, txtDate, location
 
     //Load Patients and Doctors
     useEffect(() => {
-        console.log("userUID: ",userUID);
-        console.log("appointmentsUID: ",appointmentsUID);
-        console.log("doctorUID: ",doctorUID);
-        console.log("txtDate: ",txtDate);
-        console.log("locationUID: ",locationUID);
+        console.log("AptInfo: ",AptInfo);        
     }, []);
 
     const onTextChange = (event) => {
@@ -49,15 +45,38 @@ const PopUpAddReport = ( {userUID, appointmentsUID, doctorUID, txtDate, location
 
     const onSubmit = (event) => {
         console.log("Add Report - ",
-        "userUID",userUID,
-        "appointmentsUID",appointmentsUID,
-        "doctorUID",doctorUID,
-        "txtDate",txtDate,
+        "AptInfo.userUID",AptInfo.userUID,
+        "AptInfo._id",AptInfo._id,
+        "AptInfo.doctorUID",AptInfo.doctorUID,
+        "AptInfo.date",AptInfo.date,
         "textInput",textInput,
         "file",file,
-        "locationUID",locationUID);
+        "AptInfo.locationUID",AptInfo.locationUID);
         
-        addReport();
+        addFile();     
+    }
+
+    //send File
+    const addFile = (  ) => {
+        /* const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };config */
+        Axios.post('https://telemedicine5a-backend.herokuapp.com/file/upload',file, {                       
+                }).then((response) => {
+                    console.log("Add Report, response: ",response);
+                    console.log("Add Report, response: ",response.data.filename);
+                    
+                    
+                }).catch((err) => {
+                    //get Error
+                    console.log("Org Error: ",err);
+
+                    //error display
+                    setError("Unable to add File");
+                    setBoolError(true);            
+                });
     }
 
     //Create Apt
@@ -66,10 +85,10 @@ const PopUpAddReport = ( {userUID, appointmentsUID, doctorUID, txtDate, location
             /* console.log("Report Add -  userUID: ",userUID," appointmentsUID: ",appointmentsUID, " doctorUID: ",doctorUID,
             " txtDate: ",txtDate, " textInput: ",textInput," formData: ",formData, " locationUID: ",locationUID); */
             Axios.post('https://telemedicine5a-backend.herokuapp.com/reports/addReport', {
-                    userUID:            userUID,
-                    appointmentsUID:    appointmentsUID,
-                    doctorUID:          doctorUID,
-                    date:               txtDate,
+                    userUID:            AptInfo.userUID,
+                    appointmentsUID:    AptInfo._id,
+                    doctorUID:          AptInfo.doctorUID,
+                    date:               AptInfo.date,
                     details:            textInput,
                 }).then((response) => {
                     console.log("Add Report, response: ",response);
@@ -95,35 +114,12 @@ const PopUpAddReport = ( {userUID, appointmentsUID, doctorUID, txtDate, location
         }
     }
 
-    //send File
-    const addFile = ( reportID ) => {
-        /* const config = {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        };config */
-        Axios.post('https://telemedicine5a-backend.herokuapp.com/file/uploadFiles',file, {
-                    reportUID:  reportID,
-                    description: userUID+txtDate,
-                    //file:    
-                }).then((response) => {
-                    console.log("Add Report, response: ",response) 
-                    sendNotification();
-                    
-                }).catch((err) => {
-                    //get Error
-                    console.log("Org Error: ",err);
-
-                    //error display
-                    setError("Unable to add File");
-                    setBoolError(true);            
-                });
-    }
+    
 
     //send Notification
     const sendNotification = () => {
         Axios.post('https://telemedicine5a-backend.herokuapp.com/notifs/addNotifications', {
-                    userUID: userUID,
+                    userUID: AptInfo.userUID,
                     notif_type: 'report',
                     isRead: false
                 }).then((response) => {

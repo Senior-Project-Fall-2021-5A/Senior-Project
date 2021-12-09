@@ -1,9 +1,13 @@
-import React from 'react'
-import ObjCheckBox from '../../../components/Objects/ObjCheckBox'
+import React, { useState, useEffect }  from 'react';
 import Axios from 'axios';
+import authUserObject from '../../../middleware/authUserObject';//'../middleware/authUserObject';
+import ObjCheckBox from '../../../components/Objects/ObjCheckBox';
+
 
 const AdminSchDaysOff = () => {
     //declarations
+    const [arrDays, setArrDays] = React.useState([]);
+    const [txtDays, setDays] = React.useState("");
     const [checkedMon, setCheckedMon] = React.useState(false);
     const [checkedTues, setCheckedTues] = React.useState(false);
     const [checkedWed, setCheckedWed] = React.useState(false);
@@ -12,23 +16,78 @@ const AdminSchDaysOff = () => {
     const [checkedSat, setCheckedSat] = React.useState(false);
     const [checkedSun, setCheckedSun] = React.useState(false);
 
-    /*const initDayCBoxs = () => {
-        Axios.get('https://telemedicine5a-backend.herokuapp.com/reports/getReports')
-            .then((response) => {
-                console.log(response);
-                //setListOfReports(response.data);
-            })
-            .catch((err) => {
-                console.log(err, "Unable to get Reports");
+    /***************************************************** 
+                    Handlers
+    ******************************************************/
+    //on open
+    useEffect(() => {
+        getListDaysOff();
+    }, []);
+
+    /***************************************************** 
+                    Axios Get
+    ******************************************************/
+    const getListDaysOff = (  ) => {
+        console.log("getListDaysOff() - starting");
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/daysOff/getDaysOff/${authUserObject.userId}`)
+            .then((response) => {   
+                console.log("getListDaysOff() - response:",response);             
+                let data = response.data;           
+                console.log("list of docs response:",data);
+                if(data[0]){
+                    let arrDaysGet = data.daysOff.split("|");
+                    setBoxDaysOff(arrDaysGet);
+                }
+            }).catch((err) => {
+                console.log(err, "Unable to get doctors/getDoctorInfo");
             });
-    };*/
+    }
+
+    /***************************************************** 
+                    Axios Post
+    ******************************************************/
+    const setListDaysOff = (arrDaysPush) => {
+        console.log("setListDaysOff() - arrDaysPush:",arrDaysPush );
+        /* Axios.post(`https://telemedicine5a-backend.herokuapp.com/appointments/addDaysOff`, {
+            doctorUID:  authUserObject.userId,
+            daysOff:    arrDaysPush.join("|"),
+        }).then(response => {
+            console.log(response)
+        }).catch((err) => {
+            console.log(err)
+        }) */
+    }
+
+    /***************************************************** 
+                    Functions
+    ******************************************************/
+    const setBoxDaysOff = (arrDaysGet) => {
+        console.log("setBoxDaysOff() - arrDaysGet:",arrDaysGet);
+        if(arrDaysGet.includes("Monday")){
+            setCheckedMon(true);
+        } else if(arrDaysGet.includes("Tuesday")){
+            setCheckedTues(true);
+        } else if(arrDaysGet.includes("Wednesday")){
+            setCheckedWed(true);
+        } else if(arrDaysGet.includes("Thursday")){
+            setCheckedThurs(true);
+        } else if(arrDaysGet.includes("Friday")){
+            setCheckedFri(true);
+        } else if(arrDaysGet.includes("Saturday")){
+            setCheckedSat(true);
+        } else if(arrDaysGet.includes("Sunday")){
+            setCheckedSun(true);
+        }
+    }
 
     const handleDayCBChange = (event) => {
-        //console.log("event:",event);
-        //console.log("name:",event.target.name);
-        //console.log("label:",event.target.parentNode.control.attributes.label.nodeValue);
-
+        console.log("handleDayCBChange() - event:",event);
+        
         let targetName = event.target.name;
+        let targetLabel = event.target.attributes.label.nodeValue;
+        let arrDaysPush = arrDays;
+        console.log("handleDayCBChange() - targetName:",targetName,"targetLabel:",targetLabel,"arrDaysPush:",arrDaysPush);
+
         if (targetName === "boxMonday") {
             let bCheck = !checkedMon;
             setCheckedMon(bCheck);
@@ -58,6 +117,11 @@ const AdminSchDaysOff = () => {
             setCheckedSun(bCheck);
             //console.log("boxSunday", bCheck);
         }
+
+        arrDaysPush.push(targetLabel);
+        setArrDays(arrDaysPush);
+        setListDaysOff(arrDaysPush);
+        console.log("handleDayCBChange() - arrDaysPush:",arrDaysPush);
     }
 
     return (

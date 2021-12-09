@@ -1,6 +1,7 @@
 import React, {useState, useRef} from 'react';
 import Chevron from '../inbox components/Chevron';
-
+import ObjLink from '../Objects/ObjLink';
+import PopUpReply from '../../pages/admin_portal/PopupPages/PopUpReply';
 import './InboxAccordion.css';
 
 function InboxAccordion(props) {
@@ -11,6 +12,14 @@ function InboxAccordion(props) {
     
 
     const content = useRef(null);
+
+    const [newPatientPopup, setnewPatientPopup] = React.useState(false);
+    const newPatientClick = (e) => {
+        console.log("Reply click", e);
+        let bPop = !newPatientPopup;
+        setnewPatientPopup(bPop);
+        console.log("Popup is ", bPop);
+    }
 
     function toggleAccordion(){
         setActiveState(setActive === "" ? "active" : "");
@@ -33,9 +42,24 @@ function InboxAccordion(props) {
             <div ref={content} style={{maxHeight: `${setHeight}`}} className="accordion__content">
                 <div
                     className="accordion__text"
-                    dangerouslySetInnerHTML={{ __html: props.content }}
+                    dangerouslySetInnerHTML={{ __html: (props.body.slice(0,props.body.search("________"))) }}
+                    
                 />
+                <ObjLink
+                text="Reply"
+                btnWidth="125px"
+                onClick={e => newPatientClick(e)}
+                doLink="false"
+                
+
+            />
             </div>
+            <PopUpReply
+                subject={props.title}
+                message={props.body}
+                trigger={newPatientPopup}
+                setTrigger={setnewPatientPopup}
+            />
         </div>
     );
 }

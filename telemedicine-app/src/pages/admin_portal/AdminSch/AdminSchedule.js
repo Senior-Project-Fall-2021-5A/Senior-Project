@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { useEffect } from 'react';
 import './adminSchedule.css'
 import PropTypes from 'prop-types'
 import AdminSchDaysOff from './AdminSchDaysOff'
@@ -6,7 +7,7 @@ import AdminSchCalendar from './AdminSchCalendar'
 import AdminSchTimes from './AdminSchTimes'
 
 const AdminSchedule = ({  }) => {
-
+    const [calDate, setCalDate] = React.useState(new Date())
     
     //draw
     return (
@@ -28,7 +29,9 @@ const AdminSchedule = ({  }) => {
                 <p className='adminschedule-calender-label'>to see Schedule and Appointments</p>
             </div>
             <div className='adminschedule-calender-frame'>
-                <AdminSchCalendar/>
+                <AdminSchCalendar
+                    //calDate={calDate}
+                />
             </div>
             <div className='adminschedule-time-list-frame'>
                 <AdminSchTimes/>
