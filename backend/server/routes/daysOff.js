@@ -29,6 +29,46 @@ router.get('/getDaysOff/:userId', async (req, res) => {
     .catch(err => next(err));
 });
 
+router.post('/updateDaysOff/:doctorUID', async (req, res) => {
+    const updateFields = req.body;
+    DaysOffModel.find({
+        $or: [
+            { doctorUID: req.params.userId }
+        ]
+    }).then(daysOff => {
+        if (daysOff.length !== 0) {
+            DaysOffModel.findOneAndUpdate({doctorUID: req.params.doctorUID}, 
+                updateFields, {new: true},
+                (err, result) => {
+                    if (err) {
+                    res.send("Unable to update info for", {userId})
+                    } else {
+                    res.status(200).json(result);
+                    }
+                })
+            }
+        else {
+            const doctorUID = req.body.doctorUID;
+            const daysOff = req.body.dayOff;
+            const time = req.body.time;
+    
+            // Turn string input into ObjectIDs
+            const doctorObjId = new ObjectID(doctorUID);
+
+            const newDaysOff = 
+                new DaysOffModel({  
+                    doctorUID: doctorObjId,
+                    daysOff: daysOff,
+                    time: time
+
+                });
+    
+            await newDaysOff.save();
+            res.send("Added Days Off!")
+        } 
+        })
+});
+
 router.post('/addDaysOff', async (req, res) => {
     const doctorUID = req.body.doctorUID;
     const daysOff = req.body.dayOff;
