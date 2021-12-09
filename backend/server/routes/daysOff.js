@@ -31,11 +31,7 @@ router.get('/getDaysOff/:userId', async (req, res) => {
 
 router.post('/updateDaysOff/:doctorUID', async (req, res) => {
     const updateFields = req.body;
-    DaysOffModel.find({
-        $or: [
-            { doctorUID: req.params.userId }
-        ]
-    }).then(daysOff => {
+    DaysOffModel.find({doctorUID: req.params.userId }).then(daysOff => {
         if (daysOff.length !== 0) {
             DaysOffModel.findOneAndUpdate({doctorUID: req.params.doctorUID}, 
                 updateFields, {new: true},
