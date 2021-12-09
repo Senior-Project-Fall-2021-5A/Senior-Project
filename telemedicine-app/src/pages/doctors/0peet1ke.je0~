@@ -108,7 +108,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 		//getDocNames();
 	    getDocFields();
 
-		CreateDocListOfAprrovedFamily();
+		CreateDocListOfAprrovedFamily(myDocs);
 
 		
 
@@ -228,10 +228,6 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 
 					//let fos = data.fieldOfStudy;
 					console.log("myDocs bro - response:", myDocs.fos);
-
-					
-
-					
                     //let name = data[0].lastName + ", " + data[0].firstName;
                     //console.log("setTheNames() - name:", name);
 
@@ -499,31 +495,21 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 				console.log("lit fam: " + listOfApprovedDocFamily);
 		}
 
-	function CreateDocListOfAprrovedFamily() {
-			/*
-			let listy = [];
+	function CreateDocListOfAprrovedFamily(array) {
 
-			//let a = [];
-			//a.push(JSON.stringify(myDocs));
+			for(let i in listOfNewDocs.label) {
 
-			myDocs.forEach(e => {
-				console.log("some fos: " + e.fos);
-				//let docFOS = e.fos;
-				console.log("some fos: " + e.fos);
-				if(listOfApprovedDocFamily.includes(e.fos)) {
-					listy.push(e);
-				} 
-			})
+				for(let j in listOfApprovedDocFamily) {
 
-			//setMyDocs(listy);
-			console.log("My for each loop: " + listy);
-			*/
-			var count = 0;
-			let i;
-			for(i = 0; i < myDocs; i++) {
-				count += 1;
+					if(listOfApprovedDocFamily[i].toLowerCase()  == listOfApprovedDocFamily[j].label.toLowerCase()) {
+
+						listy.push(listOfNewDocs[i]);
+
+					}
+				}
 			}
-			console.log("coutn      " + count);
+
+			setMyDocs(listy);
 		
 			
 			

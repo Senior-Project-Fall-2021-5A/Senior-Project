@@ -224,7 +224,7 @@ function NoAppointments() {
                        <div className='Appointments-card'>
 
 
-                          <div className="refreshLabel"><h6>View new appointment</h6></div>
+                          <div className="refreshLabel"><h6>View New Appointment</h6></div>
                           <Button className="refreshBtn" onClick={refreshPage}>
                                 <i class="fas fa-redo-alt"></i>   
                           </Button>

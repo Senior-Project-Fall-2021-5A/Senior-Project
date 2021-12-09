@@ -1,17 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\backend",
-    "\\backend\\server",
-    "\\backend\\server\\models",
-    "\\backend\\server\\routes",
     "\\telemedicine-app",
     "\\telemedicine-app\\src",
-    "\\telemedicine-app\\src\\components",
-    "\\telemedicine-app\\src\\components\\routes",
     "\\telemedicine-app\\src\\pages",
-    "\\telemedicine-app\\src\\pages\\doctors"
+    "\\telemedicine-app\\src\\pages\\admin_portal",
+    "\\telemedicine-app\\src\\pages\\admin_portal\\AdminApts",
+    "\\telemedicine-app\\src\\pages\\admin_portal\\AdminSch",
+    "\\telemedicine-app\\src\\pages\\admin_portal\\PopupPages",
+    "\\telemedicine-app\\src\\pages\\doctors",
+    "\\telemedicine-app\\src\\pages\\sign_on"
   ],
-  "SelectedNode": "\\backend\\server\\models\\Appointment.js",
+  "SelectedNode": "\\telemedicine-app\\src\\pages\\admin_portal\\PopupPages\\PopUpAddAppt.js",
   "PreviewInSolutionExplorer": false
 }

@@ -230,8 +230,6 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 					console.log("myDocs bro - response:", myDocs.fos);
 
 					
-
-					
                     //let name = data[0].lastName + ", " + data[0].firstName;
                     //console.log("setTheNames() - name:", name);
 
@@ -500,30 +498,23 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 		}
 
 	function CreateDocListOfAprrovedFamily() {
-			/*
+
 			let listy = [];
 
-			//let a = [];
+			let a = [];
 			//a.push(JSON.stringify(myDocs));
 
 			myDocs.forEach(e => {
 				console.log("some fos: " + e.fos);
-				//let docFOS = e.fos;
-				console.log("some fos: " + e.fos);
-				if(listOfApprovedDocFamily.includes(e.fos)) {
+				let docFOS = e.fos;
+				console.log("some fos: " + docFOS);
+				if(listOfApprovedDocFamily.includes(docFOS)) {
 					listy.push(e);
 				} 
 			})
 
 			//setMyDocs(listy);
 			console.log("My for each loop: " + listy);
-			*/
-			var count = 0;
-			let i;
-			for(i = 0; i < myDocs; i++) {
-				count += 1;
-			}
-			console.log("coutn      " + count);
 		
 			
 			

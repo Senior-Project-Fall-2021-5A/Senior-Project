@@ -87,31 +87,22 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 
 		const [listOfNewDocs, setListOfNewDocs] = useState([]);
 
-
-		var theListyFinal = [];
-
 	useEffect(() => {
 	 
 	  window.addEventListener("resize", handleResize)
-	  
-		CreateListOfPatientDocFamily(userId);
+
 	 
         CreateListOfDoctors();
 
 		
 		//getLocations();
 		
-		
+		//CreateListOfPatientDocFamily(userId);
 
 		//CreateDocListOfAprrovedFamily();
 		//newCreateListOfDoctors();
 		//getDocNames();
 	    getDocFields();
-
-		CreateDocListOfAprrovedFamily();
-
-		
-
 	}, [])
 
 	
@@ -199,39 +190,19 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 
 						let y = e.doctorUID;
 
-						Axios.get(`http://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${y}`)
+						Axios.get(`http://telemedicine5a-backend.herokuapp.com/users/getDoctors/${y}`)
 							.then((response) => {
-
-								let docId = response.data;
-
-								//const result = docId.filter(docId => docId.listOfApprovedDocFamily === "Allergist" || "Pathologist" || "Infectious Disease" || "Neurologist");
-								//console.log("result approved doc: ", result);
-
-								docId.forEach(event=>{setMyDocs(myDocs => [...myDocs, {
-
-									label: event.firstName + " " + event.lastName,
-									fos: e.fieldOfStudy,
-					
-								}]
-							)});
-
 								
-								console.log("red leaf: ", response.data, e.fieldOfStudy);
+								console.log("red leaf: ", response.data);
 							
 							}).catch((err) => {
 								console.log(err, "Unable to dooby of Doctors");
 							});
 					})
 
-					console.log("you bet   " + listOfApprovedDocFamily);
 
-
-					//let fos = data.fieldOfStudy;
-					console.log("myDocs bro - response:", myDocs.fos);
-
-					
-
-					
+					let fos = data.fieldOfStudy;
+					console.log("Fos - response:", fos);
                     //let name = data[0].lastName + ", " + data[0].firstName;
                     //console.log("setTheNames() - name:", name);
 
@@ -241,7 +212,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
                     //console.log("setTheNames() - arrData: ", arrData);
                     //newList = [...newList, e];
 
-					//setMyDocs(newList);
+					setMyDocs(newList);
 					//console.log("myDocs - " + newList);
                     
                 }).catch((err) => {
@@ -494,37 +465,25 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 				}).catch((err) => {
 					console.log(err, "Unable to get Patients list of Doctors");
 				});
-
-
-				console.log("lit fam: " + listOfApprovedDocFamily);
 		}
 
 	function CreateDocListOfAprrovedFamily() {
-			/*
-			let listy = [];
 
-			//let a = [];
-			//a.push(JSON.stringify(myDocs));
-
-			myDocs.forEach(e => {
-				console.log("some fos: " + e.fos);
-				//let docFOS = e.fos;
-				console.log("some fos: " + e.fos);
-				if(listOfApprovedDocFamily.includes(e.fos)) {
-					listy.push(e);
-				} 
-			})
-
-			//setMyDocs(listy);
-			console.log("My for each loop: " + listy);
-			*/
-			var count = 0;
-			let i;
-			for(i = 0; i < myDocs; i++) {
-				count += 1;
-			}
-			console.log("coutn      " + count);
 		
+			
+		for(let i in listOfNewDocs.label) {
+
+			for(let j in listOfApprovedDocFamily) {
+
+				if(listOfApprovedDocFamily[i].toLowerCase()  == listOfApprovedDocFamily[j].label.toLowerCase()) {
+
+					listy.push(listOfNewDocs[i]);
+
+				}
+			}
+		}
+
+		setMyDocs(listy);
 			
 			
 	}
@@ -570,7 +529,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 										<img src={img1} className="card-img-top img-fluid" />
 										<div className="card-body">
 											<h5 className="card-title">{item.label}</h5>
-											<p className="card-text">{item.fos}</p>
+											<p className="card-text">{item.label}</p>
 
 										
 											<Button className="nextButton" onClick={e => apptClick(item.value)}>
