@@ -52,7 +52,7 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
         }
     }, [txtPatientID]);
 
-    //when dateValue is revised
+    //when appt is updated
     useEffect(() => {
         //console.log("useEffect - appt: ",appt); 
         let doAdd = true;  
