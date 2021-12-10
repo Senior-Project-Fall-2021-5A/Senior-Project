@@ -2,50 +2,37 @@ import React, {useState, useEffect} from 'react';
 import DoctorData from '../doctors/DoctorData';
 import '../appointments/appointments.css';
 import {Link} from "react-router-dom";
-
-
 import {Card, Button} from 'react-bootstrap';
-
-
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
-
-
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './Calendar.css';
-import moment from 'moment' 
-
-
+import moment from 'moment';
 import './doctors.css';
-
 import Axios from 'axios';
-
 import img1 from './avatar_placeholder.png';
-
 import { Modal } from 'react-bootstrap';
-
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-import ObjButton from '../../components/Objects/ObjButton'
-
-import PopUpWindow from '../../components/Objects/ObjPopUpWindow'
-
-import ObjLink from '../../components/Objects/ObjLink'
-
+import ObjButton from '../../components/Objects/ObjButton';
+import PopUpWindow from '../../components/Objects/ObjPopUpWindow';
+import ObjLink from '../../components/Objects/ObjLink';
 import authUserObject from '../../middleware/authUserObject';
 
 const DoctorSearch = ( {trigger,setTrigger} ) => {
-
+	/**********************************************************
+					Declarations
+	**********************************************************/
+	//Used????
 	const [filter, setFilter] = useState('');
-
 	const [show, setShow] = useState(false);
-	
 	const handleShow = () => setShow(true);
+	var listy = [];
+	const [docEle, setDocEle] = useState({});
 
-	const [isMobile, setIsMobile] = useState(false)
-
+	//Keep
+	const [isMobile, setIsMobile] = useState(false);
 	const [listOfDoctors, setListOfDoctors] = useState([]);
 
 	 const [textTime,setTime] = React.useState("");
@@ -60,18 +47,6 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 
 	 const [listOfApprovedDocFamily, setlistOfApprovedDocFamily] = React.useState([]);
 
-	const searchText = (event) => {
-		setFilter(event.target.value);
-	}
-
-	const handleResize = () => {
-	  if (window.innerWidth < 768) {
-		  setIsMobile(true)
-	  } else {
-		  setIsMobile(false)
-	  }
-	}
-
 	const handleClose = () => setShow(false);
 
 	const [date,setDate] = React.useState(new Date());
@@ -84,132 +59,133 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 
 	const [listOfNewDocs, setListOfNewDocs] = useState([]);
 
-	const [docEle, setDocEle] = useState({});
-		
-	
-		useEffect(() => {
-			//console.log("useEffect - docs: ",docs); 
-			let doAdd = true;  
-			console.log('THESE PRETZELS ARE MAKIN ME THIRSTY', listOfDoctors)
-			listOfDoctors.forEach(e=>{
-				console.log("listOfDoctors loop: e:",e._id, "docEle:",docEle,"test:",e._id == docEle._id);
-				if (e._id != undefined && e._id == docEle._id){
-					doAdd = false;                
-				}
-			});   
-			if (doAdd) {
-				setListOfDoctors([...listOfDoctors,docEle]);
-			}
-		}, [docEle]);
-
-		useEffect(() => {
-			CreateListOfDoctors()
-		}, []);
-	
-		const CreateListOfDoctors = () => {
-			setListOfDoctors([]);
-			let doctorDetailsList = []
-			console.log(authUserObject.userId)
-			Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/approvedDoctors/${userId}`)
-				.then((response) => {
-				// Sample obj {doctorUID: 23423424234, fieldOfStudy: Cardiologist}
-					console.log('YEEEEEEt', response)
-					doctorDetailsList.push(response.data);
-					console.log('AYOOOOOOOOOO MANE', doctorDetailsList)
-					doctorDetailsList.forEach(doctor => {
-						console.log('BOP', doctor[0])
-						return Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${doctor[0].doctorUID}`)
-									.then((response) => {
-										console.log('DOC INFO', response)
-										doctor[0]["docName"] = (response.data[0].firstName + ' ' + response.data[0].lastName);
-										setDocEle(doctor[0]);
-									})
-									.catch((err) => {
-										console.log(err);
-									})
-					})
-				})
-		}
-
 
 	const [txtLocSelect,setLocSelect] = React.useState("");
+	const [doctorID, setDoctorID] = useState('');
+	const [apptInputPopup, setApptInputPopup] = React.useState(false);
 
-	 const onRadioLocSelect = ( event ) => {
-        let inPersOrOnline = event.target.value;
-		setLocSelect(inPersOrOnline);
-
-       
-        console.log("Radio type Select: ", inPersOrOnline);
-       
-    }
-
-	const onTimeSelect = ( event ) => {
-        
-        setTime(event.target.value);
-    }
-
-	const listOfTimes =[
-        { label: "09:00AM", value: "09:00AM", },   
-        { label: "09:30AM", value: "09:30AM", },     
+	//Time Defaults
+    const listOfTimes =[
         {
-            label: "10:00AM",
-            value: "10:00AM",
+            label: "09:00 am",
+            value: "09:00 am",
+        },   
+        {
+            label: "09:30 am",
+            value: "09:30 am",
+        },     
+        {
+            label: "10:00 am",
+            value: "10:00 am",
         },
         {
-            label: "10:30AM",
-            value: "10:30AM",
+            label: "10:30 am",
+            value: "10:30 am",
         },
         {
-            label: "11:00AM",
-            value: "11:00AM",
+            label: "11:00 am",
+            value: "11:00 am",
         },
         {
-            label: "11:30AM",
-            value: "11:30AM",
+            label: "11:30 am",
+            value: "11:30 am",
         },
         {
-            label: "12:00PM",
-            value: "12:00PM",
+            label: "12:00 pm",
+            value: "12:00 pm",
         },
         {
-            label: "12:30PM",
-            value: "12:30PM",
+            label: "12:30 pm",
+            value: "12:30 pm",
         },
         {
-            label: "01:00PM",
-            value: "01:00PM",
+            label: "01:00 pm",
+            value: "01:00 pm",
         },
         {
-            label: "01:30PM",
-            value: "01:30PM",
+            label: "01:30 pm",
+            value: "01:30 pm",
         },
         {
-            label: "02:00PM",
-            value: "02:00PM",
+            label: "02:00 pm",
+            value: "02:00 pm",
         },
         {
-            label: "02:30PM",
-            value: "02:30PM",
+            label: "02:30 pm",
+            value: "02:30 pm",
         },
         {
-            label: "03:00PM",
-            value: "03:00PM",
+            label: "03:00 pm",
+            value: "03:00 pm",
         },
         {
-            label: "03:30PM",
-            value: "03:30PM",
+            label: "03:30 pm",
+            value: "03:30 pm",
         },
         {
-            label: "04:00PM",
-            value: "04:00PM",
+            label: "04:00 pm",
+            value: "04:00 pm",
         },
         {
-            label: "04:30PM",
-            value: "04:30PM",
+            label: "04:30 pm",
+            value: "04:30 pm",
         },
     ];
 
+	/**********************************************************
+					Handlers
+	**********************************************************/
+	useEffect(() => {
+		//console.log("useEffect - docs: ",docs); 
+		let doAdd = true;  
+		//console.log('THESE PRETZELS ARE MAKIN ME THIRSTY', listOfDoctors)
+		listOfDoctors.forEach(e=>{
+			//console.log("listOfDoctors loop: e:",e._id, "docEle:",docEle,"test:",e._id == docEle._id);
+			if (e._id != undefined && e._id == docEle._id){
+				doAdd = false;                
+			}
+		});   
+		if (doAdd){
+			setListOfDoctors([...listOfDoctors,docEle]);
+		}
+		
+	}, [docEle]);
 
+	useEffect(() => {
+		CreateListOfDoctors()
+	}, []);
+
+	/**********************************************************
+					Axios Get
+	**********************************************************/
+	const CreateListOfDoctors = () => {
+		setListOfDoctors([]);
+		let doctorDetailsList = []
+		//console.log(authUserObject.userId)
+		Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/approvedDoctors/${userId}`)
+			.then((response) => {
+			// Sample obj {doctorUID: 23423424234, fieldOfStudy: Cardiologist}
+				//console.log('YEEEEEEt', response)
+				doctorDetailsList.push(response.data);
+				//console.log('AYOOOOOOOOOO MANE', doctorDetailsList)
+				doctorDetailsList.forEach(doctor => {
+					//console.log('BOP', doctor[0])
+					return Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${doctor[0].doctorUID}`)
+								.then((response) => {
+									//console.log('DOC INFO', response)
+									doctor[0]["docName"] = (response.data[0].firstName + ' ' + response.data[0].lastName);
+									setDocEle(doctor[0]);
+								})
+								.catch((err) => {
+									console.log(err);
+								})
+				})
+			})		
+	}
+
+	/**********************************************************
+					Axios Post
+	**********************************************************/
 	const addAppointment = () => {
 		let newAppt = {userUID:        userId,
 			doctorUID:		doctorID,
@@ -225,9 +201,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
                 time:           textTime,
 				type:			typeSelect,
                 locationUID:    txtLocation,
-               
             }).then((response) => {
-                
 				setShowLocation(false);
 				setTypeSelect("");
 				setLocSelect("");
@@ -236,29 +210,49 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 				setApptInputPopup(false);
 				setTime("");
 				setMyDocs("");
-				
-
             }).catch((err) => {
                           
             });
     }
+	/**********************************************************
+					Functions
+	**********************************************************/
+	//used????
+	const searchText = (event) => {
+		setFilter(event.target.value);
+	}
 
-	const [doctorID, setDoctorID] = useState('');
+	const handleResize = () => {
+	  if (window.innerWidth < 768) {
+		  setIsMobile(true)
+	  } else {
+		  setIsMobile(false)
+	  }
+	}
+	
+	const onRadioLocSelect = ( event ) => {
+		let inPersOrOnline = event.target.value;
+		setLocSelect(inPersOrOnline);
+		//console.log("Radio type Select: ", inPersOrOnline);
+	}
+
+	// used functions
+	const onTimeSelect = ( event ) => {
+        setTime(event.target.value);
+    }
 
 	const onSubmit = (event) => {
         addAppointment();
     }
 
 	const onType = (e) => {
-
 		if (e === 'In Person') {
 		
 			setShowLocation(true);
 			setTypeSelect(e);
 			
-			console.log(e);
-			console.log("in person loc id: " + txtLocation);
-			
+			//console.log(e);
+			//console.log("in person loc id: " + txtLocation);
 		}
 
 		if (e === 'Virtual') {
@@ -266,14 +260,10 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 			setShowLocation(false);
 			setTypeSelect(e);
 
-			console.log(e);
-			console.log("virtual loc id: " + txtLocation);	
-			
+			//console.log(e);
+			//console.log("virtual loc id: " + txtLocation);
 		}
-		
 	}
-
-	const [apptInputPopup, setApptInputPopup] = React.useState(false);   
 
 	const apptClick = (doctorUID) => {
 
@@ -284,8 +274,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 
         let bPop = !apptInputPopup;
         setApptInputPopup(bPop);
-        console.log("Popup is ",bPop);
-
+        //console.log("Popup is ",bPop);
     }
 
 	const onLocationInput = ( event ) => {
@@ -331,8 +320,6 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 	
 
 	return(
-
-
 		<div className='appointments'>
 			<Navbar/>
 				<div className='Appointments-container-outer'>
@@ -496,12 +483,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 												</Link>
 
 												</div>
-
-											
-											
 											</PopUpWindow>
-									
-
 										</div>
 									</div>
 				
