@@ -79,7 +79,7 @@ const AdminSchTimes = ({ calDate, func }) => {
             if(Array.isArray(arrData)){
                 checkTimeBoxes(arrData);
             } else {
-                //setListOfAppointments([]);
+                clearTimeBoxes();
             }
         })
         .catch((err) => {
@@ -118,6 +118,25 @@ const AdminSchTimes = ({ calDate, func }) => {
     /************************************************************************
                 Functions
     ************************************************************************/
+    const clearTimeBoxes = () => {
+        setCheckedTime01(false);
+        setCheckedTime02(false);
+        setCheckedTime03(false);
+        setCheckedTime04(false);
+        setCheckedTime05(false);
+        setCheckedTime06(false);
+        setCheckedTime07(false);
+        setCheckedTime08(false);
+        setCheckedTime09(false);
+        setCheckedTime10(false);
+        setCheckedTime11(false);
+        setCheckedTime12(false);
+        setCheckedTime13(false);
+        setCheckedTime14(false);
+        setCheckedTime15(false);
+        setCheckedTime16(false);
+    }
+    
     const setTimeBox = (value) => {
         switch(value.substring(0,5)){
             case '09:00':
