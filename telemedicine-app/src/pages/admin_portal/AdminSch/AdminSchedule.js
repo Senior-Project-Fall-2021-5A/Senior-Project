@@ -13,7 +13,7 @@ const AdminSchedule = ({  }) => {
                 Functions
     ***************************************************************/
     const pullDate = ( date ) => {
-        console.log("AdminSchedule - date: ",date);
+        //console.log("AdminSchedule - date: ",date);
         setCalDate(date);
     }
 
@@ -35,7 +35,7 @@ const AdminSchedule = ({  }) => {
             </div>
             <div className='adminschedule-calender-label-frame'>
                 <h3 className='adminschedule-calender-label'>Select Day of the Week</h3>
-                <p className='adminschedule-calender-label'>to see Schedule and Appointments {calDate.toLocaleDateString()}</p>
+                <p className='adminschedule-calender-label'>to see Schedule and Appointments</p>
             </div>
             <div className='adminschedule-calender-frame'>
                 <AdminSchCalendar

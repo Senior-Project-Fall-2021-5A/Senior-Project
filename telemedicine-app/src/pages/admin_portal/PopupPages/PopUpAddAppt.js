@@ -16,7 +16,7 @@ const PopUpAddAppt = ( { trigger, setTrigger, newPatientPopup, newStaffPopup} ) 
     const [listOfDoctors,setListOfDoctors] = React.useState([]);
     const [listOfLocations,setListOfLocations] = React.useState([]);
     const [listTimesSelect,setlistTimesSelect] = React.useState([]);
-    const [date,setDate] = React.useState(new Date());
+    const [dateReal,setDate] = React.useState(new Date());
     const [txtDate,setTxtDate] = React.useState("");
     const [textTime,setTime] = React.useState("");
     const [txtLocSelect,setLocSelect] = React.useState("");
@@ -108,8 +108,8 @@ const PopUpAddAppt = ( { trigger, setTrigger, newPatientPopup, newStaffPopup} ) 
 
     useEffect(() => {        
         //get Appts
-        console.log("useEffect[trigger] - textDoctorID:",textDoctorID," txtDate: ",txtDate);
-        getAppointments(textDoctorID,txtDate);
+        //console.log("useEffect[trigger] - textDoctorID:",textDoctorID," txtDate: ",txtDate);
+        getListDaysOff(textDoctorID,txtDate, dateReal);
 
     }, [trigger]);
 
@@ -154,12 +154,38 @@ const PopUpAddAppt = ( { trigger, setTrigger, newPatientPopup, newStaffPopup} ) 
             });
     }
 
+    const getListDaysOff = ( docID, date, rDate ) => {
+        //console.log("getListDaysOff() - starting");
+        let data = [];
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/daysOff/getDaysOff/${authUserObject.userId}`)
+            .then((response) => {   
+                //console.log("getListDaysOff() - response:",response);             
+                data = response.data[0];           
+                //console.log("getListDaysOff data:",data);
+                if(data){
+                    let arrDaysGet = data.daysOff.split("|");
+                    
+
+                    let day = convertDay(rDate.getDay());
+                    //console.log("dateReal:",rDate,"day: ",day);
+                    
+                    if (arrDaysGet.includes(day)){
+                        setlistTimesSelect([]);
+                    } else {
+                        getAppointments( docID, date );
+                    }
+                }
+            }).catch((err) => {
+                console.log(err, "Unable to get doctors/getDoctorInfo");
+            });
+    }
+
     const getAppointments = ( docID, date ) => {
-        console.log("getAppointments - textDoctorID:",docID," txtDate: ",date);
+        //console.log("getAppointments - textDoctorID:",docID," txtDate: ",date);
         if(docID.length >0 && date.length>0){
             Axios.get(`https://telemedicine5a-backend.herokuapp.com/appointments/getAppointmentsByDate/${docID}/${date}`)
                 .then((response) => {
-                    console.log('getAppointments - response:', response)
+                    //console.log('getAppointments - response:', response)
                     let arrData = response.data;            
                     //console.log("arrData: ",arrData);
                     if(Array.isArray(arrData)){
@@ -220,7 +246,7 @@ const PopUpAddAppt = ( { trigger, setTrigger, newPatientPopup, newStaffPopup} ) 
                 setTrigger(false);
             }).catch((err) => {
                 //get Error
-                console.log("Org Error: ",err);
+                //console.log("Org Error: ",err);
 
                 //error display
                 setError("Unable to add Appointment");
@@ -231,6 +257,25 @@ const PopUpAddAppt = ( { trigger, setTrigger, newPatientPopup, newStaffPopup} ) 
     /******************************************************************
                     Functions
     ******************************************************************/
+    const convertDay = ( nDay ) => {
+        switch (nDay){
+            case 0:
+                return "Sunday";
+            case 1:
+                return "Monday";
+            case 2:
+                return "Tuesday";
+            case 3:
+                return "Wednesday";
+            case 4:
+                return "Thursday";
+            case 5:
+                return "Friday";
+            case 6:
+                return "Saturday";
+        }
+    }
+    
     const findTime = (e,v) => e.label == v;
 
     //Time Select
@@ -262,7 +307,7 @@ const PopUpAddAppt = ( { trigger, setTrigger, newPatientPopup, newStaffPopup} ) 
         let docID = event.target.value;
         //console.log("Value set: ", docID);
         setDoctorID(docID);  
-        getAppointments(docID, txtDate);       
+        getListDaysOff(docID, txtDate, dateReal);       
     }
 
     //Set Type of Visit    
@@ -288,8 +333,8 @@ const PopUpAddAppt = ( { trigger, setTrigger, newPatientPopup, newStaffPopup} ) 
         //convert date to string
         let dt = event.toLocaleDateString("en-US").split('/').join('-');
         setTxtDate(dt);
-        console.log("Date: ",event," txtDate: ",event.toLocaleDateString("en-US").split('/').join('-'));
-        getAppointments(textDoctorID, dt);   
+        //console.log("Date: ",event," txtDate: ",event.toLocaleDateString("en-US").split('/').join('-'));
+        getListDaysOff(textDoctorID, dt, event);   
     }
 
     //set Time
@@ -413,7 +458,7 @@ const PopUpAddAppt = ( { trigger, setTrigger, newPatientPopup, newStaffPopup} ) 
                     {/* Date Select */}
                     <div>
                         <DatePicker                            
-                            selected={date}
+                            selected={dateReal}
                             onChange={e=>onDateSelect(e)}
                         />
                     </div>

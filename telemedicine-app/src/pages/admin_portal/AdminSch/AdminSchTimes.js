@@ -62,7 +62,7 @@ const AdminSchTimes = ({ calDate, func }) => {
      ************************************************************************/
     //Load Patients and Doctors
     useEffect(() => {
-        console.log("AdminSchTimes - calDate: ",calDate);  
+        //console.log("AdminSchTimes - calDate: ",calDate);  
         getAppointments();
     }, [calDate]);
 
@@ -99,7 +99,7 @@ const AdminSchTimes = ({ calDate, func }) => {
             time:       objAppt.time,
             type:       objAppt.type,
         }).then(response => {
-            console.log(response)
+            //console.log(response)
         }).catch((err) => {
             console.log(err)
         })
@@ -109,7 +109,7 @@ const AdminSchTimes = ({ calDate, func }) => {
         //console.log("cancelAppt() - id:",id );
         Axios.post(`https://telemedicine5a-backend.herokuapp.com/appointments/cancelAppt/${id}`, {            
         }).then(response => {
-            console.log(response)
+            //console.log(response)
         }).catch((err) => {
             console.log(err)
         })
