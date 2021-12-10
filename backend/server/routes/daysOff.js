@@ -7,7 +7,7 @@ var ObjectID = require('mongodb').ObjectId;
 router.use(cors({origin: '*'}));
 
 router.get('/getDaysOff', async (req, res) => {
-    AppointmentModel.find( {}, (err, result) => {
+    DaysOffModel.find( {}, (err, result) => {
         if (err) {
             res.send(err);
         } else {
@@ -27,6 +27,19 @@ router.get('/getDaysOff/:userId', async (req, res) => {
         return res.status(200).json(dayOff);
     })
     .catch(err => next(err));
+});
+
+router.post('/updateDaysOff/:doctorUID', async (req, res) => {
+    const updateFields = req.body;
+    DaysOffModel.findOneAndUpdate({doctorUID: req.params.doctorUID}, 
+        updateFields, {new: true},
+        (err, result) => {
+            if (err) {
+            res.send("Unable to update info for", {userId})
+            } else {
+            res.status(200).json(result);
+            }
+        })
 });
 
 router.post('/addDaysOff', async (req, res) => {

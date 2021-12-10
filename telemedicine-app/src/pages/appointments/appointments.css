@@ -38,9 +38,18 @@
     height: 40px;
     float: right;
     margin-top: -11vh;
-   
-    
+     
 }
+
+.refreshBtn {
+    background-color: transparent;
+    margin-top: -20vh;
+    color: black;
+    font-size: 30px;
+    text-align: center;
+    border: 2px;
+}
+
 
 .btnCall {
     background-color: #0d6efd;
@@ -56,7 +65,7 @@
     margin-top: 0vh;
     float: left;
     display: inline;
-    margin-left: 23vw;
+    margin-left: 31vw;
 }
 
 
@@ -111,47 +120,45 @@
 }
 
 .subject {
-
     margin: auto;
-    display: inline-block;
     position: relative;
     color: white;
     font-family: 'Open Sans', Arial, Helvetica, Sans-serif, Verdana, Tahoma;
-   
+    display: inline-block;
 }
 
 .date {
-    margin-left: 0vw;
-    margin-top: -4vh;
+    margin: auto;
     position: relative;
     color: white;
     font-family: 'Open Sans', Arial, Helvetica, Sans-serif, Verdana, Tahoma;
+    display: inline-block;
 }
 
 .time {
-    margin-left: -7vw;
-    margin-top: 2vh;
+    margin: auto;
     position: relative;
     color: white;
     font-family: 'Open Sans', Arial, Helvetica, Sans-serif, Verdana, Tahoma;
+    display: inline-block;
 }
 
 .doctor {
-    margin-left: -15vw;
+    margin-left: auto;
     font-weight: 600;
     font-size: 18px;
     position: relative;
 }
 
 .address {
-    margin-left: -15vw;
+    margin-left: auto;
     font-weight: 600;
     font-size: 18px;
     position: relative;
 }
 
 .patient {
-    margin-left: -15vw;
+    margin-left: auto;
     font-weight: 600;
     font-size: 18px;
     position: relative;
@@ -289,6 +296,14 @@
   
     .button {
         margin-top: 1vh;
+    }
+
+    .refreshBtn {
+        margin-top: 1vh;
+    }
+
+    .refreshLabel {
+        float:left;
     }
 
 }

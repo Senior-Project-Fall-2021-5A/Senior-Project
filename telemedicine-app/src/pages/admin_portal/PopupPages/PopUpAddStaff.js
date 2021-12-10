@@ -109,7 +109,7 @@ const PopUpAddStaff = ( {trigger,setTrigger} ) => {
     }
     
     const locationSelect = ( event ) => {
-        console.log("location ID: ",event.target.value);
+        //console.log("location ID: ",event.target.value);
         setLocationID(event.target.value);
     }
 
@@ -118,7 +118,7 @@ const PopUpAddStaff = ( {trigger,setTrigger} ) => {
         Axios.get('https://telemedicine5a-backend.herokuapp.com/location/getLocations')        
             .then((response) => {                
                 let data = response.data;           
-                console.log("CreateListOfLocations() - response:",data);
+                //console.log("CreateListOfLocations() - response:",data);
                 data.forEach(e=>{setListOfLocations(listOfLocations => [...listOfLocations, {
                     label: e.address1+", "+e.zip,
                     value: e._id,

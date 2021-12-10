@@ -1,6 +1,6 @@
 import propTypes from 'prop-types'
 
-const ObjCheckBox = ({ name, label, value, onChange }) => {
+const ObjCheckBox = ({ name, label, value, onChange, onCheck }) => {
     
 
 
@@ -12,6 +12,7 @@ const ObjCheckBox = ({ name, label, value, onChange }) => {
                 type="checkbox" 
                 checked={value} 
                 onChange={onChange} 
+                onCheck={onCheck}
             />
             {label}
         </label>

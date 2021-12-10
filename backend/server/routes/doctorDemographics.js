@@ -25,6 +25,12 @@ router.get('/getDoctorInfo', async (req, res) => {
     });
 });
 
+router.get('/getDoctorLocation/:doctorUID', async (req, res) => {
+    let docLocationList = await DoctorDemoModel.find({doctorUID: req.params.doctorUID}, {_id: 0, locationUID: 1});
+    if (docLocationList === 0) { return res.send("Invalid field of study")}
+    return res.status(200).json(docLocationList)
+});
+
 router.post('/addDoctorInfo', async (req, res) => {
     const doctorUID = req.body.doctorUID;
     const fieldOfStudy = req.body.fieldOfStudy;

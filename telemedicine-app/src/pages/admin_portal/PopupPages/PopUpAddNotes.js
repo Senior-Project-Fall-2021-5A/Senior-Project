@@ -14,11 +14,11 @@ const PopUpAddNotes = ( {trigger,setTrigger, AptInfo} ) => {
         //console.log(textInput);
     }
     const onSubmit = (event) => {
-        console.log(event);
-        console.log(textInput);
+        //console.log(event);
+        //console.log(textInput);
         
         AptInfo.txtNotes = textInput;
-        console.log("AptInfo: ",AptInfo);
+        //console.log("AptInfo: ",AptInfo);
         updateNotes(AptInfo);
         
         setTextInput("");
@@ -30,7 +30,7 @@ const PopUpAddNotes = ( {trigger,setTrigger, AptInfo} ) => {
         Axios.post(`https://telemedicine5a-backend.herokuapp.com/appointments/updateApptInfo/${id}`, {
             apptNotes: AptInfo.txtNotes,
         }).then(response => {
-            console.log('updateNotes() - Success: ', response);            
+            //console.log('updateNotes() - Success: ', response);            
         }).catch((err) => {
             console.log(err)
         })

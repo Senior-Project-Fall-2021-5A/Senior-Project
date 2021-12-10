@@ -88,7 +88,7 @@ const PopUpEditPatient = ( {trigger,setTrigger} ) => {
                 let value = docData.userUID;
                 var index = listOfDoctors.findIndex(arr=> arr.value === value);
                 if (index === -1){
-                    console.log("could not find doctor");
+                    //console.log("could not find doctor");
                 } else {
                     let label = listOfDoctors[index].label;
                     setDoctorName(listOfDoctors[index].label);

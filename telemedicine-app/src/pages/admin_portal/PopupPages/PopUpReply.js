@@ -133,7 +133,7 @@ const PopUpReply = ({ trigger, setTrigger, subject, message }) => {
             setTrigger(false);
         }).catch((err) => {
             //get Error
-            console.log("Org Error: ", err);
+            //console.log("Org Error: ", err);
 
             //error display
             setError("Unable to add time");

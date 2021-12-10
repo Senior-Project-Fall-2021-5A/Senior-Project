@@ -22,7 +22,7 @@ const ReportsSchema = new mongoose.Schema({
         required: false,
     },
     fileName: {
-        type: Buffer,
+        type: String,
         required: false
     },
 });

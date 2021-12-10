@@ -15,7 +15,10 @@
 }
 
 .adminpage-schedule-frame {
-  height: 95vh;
+  height: 40em;
+  padding-bottom: 2%;
+  overflow-y: hidden;
+  
   border: 1px solid black;
   padding: 10px;
   background-color: rgb(231, 231, 231);

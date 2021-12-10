@@ -7,7 +7,16 @@ import AdminSchCalendar from './AdminSchCalendar'
 import AdminSchTimes from './AdminSchTimes'
 
 const AdminSchedule = ({  }) => {
-    const [calDate, setCalDate] = React.useState(new Date())
+    const [calDate, setCalDate] = React.useState(new Date());
+    
+    /***************************************************************
+                Functions
+    ***************************************************************/
+    const pullDate = ( date ) => {
+        //console.log("AdminSchedule - date: ",date);
+        setCalDate(date);
+    }
+
     
     //draw
     return (
@@ -30,11 +39,13 @@ const AdminSchedule = ({  }) => {
             </div>
             <div className='adminschedule-calender-frame'>
                 <AdminSchCalendar
-                    //calDate={calDate}
+                    func={pullDate}
                 />
             </div>
             <div className='adminschedule-time-list-frame'>
-                <AdminSchTimes/>
+                <AdminSchTimes
+                    calDate={calDate.toLocaleDateString("en-US").split('/').join('-')}
+                />
             </div>
         </div>
     )
