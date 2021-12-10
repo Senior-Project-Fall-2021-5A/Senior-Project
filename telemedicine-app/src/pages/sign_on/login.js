@@ -90,13 +90,7 @@ function Login() {
                   Login
                 </Button>{' '}
               </span>
-              <Link to ='/registration' className='registericon'>
-                <Button className='login-register-btn'>
-                  Register
-                </Button>{' '}
-              </Link>
             </Form>
-            
           </div>
         </div>
       </div>

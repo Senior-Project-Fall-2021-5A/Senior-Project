@@ -4,27 +4,36 @@ import './GeneralInfo.css'
 import React, {useEffect, useState} from 'react'
 import Axios from 'axios';
 import authUserObject from '../../middleware/authUserObject';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 
 
 
 function GeneralInfo() {
 
-    let userEmail = '';
-    let userPhone = '';
-    let userPassword = '';
-    let userAddress1 = '';
-    let userAddress2 = '';
-    let userCity = '';
-    let userState = '';
-    let userZip = '';
-    let userDoB = '';
-    let userGender = '';
-
+    // let userPhone = '';
+    // let userAddress1 = '';
+    // let userAddress2 = '';
+    // let userCity = '';
+    // let userState = '';
+    // let userZip = '';
+    // let userDoB = '';
+    // let userGender = '';
+    
     const [generalInfo, setgeneralInfo] = useState([]);
+    const [txtError, setError] = React.useState("");
+    const [boolError, setBoolError] = React.useState(false);
+    const [userPhone, setPhone1] = React.useState("");
+    const [userAddress1, setAddress1] = React.useState("");
+    const [userAddress2, setAddress2] = React.useState("");
+    const [userCity, setCity] = React.useState("");
+    const [userState, setState] = React.useState("");
+    const [userZip, setZip] = React.useState("");
+    const [userDoB, setDoB] = React.useState("");
+    const [userGender, setUserGender] = React.useState("");
+    const [startDate, setStartDate] = useState(new Date());
     const [registerUserState, setRegisterUserState] = useState({
-        email: '',
         phone1: '',
-        password: '',
         address1: '',
         address2: '',
         city: '',
@@ -33,6 +42,7 @@ function GeneralInfo() {
         DoB: '',
         gender: ''
       })
+      
     
     const handleChange = e => {
         setRegisterUserState({
@@ -41,9 +51,34 @@ function GeneralInfo() {
         })
       }
 
-    const handleClick = () => {
-        handleUserRegisterClick();
-    }
+    //   const onGenderSelect = ( event ) => {
+    //     //console.log("onDoctorSelect - ",event);
+    //     let myGender = event.target.value;
+    //     //console.log("Value set: ", docID);
+    //     setGender(myGender);
+    // }
+
+      const onSubmit = async (event) => {
+        event.preventDefault(); // Prevent default submission
+        try {
+
+          await handleUserRegisterClick();
+          alert('Your registration was successfully submitted!');
+          setRegisterUserState({
+            phone1: '',
+            address1: '',
+            address2: '',
+            city: '',
+            state: '',
+            zip: '',
+            DoB: '',
+            gender: '' 
+            });
+        } catch (e) {
+          alert('Your registration was successfully submitted!');
+        }
+      }
+  
 
     useEffect(() => {
         Axios.get(`http://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${authUserObject.userId}`)
@@ -54,59 +89,128 @@ function GeneralInfo() {
             .catch((err) => {
                 console.log(err, "Unable to get uder infor");
             });
-    }, []);
+    }, [generalInfo]);
 
-    const handleUserRegisterClick = () => {
-       return Axios.post(`https://telemedicine5a-backend.herokuapp.com/users/updateUserInfo/${authUserObject.userId}`, {
-            email: registerUserState.email,
-            phone1: registerUserState.phone1,
-            password: registerUserState.password,
-            address1: registerUserState.address1,
-            address2: registerUserState.address2,
-            city: registerUserState.city,
-            state: registerUserState.state,
-            zip: registerUserState.zip,
-            DoB: registerUserState.DoB,
-            gender: registerUserState.gender,
+    // const handleUserRegisterClick = () => {
+    //    return Axios.post(`https://telemedicine5a-backend.herokuapp.com/users/updateUserInfo/${authUserObject.userId}`, {
+    //         phone1: registerUserState.phone1,
+    //         address1: registerUserState.address1,
+    //         address2: registerUserState.address2,
+    //         city: registerUserState.city,
+    //         state: registerUserState.state,
+    //         zip: registerUserState.zip,
+    //         DoB: registerUserState.DoB,
+    //         gender: registerUserState.gender,
             
-            }).then((response) => {
-                userEmail = String(response.data.user.email);
-                localStorage.setItem('userEmail');
+    //         }).then((response) => {
+    //             setBoolError(false);
 
-                userPhone = String(response.data.user.phone1);
-                localStorage.setItem('userPhone');
 
-                userPassword = String(response.data.user.password);
-                localStorage.setItem('userPassword');
+    //             userPhone = String(response.data.user.phone1);
+    //             localStorage.setItem('userPhone');
 
-                userAddress1 = String(response.data.user.address1);
-                localStorage.setItem('userAddress1');
+    //             userAddress1 = String(response.data.user.address1);
+    //             localStorage.setItem('userAddress1');
 
-                userAddress2 = String(response.data.user.address2);
-                localStorage.setItem('userAddress2');
+    //             userAddress2 = String(response.data.user.address2);
+    //             localStorage.setItem('userAddress2');
 
-                userCity = String(response.data.user.city);
-                localStorage.setItem('userCity');
+    //             userCity = String(response.data.user.city);
+    //             localStorage.setItem('userCity');
 
-                userState = String(response.data.user.state);
-                localStorage.setItem('userState');
+    //             userState = String(response.data.user.state);
+    //             localStorage.setItem('userState');
                 
-                userZip = String(response.data.user.zip);
-                localStorage.setItem('userZip');
+    //             userZip = String(response.data.user.zip);
+    //             localStorage.setItem('userZip');
 
-                userDoB = String(response.data.user.DoB);
-                localStorage.setItem('userDoB');
+    //             userDoB = String(response.data.user.DoB);
+    //             localStorage.setItem('userDoB');
 
-                userGender = String(response.data.user.gender);
-                localStorage.setItem('userGender');
+    //             userGender = String(response.data.user.gender);
+    //             localStorage.setItem('userGender');
+    //         }
+    //         )}
+
+    const onPhoneSelect = ( event ) => {
+        //console.log("onPatientSelect - ",event);
+        //console.log("Value set: ", event.target.value);
+        setPhone1(event.target.value);
+    }
+
+    const onAddress1change = ( event ) => {
+        //console.log("onPatientSelect - ",event);
+        //console.log("Value set: ", event.target.value);
+        setAddress1(event.target.value);
+    }
+    const onAddress2change = ( event ) => {
+        //console.log("onPatientSelect - ",event);
+        //console.log("Value set: ", event.target.value);
+        setAddress2(event.target.value);
+    }
+    const onCitychange = ( event ) => {
+        //console.log("onPatientSelect - ",event);
+        //console.log("Value set: ", event.target.value);
+        setCity(event.target.value);
+    }
+    const onStatechange = ( event ) => {
+        //console.log("onPatientSelect - ",event);
+        //console.log("Value set: ", event.target.value);
+        setState(event.target.value);
+    }
+    const onZipchange = ( event ) => {
+        //console.log("onPatientSelect - ",event);
+        //console.log("Value set: ", event.target.value);
+        setZip(event.target.value);
+    }
+    const onDoBchange = ( event ) => {
+        //console.log("onPatientSelect - ",event);
+        //console.log("Value set: ", event.target.value);
+        setDoB(event.target.value);
+    }
+    const onGenderSelect = ( event ) => {
+        //console.log("onPatientSelect - ",event);
+        //console.log("Value set: ", event.target.value);
+        setUserGender(event.target.value);
+    }
+            const handleUserRegisterClick = () => {
+                /* console.log("Final Add Apt -  textPatientID: ",textPatientID," textDoctorID: ",textDoctorID, " txtDate: ",txtDate,
+                    " textTime: ",textTime, " txtLocSelect: ",txtLocSelect," txtLocation: ",txtLocation); */
+                Axios.post(`https://telemedicine5a-backend.herokuapp.com/users/updateUserInfo/${authUserObject.userId}`, {
+                        phone1: userPhone,
+                        address1: userAddress1,
+                        address2: userAddress2,
+                        city: userCity,
+                        state: userState,
+                        zip:    userZip,
+                        DoB:    userDoB,
+                        gender:    userGender,
+                    }).then((response) => {
+                        //console.log("Add Appt, addAppointment(), response: ",response) 
+                        
+                        //cleanup
+                        setBoolError(false);
+                        setPhone1("");
+                        setAddress1(""); 
+                        setAddress2("");
+                        setCity("");                
+                        setDoB("");
+                        setZip("");
+                        setUserGender("");
+                    }).catch((err) => {
+                        //get Error
+                        console.log("Org Error: ",err);
+        
+                        //error display
+                        setError("Unable to add Appointment");
+                        setBoolError(true);            
+                    });
             }
-             )};
-
 
     
 
     return (
-        <Form className='general-info-form'>
+        <Form className='general-info-form' onSubmit={onSubmit}>
             {generalInfo.map((info) => (
             <><Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Text className="text-muted" style={{ fontSize: '25px' }}>
@@ -120,40 +224,61 @@ function GeneralInfo() {
                     </Form.Text>
                 </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label style={{ color: 'black' }}>Current e-mail address: {info.email}</Form.Label>
-                        <Form.Control name = "email" type="text" placeholder="Email" value={registerUserState.email} onChange={handleChange}/>
-                        <Form.Text className="text-muted">
-                            We'll never share your email with anyone else.
-                        </Form.Text>
+                        <Form.Text style={{paddingRight:"10px", fontSize: '25px' }}>Current e-mail address: {info.email}</Form.Text>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label style={{ color: 'black' }}>Date of Birth</Form.Label>
-                        <Form.Control name ="DoB"  value={registerUserState.DoB} onChange={handleChange} type="text" placeholder="Change Your Date of Birth" />
+                        <input type="date"  onChange={(date) => onDoBchange(date)}/>
+                        {/* <DatePicker selected={startDate} dateFormat="MMMM d, yyyy" onChange={(date) => setDoB(date)} /> */}
+                        {/* <Form.Control name ="DoB"  value={registerUserState.userDoB} onChange={e=> onDoBchange(e)} type="text"  placeholder="Change Your Date of Birth" /> */}
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label style={{ color: 'black' }}>Gender Setting:</Form.Label>
-                        <Form.Control name ="gender"  value={registerUserState.gender} onChange={handleChange} type="text" placeholder="Set your gender here" />
+                        <select
+                        style={{
+                            height: "40px",
+                            width: "580px",
+                            textAlign: "left",
+                        }}
+                        onChange={e => onGenderSelect(e)}
+                    >
+                        <option key="puaa_doctor_placeholder" value="_placeholder_">Select a Gender</option>
+                        
+                            <option key={registerUserState.userGender} type="text" name ="gender"  value={registerUserState.userGender}>Male</option>
+                            <option key={registerUserState.userGender} name ="gender" value={registerUserState.userGender}>Female</option>
+                            <option  key={registerUserState.userGender} name ="gender"  value={registerUserState.userGender}>Other</option>
+                            
+                    </select>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label style={{ color: 'black' }}>Current Phone Number: {info.phone1}</Form.Label>
-                        <Form.Control name ="phone1"  value={registerUserState.phone1} onChange={handleChange} type="text" placeholder="Change Phone Number" />
+                        <Form.Control name ="phone1"  value={registerUserState.userPhone} onChange={e=> onPhoneSelect(e)} type="text"  placeholder="Change Phone Number" />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label style={{ color: 'black' }}>Change Password</Form.Label> {info.password}
-                        <Form.Control name= "password" value={registerUserState.password} onChange={handleChange} type="text" placeholder="Password" />
-                    </Form.Group><Form.Group className="mb-3" controlId="formBasicAddress">
+                    <Form.Group className="mb-3" controlId="formBasicAddress" >
                         <Form.Label style={{ color: 'black' }}>Current address: {info.address1} {info.address2} {info.city} , {info.state} {info.zip}</Form.Label>
-                        <Form.Control name="address1" value={registerUserState.address1} onChange={handleChange} type="text" placeholder="Address 1" />
-                        <Form.Control name="address2" value={registerUserState.address2} onChange={handleChange} type="text" placeholder="Address 2" />
-                        <Form.Control name="city" value={registerUserState.city} onChange={handleChange} type="text" placeholder="City" />
-                        <Form.Control name="state" value={registerUserState.state} onChange={handleChange} type="text" placeholder="State" />
-                        <Form.Control name="zip" value={registerUserState.zip} onChange={handleChange} type="text" placeholder="Zip" />
-                    </Form.Group><Form.Group className="mb-3" controlId="formBasicCheckbox">
-                        <Form.Check type="checkbox" label="Check me out" />
-                    </Form.Group><Button variant="primary" type="submit" onClick={handleClick}>
+                        <Form.Control name="address1" value={registerUserState.userAddress1}  onChange={e=> onAddress1change(e)} type="text" required placeholder="Address 1" />
+                        <Form.Control name="address2" value={registerUserState.userAddress2} onChange={e=> onAddress2change(e)} type="text"  placeholder="Address 2" />
+                        <Form.Control name="city" value={registerUserState.userCity}   onChange={e=> onCitychange(e)} type="text" required  placeholder="City" />
+                        <Form.Control name="state" value={registerUserState.userState}  onChange={e=> onStatechange(e)} type="text" required placeholder="State" />
+                        <Form.Control name="zip" value={registerUserState.userZip}  onChange={e=> onZipchange(e)} type="text" required placeholder="Zip" />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                        <Form.Check required type="checkbox" label="Check me out" />
+                    </Form.Group><Button variant="primary" type="submit" >
                         Save
                     </Button></>
+
+                    
             ))}
+            {/* Button Error Message */}
+            {
+                boolError &&
+                <p
+                    style={{
+                        color: 'red',
+                    }}
+                >{txtError}</p>
+            }
         </Form>
     
     )

@@ -29,3 +29,16 @@ small.text-muted.form-text {
 .mb-3 {
     text-align: left;
 }
+select:hover {
+    box-shadow: azure;
+}
+select {
+    border: solid #c9c9c9cf 1px;
+    border-radius: 3px;
+}
+
+input[type="date"] {
+    width: 500px;
+    border: solid #c9c9c9cf 1px;
+    height: 40px;
+}

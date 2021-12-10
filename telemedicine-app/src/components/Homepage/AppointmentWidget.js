@@ -45,7 +45,7 @@ function AppointmentWidget() {
                             <p style={{fontWeight:"bold"}}>Appointment Time:</p> {appointment.time}
                         </Card.Text>
                         <Card.Text>
-                            <p style={{fontWeight:"bold"}}>Appointment Notes:</p> {appointment.apptNotes}
+                            <p style={{fontWeight:"bold"}}>Appointment Notes: </p><p className="appointment-widget-content">{appointment.apptNotes}</p>
                         </Card.Text>
                         <Button variant="primary" href='/NoAppointments'>
                             More Information
