@@ -9,6 +9,7 @@ import PopUpAddAppt from './PopupPages/PopUpAddAppt';
 import AdminApts from "./AdminApts/AdminApts";
 import PopUpAddPatient from './PopupPages/PopUpAddPatient';
 import PopUpAddStaff from './PopupPages/PopUpAddStaff';
+import PopUpAddLocation from './PopupPages/PopUpAddLocation';
 import PopUpEditPatient from './PopupPages/PopUpEditPatient';
 import PopUpApptSelect from './PopupPages/PopUpApptSelect';
 import DatePicker from "react-datepicker";
@@ -45,6 +46,16 @@ function AdminPage() {
         //console.log("click", e);
         let bPop = !newStaffPopup;
         setnewStaffPopup(bPop);
+        //console.log("Popup is ",bPop);
+    }
+
+    //New Loc Popup handler
+    const [newLocPopup, setnewLocPopup] = React.useState(false);    
+    const newLocClick = (e) => {
+        //console.log("New Patient Click");
+        //console.log("click", e);
+        let bPop = !newLocPopup;
+        setnewLocPopup(bPop);
         //console.log("Popup is ",bPop);
     }
 
@@ -148,6 +159,22 @@ function AdminPage() {
                                         text="New Staff"
                                         btnWidth = "125px"
                                         onClick={e => newStaffClick(e)}
+                                        doLink = "false"   
+                                    />                                    
+                                </div> 
+
+                                {/* New Location Button  */}
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        position: 'relative',
+                                        left: '30px',                        
+                                    }}
+                                >
+                                    <ObjLink                                                        
+                                        text="New Loc"
+                                        btnWidth = "125px"
+                                        onClick={e => newLocClick(e)}
                                         doLink = "false"   
                                     />                                    
                                 </div> 
@@ -279,6 +306,14 @@ function AdminPage() {
                                 <PopUpAddStaff
                                     trigger={newStaffPopup}
                                     setTrigger={setnewStaffPopup}
+                                />
+                            </div>
+
+                            {/* New Location */}
+                            <div>
+                                <PopUpAddLocation
+                                    trigger={newLocPopup}
+                                    setTrigger={setnewLocPopup}
                                 />
                             </div>
 
