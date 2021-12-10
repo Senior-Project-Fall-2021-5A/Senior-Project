@@ -7,7 +7,7 @@ import ObjInputFile from '../../../components/Objects/ObjInputFile';
 
 const PopUpAddReport = ( {trigger,setTrigger, AptInfo} ) => {//userUID, appointmentsUID, doctorUID, txtDate, locationUID, 
     const [textInput, setTextInput] = React.useState("");
-    const [file, setFile] = React.useState(new FormData());
+    const [fileName, setFileName] = React.useState("");
     const [boolError,setBoolError] = React.useState(false);
     const [txtError,setError] = React.useState("");
 
@@ -24,70 +24,72 @@ const PopUpAddReport = ( {trigger,setTrigger, AptInfo} ) => {//userUID, appointm
     }
 
     const readFile = (e) => {
-        const name = e[0].name;
-		document.getElementById("file-label").textContent = name;
+        const name = e.target.files[0].name;
+        setFileName(name);
         //console.log(name);
-    }
-
-    const fileHandler = (event) => {
-        //console.log(event);
-        //console.log(event.target);
-        // let tempFile = event.target.files[0]; 
-
-        // console.log("tempfile", tempFile);
-
-        // file.append("file",tempFile);
-
-        // console.log("file:", file);
-        //for(const [k,v] of file) {console.log("index: ",k," value: ",v)}
-
-        /* let testFile = new FormData();
-        testFile.append("file",tempFile);
-        console.log("testFile: ",testFile); */
-
-        setBoolError(false);
-        setError("");
-    }
-
-    const onSubmit = (event) => {
-        console.log("Add Report - ",
-        "AptInfo.userUID",AptInfo.userUID,
-        "AptInfo._id",AptInfo._id,
-        "AptInfo.doctorUID",AptInfo.doctorUID,
-        "AptInfo.date",AptInfo.date,
-        "textInput",textInput,
-        "file",file,
-        "AptInfo.locationUID",AptInfo.locationUID);
         
-        addFile();     
     }
 
-    //send File
-    const addFile = (  ) => {
-        /* const config = {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        };config */
-        Axios.post('https://telemedicine5a-backend.herokuapp.com/file/upload',file, {                       
-                }).then((response) => {
-                    console.log("Add Report, response: ",response);
-                    console.log("Add Report, response: ",response.data.filename);
-                    
-                    
-                }).catch((err) => {
-                    //get Error
-                    console.log("Org Error: ",err);
+    // const fileHandler = (event) => {
+    //     //console.log(event);
+    //     //console.log(event.target);
+    //     // let tempFile = event.target.files[0]; 
 
-                    //error display
-                    setError("Unable to add File");
-                    setBoolError(true);            
-                });
-    }
+    //     // console.log("tempfile", tempFile);
+
+    //     // file.append("file",tempFile);
+
+    //     // console.log("file:", file);
+    //     //for(const [k,v] of file) {console.log("index: ",k," value: ",v)}
+
+    //     /* let testFile = new FormData();
+    //     testFile.append("file",tempFile);
+    //     console.log("testFile: ",testFile); */
+
+    //     setBoolError(false);
+    //     setError("");
+    // }
+
+    // const onSubmit = (event) => {
+    //     console.log("Add Report - ",
+    //     "AptInfo.userUID",AptInfo.userUID,
+    //     "AptInfo._id",AptInfo._id,
+    //     "AptInfo.doctorUID",AptInfo.doctorUID,
+    //     "AptInfo.date",AptInfo.date,
+    //     "textInput",textInput,
+    //     "file",file,
+    //     "AptInfo.locationUID",AptInfo.locationUID);
+        
+    //     addFile();     
+    // }
+
+    // //send File
+    // const addFile = (  ) => {
+    //     /* const config = {
+    //         headers: {
+    //             'content-type': 'multipart/form-data'
+    //         }
+    //     };config */
+    //     Axios.post('https://telemedicine5a-backend.herokuapp.com/file/upload',file, {                       
+    //             }).then((response) => {
+    //                 console.log("Add Report, response: ",response);
+    //                 console.log("Add Report, response: ",response.data.filename);
+                    
+                    
+    //             }).catch((err) => {
+    //                 //get Error
+    //                 console.log("Org Error: ",err);
+
+    //                 //error display
+    //                 setError("Unable to add File");
+    //                 setBoolError(true);            
+    //             });
+    // }
 
     //Create Apt
     const addReport = () => {
-        if (file){
+        console.log(fileName);
+        if (fileName){
             /* console.log("Report Add -  userUID: ",userUID," appointmentsUID: ",appointmentsUID, " doctorUID: ",doctorUID,
             " txtDate: ",txtDate, " textInput: ",textInput," formData: ",formData, " locationUID: ",locationUID); */
             Axios.post('https://telemedicine5a-backend.herokuapp.com/reports/addReport', {
@@ -96,11 +98,10 @@ const PopUpAddReport = ( {trigger,setTrigger, AptInfo} ) => {//userUID, appointm
                     doctorUID:          AptInfo.doctorUID,
                     date:               AptInfo.date,
                     details:            textInput,
+                    fileName:           fileName,
                 }).then((response) => {
                     console.log("Add Report, response: ",response);
                     console.log("Add Report, response reportID: ",response.data.data._id);
-                    let reportID = response.data.data._id;
-                    addFile(reportID);
 
                     
                    
@@ -136,7 +137,7 @@ const PopUpAddReport = ( {trigger,setTrigger, AptInfo} ) => {//userUID, appointm
                     setError("");
                     setTextInput("");
                     
-                    setFile([]); 
+                    //setFile([]); 
                     setTrigger(false);
                 }).catch((err) => {
                     //get Error
@@ -146,6 +147,17 @@ const PopUpAddReport = ( {trigger,setTrigger, AptInfo} ) => {//userUID, appointm
                     setError("Unable to send notification for Report");
                     setBoolError(true);            
                 });
+    }
+
+    const handleReportSubmission = () => {
+        // Send the report while also add a notification for a new report
+        addReport();
+        sendNotification();
+        //cleanup
+        setBoolError(false);
+        setError("");
+        setTextInput("");
+        setTrigger(false);
     }
     
     return (
@@ -164,27 +176,23 @@ const PopUpAddReport = ( {trigger,setTrigger, AptInfo} ) => {//userUID, appointm
                 >Doctors Notes:</p>
                 <textarea
                     defaultValue={textInput}
-                    style={{width:"500px"}}
+                    style={{
+                        width:"500px",
+                        minHeight:"50px",
+                        maxHeight:"200px"
+                    }}
                     type="text"    
                     onChange={e=>onTextChange(e)}   
                 />
                 <div>
-                    {/* <label className="objbutton" for="inputFile" style={{width:"100px"}}>Upload</label>
-                    <input 
-                        className="objinputfile-input-hidden" 
-                        id="inputFile" 
-                        type="file" 
-                        style={{visibility:"hidden"}} 
-                        onChange={e=>fileHandler(e)}
-                    /> */}
                     <iframe name="fileUpload"></iframe>
-                    <form target="fileUpload" action="file/upload" method="post" enctype="multipart/form-data">
-					<div class="custom-file mb-3">
-						<input type="file" class="custom-file-input" name="file" id="file1" onchange={e=>readFile(e)}/>
-						<label class="custom-file-label" for="file1" id="file-label">Choose file</label>
-					</div>
-					<input type="submit" value="Submit" class="btn btn-primary btn-block"/>
-				</form>
+                        <form target="fileUpload" action="file/upload" method="post" enctype="multipart/form-data">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="file" id="file1" onChange={e=>readFile(e)}/>
+                                <label class="custom-file-label" for="file1" id="file-label">Choose file</label>
+                            </div>
+                            <input type="submit" value="Submit" class="btn btn-primary btn-block" onClick={handleReportSubmission}/>
+				        </form>
                 </div>
                 {/* Button Error Message */}
             {boolError &&
