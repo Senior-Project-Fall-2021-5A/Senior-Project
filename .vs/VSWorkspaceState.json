@@ -8,10 +8,10 @@
     "\\telemedicine-app",
     "\\telemedicine-app\\src",
     "\\telemedicine-app\\src\\components",
-    "\\telemedicine-app\\src\\components\\routes",
+    "\\telemedicine-app\\src\\components\\Navbar",
     "\\telemedicine-app\\src\\pages",
-    "\\telemedicine-app\\src\\pages\\doctors"
+    "\\telemedicine-app\\src\\pages\\appointments"
   ],
-  "SelectedNode": "\\backend\\server\\models\\Appointment.js",
+  "SelectedNode": "\\telemedicine-app\\src\\pages\\doctors\\DoctorSearch.js",
   "PreviewInSolutionExplorer": false
 }
