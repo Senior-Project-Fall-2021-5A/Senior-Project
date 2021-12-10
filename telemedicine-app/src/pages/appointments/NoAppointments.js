@@ -76,6 +76,82 @@ function NoAppointments() {
 
      const [cancel, setCancel] = useState('');
 
+     var userId = String(authUserObject.userId)
+
+     //set Doctors Names
+    const setDoctorsNames = ( arrData ) => {
+        //console.log("setDoctorsNames() - arrData:",arrData);
+
+        arrData.forEach(e=> {
+            //console.log("e: ",e);
+            let id = e.doctorUID; //UID
+            //console.log("id: ",id);
+            Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${id}`)
+                .then((response) => {
+                    let data = response.data;
+                    //console.log("setDoctorsNames() - response:", data);
+
+                    //set Name
+                    let name = "";
+                    if (data[0]){
+                        name = data[0].lastName + ", " + data[0].firstName;
+                        console.log("setDoctorsNames() - name: ",name);
+                    } else {
+                        name = "unknown";
+                    }
+
+                    //add new column
+                    e.doctorName = name;
+
+                    
+
+                }).catch((err) => {
+                    console.log(err, "Unable to get Doctors");
+                });
+        });
+
+        //check array
+        console.log("setDoctorsNames() - Updated arrData: ",arrData);
+        //send to get Location Fields
+        //setLocationName(arrData);
+    }
+
+     //set Patient Name
+    const setPatientNames = ( arrData ) => {
+        //console.log("setPatientNames() - arrData:",arrData);
+
+        arrData.forEach(e=> {
+            //console.log("e: ",e);
+            let id = e.userUID; //UID
+            //console.log("id: ",id);
+            Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${id}`)
+                .then((response) => {
+                    let data = response.data;
+                    //console.log("setPatientNames() - response:", data);
+
+                    //set Name
+                    let name = "";
+                    if (data[0]){
+                        name = data[0].lastName + ", " + data[0].firstName;
+                        //console.log("setPatientNames() - name: ",name);
+                    } else {
+                        name = "unknown";
+                    }
+
+                    //add new column
+                    e.patientName = name;
+
+                    
+                }).catch((err) => {
+                    console.log(err, "Unable to get Patients");
+                });
+        });
+        //check array
+        console.log("setPatientNames() - Updated arrData: ",arrData);
+        //send to get Doctors Names
+        setDoctorsNames(arrData);
+    }
+
     
 
     useEffect(() => {
@@ -85,8 +161,9 @@ function NoAppointments() {
 
             setListOfAppointments(response.data);
 
+
            
-            console.log(response.data);
+            console.log("No Appnts response data:   ", response.data);
 
 
             const past = [];
@@ -155,6 +232,9 @@ function NoAppointments() {
             setPastAppointments(past.sort(byDate).reverse());
             setUpcomingAppointments(upcoming.sort(byDate));
 
+             setDoctorsNames(upcoming);
+             setPatientNames(upcoming);
+
            
         })
         .catch((err) => {
@@ -162,20 +242,7 @@ function NoAppointments() {
         }, []);
 
 
-        const getLocations = (  ) => {
-        Axios.get(`https://telemedicine5a-backend.herokuapp.com/location/getLocations`)
-            .then((response) => {                
-                let data = response.data;           
-                console.log("getLocations() - response:",data);
-                data.forEach(e=>{setListOfLocations(listOfLocations=>[...listOfLocations,{
-                        label: e.name,
-                        value: e._id,
-                    }]
-                )})
-            }).catch((err) => {
-                console.log(err, "Unable to get Locations");
-            });
-        }
+        
 
     }, []);
 
@@ -186,6 +253,18 @@ function NoAppointments() {
        
         console.log(e);
         setCancel(e);
+
+        let can = e;
+
+        Axios.post(`https://telemedicine5a-backend.herokuapp.com/appointments/cancelAppt/${can}`)
+            .then((response) => {
+                
+
+                    
+            }).catch((err) => {
+                console.log(err, "Unable to get Patients");
+            });
+
         
         
 
@@ -296,9 +375,19 @@ function NoAppointments() {
 
                                                 <div className="accordion1-body">
                                                 
-                                                    <h1 className="patient">Patient: </h1>
-                                                    <h1 className="doctor">Doctor Id: {appointment.doctorUID}</h1>
-                                                    <h1 className="address">Location Id: {appointment.locationUID}</h1>
+                                                  <ul>
+                                                    <i>
+                                                        <h1 className="patient">Patient: {appointment.patientName}</h1>
+                                                    </i>
+
+                                                    <i>
+                                                        <h1 className="doctor">Doctor: {appointment.doctorName}</h1>
+                                                    </i>
+
+                                                    <i>
+                                                        <h1 className="address">Location Id: {appointment.locationUID}</h1>
+                                                    </i>
+                                                  </ul>
                                                     
                                                     
                                                     <Link to='/client'>

@@ -36,90 +36,117 @@ import ObjLink from '../../components/Objects/ObjLink'
 
 import authUserObject from '../../middleware/authUserObject';
 
+
 const DoctorSearch = ( {trigger,setTrigger} ) => {
 
-	const [filter, setFilter] = useState('');
-
-	const [show, setShow] = useState(false);
 	
+	const [show, setShow] = useState(false);
 	const handleShow = () => setShow(true);
+	const handleClose = () => setShow(false);
 
-	const [isMobile, setIsMobile] = useState(false)
+	const [isMobile, setIsMobile] = useState(false);
 
-	const [listOfDoctors, setListOfDoctors] = useState([]);
+	const [textTime,setTime] = React.useState("");
+	const [typeSelect,setTypeSelect] = React.useState("");
+	const [showLocation, setShowLocation] = useState(false);
+	const [txtLocation,setLocation] = React.useState("");
+	const [listOfLocations,setListOfLocations] = React.useState([]);
+	const [dateValue, setDateValue] = React.useState(new Date());
+    const [txtDateValue, setTxtDateValue] = React.useState(new Date().toLocaleDateString("en-US").split('/').join('-'));
+	const [date,setDate] = React.useState(new Date());
 
-	 const [textTime,setTime] = React.useState("");
+	const [apptInputPopup, setApptInputPopup] = React.useState(false);  
 
-	 const [typeSelect,setTypeSelect] = React.useState("");
+	
 
-	 const [showLocation, setShowLocation] = useState(false);
+	
 
-	 const [txtLocation,setLocation] = React.useState("");
 
-	 const [listOfLocations,setListOfLocations] = React.useState([]);
+	const [myDocs, setMyDocs] = useState([]);
+	const [approved, setApproved] = useState([]);
+	const [finalList, setFinalList] = useState([]);
+	const [doctorID, setDoctorID] = useState('');
 
-	 const [listOfApprovedDocFamily, setlistOfApprovedDocFamily] = React.useState([]);
+	const [txtLocSelect,setLocSelect] = React.useState("");
 
-	 const [dateValue, setDateValue] = React.useState(new Date());
-     const [txtDateValue, setTxtDateValue] = React.useState(new Date().toLocaleDateString("en-US").split('/').join('-'));
-
-	const searchText = (event) => {
-		setFilter(event.target.value);
-	}
+	
 
 	const handleResize = () => {
-	  if (window.innerWidth < 768) {
-		  setIsMobile(true)
-	  } else {
-		  setIsMobile(false)
-	  }
+		if (window.innerWidth < 768) {
+			setIsMobile(true)
+		} else {
+			setIsMobile(false)
+		}
 	}
 
-	  const handleClose = () => setShow(false);
-
-	  const [date,setDate] = React.useState(new Date());
-
-	   var userId = String(authUserObject.userId)
-
-	   const [myDocs, setMyDocs] = useState([]);
-
-	   	var listy = [];
-
-		const [listOfNewDocs, setListOfNewDocs] = useState([]);
-
-
-		var theListyFinal = [];
+	var userId = String(authUserObject.userId)
 
 	useEffect(() => {
 	 
-	  window.addEventListener("resize", handleResize)
+	    window.addEventListener("resize", handleResize)
 	  
 		CreateListOfPatientDocFamily(userId);
 	 
-        CreateListOfDoctors();
+        //CreateListOfDoctors();
 
 		
-		//getLocations();
 		
+
+		//setMyDocs([]);
 		
+		getDocFields();
+
 
 		//CreateDocListOfAprrovedFamily();
 		//newCreateListOfDoctors();
 		//getDocNames();
-	    getDocFields();
-
-		CreateDocListOfAprrovedFamily();
+	    
 
 		
 
 	}, [])
 
-	
+
+	/*****************************************************************************
+
+		Axios requests function to get information of doctor and the user patient,
+		and creating a new list of doctors for the patient based on the approved 
+		families (field of studies) of the patient
+
+	******************************************************************************/
+
+	const CreateListOfPatientDocFamily = ( userID ) => {
+			console.log("CreateListOfPatientDocFamily() - userID: ",userID);
+			Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${userID}`)        
+				.then((response) => {                
+					let data = response.data[0].approvedDoctors;  
+					
+					setApproved(data);
+
+					/*
+					console.log("CreateListOfPatientDocFamily - response:",data);
+					data.forEach(e=>{setlistOfApprovedDocFamily(listOfApprovedDocFamily=> [...listOfApprovedDocFamily, {
+						label:  e,
+						value:  e,
+						}]
+					)});  
+					*/
+				}).catch((err) => {
+					console.log(err, "Unable to get Patients list of Doctors");
+				});
+
+				//CreateListOfDoctors();
+
+
+				//console.log("lit fam: " + listOfApprovedDocFamily);
+		}
+
+	/*
 	const CreateListOfDoctors = (  ) => {
         Axios.get('https://telemedicine5a-backend.herokuapp.com/users/getDoctors')
             .then((response) => {                
                 let data = response.data;           
-                console.log("list of docs response:",data);
+                console.log("list of ALL docs (24 ish) response:",data);
                 data.forEach(e=>{setListOfDoctors(listOfDoctors => [...listOfDoctors, {
                     label: e.firstName + " " + e.lastName,
                     value: e.userUID,
@@ -130,151 +157,243 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
                 console.log(err, "Unable to get Patients");
             });
     }
+	*/
+	
 
-	/*
 
 	const getDocFields = (  ) => {
-      
-		let docsWithFields = [];
-
-		listOfDoctors.forEach(e => {
-
-			let idy = e.value;
-
-			Axios.get('https://telemedicine5a-backend.herokuapp.com/doctors/getDoctorInfo/${idy}')
-				.then((response) => {                
-					console.log("yeahaaah he man: " + response.data)
-					
-				
-				}).catch((err) => {
-					console.log(err, "Unable to get Fields");
-				});
 		
-		})
-				
-            
-    }
-
-	*/
-
-
-	/*
-	const getDocFields = (  ) => {
-        Axios.get('https://telemedicine5a-backend.herokuapp.com/doctors/getDoctorInfo/')
-            .then((response) => {                
-                let data = response.data;           
-                console.log("list of docs fields response:",data);
-				/*
-                data.forEach(e=>{setListOfDoctors(listOfDoctors => [...listOfDoctors, {
-                    label: e.firstName + " " + e.lastName,
-                    value: e.userUID,
-					
-                    }]
-                )});
-				
-            }).catch((err) => {
-                console.log(err, "Unable to get Fields");
-            });
-    }
-	*/
-
-
-	const getDocFields = (  ) => {
-		//console.log("arrData - ",);
         let newList = [];
-        //listOfDoctors.forEach(e => {
-            //console.log("e: ",e);
-            //let id = e.value; //set ID to doctor
-            //console.log("id: ",id);
-            Axios.get(`https://telemedicine5a-backend.herokuapp.com/doctors/getDoctorInfo/`)
-                .then((response) => {
-                    let data = response.data;
-                    console.log("getID() - response:", data[0].doctorUID);
+        
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/doctors/getDoctorInfo/`)
+            .then((response) => {
+                let data = response.data;
+                //console.log("getID() - response:", data[0].doctorUID);
 
-					console.log(data);
+				console.log("The doctors with f.o.s. (only five) - ", data);
 
-					data.forEach(e => {
+				data.forEach(e => {
 
-						console.log("getID() - responseyyyy:", e.doctorUID);
+					//console.log("getID() - responseyyyy:", e.doctorUID);
 
-						let y = e.doctorUID;
+					let docId = e.doctorUID;
+					let studyField = e.fieldOfStudy;
 
-						Axios.get(`http://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${y}`)
-							.then((response) => {
+					Axios.get(`http://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${docId}`)
+						.then((response) => {
 
-								let docId = response.data;
+							let userDoc = response.data;
 
-								//const result = docId.filter(docId => docId.listOfApprovedDocFamily === "Allergist" || "Pathologist" || "Infectious Disease" || "Neurologist");
-								//console.log("result approved doc: ", result);
+							//console.log('userDoc: ' + userDoc[0]);
 
-								docId.forEach(event=>{setMyDocs(myDocs => [...myDocs, {
+							userDoc.forEach(e=>{setMyDocs(myDocs => [...myDocs, {
 
-									label: event.firstName + " " + event.lastName,
-									fos: e.fieldOfStudy,
+								label: e.firstName + " " + e.lastName,
+								fos: studyField,
+								value: docId,
 					
-								}]
-							)});
+							}]
+						)});
 
-								
-								console.log("red leaf: ", response.data, e.fieldOfStudy);
 							
-							}).catch((err) => {
-								console.log(err, "Unable to dooby of Doctors");
-							});
-					})
+						}).catch((err) => {
+							console.log(err, "Unable to get doctor");
+						});
 
-					console.log("you bet   " + listOfApprovedDocFamily);
-
-
-					//let fos = data.fieldOfStudy;
-					console.log("myDocs bro - response:", myDocs.fos);
-
-					
-
-					
-                    //let name = data[0].lastName + ", " + data[0].firstName;
-                    //console.log("setTheNames() - name:", name);
-
-                    //e.doctorName = name;
-                    //console.log("setTheNames() - e.doctorName:", e.doctorName);
-
-                    //console.log("setTheNames() - arrData: ", arrData);
-                    //newList = [...newList, e];
-
-					//setMyDocs(newList);
-					//console.log("myDocs - " + newList);
-                    
-                }).catch((err) => {
-                    console.log(err, "Unable to set Names of Doctors");
-                });
+				})
 
 				
+				let dataSearch = [];
 			
+				for(let key in myDocs) {
 
+					if(approved.includes(myDocs[key].fos)) {
+						console.log("Get field of study   " + myDocs[key].fos);
+						finalList.push(myDocs[key]);
+					}
 			
-			//console.log("myDocs - " + myDocs);
+				}
+				console.log("Nick's approved list  ", approved);
+				
+
+				//var newArray = JSON.parse(JSON.stringify(dataSearch));
+				//setFinalList(newArray);
+
+				//console.log("Final List of approved docs     ", finalList);
+
+
+				 Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/approvedDoctors/${userId}`)
+				.then((response) => {                
+					let data = response.data;
+					console.log("........", data)
+					//console.log("getScheduleAvail() - response:",data);
+                
+				}).catch((err) => {
+					//console.log(err, "Unable to get Schedule");
+				});
+
+
+				//let fos = data.fieldOfStudy;
+				//console.log("myDocs bro - response:", myDocs.fos);
+
+					
+
+					
+                //let name = data[0].lastName + ", " + data[0].firstName;
+                //console.log("setTheNames() - name:", name);
+
+                //e.doctorName = name;
+                //console.log("setTheNames() - e.doctorName:", e.doctorName);
+
+                //console.log("setTheNames() - arrData: ", arrData);
+                //newList = [...newList, e];
+
+				//setMyDocs(newList);
+				//console.log("myDocs - " + newList);
+                    
+            }).catch((err) => {
+                console.log(err, "Unable to get doctor");
+            });
+
+				
+	}
+
+	function CreateDocListOfAprrovedFamily() {
+
+		
+		/*
+		let dataSearch = [];
+			
+		for(let key in myDocs) {
+
+			if(approved.includes(myDocs[key].fos)) {
+				console.log("key you   " + myDocs[key].fos);
+				dataSearch.push(myDocs[key]);
+			}
+			
+		}
+		console.log("myDocs  ", approved);
+		setFinalList(dataSearch);
+		console.log("Final List of approved docs     ", finalList);
+		*/
+
+		
 			
 	}
 
+
+
+	const getLocations = ( e ) => {
+		let drId = e;
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/doctors/getDoctorLocation/${drId}`)
+            .then((response) => {                
+                let data = response.data; 
+				let lctn = data[0].locationUID;
+
+				console.log("tytytytytytyty;   ", lctn); 
+                
+				Axios.get(`https://telemedicine5a-backend.herokuapp.com/location/getLocation/${lctn}`)
+					.then((response) => {    
+						let data2 = response.data;
+						let addr = data2[0].name;
+						console.log("loc name is here:   ", addr);        
+                
+						//setListOfLocations(addr);
+						data2.forEach(e=>{setListOfLocations(listOfLocations=>[...listOfLocations,{
+								label: e.name,
+								value: e._id,
+							}]
+						)})
+
+					}).catch((err) => {
+						console.log(err, "Unable to get Locations");
+					});
+
+            }).catch((err) => {
+                //console.log(err, "Unable to get Locations");
+            });
+    }
+
+	const getScheduleAvail = ( docID ) => {
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/schedule/getScheduled/${docID}`)
+            .then((response) => {                
+                let data = response.data;           
+                console.log("getScheduleAvail() - response:",data);
+                
+            }).catch((err) => {
+                console.log(err, "Unable to get Schedule");
+            });
+    }
+
+
+	/*********************************************************************************
+
+			Axios post
+
+	*********************************************************************************/
+
+	const addAppointment = () => {
+
+        Axios.post('https://telemedicine5a-backend.herokuapp.com/appointments/addAppointment', {
+
+                userUID:        userId,
+                doctorUID:		doctorID,
+                date:           txtDateValue,
+                time:           textTime,
+				type:			typeSelect,
+                locationUID:    txtLocation,
+               
+            }).then((response) => {
+                
+				setShowLocation(false);
+				setTypeSelect("");
+				setLocSelect("");
+				setDoctorID('');
+				setLocation("");
+				setApptInputPopup(false);
+				setTime("");
+				setMyDocs("");
+				setDateValue("");
+				setTxtDateValue("");
+				//setYeahMan("");
+				//setApproved("");
+
+            }).catch((err) => {
+                          
+            });
+    }
+
+	/****************************************************
+
+			Select a Doctor Button
+
+	****************************************************/
+
+	const apptClick = (e) => {
+
+		let docID = e;
+
+        console.log("Appointment Click");
+        console.log("click", e);
+
+		setDoctorID(e);
+		getLocations(e);
+		getScheduleAvail(docID);
+
+        let bPop = !apptInputPopup;
+        setApptInputPopup(bPop);
+        console.log("Popup is ",bPop);
+
+    }
+
+
+	/***********************************************************************
+
+		Functions of the form to schedule an appointment with selected doctor
+
+	************************************************************************/
+
 	
-
-	/*const newCreateListOfDoctors = (  ) => {
-		Axios.get('https://telemedicine5a-backend.herokuapp.com/doctors/getDoctorInfo')
-			.then((response) => {
-				let data = response.data; 
-				console.log("list of new docs response:",data);
-				data.forEach(e=>{setListOfNewDocs(listOfNewDocs => [...listOfNewDocs, {
-					label: e.fieldOfStudy,
-					value: e.doctorUID,
-					id: e._id,
-					}]
-				)});
-			}).catch((err) => {
-				console.log(err, "Unable to get Docs");
-			});
-	}*/
-
-	const [txtLocSelect,setLocSelect] = React.useState("");
 
 	 const onRadioLocSelect = ( event ) => {
         let inPersOrOnline = event.target.value;
@@ -358,33 +477,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
     ];
 
 
-	const addAppointment = () => {
-        Axios.post('https://telemedicine5a-backend.herokuapp.com/appointments/addAppointment', {
-                userUID:        userId,
-                doctorUID:		doctorID,
-                date:           txtDateValue,
-                time:           textTime,
-				type:			typeSelect,
-                locationUID:    txtLocation,
-               
-            }).then((response) => {
-                
-				setShowLocation(false);
-				setTypeSelect("");
-				setLocSelect("");
-				setDoctorID('');
-				setLocation("");
-				setApptInputPopup(false);
-				setTime("");
-				setMyDocs("");
-				setDateValue("");
-				setTxtDateValue("");
-				
-
-            }).catch((err) => {
-                          
-            });
-    }
+	
 
 	 /*const onDoctorSelect = ( event ) => {
         
@@ -396,11 +489,6 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
         
     }*/
 
-	const [doctorID, setDoctorID] = useState('');
-
-	const onSubmit = (event) => {
-        addAppointment();
-    }
 
 	const onType = (e) => {
 
@@ -427,107 +515,23 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 		
 	}
 
-	const [apptInputPopup, setApptInputPopup] = React.useState(false);   
+	 
 
-	const apptClick = (e) => {
-
-		let docID = e;
-
-        console.log("Appointment Click");
-        console.log("click", e);
-
-		setDoctorID(e);
-		getScheduleAvail(docID);
-
-        let bPop = !apptInputPopup;
-        setApptInputPopup(bPop);
-        console.log("Popup is ",bPop);
-
-    }
+	
 
 	const onLocationInput = ( event ) => {
         let loc = event.target.value;
         setLocation(loc);
-        console.log("Location: ",loc);
+       // console.log("Location: ",loc);
         
     }
 
-	const getLocations = (  ) => {
-        Axios.get(`https://telemedicine5a-backend.herokuapp.com/location/getLocations`)
-            .then((response) => {                
-                let data = response.data;           
-                console.log("getLocations() - response:",data);
-                data.forEach(e=>{setListOfLocations(listOfLocations=>[...listOfLocations,{
-                        label: e.name,
-                        value: e._id,
-                    }]
-                )})
-            }).catch((err) => {
-                console.log(err, "Unable to get Locations");
-            });
-    }
-
-	const getScheduleAvail = ( docID ) => {
-        Axios.get(`https://telemedicine5a-backend.herokuapp.com/schedule/getScheduled/${docID}`)
-            .then((response) => {                
-                let data = response.data;           
-                console.log("getScheduleAvail() - response:",data);
-                
-            }).catch((err) => {
-                console.log(err, "Unable to get Schedule");
-            });
-    }
+	
 
 	/* List of approved doctors for the user */
 
-	const CreateListOfPatientDocFamily = ( userID ) => {
-			console.log("CreateListOfPatientDocFamily() - userID: ",userID);
-			Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${userID}`)        
-				.then((response) => {                
-					let data = response.data[0].approvedDoctors;           
-					console.log("CreateListOfPatientDocFamily - response:",data);
-					data.forEach(e=>{setlistOfApprovedDocFamily(listOfApprovedDocFamily=> [...listOfApprovedDocFamily, {
-						label:  e,
-						value:  e,
-						}]
-					)});                 
-				}).catch((err) => {
-					console.log(err, "Unable to get Patients list of Doctors");
-				});
 
-
-				console.log("lit fam: " + listOfApprovedDocFamily);
-		}
-
-	function CreateDocListOfAprrovedFamily() {
-			/*
-			let listy = [];
-
-			//let a = [];
-			//a.push(JSON.stringify(myDocs));
-
-			myDocs.forEach(e => {
-				console.log("some fos: " + e.fos);
-				//let docFOS = e.fos;
-				console.log("some fos: " + e.fos);
-				if(listOfApprovedDocFamily.includes(e.fos)) {
-					listy.push(e);
-				} 
-			})
-
-			//setMyDocs(listy);
-			console.log("My for each loop: " + listy);
-			*/
-			var count = 0;
-			let i;
-			for(i = 0; i < myDocs; i++) {
-				count += 1;
-			}
-			console.log("coutn      " + count);
-		
-			
-			
-	}
+	
 
     const dateSelected = ( event ) => {
 
@@ -538,9 +542,24 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
         setTxtDateValue(event.toLocaleDateString("en-US").split('/').join('-'));
 
 		console.log("local string date: " + dateValue);
-		console.log("text date value: " + txtDateValue);
+		//console.log("text date value: " + txtDateValue);
     }
+
+
+	/**********************************************************************
+
+		When 'Create' appointment button is clicked and triggers axios post
+
+	***********************************************************************/
+
+	const onSubmit = (event) => {
+		addAppointment();
+    }
+
 	
+	/*****************
+		Return 
+	*****************/
 
 	return(
 
@@ -560,7 +579,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 							<div className="search-label"><h1>Find a Specialist</h1></div>
 												
 
-							  {myDocs.map((item, index) => {
+							  {finalList.map((item, index) => {
 								return(
 						
 				
