@@ -10,15 +10,6 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 function GeneralInfo() {
-
-    // let userPhone = '';
-    // let userAddress1 = '';
-    // let userAddress2 = '';
-    // let userCity = '';
-    // let userState = '';
-    // let userZip = '';
-    // let userDoB = '';
-    // let userGender = '';
     
     const [generalInfo, setgeneralInfo] = useState([]);
     const [txtError, setError] = React.useState("");
@@ -31,7 +22,6 @@ function GeneralInfo() {
     const [userZip, setZip] = React.useState("");
     const [userDoB, setDoB] = React.useState("");
     const [userGender, setUserGender] = React.useState("");
-    const [startDate, setStartDate] = useState(new Date());
     const [registerUserState, setRegisterUserState] = useState({
         phone1: '',
         address1: '',
@@ -64,8 +54,8 @@ function GeneralInfo() {
 
           await handleUserRegisterClick();
           alert('Your registration was successfully submitted!');
-          setRegisterUserState({
-            phone1: '',
+          this.registerUserState.userAddress1({
+            
             address1: '',
             address2: '',
             city: '',
@@ -90,47 +80,6 @@ function GeneralInfo() {
                 console.log(err, "Unable to get uder infor");
             });
     }, [generalInfo]);
-
-    // const handleUserRegisterClick = () => {
-    //    return Axios.post(`https://telemedicine5a-backend.herokuapp.com/users/updateUserInfo/${authUserObject.userId}`, {
-    //         phone1: registerUserState.phone1,
-    //         address1: registerUserState.address1,
-    //         address2: registerUserState.address2,
-    //         city: registerUserState.city,
-    //         state: registerUserState.state,
-    //         zip: registerUserState.zip,
-    //         DoB: registerUserState.DoB,
-    //         gender: registerUserState.gender,
-            
-    //         }).then((response) => {
-    //             setBoolError(false);
-
-
-    //             userPhone = String(response.data.user.phone1);
-    //             localStorage.setItem('userPhone');
-
-    //             userAddress1 = String(response.data.user.address1);
-    //             localStorage.setItem('userAddress1');
-
-    //             userAddress2 = String(response.data.user.address2);
-    //             localStorage.setItem('userAddress2');
-
-    //             userCity = String(response.data.user.city);
-    //             localStorage.setItem('userCity');
-
-    //             userState = String(response.data.user.state);
-    //             localStorage.setItem('userState');
-                
-    //             userZip = String(response.data.user.zip);
-    //             localStorage.setItem('userZip');
-
-    //             userDoB = String(response.data.user.DoB);
-    //             localStorage.setItem('userDoB');
-
-    //             userGender = String(response.data.user.gender);
-    //             localStorage.setItem('userGender');
-    //         }
-    //         )}
 
     const onPhoneSelect = ( event ) => {
         //console.log("onPatientSelect - ",event);
@@ -193,6 +142,7 @@ function GeneralInfo() {
                         setPhone1("");
                         setAddress1(""); 
                         setAddress2("");
+                        setState("")
                         setCity("");                
                         setDoB("");
                         setZip("");
@@ -222,18 +172,21 @@ function GeneralInfo() {
                     <Form.Text className="text-muted" style={{ display:"flex",fontSize: '25px' }}>
                         <p style={{ paddingRight: "10px"}}>Gender: {info.gender} </p> 
                     </Form.Text>
+                    <Form.Text className="text-muted" style={{ fontWeight:'bold' }}>
+                        (all fields required for entry below)
+                    </Form.Text>
                 </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Text style={{paddingRight:"10px", fontSize: '25px' }}>Current e-mail address: {info.email}</Form.Text>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label style={{ color: 'black' }}>Date of Birth</Form.Label>
-                        <input type="date"  onChange={(date) => onDoBchange(date)}/>
+                        <input type="date" value={userDoB}  onChange={(date) => onDoBchange(date)}/>
                         {/* <DatePicker selected={startDate} dateFormat="MMMM d, yyyy" onChange={(date) => setDoB(date)} /> */}
                         {/* <Form.Control name ="DoB"  value={registerUserState.userDoB} onChange={e=> onDoBchange(e)} type="text"  placeholder="Change Your Date of Birth" /> */}
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label style={{ color: 'black' }}>Gender Setting:</Form.Label>
+                        <Form.Label style={{ color: 'black' }}>Gender Settings</Form.Label>
                         <select
                         style={{
                             height: "40px",
@@ -241,8 +194,9 @@ function GeneralInfo() {
                             textAlign: "left",
                         }}
                         onChange={e => onGenderSelect(e)}
+                        
                     >
-                        <option key="puaa_doctor_placeholder" value="_placeholder_">Select a Gender</option>
+                        <option key="puaa_doctor_placeholder" value={userGender}>Select a Gender</option>
                         
                             <option key={registerUserState.userGender} type="text" name ="gender"  value={registerUserState.userGender}>Male</option>
                             <option key={registerUserState.userGender} name ="gender" value={registerUserState.userGender}>Female</option>
@@ -252,19 +206,20 @@ function GeneralInfo() {
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label style={{ color: 'black' }}>Current Phone Number: {info.phone1}</Form.Label>
-                        <Form.Control name ="phone1"  value={registerUserState.userPhone} onChange={e=> onPhoneSelect(e)} type="text"  placeholder="Change Phone Number" />
+                        <Form.Control name ="phone1"  value={userPhone} onChange={e=> onPhoneSelect(e)} type="text"  placeholder="Change Phone Number" />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicAddress" >
                         <Form.Label style={{ color: 'black' }}>Current address: {info.address1} {info.address2} {info.city} , {info.state} {info.zip}</Form.Label>
-                        <Form.Control name="address1" value={registerUserState.userAddress1}  onChange={e=> onAddress1change(e)} type="text" required placeholder="Address 1" />
-                        <Form.Control name="address2" value={registerUserState.userAddress2} onChange={e=> onAddress2change(e)} type="text"  placeholder="Address 2" />
-                        <Form.Control name="city" value={registerUserState.userCity}   onChange={e=> onCitychange(e)} type="text" required  placeholder="City" />
-                        <Form.Control name="state" value={registerUserState.userState}  onChange={e=> onStatechange(e)} type="text" required placeholder="State" />
-                        <Form.Control name="zip" value={registerUserState.userZip}  onChange={e=> onZipchange(e)} type="text" required placeholder="Zip" />
+                        <Form.Control name="address1" value={userAddress1}  onChange={e=> onAddress1change(e)} type="text" required placeholder="Address 1" />
+                        <Form.Control name="address2" value={userAddress2} onChange={e=> onAddress2change(e)} type="text"  placeholder="Address 2" />
+                        <Form.Control name="city" value={userCity}   onChange={e=> onCitychange(e)} type="text" required  placeholder="City" />
+                        <Form.Control name="state" value={userState}  onChange={e=> onStatechange(e)} type="text" required placeholder="State" />
+                        <Form.Control name="zip" value={userZip}  onChange={e=> onZipchange(e)} type="text" required placeholder="Zip" />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicCheckbox">
                         <Form.Check required type="checkbox" label="Check me out" />
-                    </Form.Group><Button variant="primary" type="submit" >
+                    </Form.Group>
+                    <Button variant="primary" type="submit" >
                         Save
                     </Button></>
 
