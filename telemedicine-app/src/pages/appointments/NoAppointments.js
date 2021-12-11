@@ -373,7 +373,7 @@ function NoAppointments() {
                                                 </div>
                                                 
                                                 {/* Buttons */}
-                                                {appointment.type === 'virtual' ? 
+                                                {appointment.type === 'Virtual' ? 
                                                     <div className="accord_btn_call">
                                                     <Link to='/client'>
                                                         <button className="btnCall">Start Call</button>
