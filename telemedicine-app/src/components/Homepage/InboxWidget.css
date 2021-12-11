@@ -16,7 +16,7 @@
     overflow: scroll;
 }
 
-button.inbox-item.btn.btn-primary {
+a.inbox-item.btn.btn-primary {
     height: 50px;
     width: 100%;
     display: block;
@@ -27,7 +27,7 @@ button.inbox-item.btn.btn-primary {
     color: #ffff;
 }
 
-button.inbox-item.btn.btn-primary:hover {
+a.inbox-item.btn.btn-primary:hover {
     height: 65px;
     width: 100%;
     text-align: left;
@@ -55,4 +55,9 @@ h4.Inbox-header-widget {
 
 .Inbox-header.card-header {
     color: white;
+}
+
+a.inbox-item.btn.btn-primary {
+    background: #33383b;
+    border-radius: 0px;
 }

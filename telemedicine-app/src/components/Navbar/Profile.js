@@ -32,7 +32,6 @@ function Profile() {
     }
 
     useEffect(() => {
-        console.log("Page Open: ",txtGlobalUserID, " Role: ",txtGlobalRole);
         getUserInfo();
     }, []);
     //Updates the notificaiton isRead to false

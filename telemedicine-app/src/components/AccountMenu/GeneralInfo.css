@@ -34,11 +34,12 @@ select:hover {
 }
 select {
     border: solid #c9c9c9cf 1px;
-    border-radius: 3px;
+    border-radius: 4px;
 }
 
 input[type="date"] {
     width: 500px;
     border: solid #c9c9c9cf 1px;
     height: 40px;
+    border-radius: 4px;
 }
