@@ -234,9 +234,11 @@ function NoAppointments() {
         Axios.post(`https://telemedicine5a-backend.herokuapp.com/appointments/cancelAppt/${apptId}`)
             .then((response) => {
                 //console.log("triggerCancel",response);
+                
             }).catch((err) => {
                 console.log(err, "Unable to get Patients");
             });
+        window.location.reload();
 	}
     /***************************************************************
                         Functions
@@ -375,9 +377,9 @@ function NoAppointments() {
                                                 {/* Buttons */}
                                                 {appointment.type === 'Virtual' ? 
                                                     <div className="accord_btn_call">
-                                                    <Link to='/client'>
-                                                        <button className="btnCall">Start Call</button>
-                                                    </Link>
+                                                    <Button variant="primary" href='https://video-chat-app-v1.herokuapp.com/' target='=_blank'>
+                                                        Start Call
+                                                    </Button>
                                                 </div>
                                                 : ''}
                                                 <div className="accord_btn_cancel">

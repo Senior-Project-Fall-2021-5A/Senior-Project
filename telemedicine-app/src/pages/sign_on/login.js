@@ -31,6 +31,8 @@ function Login() {
         isAuth = true;        
         authReroute(isAuth);
     }).catch((err => {
+        isAuth = false;
+        authReroute(isAuth);
         console.log(err)
     }))
   };

@@ -187,6 +187,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 									let data = response.data[0];
 									//console.log("PCP data:",data);
 									data["docName"] = data.firstName + ' ' + data.lastName;
+									data["fieldOfStudy"] = 'Your Primary Care Physician';
 									setDocEle(data);									
 									CreateListOfDoctors();
 								})
@@ -259,7 +260,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 				setTime("");
 				setMyDocs("");
 				setApptInputPopup(false);
-				history.push('/NoAppointments');
+				history.go('/NoAppointments');
             }).catch((err) => {
 				console.log("addAppointment() - Fail:",err);
             });
@@ -357,7 +358,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 							  {listOfDoctors.map((doctor, index) => {
 								return(
 				
-								<div className="col-11 col-md-6 col-lg-3 mx-0 mb-4">
+								<div className="col-11 col-md-6 col-lg-3 mx-0 mb-4" style={{padding: '15px'}}>
 									
 									<div className="card p-0 overflow-hidden h-100 shadow">
 										<img src={img1} className="card-img-top img-fluid" />
