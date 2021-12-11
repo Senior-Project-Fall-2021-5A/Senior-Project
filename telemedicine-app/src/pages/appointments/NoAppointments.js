@@ -371,13 +371,15 @@ function NoAppointments() {
                                                         <h1 style={styleBody}><i>{appointment.officeCity+", "}{appointment.officeState} {appointment.officeZip}</i></h1>
                                                     }
                                                 </div>
-                                            
+                                                
                                                 {/* Buttons */}
-                                                <div className="accord_btn_call">
+                                                {appointment.type === 'virtual' ? 
+                                                    <div className="accord_btn_call">
                                                     <Link to='/client'>
                                                         <button className="btnCall">Start Call</button>
                                                     </Link>
                                                 </div>
+                                                : ''}
                                                 <div className="accord_btn_cancel">
                                                     <button className="cancelBtn" onClick={()=>triggerCancel(appointment._id)}>Cancel</button>
                                                 </div>
@@ -440,12 +442,6 @@ function NoAppointments() {
                                                 {appointment.officeCity !== undefined  &&
                                                     <h1 style={styleBody}><i>{appointment.officeCity+", "}{appointment.officeState} {appointment.officeZip}</i></h1>
                                                 }
-                                            </div>
-                                        
-                                            <div className="accord_btn_call">
-                                                <Link to='/client'>
-                                                    <button className="btnCall">Start Call</button>
-                                                </Link>
                                             </div>
                                             <div className="accord_btn_cancel">
                                                 <button className="cancelBtn" onClick={()=>triggerCancel(appointment._id)}>Cancel</button>
