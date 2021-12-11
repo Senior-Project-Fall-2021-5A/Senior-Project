@@ -15,9 +15,14 @@ import PopUpApptSelect from './PopupPages/PopUpApptSelect';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './AdminPage.css'
+import $ from 'jquery';
 
 
 function AdminPage() {
+    $(document).ready(function(){
+        $('.canvas').slideDown(200);
+    });
+    
 
     //New Patient Popup handler
     const [newPatientPopup, setnewPatientPopup] = React.useState(false);    

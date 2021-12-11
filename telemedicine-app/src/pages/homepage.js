@@ -9,9 +9,14 @@ import ReportsWidget from '../components/Homepage/ReportsWidget';
 import AppointmentWidget from '../components/Homepage/AppointmentWidget';
 import  Axios  from 'axios';
 import authUserObject from '../middleware/authUserObject';
+import $ from 'jquery';
 
 function Homepage() {
     const [UserName, setUserName] = useState([]);
+
+    $(document).ready(function(){
+        $('div.canvas').slideDown(400);
+    });
 
     useEffect(() => {
         Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${authUserObject.userId}`)        
@@ -27,11 +32,11 @@ function Homepage() {
 
     return (
         <div className='homepage'>
-            <Canvas>
+            <Canvas className="canvas">
                 
                 <div className='Dashboard-row'>
                     <div className='dash-left'>
-                        <AppointmentWidget/>
+                        <AppointmentWidget className="homeapptwidget"/>
                     </div>
                     <div className='dash-right'>
                         <div className='right-top'>

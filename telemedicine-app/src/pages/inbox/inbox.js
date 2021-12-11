@@ -12,9 +12,12 @@ import InboxAccordion from '../../components/inbox components/InboxAccordion'
 import { Link } from 'react-router-dom';
 import Canvas from '../../components/Canvas'
 import authUserObject from '../../middleware/authUserObject';
+import $ from 'jquery';
 
 
-
+$(document).ready(function(){
+    $('.canvas').slideDown(400);
+});
 
 
 
@@ -106,7 +109,9 @@ const Inbox = () => {
     //     })
     // }
 
-
+    $(document).ready(function(){
+        $('.canvas').slideDown(200);
+    });
 
 
 
