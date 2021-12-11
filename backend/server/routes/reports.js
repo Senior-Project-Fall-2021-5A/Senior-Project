@@ -18,7 +18,7 @@ router.get('/getReports', async (req, res) => {
 });
 
 router.get('/getReports/:userId', function (req, res) {
-    ReportsModel.find({{ userUID: req.params.userId }})
+    ReportsModel.find({ userUID: req.params.userId })
     .then(report => {
         if (!report) { return res.send("No Report for User")}
         return res.status(200).json(report);
