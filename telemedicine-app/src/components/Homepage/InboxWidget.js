@@ -9,7 +9,7 @@ export default function Inbox() {
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
-        Axios.get(`http://telemedicine5a-backend.herokuapp.com/inbox/getMessages/${authUserObject.userId}`)
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/inbox/getMessages/${authUserObject.userId}`)
             .then((response) => {
                 console.log("messages:",response);
                 const myMessages = response.data;

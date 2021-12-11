@@ -81,7 +81,7 @@ function GeneralInfo() {
   
 
     useEffect(() => {
-        Axios.get(`http://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${authUserObject.userId}`)
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${authUserObject.userId}`)
             .then((response) => {
                 const myInfo = response.data;
                 setgeneralInfo(response.data);

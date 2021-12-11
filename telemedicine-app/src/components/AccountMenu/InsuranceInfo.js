@@ -11,7 +11,7 @@ function InsuranceInfo() {
     const [insuranceInfo, setinsuranceInfo] = useState([]);
 
     useEffect(() => {
-        Axios.get(`http://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${authUserObject.userId}`)
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${authUserObject.userId}`)
             .then((response) => {
                 console.log("insurance info:",response);
                 const myInsurance = response.data;
