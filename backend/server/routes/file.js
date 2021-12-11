@@ -137,7 +137,7 @@ router.get("/image/:filename", (req, res) => {
           err: "no files exist"
         });
       }
-      gfs.openDownloadStreamByName(req.params.filename).pipe(res);
+      file.openDownloadStreamByName(req.params.filename).pipe(res);
     });
 });
 
