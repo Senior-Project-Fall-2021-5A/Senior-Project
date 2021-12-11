@@ -87,7 +87,17 @@ const PopUpReply = ({ trigger, setTrigger, subject, message }) => {
     }
 
 
-
+    const sendNotification = () => {
+        Axios({
+            method: 'post',
+            url: 'https://telemedicine5a-backend.herokuapp.com/notifs/addNotifications',
+            data: {
+                userUID: doctorUID,
+                notif_type: 'inbox',
+                isRead: false
+            }
+        });
+    }
 
 
     // Create Message
@@ -112,6 +122,7 @@ const PopUpReply = ({ trigger, setTrigger, subject, message }) => {
             setPatientLName("");
             setTrigger(false);
             sendMessage();
+            sendNotification();
         }
     }
 
