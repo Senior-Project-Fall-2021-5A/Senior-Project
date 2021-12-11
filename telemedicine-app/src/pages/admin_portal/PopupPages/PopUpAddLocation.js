@@ -5,7 +5,7 @@ import PopUpWindow from '../../../components/Objects/ObjPopUpWindow';
 import ObjButton from '../../../components/Objects/ObjButton';
 import "react-datepicker/dist/react-datepicker.css";
 
-const PopUpAddPatient = ( {trigger,setTrigger} ) => {
+const PopUpAddLocation = ( {trigger,setTrigger} ) => {
     //declarations
     const [txtLocName,setLocName] = React.useState("");
     const [txtLocAdd1,setLocAdd1] = React.useState("");
@@ -19,82 +19,39 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
     /***************************************************** 
                     Axios Post
     ******************************************************/
-    // Create Patient
+    // Create Location
     const onSubmit = ( event ) => {
-    //console.log(event);
-    //console.log("Add Patient, onSubmit()"); 
-    
-    //
-    if (textDoctorID == "_placeholder_" || textDoctorID == "" || txtPatientFName == "" || txtPatientMName == "" ||
-     txtPatientLName == "" || txtPatientEmail == "" || txtPatientPass == "") {
-        setBoolError(true);
-        setError("Please Fill out all the above Information.");
-    }else{            
-        Axios.post('https://telemedicine5a-backend.herokuapp.com/users/register', {
-            name:       txtPatientLName +", " + txtPatientFName, 
-            email:      txtPatientEmail,        
-            password:   txtPatientPass,
-            role:       0,
-        }).then((response) => {
-            //console.log("Add Patient, onSubmit(), CreateUser, Axios response: ",response)
-            let patientID = String(response.data.user._id);
-            //console.log("PatientID: ",patientID)
-            
-            return Axios.post(`https://telemedicine5a-backend.herokuapp.com/users/createUserProfile/${patientID}`, {
-                firstName:          txtPatientFName,
-                midName:            txtPatientMName,
-                lastName:           txtPatientLName,
-                email:              txtPatientEmail,
-                primaryPhysician:   textDoctorID,
-                isAdmin:            false,
+        //console.log(event);
+        //console.log("Add Location, onSubmit()"); 
+        //console.log("txtLocName:",txtLocName, "txtLocAdd1:", txtLocAdd1 , "txtLocAdd2:", txtLocAdd2, "txtLocCity:", txtLocCity, "txtLocState:",txtLocState,"txtLocZip:",txtLocZip);
+        if (txtLocName == ""|| txtLocAdd1 == ""|| txtLocCity == ""|| txtLocState == ""|| txtLocZip == "") {
+            setBoolError(true);
+            setError("Please Fill out all the above Information.");
+        }else{            
+            Axios.post('https://telemedicine5a-backend.herokuapp.com/location/addLocation', {
+                name:       txtLocName,
+                address1:   txtLocAdd1,        
+                address2:   txtLocAdd2,
+                city:       txtLocCity,
+                state:      txtLocState,
+                zip:        txtLocZip,
             }).then((response) => {
-                //console.log("Add Patient, onSubmit(), CreateDemo, Axios response: ",response)                
+                //console.log("Add Location, onSubmit(), response: ",response)
             }).catch((err) => {
                 console.log(err)
             });
-        });
 
-        setBoolError(false);
-        setDoctorID("");
-        setPatientFName("");
-        setPatientMName("");
-        setPatientLName("");
-        setPatientEmail("");
-        setPatientPass("");
-        setTrigger(false);
-    }
-}
-    /* //http://localhost:3003/doctors/getDoctorInfo
-    
-    useEffect(() => {
-        setListOfDoctors([]);
-        Axios.get('https://telemedicine5a-backend.herokuapp.com/users/getDoctors')        
-            .then((response) => {     
-                let data = response.data;           
-                //console.log("response:",data);
-                data.forEach(e=>{setListOfDoctors(listOfDoctors => [...listOfDoctors, {
-                    label: e.lastName+", "+e.firstName+" ["+e.userUID.slice(-4)+"]",
-                    value: e.userUID,
-                    },]
-                )});
-                
-            })
-            .catch((err) => {
-                console.log(err, "Unable to get Doctors");
-            });
-    }, []);
- */
-    /***************************************************** 
-                    Event Handlers
-    ******************************************************/
-    //Doctor Select
-    const onDoctorSelect = ( event ) => {
-        //console.log("onDoctorSelect - ",event);
-        //console.log("Value set: ", event.target.value);
-        setDoctorID(event.target.value);
-    }
-    
-    
+            //Cleanup
+            setLocName("");
+            setLocAdd1("");
+            setLocAdd2("");
+            setLocCity("");
+            setLocState("");
+            setLocZip("");
+            setBoolError(false);
+            setTrigger(false);
+        }
+    }    
 
     /***************************************************** 
                          HTML
@@ -104,25 +61,25 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
         <PopUpWindow
                 trigger = {trigger}
                 setTrigger = {setTrigger}
-                header = "Add Patient"
+                header = "Add Location"
         >    
             {/* Grid */}
             <div className="popup_container"
                 style={{
                     position: "relative",
                     left: "75px",
-                    gridTemplateRows: "35px 35px 35px 35px 35px 35px 50px",
-                    gridTemplateColumns: "125px 325px",
+                    gridTemplateRows: "35px 35px 35px 35px 35px 35px 35px 40px",
+                    gridTemplateColumns: "150px 325px",
                 }}
             >
-                {/* First Name */}
+                {/* Location Name */}
                 <div className="popup_label_grid"
                     style={{                        
                         gridRow:1,
                         gridColumn:1,
                     }}
                 >
-                    <h5 className="popup_label">First Name:</h5>
+                    <h5 className="popup_label">Location Name:</h5>
                 </div>
                 <div className="popup_inputs_grid"
                     style={{
@@ -132,8 +89,8 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
                 >    
                     <input
                         type="text"
-                        value={txtPatientFName}
-                        onChange={e=>setPatientFName(e.target.value)}
+                        value={txtLocName}
+                        onChange={e=>setLocName(e.target.value)}
                         style={{
                             height: "25px",
                             width: "300px",
@@ -142,14 +99,14 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
                     />
                 </div>
 
-                {/* Middle Name */}
+                {/* Address 1 */}
                 <div className="popup_label_grid"
                     style={{
                         gridRow:2,
                         gridColumn:1,
                     }}
                 >
-                    <h5 className="popup_label">Middle Name:</h5>
+                    <h5 className="popup_label">Address 1:</h5>
                 </div>
                 <div className="popup_inputs_grid"
                     style={{
@@ -159,8 +116,8 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
                 >    
                     <input
                         type="text"
-                        value={txtPatientMName}
-                        onChange={e=>setPatientMName(e.target.value)}
+                        value={txtLocAdd1}
+                        onChange={e=>setLocAdd1(e.target.value)}
                         style={{
                             height: "25px",
                             width: "300px",
@@ -169,14 +126,14 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
                     />
                 </div>
 
-                {/* Last Name */}
+                {/* Address 2 */}
                 <div className="popup_label_grid"
                     style={{
                         gridRow:3,
                         gridColumn:1,
                     }}
                 >
-                    <h5 className="popup_label">Last Name:</h5>
+                    <h5 className="popup_label">Address 2:</h5>
                 </div>
                 <div className="popup_inputs_grid"
                     style={{
@@ -186,8 +143,8 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
                 >
                     <input
                         type="text"
-                        value={txtPatientLName}
-                        onChange={e=>setPatientLName(e.target.value)}
+                        value={txtLocAdd2}
+                        onChange={e=>setLocAdd2(e.target.value)}
                         style={{
                             height: "25px",
                             width: "300px",
@@ -196,14 +153,14 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
                     />
                 </div>
 
-                {/* Email */}
+                {/* City */}
                 <div className="popup_label_grid"
                     style={{
                         gridRow:4,
                         gridColumn:1,
                     }}
                 >
-                    <h5 className="popup_label">Email:</h5>
+                    <h5 className="popup_label">City:</h5>
                 </div>
                 <div className="popup_inputs_grid"
                     style={{
@@ -213,8 +170,8 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
                 >
                     <input
                         type="text"
-                        value={txtPatientEmail}
-                        onChange={e=>setPatientEmail(e.target.value)}
+                        value={txtLocCity}
+                        onChange={e=>setLocCity(e.target.value)}
                         style={{
                             height: "25px",
                             width: "300px",
@@ -223,14 +180,14 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
                     />
                 </div>
 
-                {/* Password */}
+                {/* State */}
                 <div className="popup_label_grid"
                     style={{
                         gridRow:5,
                         gridColumn:1,
                     }}
                 >
-                    <h5 className="popup_label">Password:</h5>
+                    <h5 className="popup_label">State:</h5>
                 </div>
                 <div className="popup_inputs_grid"
                     style={{
@@ -240,8 +197,8 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
                 >
                     <input
                         type="text"
-                        value={txtPatientPass}
-                        onChange={e=>setPatientPass(e.target.value)}
+                        value={txtLocState}
+                        onChange={e=>setLocState(e.target.value)}
                         style={{
                             height: "25px",
                             width: "300px",
@@ -250,35 +207,31 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
                     />
                 </div>
 
-                {/* Doctor Select */}
+                {/* Zip */}
                 <div className="popup_label_grid"
                     style={{
                         gridRow:6,
                         gridColumn:1,
                     }}
                 >
-                    <h5 className="popup_label">Doctor:</h5>
+                    <h5 className="popup_label">Zip:</h5>
                 </div>
                 <div className="popup_inputs_grid"
                     style={{
                         gridRow:6,
                         gridColumn:2,
                     }}
-                >                 
-                    <select
+                >
+                    <input
+                        type="text"
+                        value={txtLocZip}
+                        onChange={e=>setLocZip(e.target.value)}
                         style={{
                             height: "25px",
                             width: "300px",
                             textAlign: "left",
-                        }}                        
-                        onChange={e=>onDoctorSelect(e)}  
-                    >
-                        <option key="puap_doctor_placeholder" value="_placeholder_">Select Doctor</option>
-                        {listOfDoctors.map((option) => (
-                            <option key={option.value} value={option.value}>{option.label}</option>
-                        ))}
-
-                    </select>
+                        }}
+                    />
                 </div>
                 
                 {/* Button Create */}
@@ -310,4 +263,4 @@ const PopUpAddPatient = ( {trigger,setTrigger} ) => {
     )
 }
 
-export default PopUpAddPatient
+export default PopUpAddLocation

@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { useHistory } from 'react-router-dom';
 import DoctorData from '../doctors/DoctorData';
 import '../appointments/appointments.css';
 import {Link} from "react-router-dom";
@@ -29,40 +30,27 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 	const [show, setShow] = useState(false);
 	const handleShow = () => setShow(true);
 	var listy = [];
-	const [docEle, setDocEle] = useState({});
-
-	//Keep
-	const [isMobile, setIsMobile] = useState(false);
-	const [listOfDoctors, setListOfDoctors] = useState([]);
-
-	 const [textTime,setTime] = React.useState("");
-
-	 const [typeSelect,setTypeSelect] = React.useState("");
-
-	 const [showLocation, setShowLocation] = useState(false);
-
-	 const [txtLocation, setLocation] = React.useState("");
-
-	 const [listOfLocations,setListOfLocations] = React.useState([]);
-
-	 const [listOfApprovedDocFamily, setlistOfApprovedDocFamily] = React.useState([]);
-
+	const [myDocs, setMyDocs] = useState([]);
+	var listy = [];
+	const [listOfNewDocs, setListOfNewDocs] = useState([]);
+	const [txtLocSelect,setLocSelect] = React.useState("");
+	const [listOfApprovedDocFamily, setlistOfApprovedDocFamily] = React.useState([]);
 	const handleClose = () => setShow(false);
 
+	//Keep
+	const history = useHistory();
+	const [isMobile, setIsMobile] = useState(false);
+	const [listOfDoctors, setListOfDoctors] = useState([]);
+	const [textTime,setTime] = React.useState("");
+	const [typeSelect,setTypeSelect] = React.useState("");
+	const [showLocation, setShowLocation] = useState(false);
+	const [txtLocation, setLocation] = React.useState("");
+	const [listOfLocations,setListOfLocations] = React.useState([]);
 	const [date,setDate] = React.useState(new Date());
-
-	var userId = String(authUserObject.userId)
-
-	const [myDocs, setMyDocs] = useState([]);
-
-	var listy = [];
-
-	const [listOfNewDocs, setListOfNewDocs] = useState([]);
-
-
-	const [txtLocSelect,setLocSelect] = React.useState("");
-	const [doctorID, setDoctorID] = useState('');
+	var userId = String(authUserObject.userId);
+	const [doctorID, setDoctorID] = useState("");
 	const [apptInputPopup, setApptInputPopup] = React.useState(false);
+	const [docEle, setDocEle] = useState({});
 
 	//Time Defaults
     const listOfTimes =[
@@ -136,30 +124,35 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 					Handlers
 	**********************************************************/
 	useEffect(() => {
-		//console.log("useEffect - docs: ",docs); 
-		let doAdd = true;  
-		//console.log('THESE PRETZELS ARE MAKIN ME THIRSTY', listOfDoctors)
-		listOfDoctors.forEach(e=>{
-			//console.log("listOfDoctors loop: e:",e._id, "docEle:",docEle,"test:",e._id == docEle._id);
-			if (e._id != undefined && e._id == docEle._id){
-				doAdd = false;                
+		//console.log("useEffect - docEle: ",docEle, Object.keys(docEle).length ); 
+		if (Object.keys(docEle).length > 0){
+			let doAdd = true;  
+			//console.log('THESE PRETZELS ARE MAKIN ME THIRSTY', listOfDoctors)
+			listOfDoctors.forEach(e=>{
+				//console.log("listOfDoctors loop: e:",e._id, "docEle:",docEle,"test:",e._id == docEle._id);
+				if (e._id != undefined && e._id == docEle._id){
+					doAdd = false;                
+				}
+			});   
+			if (doAdd){
+				setListOfDoctors([...listOfDoctors,docEle]);
 			}
-		});   
-		if (doAdd){
-			setListOfDoctors([...listOfDoctors,docEle]);
 		}
+		
+		//console.log("listOfDoctors:",listOfDoctors);
 		
 	}, [docEle]);
 
+	//On Open
 	useEffect(() => {
-		CreateListOfDoctors()
+		getPCP();
 	}, []);
 
 	/**********************************************************
 					Axios Get
 	**********************************************************/
 	const CreateListOfDoctors = () => {
-		setListOfDoctors([]);
+		
 		let doctorDetailsList = []
 		//console.log(authUserObject.userId)
 		Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/approvedDoctors/${userId}`)
@@ -183,6 +176,61 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 			})		
 	}
 
+	const getPCP = () => {
+		Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getPatientPcp/${userId}`)
+            .then((response) => {                
+                let data = response.data;           
+                //console.log("getPCP() - response:",data);
+				return Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${data[0].primaryPhysician}`)
+								.then((response) => {
+									//console.log('DOC INFO', response)
+									let data = response.data[0];
+									//console.log("PCP data:",data);
+									data["docName"] = data.firstName + ' ' + data.lastName;
+									setDocEle(data);									
+									CreateListOfDoctors();
+								})
+								.catch((err) => {
+									console.log(err);
+								});
+            });
+	}
+
+	const getScheduleAvail = ( docID ) => {
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/schedule/getScheduled/${docID}`)
+            .then((response) => {                
+                let data = response.data;           
+                //console.log("getScheduleAvail() - response:",data);
+                
+            }).catch((err) => {
+                console.log(err, "Unable to get Schedule");
+            });
+    }
+
+	const getLocations = (doctorUID) => {
+		let locationIDs = [];
+		let doctorLocationList = [];
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/doctors/getDoctorLocation/${doctorUID}`)
+				.then((response) => {
+					locationIDs.push(response.data);
+					locationIDs.forEach(location => {
+						//console.log(location[0].locationUID);
+						return Axios.get(`https://telemedicine5a-backend.herokuapp.com/location/getLocation/${location[0].locationUID}`)
+									.then((response) => {
+										let locationName = response.data[0].name + ', ' + response.data[0].city;
+										let locationUID = response.data[0]._id;
+										setLocation(locationUID);
+										doctorLocationList.push({'location': locationName}, {'locationUID': locationUID});
+										//console.log('LOCATION', doctorLocationList)
+										setListOfLocations(doctorLocationList);
+									})
+									.catch((err) => {
+										console.log(err);
+									})
+					})
+				})
+    }
+
 	/**********************************************************
 					Axios Post
 	**********************************************************/
@@ -193,7 +241,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 			time:           textTime,
 			type:			typeSelect,
 			locationUID:    txtLocation};
-		console.log('LOOK HERE', newAppt)
+		//console.log('LOOK HERE', newAppt)
         Axios.post('https://telemedicine5a-backend.herokuapp.com/appointments/addAppointment', {
                 userUID:        userId,
                 doctorUID:		doctorID,
@@ -202,16 +250,18 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 				type:			typeSelect,
                 locationUID:    txtLocation,
             }).then((response) => {
+				//console.log("addAppointment() - success:",response);
 				setShowLocation(false);
 				setTypeSelect("");
 				setLocSelect("");
 				setDoctorID('');
 				setLocation("");
-				setApptInputPopup(false);
 				setTime("");
 				setMyDocs("");
+				setApptInputPopup(false);
+				history.push('/NoAppointments');
             }).catch((err) => {
-                          
+				console.log("addAppointment() - Fail:",err);
             });
     }
 	/**********************************************************
@@ -266,9 +316,9 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 	}
 
 	const apptClick = (doctorUID) => {
-
-        console.log("Appointment Click");
-        console.log("click", doctorUID);
+        //console.log("Appointment Click");
+        //console.log("click", doctorUID);
+		setDoctorID(doctorUID);
 		getLocations(doctorUID);
 		//getScheduleAvail(doctorUID);
 
@@ -280,45 +330,12 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 	const onLocationInput = ( event ) => {
         let loc = event.target.value;
         setLocation(loc);
-        console.log("Location: ",loc);
-        
-    }
-
-	const getLocations = (doctorUID) => {
-		let locationIDs = [];
-		let doctorLocationList = [];
-        Axios.get(`https://telemedicine5a-backend.herokuapp.com/doctors/getDoctorLocation/${doctorUID}`)
-				.then((response) => {
-					locationIDs.push(response.data);
-					locationIDs.forEach(location => {
-						console.log(location[0].locationUID);
-						return Axios.get(`https://telemedicine5a-backend.herokuapp.com/location/getLocation/${location[0].locationUID}`)
-									.then((response) => {
-										let locationName = response.data[0].name + ', ' + response.data[0].city;
-										let locationUID = response.data[0]._id;
-										doctorLocationList.push({'location': locationName}, {'locationUID': locationUID});
-										console.log('LOCATION', doctorLocationList)
-										setListOfLocations(doctorLocationList);
-									})
-									.catch((err) => {
-										console.log(err);
-									})
-					})
-				})
-    }
-
-	const getScheduleAvail = ( docID ) => {
-        Axios.get(`https://telemedicine5a-backend.herokuapp.com/schedule/getScheduled/${docID}`)
-            .then((response) => {                
-                let data = response.data;           
-                console.log("getScheduleAvail() - response:",data);
-                
-            }).catch((err) => {
-                console.log(err, "Unable to get Schedule");
-            });
+        //console.log("Location: ",loc);
     }
 	
-
+	/****************************************************** 
+	 * 				"HTML"
+	******************************************************/
 	return(
 		<div className='appointments'>
 			<Navbar/>
@@ -336,7 +353,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 							<div className="back-button">
 								<Button  href='/NoAppointments'>Go Back</Button>
 							</div>
-							{console.log('LIIIIIIIIIIIIIIST', listOfDoctors)}
+							{/* console.log('LIIIIIIIIIIIIIIST', listOfDoctors) */}
 							  {listOfDoctors.map((doctor, index) => {
 								return(
 				
@@ -345,9 +362,7 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 									<div className="card p-0 overflow-hidden h-100 shadow">
 										<img src={img1} className="card-img-top img-fluid" />
 										<div className="card-body">
-											{console.log('Doc List', doctor)}
-											{console.log('DOC NAME', doctor.docName)}
-											{console.log('DOC STUDY', doctor.fieldOfStudy)}
+											{/* console.log('Doc List', doctor) */}											
 											<h5 className="card-title">{doctor.docName}</h5>
 											<p className="card-text">{doctor.fieldOfStudy}</p>
 
@@ -472,15 +487,11 @@ const DoctorSearch = ( {trigger,setTrigger} ) => {
 
 												<div>
 
-												<Link to={`/NoAppointments`}>
-													 <Button                    
-														
-														onClick={e=>onSubmit(e)}
-														className="btnCreateAppnt"
-													>
-													Create
-													</Button>
-												</Link>
+												<ObjButton 
+													text="Create"
+													onClick={e=>onSubmit(e)}
+												/>
+												
 
 												</div>
 											</PopUpWindow>
