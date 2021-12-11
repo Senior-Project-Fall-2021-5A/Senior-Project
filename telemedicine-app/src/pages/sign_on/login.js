@@ -42,7 +42,7 @@ function Login() {
       history.push('/loginloading');
       window.location.reload(false);      
     } else {
-      alert("Invalid user registration! Account may already exist, validate if your email is correct");
+      alert("Invalid credentials, ensure your login info is correct!");
     } 
   }
 
