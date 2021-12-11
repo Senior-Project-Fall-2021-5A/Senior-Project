@@ -124,7 +124,17 @@ router.get("/getFiles/:filename", (req, res) => {
       return res.json(file);
     });
 });
+router.get('/read/:filename', async(req,res) =>{
+  const {filename} = req.params
+  try{
+    const readstream = gfs.createReadStream({filename})
+    readstream.pipe(res)
 
+  }catch(err){
+    res.status(400).send(err)
+  }
+
+})
 router.get("/image/:filename", (req, res) => {
   // console.log('id', req.params.id)
   const file = gfs
