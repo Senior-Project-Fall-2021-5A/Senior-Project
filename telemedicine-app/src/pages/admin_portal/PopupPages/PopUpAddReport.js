@@ -90,20 +90,17 @@ const PopUpAddReport = ( {trigger,setTrigger, AptInfo} ) => {//userUID, appointm
     const addReport = () => {
         console.log(fileName);
         if (fileName){
-            /* console.log("Report Add -  userUID: ",userUID," appointmentsUID: ",appointmentsUID, " doctorUID: ",doctorUID,
-            " txtDate: ",txtDate, " textInput: ",textInput," formData: ",formData, " locationUID: ",locationUID); */
+            console.log("Report Add -  :",AptInfo);
             Axios.post('https://telemedicine5a-backend.herokuapp.com/reports/addReport', {
                     userUID:            AptInfo.userUID,
                     appointmentsUID:    AptInfo._id,
                     doctorUID:          AptInfo.doctorUID,
-                    date:               AptInfo.date,
+                    date:               JSON.parse(JSON.stringify(AptInfo.date)),
                     details:            textInput,
                     fileName:           fileName,
                 }).then((response) => {
                     console.log("Add Report, response: ",response);
                     console.log("Add Report, response reportID: ",response.data.data._id);
-
-                    
                    
                 }).catch((err) => {
                     //get Error
@@ -130,7 +127,7 @@ const PopUpAddReport = ( {trigger,setTrigger, AptInfo} ) => {//userUID, appointm
                     notif_type: 'report',
                     isRead: false
                 }).then((response) => {
-                    console.log("Add Report, response: ",response) 
+                    console.log("Add sendNotification, response: ",response) 
                     
                     //cleanup
                     setBoolError(false);

@@ -32,7 +32,7 @@ const Reports = () =>{
     const [listOfReports, setListOfReports] = useState([]);
 
     useEffect(() => {
-        console.log("Page Open: ",txtGlobalUserID);
+        //console.log("Page Open: ",txtGlobalUserID);
         getReports();
     }, []);
 
@@ -40,10 +40,22 @@ const Reports = () =>{
     const getReports = () => {
         Axios.get(`https://telemedicine5a-backend.herokuapp.com/reports/getReports/${authUserObject.userId}`)
             .then((response) => {
-                console.log("reports:",response);
+                //console.log("reports:",response);
                 let arrData = response.data;
                 arrData.forEach(e=> {
-                    e.date = new Date(e.date.split('-').join('/')); 
+                    //console.log("check e.date: (>0,date,string)", e.date);
+                    if(e.date instanceof Date){
+                         //console.log("date good")
+                    } else if (typeof e.date === String){
+                        if (new Date(e.date) instanceof Date){
+                            e.date = new Date(e.date);
+                        } else {
+                            e.date = new Date(e.date.split('-').join('/'));
+                        }
+                    } else {
+                        e.date = new Date();
+                    }
+                    
                 })
                 setDoctors(arrData); // send to lop to get doctors
             })
@@ -54,27 +66,27 @@ const Reports = () =>{
 
     //set Doctors
     const setDoctors = ( arrData ) => {
-        console.log("arrData - ",arrData);
+        //console.log("arrData - ",arrData);
         let newList = [];
         arrData.forEach(e => {
-            console.log("e: ",e);
+            //console.log("e: ",e);
             let id = e.doctorUID; //set ID to doctor
-            console.log("id: ",id);
+            //console.log("id: ",id);
             Axios.get(`https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/${id}`)
                 .then((response) => {
                     let data = response.data;
-                    console.log("setTheNames() - response:", data);
+                    //console.log("setTheNames() - response:", data);
 
                     let name = "";
                     if (data[0]){
                         name = data[0].lastName + ", " + data[0].firstName;
-                        console.log("setTheNames() - name:", name);
+                        //console.log("setTheNames() - name:", name);
                     } else {
                         name = "unknown";
                     }
 
                     e.doctorName = name;
-                    console.log("setTheNames() - e.doctorName:", e.doctorName);
+                    //console.log("setTheNames() - e.doctorName:", e.doctorName);
 
                     console.log("setTheNames() - arrData: ", arrData);
                     newList = [...newList, e];
@@ -83,8 +95,8 @@ const Reports = () =>{
                 }).catch((err) => {
                     console.log(err, "Unable to set Names of Doctors");
                 });
-            });
-    }
+            });        
+    }    
 
 
     return (
@@ -118,6 +130,9 @@ const Reports = () =>{
                                                     data = {{
                                                         doctor: report.doctorName, 
                                                         _id: report._id,
+                                                        date: report.date,
+                                                        details: report.details,
+                                                        fileName: report.fileName,
                                                     }}
                                                     
                                                 />

@@ -1,12 +1,16 @@
-/searchPatients: http://localhost:3003/users/searchPatients/:firstName/:lastName
-/searchDoctors: http://localhost:3003/users/searchDoctor/:firstName/:lastName
-/getPatients: http://localhost:3003/users/getPatients
-/getDoctors: http://localhost:3003/users/getDoctors
-/getpcp: http://localhost:3003/users/getPatientPcp/:userId 
-/approved doc: http://localhost:3003/users/approvedDoctors/:userId
-/addUserInfo http://localhost:3003/users/createUserProfile/:userId
-/getUserInfo http://localhost:3003/users/getUserInfo/:userId
+/searchActors: https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/:userId
+/getPatients: https://telemedicine5a-backend.herokuapp.com/users/getPatients
+/getDoctors: https://telemedicine5a-backend.herokuapp.com/users/getDoctors
+/getpcp: https://telemedicine5a-backend.herokuapp.com/users/getPatientPcp/:userId 
+/approved doc: https://telemedicine5a-backend.herokuapp.com/users/approvedDoctors/:userId
+/addUserInfo https://telemedicine5a-backend.herokuapp.com/users/createUserProfile/:userId
+/getUserInfo https://telemedicine5a-backend.herokuapp.com/users/getUserInfo/:userId
+/getReports https://telemedicine5a-backend.herokuapp.com/reports/getReports/:userId
 
-Jamie@jamiesquared.com
+demodoctor@gmail.com
+61b3efcd2bcc7f67eb92cf65
+password
 
-James@GetJames.com
+demopatient@gmail.com
+61b3eff72bcc7f67eb92dfc5
+password

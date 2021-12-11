@@ -155,9 +155,9 @@ const PopUpAddAppt = ( { trigger, setTrigger, newPatientPopup, newStaffPopup} ) 
     }
 
     const getListDaysOff = ( docID, date, rDate ) => {
-        //console.log("getListDaysOff() - starting");
+        //console.log("getListDaysOff() - starting docID, date, rDate",docID, date, rDate);
         let data = [];
-        Axios.get(`https://telemedicine5a-backend.herokuapp.com/daysOff/getDaysOff/${authUserObject.userId}`)
+        Axios.get(`https://telemedicine5a-backend.herokuapp.com/daysOff/getDaysOff/${docID}`)
             .then((response) => {   
                 //console.log("getListDaysOff() - response:",response);             
                 data = response.data[0];           
@@ -170,10 +170,13 @@ const PopUpAddAppt = ( { trigger, setTrigger, newPatientPopup, newStaffPopup} ) 
                     //console.log("dateReal:",rDate,"day: ",day);
                     
                     if (arrDaysGet.includes(day)){
+                        //console.log("Day Off");
                         setlistTimesSelect([]);
                     } else {
                         getAppointments( docID, date );
                     }
+                } else {
+                    getAppointments( docID, date );
                 }
             }).catch((err) => {
                 console.log(err, "Unable to get doctors/getDoctorInfo");
@@ -191,7 +194,7 @@ const PopUpAddAppt = ( { trigger, setTrigger, newPatientPopup, newStaffPopup} ) 
                     if(Array.isArray(arrData)){
                         adjustTimeDT(arrData);
                     } else {
-                        //setListOfAppointments([]);
+                        setlistTimesSelect(listOfTimes);
                     }
                 })
                 .catch((err) => {
@@ -280,12 +283,14 @@ const PopUpAddAppt = ( { trigger, setTrigger, newPatientPopup, newStaffPopup} ) 
 
     //Time Select
     const adjustTimeDT = ( arrAppt ) => {
+        //console.log("arrAppt:",arrAppt);
         //make new list
         var newArray = JSON.parse(JSON.stringify(listOfTimes));
 
         //go through list remove any in arrApt
         arrAppt.forEach(e=> {
             var index = newArray.findIndex(ele=>findTime(ele,e.time));
+            //console.log("index:",index);
             if(index >= 0){
                 newArray.splice(index,1);
             }

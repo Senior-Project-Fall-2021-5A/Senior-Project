@@ -11,8 +11,7 @@ const ObjCheckBox = ({ name, label, value, onChange, onCheck }) => {
                 label={label} 
                 type="checkbox" 
                 checked={value} 
-                onChange={onChange} 
-                onCheck={onCheck}
+                onChange={onChange}                 
             />
             {label}
         </label>

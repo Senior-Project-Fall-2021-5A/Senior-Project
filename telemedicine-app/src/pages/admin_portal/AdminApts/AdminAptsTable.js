@@ -147,7 +147,15 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
                 return "unknown";
             });            
             //Covnert string to Date.
-            e.date = new Date(e.date.split('-').join('/'));            
+            console.log("check if date:",e.date,(e.date instanceof Date), e._id);
+            if (e.date instanceof Date){
+                e.txtDate = e.date.toLocaleDateString();
+            } else{
+                e.date = new Date(e.date.split('-').join('/'));
+                console.log("e.date:",e.date);
+                e.txtDate = e.date.toLocaleDateString();
+                console.log("e.txtDate:",e.txtDate);
+            }        
         });
     }
 
@@ -168,7 +176,7 @@ const AdminAptsTable = ({ dateValue, txtPatientID, apptInputPopup }) => {
                     
                     {listOfAppointments !== undefined ? listOfAppointments.map((appointment) => (
                          <tr key={appointment._id} >
-                            <td style={styleTD}>{(new Date(appointment.date)).toLocaleDateString()}</td>
+                            <td style={styleTD}>{appointment.txtDate}</td>
                             <td style={styleTD}>{appointment.time}</td>
                             <td style={styleTD}>{appointment.patientName}</td>
                             <td style={styleTD}>{appointment.type}</td>
